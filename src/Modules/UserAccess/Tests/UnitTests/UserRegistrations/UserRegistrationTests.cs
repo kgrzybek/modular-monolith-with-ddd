@@ -2,6 +2,7 @@
 using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations;
 using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations.Events;
 using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations.Rules;
+using CompanyName.MyMeetings.Modules.UserAccess.Domain.Users.Events;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -121,6 +122,41 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.UserRegistr
             {
                 registration.Expire();
             });       
+        }
+
+        [Test]
+        public void CreateUser_WhenRegistrationIsConfirmed_IsSuccessful()
+        {
+            var usersCounter = Substitute.For<IUsersCounter>();
+
+            var registration = UserRegistration.RegisterNewUser(
+                "login", "password", "test@email",
+                "firstName", "lastName", usersCounter);
+
+            registration.Confirm();
+
+            var user = registration.CreateUser();
+
+            var userCreated = GetPublishedDomainEvent<UserCreatedDomainEvent>(user);
+
+            Assert.That(user.Id, Is.EqualTo(registration.Id));
+            Assert.That(userCreated.Id, Is.EqualTo(registration.Id));
+        }
+
+        [Test]
+        public void UserCreation_WhenRegistrationIsNotConfirmed_IsNotPossible()
+        {
+            var usersCounter = Substitute.For<IUsersCounter>();
+
+            var registration = UserRegistration.RegisterNewUser(
+                "login", "password", "test@email",
+                "firstName", "lastName", usersCounter);
+
+            AssertBrokenRule<UserCannotBeCreatedWhenRegistrationIsNotConfirmedRule>(
+                () =>
+                {
+                    registration.CreateUser(); 
+                });
         }
     }
 }

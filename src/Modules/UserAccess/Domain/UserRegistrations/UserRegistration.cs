@@ -70,6 +70,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations
 
         public User CreateUser()
         {
+            this.CheckRule(new UserCannotBeCreatedWhenRegistrationIsNotConfirmedRule(_status));
+
             return User.CreateFromUserRegistration(this.Id, this._login, this._password, this._email, this._firstName,
                 this._lastName, this._name);
         }
