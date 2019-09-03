@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
-using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistration.Events;
+using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations.Events;
+using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations.Rules;
 using CompanyName.MyMeetings.Modules.UserAccess.Domain.Users;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistration
+namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations
 {
     public class UserRegistration : Entity, IAggregateRoot
     {
@@ -37,13 +39,22 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistration
             string password, 
             string email, 
             string firstName,
-            string lastName)
+            string lastName,
+            IUsersCounter usersCounter)
         {
-            return new UserRegistration(login, password, email, firstName, lastName);
+            return new UserRegistration(login, password, email, firstName, lastName, usersCounter);
         }
 
-        private UserRegistration(string login, string password, string email, string firstName, string lastName)
+        private UserRegistration(
+            string login, 
+            string password, 
+            string email, 
+            string firstName, 
+            string lastName,
+            IUsersCounter usersCounter)
         {
+            this.CheckRule(new UserLoginMustBeUniqueRule(usersCounter, login));
+
             this.Id = new UserRegistrationId(Guid.NewGuid());
             _login = login;
             _password = password;
@@ -65,10 +76,22 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistration
 
         public void Confirm()
         {
+            this.CheckRule(new UserRegistrationCannotBeConfirmedMoreThanOnceRule(_status));
+            this.CheckRule(new UserRegistrationCannotBeConfirmedAfterExpirationRule(_status));
+
             _status = UserRegistrationStatus.Confirmed;
             _confirmedDate = DateTime.UtcNow;
 
             this.AddDomainEvent(new UserRegistrationConfirmedDomainEvent(this.Id));
+        }
+
+        public void Expire()
+        {
+            this.CheckRule(new UserRegistrationCannotBeExpiredMoreThanOnceRule(_status));
+
+            _status = UserRegistrationStatus.Expired;
+
+            this.AddDomainEvent(new UserRegistrationExpiredDomainEvent(this.Id));
         }
     }
 }

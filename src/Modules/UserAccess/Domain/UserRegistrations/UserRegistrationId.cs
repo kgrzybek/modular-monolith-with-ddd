@@ -1,7 +1,7 @@
 ﻿using System;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistration
+namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations
 {
     public class UserRegistrationId : TypedIdValueBase
     {

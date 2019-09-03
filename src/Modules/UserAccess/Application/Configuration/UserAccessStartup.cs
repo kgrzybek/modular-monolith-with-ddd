@@ -2,6 +2,7 @@
 using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.DataAccess;
+using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Domain;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Email;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.EventsBus;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Logging;
@@ -51,7 +52,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration
             
             var loggerFactory = new SerilogLoggerFactory(logger);
             containerBuilder.RegisterModule(new DataAccessModule(connectionString, loggerFactory));
-
+            containerBuilder.RegisterModule(new DomainModule());
             containerBuilder.RegisterModule(new ProcessingModule());
             containerBuilder.RegisterModule(new EventsBusModule());
             containerBuilder.RegisterModule(new MediatorModule());
