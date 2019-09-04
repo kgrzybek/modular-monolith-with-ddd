@@ -4,7 +4,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingGroupPaymentRegi
 {
     public class MeetingGroupPaymentRegisterCreatedDomainEvent : DomainEventBase
     {
-        public MeetingGroupPaymentRegisterCreatedDomainEvent(MeetingGroupPaymentRegisterId meetingGroupPaymentRegisterId)
+        internal MeetingGroupPaymentRegisterCreatedDomainEvent(MeetingGroupPaymentRegisterId meetingGroupPaymentRegisterId)
         {
             MeetingGroupPaymentRegisterId = meetingGroupPaymentRegisterId;
         }

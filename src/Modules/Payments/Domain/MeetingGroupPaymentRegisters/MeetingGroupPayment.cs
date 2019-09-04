@@ -26,5 +26,15 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingGroupPaymentRegi
             _payerId = payerId;
             _date = DateTime.UtcNow;
         }
+
+        internal bool OverlapsWith(MeetingGroupPayment payment)
+        {
+            return _term.OverlapsWith(payment.GetTerm());
+        }
+
+        private PaymentTerm GetTerm()
+        {
+            return _term;
+        }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.SeedWork
+namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SeedWork
 {
     public class DomainEventsTestHelper
     {
@@ -16,7 +16,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.SeedWork
             {
                 domainEvents.AddRange(aggregate.DomainEvents);
             }
-
+            
             var fields = aggregate.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public).Concat(aggregate.GetType().BaseType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance| BindingFlags.Public)).ToArray();
 
             foreach (var field in fields)
