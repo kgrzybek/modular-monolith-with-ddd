@@ -1,8 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Autofac;
-using CompanyName.MyMeetings.Modules.Payments.Application.Configuration;
 using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Processing;
-using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Contracts
 {
@@ -20,12 +17,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Contracts
 
         public async Task<TResult> ExecuteQueryAsync<TResult>(IQuery<TResult> query)
         {
-            using (var scope = PaymentsCompositionRoot.BeginLifetimeScope())
-            {
-                var mediator = scope.Resolve<IMediator>();
-
-                return await mediator.Send(query);
-            }
+            return await CommandsExecutor.Execute(query);
         }
     }
 }

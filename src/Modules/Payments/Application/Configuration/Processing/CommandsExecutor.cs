@@ -1,13 +1,12 @@
 ﻿using System.Threading.Tasks;
 using Autofac;
-using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Processing
 {
     internal static class CommandsExecutor
     {
-        internal static async Task Execute(ICommand command)
+        internal static async Task Execute(IRequest command)
         {
             using (var scope = PaymentsCompositionRoot.BeginLifetimeScope())
             {
@@ -16,7 +15,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Proc
             }
         }
 
-        internal static async Task<TResult> Execute<TResult>(ICommand<TResult> command)
+        internal static async Task<TResult> Execute<TResult>(IRequest<TResult> command)
         {
             using (var scope = PaymentsCompositionRoot.BeginLifetimeScope())
             {
