@@ -2,13 +2,13 @@
 
 namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupProposals.Events
 {
-    internal class MeetingGroupProposalVerificationRequestedDomainEvent : DomainEventBase
+    public class MeetingGroupProposalVerificationRequestedDomainEvent : DomainEventBase
     {
         internal MeetingGroupProposalVerificationRequestedDomainEvent(MeetingGroupProposalId id)
         {   
             Id = id;
         }
 
-        internal MeetingGroupProposalId Id { get;  }
+        public MeetingGroupProposalId Id { get; }
     }
 }

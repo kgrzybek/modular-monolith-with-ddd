@@ -2,7 +2,7 @@
 
 namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupProposals.Rules
 {
-    internal class MeetingGroupProposalCanBeVerifiedOnceRule : IBusinessRule
+    public class MeetingGroupProposalCanBeVerifiedOnceRule : IBusinessRule
     {
         private readonly MeetingGroupProposalDecision _actualDecision;
         internal MeetingGroupProposalCanBeVerifiedOnceRule(MeetingGroupProposalDecision actualDecision)
