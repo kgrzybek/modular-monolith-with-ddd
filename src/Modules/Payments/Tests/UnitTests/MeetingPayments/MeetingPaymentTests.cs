@@ -45,15 +45,17 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.MeetingPaymen
             var payerId = new PayerId(Guid.NewGuid());
             var meetingId = new MeetingId(Guid.NewGuid());
             var fee = new MoneyValue(100, "EUR");
+            var paymentDate = DateTime.UtcNow;
+            SystemClock.Set(paymentDate);
 
             var meetingPayment = MeetingPayment.CreatePaymentForMeeting(payerId, meetingId, fee);
-
             meetingPayment.MarkIsPayed();
 
             var meetingPayed = GetPublishedDomainEvent<MeetingPayedDomainEvent>(meetingPayment);
 
             Assert.That(meetingPayed.MeetingId, Is.EqualTo(meetingId));
             Assert.That(meetingPayed.PayerId, Is.EqualTo(payerId));
+            Assert.That(meetingPayed.PaymentDate, Is.EqualTo(paymentDate));
         }
 
         [Test]

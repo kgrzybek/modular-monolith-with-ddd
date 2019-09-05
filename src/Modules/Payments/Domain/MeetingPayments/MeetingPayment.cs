@@ -29,7 +29,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments
 
             PayerId = payerId;
             MeetingId = meetingId;
-            _createDate = DateTime.UtcNow;
+            _createDate = SystemClock.Now;
             _fee = fee;
 
             this.AddDomainEvent(new MeetingPaymentCreatedDomainEvent(this.PayerId, this.MeetingId, _fee));
@@ -44,7 +44,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments
         {
             this.CheckRule(new MeetingPaymentCannotBePayedTwiceRule(_paymentDate));
 
-            _paymentDate = DateTime.UtcNow;
+            _paymentDate = SystemClock.Now;
 
             this.AddDomainEvent(new MeetingPayedDomainEvent(this.PayerId, this.MeetingId, _paymentDate.Value));
         }

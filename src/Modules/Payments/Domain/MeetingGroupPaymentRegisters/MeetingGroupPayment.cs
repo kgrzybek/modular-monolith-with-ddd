@@ -1,5 +1,6 @@
 ﻿using System;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
+using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Payers;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingGroupPaymentRegisters
@@ -24,7 +25,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingGroupPaymentRegi
             this.Id = new MeetingGroupPaymentId(Guid.NewGuid());
             _term = term;
             _payerId = payerId;
-            _date = DateTime.UtcNow;
+            _date = SystemClock.Now;
         }
 
         internal bool OverlapsWith(MeetingGroupPayment payment)

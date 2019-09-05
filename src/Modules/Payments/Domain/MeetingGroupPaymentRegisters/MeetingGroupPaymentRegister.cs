@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingGroupPaymentRegisters.Events;
 using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingGroupPaymentRegisters.Rules;
+using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Payers;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingGroupPaymentRegisters
@@ -23,7 +24,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingGroupPaymentRegi
         private MeetingGroupPaymentRegister(MeetingGroupId meetingGroupId)
         {
             this.Id = new MeetingGroupPaymentRegisterId(meetingGroupId.Value);
-            _createDate = DateTime.UtcNow;
+            _createDate = SystemClock.Now;
 
             _payments = new List<MeetingGroupPayment>();
 

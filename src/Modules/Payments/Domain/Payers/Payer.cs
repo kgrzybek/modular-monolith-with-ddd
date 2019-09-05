@@ -1,5 +1,6 @@
 ﻿using System;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
+using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Payers.Events;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Domain.Payers
@@ -38,7 +39,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Payers
             _firstName = firstName;
             _lastName = lastName;
             _name = name;
-            _createDate = DateTime.UtcNow;
+            _createDate = SystemClock.Now;
 
             this.AddDomainEvent(new PayerCreatedDomainEvent(this.Id));
         }

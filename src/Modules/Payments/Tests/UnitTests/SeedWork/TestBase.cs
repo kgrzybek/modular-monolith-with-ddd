@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
+using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments;
 using NUnit.Framework;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SeedWork
@@ -40,6 +41,12 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SeedWork
             {
                 Assert.That(businessRuleValidationException.BrokenRule, Is.TypeOf<TRule>(), message);
             }          
+        }
+
+        [TearDown]
+        public void AfterEachTest()
+        {
+            SystemClock.Reset();
         }
     }
 }
