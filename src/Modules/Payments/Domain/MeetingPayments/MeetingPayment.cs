@@ -1,5 +1,7 @@
 ﻿using System;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
+using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments.Events;
+using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments.Rules;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Payers;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments
@@ -23,10 +25,14 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments
 
         private MeetingPayment(PayerId payerId, MeetingId meetingId, MoneyValue fee)
         {
+            this.CheckRule(new MeetingPaymentFeeMustBeGreaterThanZeroRule(fee));
+
             PayerId = payerId;
             MeetingId = meetingId;
             _createDate = DateTime.UtcNow;
             _fee = fee;
+
+            this.AddDomainEvent(new MeetingPaymentCreatedDomainEvent(this.PayerId, this.MeetingId, _fee));
         }
 
         public static MeetingPayment CreatePaymentForMeeting(PayerId payerId, MeetingId meetingId, MoneyValue fee)
@@ -36,7 +42,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments
 
         public void MarkIsPayed()
         {
+            this.CheckRule(new MeetingPaymentCannotBePayedTwiceRule(_paymentDate));
+
             _paymentDate = DateTime.UtcNow;
+
+            this.AddDomainEvent(new MeetingPayedDomainEvent(this.PayerId, this.MeetingId, _paymentDate.Value));
         }
     }
 }

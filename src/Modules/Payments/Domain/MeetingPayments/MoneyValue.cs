@@ -13,5 +13,21 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments
             this.Value = value;
             this.Currency = currency;
         }
+
+        public static bool operator > (decimal left, MoneyValue right) => left > right.Value;
+
+        public static bool operator < (decimal left, MoneyValue right) => left < right.Value;
+
+        public static bool operator >= (decimal left, MoneyValue right) => left >= right.Value;
+
+        public static bool operator <= (decimal left, MoneyValue right) => left <= right.Value;
+
+        public static bool operator > (MoneyValue left, decimal right) => left.Value > right;
+
+        public static bool operator < (MoneyValue left, decimal right) => left.Value < right;
+
+        public static bool operator >= (MoneyValue left, decimal right) => left.Value >= right;
+
+        public static bool operator <= (MoneyValue left, decimal right) => left.Value <= right;
     }
 }
