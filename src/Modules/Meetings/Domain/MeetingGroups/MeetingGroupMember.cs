@@ -43,7 +43,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups
             _isActive = false;
             _leaveDate = DateTime.UtcNow;
 
-            this.AddDomainEvent(new MeetingGroupMemberLeavedDomainEvent(this.MeetingGroupId, this.MemberId));
+            this.AddDomainEvent(new MeetingGroupMemberLeftGroupDomainEvent(this.MeetingGroupId, this.MemberId));
         }
 
         internal bool IsMember(MemberId memberId)

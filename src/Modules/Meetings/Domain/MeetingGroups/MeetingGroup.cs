@@ -87,6 +87,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups
         public void UpdatePaymentInfo(DateTime dateTo)
         {
             _paymentDateTo = dateTo;
+
+            this.AddDomainEvent(new MeetingGroupPaymentInfoUpdatedDomainEvent(this.Id, _paymentDateTo.Value));
         }
 
         public Meeting CreateMeeting(

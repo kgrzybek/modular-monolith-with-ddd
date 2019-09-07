@@ -3,9 +3,9 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups.Events
 {
-    public class MeetingGroupMemberLeavedDomainEvent : DomainEventBase
+    public class MeetingGroupMemberLeftGroupDomainEvent : DomainEventBase
     {
-        public MeetingGroupMemberLeavedDomainEvent(MeetingGroupId meetingGroupId, MemberId memberId)
+        public MeetingGroupMemberLeftGroupDomainEvent(MeetingGroupId meetingGroupId, MemberId memberId)
         {
             MeetingGroupId = meetingGroupId;
             MemberId = memberId;

@@ -46,5 +46,37 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.SeedWork
 
             return domainEvents;
         }
+
+        public static void ClearAllDomainEvents(Entity aggregate)
+        {
+            aggregate.ClearDomainEvents();
+
+            var fields = aggregate.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public).Concat(aggregate.GetType().BaseType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance| BindingFlags.Public)).ToArray();
+
+            foreach (var field in fields)
+            {
+                var isEntity = field.FieldType.IsAssignableFrom(typeof(Entity));
+
+                if (isEntity)
+                {
+                    var entity = field.GetValue(aggregate) as Entity;
+                    ClearAllDomainEvents(entity);
+                }
+
+                if (field.FieldType != typeof(string) && typeof(IEnumerable).IsAssignableFrom(field.FieldType))
+                {
+                    if (field.GetValue(aggregate) is IEnumerable enumerable)
+                    {
+                        foreach (var en in enumerable)
+                        {
+                            if (en is Entity entityItem)
+                            {
+                                ClearAllDomainEvents(entityItem);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

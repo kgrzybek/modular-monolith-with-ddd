@@ -5,6 +5,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
 {
     public class Term : ValueObject
     {
+        public static Term NoTerm => new Term(null, null);
+
         public DateTime? StartDate { get; }
 
         public DateTime? EndDate { get; }

@@ -3,7 +3,7 @@ using CompanyName.MyMeetings.BuildingBlocks.Domain;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups.Rules
 {
-    internal class MeetingCanBeOrganizedOnlyByPayedGroupRule : IBusinessRule
+    public class MeetingCanBeOrganizedOnlyByPayedGroupRule : IBusinessRule
     {
         private readonly DateTime? _paymentDateTo;
         internal MeetingCanBeOrganizedOnlyByPayedGroupRule(DateTime? paymentDateTo)
