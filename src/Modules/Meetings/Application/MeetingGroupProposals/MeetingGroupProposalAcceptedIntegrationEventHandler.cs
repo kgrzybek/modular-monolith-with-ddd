@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.Modules.Administration.IntegrationEvents.MeetingGroupProposals;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Processing.InternalCommands;
@@ -19,7 +20,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupPropos
 
         public async Task Handle(MeetingGroupProposalAcceptedIntegrationEvent notification, CancellationToken cancellationToken)
         {
-            await _commandsScheduler.EnqueueAsync(new AcceptMeetingGroupProposalCommand(notification.MeetingGroupProposalId));
+            await _commandsScheduler.EnqueueAsync(new AcceptMeetingGroupProposalCommand(
+                Guid.NewGuid(), 
+                notification.MeetingGroupProposalId));
         }
     }
 }

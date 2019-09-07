@@ -1,6 +1,7 @@
 ﻿using System;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals.Events;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals.Rules;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 
@@ -52,13 +53,15 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals
         public static MeetingGroupProposal ProposeNew(string name,
             string description,
             MeetingGroupLocation location,
-            MemberId proposalUserId)
+            MemberId proposalMemberId)
         {
-            return new MeetingGroupProposal(name, description, location, proposalUserId);
+            return new MeetingGroupProposal(name, description, location, proposalMemberId);
         }
 
         public void Accept()
         {
+            this.CheckRule(new MeetingGroupProposalCannotBeAcceptedMoreThanOnceRule(_status));
+
             _status = MeetingGroupProposalStatus.Accepted;
 
             this.AddDomainEvent(new MeetingGroupProposalAcceptedDomainEvent(this.Id));

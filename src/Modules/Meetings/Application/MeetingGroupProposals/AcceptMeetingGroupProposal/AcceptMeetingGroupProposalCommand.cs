@@ -1,19 +1,15 @@
 ﻿using System;
-using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
+using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Processing.InternalCommands;
 using Newtonsoft.Json;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals.AcceptMeetingGroupProposal
 {
-    internal class AcceptMeetingGroupProposalCommand : CommandBase
+    internal class AcceptMeetingGroupProposalCommand : InternalCommandBase
     {
         public Guid MeetingGroupProposalId { get; }
-        public AcceptMeetingGroupProposalCommand(Guid meetingGroupProposalId)
-        {
-            MeetingGroupProposalId = meetingGroupProposalId;
-        }
 
         [JsonConstructor]
-        public AcceptMeetingGroupProposalCommand(Guid id, Guid meetingGroupProposalId) : base(id)
+        internal AcceptMeetingGroupProposalCommand(Guid id, Guid meetingGroupProposalId) : base(id)
         {
             this.MeetingGroupProposalId = meetingGroupProposalId;
         }
