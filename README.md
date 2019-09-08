@@ -779,7 +779,7 @@ List of technologies, frameworks and libraries used to implementation:
 
 - Download and install .NET Core 2.2 SDK
 - Download and install MS SQL Server Express or other
-- Create empty database and run ![InitializeDatabase.sql](src/Database/InitializeDatabase.sql) script
+- Create empty database and run [InitializeDatabase.sql](src/Database/InitializeDatabase.sql) script
 - Set connection string to database in appsettings.json file or using [Secrets](https://blogs.msdn.microsoft.com/mihansen/2017/09/10/managing-secrets-in-net-core-2-0-apps/)
 
 ## 6. Contribution
