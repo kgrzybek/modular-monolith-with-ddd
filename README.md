@@ -220,10 +220,12 @@ Note: Event Storming is light, live workshop. Here is presented only one of the 
 Modules description:
 
 - **API** - REST API application. Very thin, hosting ASP.NET MVC Core application. Main responsibilities are
-  &nbsp;&nbsp;1. Take request
-  &nbsp;&nbsp;1. Authenticate and Authorize request (using User Access module)
-  &nbsp;&nbsp;2. Delegate work to specific module sending Command or Query
-  &nbsp;&nbsp;3. Return response
+
+  1. Take request
+  1. Authenticate and Authorize request (using User Access module)
+  1. Delegate work to specific module sending Command or Query
+  1. Return response
+
 - **User Access** - responsible for users authentication, authorization and registration
 - **Meetings** - implements Meetings Bounded Context: creating meeting groups, meetings
 - **Administration** - implements Administration Bounded Context: implements administrative tasks like meeting group proposal verification
@@ -383,23 +385,23 @@ Domain Model, which is the central and most critical part in the system, should 
 
 1. **High level of encapsulation**
 
-All members are `private` by default, then `internal`, only at the very end `public`.
+   All members are `private` by default, then `internal`, only at the very end `public`.
 
 2. **High level of PI (Persistence Ignorance)**
 
-No dependencies to infrastructure, databases, other stuff. All classes are POCO.
+   No dependencies to infrastructure, databases, other stuff. All classes are POCO.
 
 3. **Rich in behavior**
 
-All business logic is located in Domain Model. No leaks to application layer or other places.
+   All business logic is located in Domain Model. No leaks to application layer or other places.
 
 4. **Low level of primitive obssesion**
 
-Primitive attributes of Entites grouped together using ValueObjects.
+   Primitive attributes of Entites grouped together using ValueObjects.
 
 5. **Business language**
 
-All classes, methods and other members named in business language used in this Bounded Context.
+   All classes, methods and other members named in business language used in this Bounded Context.
 
 ```csharp
 public class MeetingGroup : Entity, IAggregateRoot
