@@ -74,6 +74,7 @@ This is list of main goals of this repository:
 ### 1.2 Out of scope
 
 This is list of subjects which are out of scope of this repository:
+
 - Business requirements gathering and analysis
 - System analysis
 - Domain exploration
@@ -92,10 +93,11 @@ This is list of subjects which are out of scope of this repository:
 ### 1.3 Reason
 
 The reason for creating this repository is the lack of something similar. Most sample applications on GitHub have at least one issue of the following:
+
 - it is very, very simple - few entities and use cases implemented
 - it is not finished (for example there is no authentication, logging, etc..)
 - it is poor designed (in my opinion)
-- it is poor implemented  (in my opinion)
+- it is poor implemented (in my opinion)
 - it is not well described
 - assumptions and decisions are not clearly explained
 - it implements "Orders" domain. Yes, everyone knows this domain, but something different is needed
@@ -114,7 +116,7 @@ Because of the above, the architecture and implementation presented in this repo
 
 ### 1.5 Give a Star
 
-In this project on the first place I focus on its quality. Create good quality involves a lot of analysis, research and work. It takes a lot of time. If you like this project, learned something or you are using it in your applications, please give it a star :star:.  This is the best motivation for me to continue this work. Thanks!
+In this project on the first place I focus on its quality. Create good quality involves a lot of analysis, research and work. It takes a lot of time. If you like this project, learned something or you are using it in your applications, please give it a star :star:. This is the best motivation for me to continue this work. Thanks!
 
 ### 1.6 Share it
 
@@ -141,38 +143,37 @@ For the purposes of this project, the meeting groups domain, based on the [Meetu
 
 **Meetings**
 
-Main business entities are ```Member```, ```Meeting Group``` and ```Meeting```. ```Member``` can create ```Meeting Group```, be part of ```Meeting Group``` or can attend the ```Meeting```. 
+Main business entities are `Member`, `Meeting Group` and `Meeting`. `Member` can create `Meeting Group`, be part of `Meeting Group` or can attend the `Meeting`.
 
-```Meeting Group Member``` can be an ```Organizer``` of this group or normal ```Member```.
+`Meeting Group Member` can be an `Organizer` of this group or normal `Member`.
 
-Only ```Organizer``` of ```Meeting Group``` can create new ```Meeting```.
+Only `Organizer` of `Meeting Group` can create new `Meeting`.
 
-```Meeting``` have attendees, not attendees (```Members``` which declare that not attendee ```Meeting```) and ```Members``` on ```Waitlist```.
+`Meeting` have attendees, non-attendees (`Members` which declare not attending `Meeting`) and `Members` on `Waitlist`.
 
-```Meeting``` can have attendees limit. If the limit is reach, ```Members``` can only sign up to ``Waitlist``.
+`Meeting` can have attendees limit. If the limit is reach, `Members` can only sign up to `Waitlist`.
 
-```Meeting Attendee``` can bring to ```Meeting``` guests. Number of guests is an attribute of ```Meeting```. Bringing guests can be not allowed.
+`Meeting Attendee` can bring to `Meeting` guests. Number of guests is an attribute of `Meeting`. Bringing guests can be disallowed.
 
-```Meeting Attendee``` can have one of two roles : normal ```Attendee``` or ```Host```. ```Meeting``` must have at least one ```Host```. ```Host``` is special role which can edit ```Meeting``` information or change attendees list.
+`Meeting Attendee` can have one of two roles : normal `Attendee` or `Host`. `Meeting` must have at least one `Host`. `Host` is special role which can edit `Meeting` information or change attendees list.
 
 **Administration**
 
-To create new ```Meeting Group```, ```Member``` needs to propose this group. ```Meeting Group Proposal``` is sent to ```Administrators```. ```Administrator``` can accept or reject ```Meeting Group Proposal```. If ```Meeting Group Proposal``` is accepted, ```Meeting Group``` is created.
+To create new `Meeting Group`, `Member` needs to propose this group. `Meeting Group Proposal` is sent to `Administrators`. `Administrator` can accept or reject `Meeting Group Proposal`. If `Meeting Group Proposal` is accepted, `Meeting Group` is created.
 
 **Payments**
 
-To be able to organize ```Meetings```, the ```Meeting Group``` must be paid for. ```Meeting Group``` ```Organizer``` who is the ```Payer```, must pay some fee according to payment plan.
+To be able to organize `Meetings`, the `Meeting Group` must be paid for. `Meeting Group` `Organizer` who is the `Payer`, must pay some fee according to payment plan.
 
-Additionally, Meeting organizer can set ```Event Fee```. Each ```Meeting Attendee``` of is obliged to pay a fee. All guests should be payed by Meeting Attendee too.
+Additionally, Meeting organizer can set `Event Fee`. Each `Meeting Attendee` of is obliged to pay a fee. All guests should be payed by Meeting Attendee too.
 
 **Users**
 
-Each ```Administrator```,```Member``` and ```Payer``` is an ```User```. To be an ```User```, ```User Registration``` is required and confirmed.
+Each `Administrator`,`Member` and `Payer` is a `User`. To be a `User`, `User Registration` is required and confirmed.
 
-Each ```User``` has assigned one or more ```User Role```. 
+Each `User` has assigned one or more `User Role`.
 
-Each ```User Role``` has set of ```Permissions```. ```Permission``` defines whether ```User``` can invoke particular action.
-
+Each `User Role` has set of `Permissions`. `Permission` defines whether `User` can invoke particular action.
 
 ### 2.2 Conceptual Model
 
@@ -186,7 +187,7 @@ Each ```User Role``` has set of ```Permissions```. ```Permission``` defines whet
 
 ### 2.3 Event Storming
 
-Conceptual Model focuses on structures and relationships between them. What is more important is **behavior** end **events** that occurs in our domain. 
+Conceptual Model focuses on structures and relationships between them. What is more important is **behavior** end **events** that occurs in our domain.
 
 There are many ways to show behavior and events. One of them is a light technique called [Event Storming](https://www.eventstorming.com/) which is becoming more popular. Below are presented 3 main business processes using this technique : user registration, meeting group creation and meeting organization.
 
@@ -194,21 +195,21 @@ Note: Event Storming is light, live workshop. Here is presented only one of the 
 
 **User Registration process**
 
-------
+---
 
 ![](docs/Images/User_Registration.jpg)
 
-------
+---
 
 **Meeting Group creation**
 ![](docs/Images/Meeting_Group_Creation.jpg)
 
-------
+---
 
 **Meeting organization**
 ![](docs/Images/Meeting_Organization.jpg)
 
-------
+---
 
 ## 3. Architecture
 
@@ -219,10 +220,10 @@ Note: Event Storming is light, live workshop. Here is presented only one of the 
 Modules description:
 
 - **API** - REST API application. Very thin, hosting ASP.NET MVC Core application. Main responsibilities are
-&nbsp;&nbsp;1. Take request
-&nbsp;&nbsp;1. Authenticate and Authorize request (using User Access module)
-&nbsp;&nbsp;2. Delegate work to specific module sending Command or Query
-&nbsp;&nbsp;3. Return response
+  &nbsp;&nbsp;1. Take request
+  &nbsp;&nbsp;1. Authenticate and Authorize request (using User Access module)
+  &nbsp;&nbsp;2. Delegate work to specific module sending Command or Query
+  &nbsp;&nbsp;3. Return response
 - **User Access** - responsible for users authentication, authorization and registration
 - **Meetings** - implements Meetings Bounded Context: creating meeting groups, meetings
 - **Administration** - implements Administration Bounded Context: implements administrative tasks like meeting group proposal verification
@@ -250,7 +251,7 @@ Each Module consists of the following submodules (assemblies):
 - Application - it is main submodule which is responsible for initialization, processing all requests, internal commands, integration events.
 - Domain - Domain Model in Domain-Driven Design terms implementation applicable in particular [Bounded Context](https://martinfowler.com/bliki/BoundedContext.html).
 - Infrastructure - implementation of infrastructural code like EF configuration and mappings.
-- IntegrationEvents -  Integration Events **contracts** which are published to Events Bus. Only this assembly can be shared between other modules.
+- IntegrationEvents - Integration Events **contracts** which are published to Events Bus. Only this assembly can be shared between other modules.
 
 ![](docs/Images/VSSolution.png)
 
@@ -262,11 +263,11 @@ API communicates with Module only in two places: during module initialization an
 
 **Module initialization**
 
-Each module has static ``Initialize`` method which is invoked in API ``Startup`` class. All configuration needed by this module should be provided as argument in this method. During initialization all services are configured and Composition Root using Inversion Of Control Container is created.
+Each module has static `Initialize` method which is invoked in API `Startup` class. All configuration needed by this module should be provided as argument in this method. During initialization all services are configured and Composition Root using Inversion Of Control Container is created.
 
 ```csharp
 public static void Initialize(
-    string connectionString, 
+    string connectionString,
     IExecutionContextAccessor executionContextAccessor,
     ILogger logger,
     EmailsConfiguration emailsConfiguration)
@@ -296,15 +297,15 @@ public interface IMeetingsModule
 }
 ```
 
-Note: Some people say that processing of command shouldn't return a result. This is good approach but sometimes impractical, especially when you create resource and want immediately return ID of this resource. Sometimes, boundary between Command and Query is blurry. One of the example is ``AuthenticateCommand`` - it returns token but it is not a query (has side effect).
+Note: Some people say that processing of command shouldn't return a result. This is good approach but sometimes impractical, especially when you create resource and want immediately return ID of this resource. Sometimes, boundary between Command and Query is blurry. One of the example is `AuthenticateCommand` - it returns token but it is not a query (has side effect).
 
 ### 3.4 Module requests processing CQRS
 
-Commands and Queries processing is separated applying architectural style/pattern [Command Query Responsibility Segregation (CQRS)](https://docs.microsoft.com/pl-pl/azure/architecture/patterns/cqrs). 
+Commands and Queries processing is separated applying architectural style/pattern [Command Query Responsibility Segregation (CQRS)](https://docs.microsoft.com/pl-pl/azure/architecture/patterns/cqrs).
 
 ![](docs/Images/CQRS.jpg)
 
-Commands are processed using *Write Model* which is implemented using DDD tactical patterns:
+Commands are processed using _Write Model_ which is implemented using DDD tactical patterns:
 
 ```csharp
 internal class CreateNewMeetingGroupCommandHandler : ICommandHandler<CreateNewMeetingGroupCommand>
@@ -313,7 +314,7 @@ internal class CreateNewMeetingGroupCommandHandler : ICommandHandler<CreateNewMe
     private readonly IMeetingGroupProposalRepository _meetingGroupProposalRepository;
 
     internal CreateNewMeetingGroupCommandHandler(
-        IMeetingGroupRepository meetingGroupRepository, 
+        IMeetingGroupRepository meetingGroupRepository,
         IMeetingGroupProposalRepository meetingGroupProposalRepository)
     {
         _meetingGroupRepository = meetingGroupRepository;
@@ -333,7 +334,7 @@ internal class CreateNewMeetingGroupCommandHandler : ICommandHandler<CreateNewMe
 }
 ```
 
-Queries are processed using *Read Model* which is implemented by executing raw SQL statements on database views:
+Queries are processed using _Read Model_ which is implemented by executing raw SQL statements on database views:
 
 ```csharp
 internal class GetAllMeetingGroupsQueryHandler : IQueryHandler<GetAllMeetingGroupsQuery, List<MeetingGroupDto>>
@@ -382,7 +383,7 @@ Domain Model, which is the central and most critical part in the system, should 
 
 1. **High level of encapsulation**
 
-All members are ``private`` by default, then ``internal``, only at the very end ``public``.
+All members are `private` by default, then `internal`, only at the very end `public`.
 
 2. **High level of PI (Persistence Ignorance)**
 
@@ -420,14 +421,14 @@ public class MeetingGroup : Entity, IAggregateRoot
     private DateTime? _paymentDateTo;
 
     internal static MeetingGroup CreateBasedOnProposal(
-        MeetingGroupProposalId meetingGroupProposalId, 
-        string name, 
+        MeetingGroupProposalId meetingGroupProposalId,
+        string name,
         string description,
         MeetingGroupLocation location, MemberId creatorId)
     {
         return new MeetingGroup(meetingGroupProposalId, name, description, location, creatorId);
     }
-    
+
      public Meeting CreateMeeting(
             string title,
             MeetingTerm term,
@@ -476,8 +477,8 @@ internal class LoggingCommandHandlerDecorator<T> : ICommandHandler<T> where T:IC
     private readonly ICommandHandler<T> _decorated;
 
     public LoggingCommandHandlerDecorator(
-        ILogger logger, 
-        IExecutionContextAccessor executionContextAccessor, 
+        ILogger logger,
+        IExecutionContextAccessor executionContextAccessor,
         ICommandHandler<T> decorated)
     {
         _logger = logger;
@@ -540,8 +541,8 @@ internal class LoggingCommandHandlerDecorator<T> : ICommandHandler<T> where T:IC
         {
             if (_executionContextAccessor.IsAvailable)
             {
-                logEvent.AddOrUpdateProperty(new LogEventProperty("CorrelationId", new ScalarValue(_executionContextAccessor.CorrelationId))); 
-            }               
+                logEvent.AddOrUpdateProperty(new LogEventProperty("CorrelationId", new ScalarValue(_executionContextAccessor.CorrelationId)));
+            }
         }
     }
 }
@@ -558,7 +559,7 @@ internal class ValidationCommandHandlerDecorator<T> : ICommandHandler<T> where T
     private readonly ICommandHandler<T> _decorated;
 
     public ValidationCommandHandlerDecorator(
-        IList<IValidator<T>> validators, 
+        IList<IValidator<T>> validators,
         ICommandHandler<T> decorated)
     {
         this._validators = validators;
@@ -593,7 +594,7 @@ internal class ValidationCommandHandlerDecorator<T> : ICommandHandler<T> where T
 ```
 
 **Unit Of Work**
-Every Command processing has side effects. To not call commit on every handler, ``UnitOfWorkCommandHandlerDecorator`` is used. It additionally marks ``InternalCommand`` as processed (if it is Internal Command) and dispatches all Domain Events (as part of [Unit Of Work](https://martinfowler.com/eaaCatalog/unitOfWork.html)).
+Every Command processing has side effects. To not call commit on every handler, `UnitOfWorkCommandHandlerDecorator` is used. It additionally marks `InternalCommand` as processed (if it is Internal Command) and dispatches all Domain Events (as part of [Unit Of Work](https://martinfowler.com/eaaCatalog/unitOfWork.html)).
 
 ```csharp
 public class UnitOfWorkCommandHandlerDecorator<T> : ICommandHandler<T> where T:ICommand
@@ -603,8 +604,8 @@ public class UnitOfWorkCommandHandlerDecorator<T> : ICommandHandler<T> where T:I
     private readonly MeetingsContext _meetingContext;
 
     public UnitOfWorkCommandHandlerDecorator(
-        ICommandHandler<T> decorated, 
-        IUnitOfWork unitOfWork, 
+        ICommandHandler<T> decorated,
+        IUnitOfWork unitOfWork,
         MeetingsContext meetingContext)
     {
         _decorated = decorated;
@@ -639,7 +640,7 @@ public class UnitOfWorkCommandHandlerDecorator<T> : ICommandHandler<T> where T:I
 
 Integration between modules takes place only in an **asynchronous** way using Integration Events and In Memory Events Bus as broker. In this way coupling between modules is minimal and exists only on structure of Integration Events.
 
-**Modules don't share data** so it is not possible and wanted to create transaction which spans more than one module. To ensure maximum reliability, [Outbox / Inbox pattern](http://www.kamilgrzybek.com/design/the-outbox-pattern/) are used. They provide accordingly *"At-Least-Once delivery"* and *"At-Least-Once processing"*.
+**Modules don't share data** so it is not possible and wanted to create transaction which spans more than one module. To ensure maximum reliability, [Outbox / Inbox pattern](http://www.kamilgrzybek.com/design/the-outbox-pattern/) are used. They provide accordingly _"At-Least-Once delivery"_ and _"At-Least-Once processing"_.
 
 ![](docs/Images/OutboxInbox.jpg)
 
@@ -655,13 +656,13 @@ Outbox and Inbox is implemented using two SQL tables and background worker for e
 
 ### 3.8 Internal processing
 
-The main principle of this system is that you can change its state only by calling a specific Command. 
+The main principle of this system is that you can change its state only by calling a specific Command.
 
 Sometimes, Command can be called not by API but by processing module itself. The main use case which uses this mechanism is data processing in eventual consistency mode, when we want process something in different process and transaction. This applies for example for Inbox processing, because we want do something (calling a Command) based on Integration Event from Inbox.
 
 This idea is taken from Alberto's Brandolini Event Storming picture called "The picture that explains “almost” everything" which shows that every side effect (domain event) is created by invoking Command on Aggregate. See [EventStorming cheat sheat](https://xebia.com/blog/eventstorming-cheat-sheet/) article for more details.
 
-Implementation of internal processing is very similar to implementation of Outbox and Inbox. One SQL table and one background worker for processing. Each internally processing Command must inherit from ``InternalCommandBase`` class:
+Implementation of internal processing is very similar to implementation of Outbox and Inbox. One SQL table and one background worker for processing. Each internally processing Command must inherit from `InternalCommandBase` class:
 
 ```csharp
 internal abstract class InternalCommandBase : ICommand
@@ -675,7 +676,7 @@ internal abstract class InternalCommandBase : ICommand
 }
 ```
 
-This is important because ``UnitOfWorkCommandHandlerDecorator`` must mark internal Command as processed during committing:
+This is important because `UnitOfWorkCommandHandlerDecorator` must mark internal Command as processed during committing:
 
 ```csharp
 public async Task<Unit> Handle(T command, CancellationToken cancellationToken)
@@ -704,7 +705,7 @@ public async Task<Unit> Handle(T command, CancellationToken cancellationToken)
 
 **Authentication**
 
-Authentication is implemented using JWT Token and Bearer scheme using IdentityServer. For now, only one authentication method is implemented (forms authentication by providing login and password). It requires implementation of ``IResourceOwnerPasswordValidator`` interface:
+Authentication is implemented using JWT Token and Bearer scheme using IdentityServer. For now, only one authentication method is implemented (forms authentication by providing login and password). It requires implementation of `IResourceOwnerPasswordValidator` interface:
 
 ```csharp
 public class ResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
@@ -722,13 +723,13 @@ public class ResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
         if (!authenticationResult.IsAuthenticated)
         {
             context.Result = new GrantValidationResult(
-                TokenRequestErrors.InvalidGrant, 
+                TokenRequestErrors.InvalidGrant,
                 authenticationResult.AuthenticationError);
             return;
         }
         context.Result = new GrantValidationResult(
-            authenticationResult.User.Id.ToString(), 
-            "forms", 
+            authenticationResult.User.Id.ToString(),
+            "forms",
             authenticationResult.User.Claims);
     }
 }
@@ -736,7 +737,7 @@ public class ResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
 
 **Authorization**
 
-Authorization mechanism implements [RBAC (Role Based Access Control)](https://en.wikipedia.org/wiki/Role-based_access_control) using Permissions. Permissions are more granular and much better way to secure your application than Roles. Each User has set of Roles and each Role contains one or more Permission. With this mapping User has set of Permissions which are always checked on ``Controller`` level:
+Authorization mechanism implements [RBAC (Role Based Access Control)](https://en.wikipedia.org/wiki/Role-based_access_control) using Permissions. Permissions are more granular and much better way to secure your application than Roles. Each User has set of Roles and each Role contains one or more Permission. With this mapping User has set of Permissions which are always checked on `Controller` level:
 
 ```csharp
 [HttpPost]
@@ -746,9 +747,9 @@ public async Task<IActionResult> ProposeMeetingGroup(ProposeMeetingGroupRequest 
 {
     await _meetingsModule.ExecuteCommandAsync(
         new ProposeMeetingGroupCommand(
-            request.Name, 
-            request.Description, 
-            request.LocationCity, 
+            request.Name,
+            request.Description,
+            request.LocationCity,
             request.LocationCountryCode));
 
     return Ok();
@@ -761,7 +762,7 @@ List of technologies, frameworks and libraries used to implementation:
 
 - [.NET Core 2.2](https://dotnet.microsoft.com/download) (platform)
 - [MS SQL Server Express](https://www.microsoft.com/en-us/sql-server/sql-server-editions-express) (database)
-- [Entity Framework Core 2.2](https://docs.microsoft.com/en-us/ef/core/) (ORM Write Model implementation for DDD) 
+- [Entity Framework Core 2.2](https://docs.microsoft.com/en-us/ef/core/) (ORM Write Model implementation for DDD)
 - [Autofac](https://autofac.org/) (Inversion of Control Container)
 - [IdentityServer4](http://docs.identityserver.io) (Authentication and Authorization)
 - [Serilog](https://serilog.net/) (structured logging)
@@ -789,16 +790,16 @@ This project is still under analysis and development. I assume its maintenance f
 
 List of features/tasks/approaches to add:
 
-| Name                     | Priority |
-| ------------------------ | -------- |
-| Domain Model Unit Tests  | High     |
-| API automated tests      | Normal   |
-| FrontEnd SPA application | Normal   |
-| Meeting comments feature | Low   |
-| Notifications feature | Low   |
-| Messages feature | Low   |
-| Migration to .NET Core 3.0 | Low   |
-| More advanced Payments module | Low   |
+| Name                          | Priority |
+| ----------------------------- | -------- |
+| Domain Model Unit Tests       | High     |
+| API automated tests           | Normal   |
+| FrontEnd SPA application      | Normal   |
+| Meeting comments feature      | Low      |
+| Notifications feature         | Low      |
+| Messages feature              | Low      |
+| Migration to .NET Core 3.0    | Low      |
+| More advanced Payments module | Low      |
 
 NOTE: Please don't hesitate to suggest something else or change to existing code. All proposals will be considered.
 
