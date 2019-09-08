@@ -5,7 +5,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
 {
-    internal class MemberOnWaitlistMustBeAMemberOfGroupRule : IBusinessRule
+    public class MemberOnWaitlistMustBeAMemberOfGroupRule : IBusinessRule
     {
         private readonly MeetingGroup _meetingGroup;
 

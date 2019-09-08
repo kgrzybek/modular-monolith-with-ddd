@@ -13,7 +13,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
             _guestsLimit = guestsLimit;
         }
 
-        public bool IsBroken() => this._guestsLimit > _guestsNumber;
+        public bool IsBroken() => this._guestsLimit > 0 &&  this._guestsLimit < _guestsNumber;
 
         public string Message => "Meeting guests number is above limit";
     }

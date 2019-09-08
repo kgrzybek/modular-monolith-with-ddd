@@ -1,5 +1,6 @@
 ﻿using System;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
@@ -68,6 +69,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
         {
             _decisionChanged = true;
             _decisionChangeDate = DateTime.UtcNow;
+
+            this.AddDomainEvent(new MeetingAttendeeChangedDecisionDomainEvent(this.AttendeeId, this.MeetingId));
         }
 
         internal bool IsActiveAttendee(MemberId attendeeId)

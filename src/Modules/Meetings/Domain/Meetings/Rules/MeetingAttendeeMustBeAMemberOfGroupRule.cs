@@ -4,7 +4,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
 {
-    internal class MeetingAttendeeMustBeAMemberOfGroupRule : IBusinessRule
+    public class MeetingAttendeeMustBeAMemberOfGroupRule : IBusinessRule
     {
         private readonly MeetingGroup _meetingGroup;
 

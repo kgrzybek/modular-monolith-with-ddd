@@ -5,7 +5,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
 {
-    internal class MemberCannotBeMoreThanOnceOnMeetingWaitlistRule : IBusinessRule
+    public class MemberCannotBeMoreThanOnceOnMeetingWaitlistRule : IBusinessRule
     {
         private readonly List<MeetingWaitlistMember> _waitListMembers;
 

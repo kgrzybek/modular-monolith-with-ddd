@@ -5,7 +5,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
 {
-    internal class NotActiveNotAttendeeCannotChangeDecisionRule : IBusinessRule
+    public class NotActiveNotAttendeeCannotChangeDecisionRule : IBusinessRule
     {
         private readonly List<MeetingNotAttendee> _notAttendees;
 

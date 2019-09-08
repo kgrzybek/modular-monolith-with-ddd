@@ -2,7 +2,7 @@
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
 {
-    internal class MeetingAttendeesNumberIsAboveLimitRule : IBusinessRule
+    public class MeetingAttendeesNumberIsAboveLimitRule : IBusinessRule
     {
         private readonly int? _attendeesLimit;
 
