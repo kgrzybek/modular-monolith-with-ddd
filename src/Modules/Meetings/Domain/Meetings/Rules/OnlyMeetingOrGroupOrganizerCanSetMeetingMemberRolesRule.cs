@@ -22,11 +22,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
         {
             var settingMember = _attendees.SingleOrDefault(x => x.IsActiveAttendee(_settingMemberId));
 
-            var isOrganizer = !_meetingGroup.IsOrganizer(_settingMemberId);
+            var isHost = settingMember != null && settingMember.IsActiveHost();
+            var isOrganizer = _meetingGroup.IsOrganizer(_settingMemberId);
 
-            return settingMember == null || !isOrganizer;
+            return !isHost && !isOrganizer;
         }
 
-        public string Message => "Only meeting or group organizer can set meeting member roles";
+        public string Message => "Only meeting host or group organizer can set meeting member roles";
     }
 }

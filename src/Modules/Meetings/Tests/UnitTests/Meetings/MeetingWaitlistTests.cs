@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
 {
     [TestFixture]
-    public class MeetingSignUpMemberToWaitListTests : MeetingTestsBase
+    public class MeetingWaitlistTests : MeetingTestsBase
     {
         [Test]
         public void SignUpMemberToWaitList_WhenMeetingHasStared_IsNotPossible()
@@ -35,8 +35,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             {
                 CreatorId = creatorId,
                 RvspTerm = new Term(DateTime.UtcNow.AddDays(-2), DateTime.UtcNow.AddDays(-1))
-            });      
-            
+            });               
             var memberId = new MemberId(Guid.NewGuid());
 
             AssertBrokenRule<AttendeeCanBeAddedOnlyInRsvpTermRule>(() =>
@@ -70,6 +69,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             });
             var memberId = new MemberId(Guid.NewGuid());
             meetingTestData.MeetingGroup.JoinToGroupMember(memberId);
+            
             meetingTestData.Meeting.SignUpMemberToWaitlist(meetingTestData.MeetingGroup, memberId);
 
             AssertBrokenRule<MemberCannotBeMoreThanOnceOnMeetingWaitlistRule>(() =>
@@ -88,11 +88,63 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             });
             var memberId = new MemberId(Guid.NewGuid());
             meetingTestData.MeetingGroup.JoinToGroupMember(memberId);
+           
             meetingTestData.Meeting.SignUpMemberToWaitlist(meetingTestData.MeetingGroup, memberId);
 
             var meetingWaitlistMemberAdded = GetPublishedDomainEvent<MeetingWaitlistMemberAddedDomainEvent>(meetingTestData.Meeting);
             Assert.That(meetingWaitlistMemberAdded.MemberId, Is.EqualTo(memberId));
+        }
 
+        [Test]
+        public void SignOffMemberFromWaitList_WhenMeetingHasStared_IsNotPossible()
+        {
+            var creatorId = new MemberId(Guid.NewGuid());
+            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions
+            {
+                CreatorId = creatorId,
+                MeetingTerm = new MeetingTerm(DateTime.UtcNow.AddDays(-2), DateTime.UtcNow.AddDays(-1))
+            });         
+            var memberId = new MemberId(Guid.NewGuid());
+
+            AssertBrokenRule<MeetingCannotBeChangedAfterStartRule>(() =>
+            {
+                meetingTestData.Meeting.SignOffMemberFromWaitlist(memberId);
+            });          
+        }
+
+        [Test]
+        public void SignOffMemberFromWaitList_WhenMemberIsNotActiveWaitlistMember_IsNotPossible()
+        {
+            var creatorId = new MemberId(Guid.NewGuid());
+            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions
+            {
+                CreatorId = creatorId
+            });         
+            var memberId = new MemberId(Guid.NewGuid());
+
+            AssertBrokenRule<NotActiveMemberOfWaitlistCannotBeSignedOffRule>(() =>
+            {
+                meetingTestData.Meeting.SignOffMemberFromWaitlist(memberId);
+            });          
+        }
+
+        [Test]
+        public void SignOffMemberFromWaitList_WhenMemberIsOnWaitList_IsSuccessful()
+        {
+            var creatorId = new MemberId(Guid.NewGuid());
+            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions
+            {
+                CreatorId = creatorId
+            });         
+            
+            var memberId = new MemberId(Guid.NewGuid());
+            meetingTestData.MeetingGroup.JoinToGroupMember(memberId);
+            meetingTestData.Meeting.SignUpMemberToWaitlist(meetingTestData.MeetingGroup, memberId);
+
+            meetingTestData.Meeting.SignOffMemberFromWaitlist(memberId);
+
+            var memberSignedOffFromMeetingWaitlist = GetPublishedDomainEvent<MemberSignedOffFromMeetingWaitlistDomainEvent>(meetingTestData.Meeting);
+            Assert.That(memberSignedOffFromMeetingWaitlist.MemberId, Is.EqualTo(memberId));
         }
     }
 }

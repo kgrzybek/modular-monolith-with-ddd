@@ -6,6 +6,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
 {
@@ -264,13 +265,16 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
             if (!_isCanceled)
             {
                 _isCanceled = true;
-                _cancelDate = DateTime.UtcNow;
+                _cancelDate = SystemClock.Now;
                 _cancelMemberId = cancelMemberId;
+
+                this.AddDomainEvent(new MeetingCanceledDomainEvent(this.Id, _cancelMemberId, _cancelDate.Value));
             }
         }
 
         public void RemoveAttendee(MemberId attendeeId, MemberId removingPersonId, string reason)
         {
+            this.CheckRule(new MeetingCannotBeChangedAfterStartRule(_term));
             this.CheckRule(new OnlyActiveAttendeeCanBeRemovedFromMeetingRule(_attendees, attendeeId));
             
             var attendee = this.GetActiveAttendee(attendeeId);

@@ -5,7 +5,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
 {
-    internal class OnlyActiveAttendeeCanBeRemovedFromMeetingRule : IBusinessRule
+    public class OnlyActiveAttendeeCanBeRemovedFromMeetingRule : IBusinessRule
     {
         private readonly List<MeetingAttendee> _attendees;
         private readonly MemberId _attendeeId;

@@ -17,7 +17,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
             _memberId = memberId;
         }
 
-        public bool IsBroken() => _waitlistMembers.SingleOrDefault(x => x.IsActiveOnWaitList(_memberId)) != null;
+        public bool IsBroken() => _waitlistMembers.SingleOrDefault(x => x.IsActiveOnWaitList(_memberId)) == null;
 
         public string Message => "Not active member of waitlist cannot be signed off";
     }

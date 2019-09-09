@@ -55,6 +55,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
         {
             _isSignedOff = true;
             _signOffDate = DateTime.UtcNow;
+
+            this.AddDomainEvent(new MemberSignedOffFromMeetingWaitlistDomainEvent(this.MeetingId, this.MemberId));
         }
     }
 }

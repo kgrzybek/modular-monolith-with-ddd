@@ -13,7 +13,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
     public class MeetingAddNotAttendeeTests : MeetingTestsBase
     {
         [Test]
-        public void AddNotAttendee_WhenMeetingHasStared_IsNotPossible()
+        public void AddNotAttendee_WhenMeetingHasStarted_IsNotPossible()
         {
             var creatorId = new MemberId(Guid.NewGuid());
             var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions
@@ -54,10 +54,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
                 CreatorId = creatorId
             });
             var memberId = new MemberId(Guid.NewGuid());
+            
             meetingTestData.Meeting.AddNotAttendee(memberId);
 
             var meetingNotAttendeeAdded = GetPublishedDomainEvent<MeetingNotAttendeeAddedDomainEvent>(meetingTestData.Meeting);
-
             Assert.That(meetingNotAttendeeAdded.MemberId, Is.EqualTo(memberId));
         }
 
@@ -71,8 +71,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             });    
             var newMemberId = new MemberId(Guid.NewGuid());
             meetingTestData.MeetingGroup.JoinToGroupMember(newMemberId);
-
             meetingTestData.Meeting.AddAttendee(meetingTestData.MeetingGroup, newMemberId, 0);
+            
             meetingTestData.Meeting.AddNotAttendee(newMemberId);         
 
             var meetingAttendeeChangedDecision = GetPublishedDomainEvent<MeetingAttendeeChangedDecisionDomainEvent>(meetingTestData.Meeting);

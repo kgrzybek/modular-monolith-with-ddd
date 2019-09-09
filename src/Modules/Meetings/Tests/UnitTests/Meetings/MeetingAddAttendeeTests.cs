@@ -68,6 +68,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             });    
             var newMemberId = new MemberId(Guid.NewGuid());
             meetingTestData.MeetingGroup.JoinToGroupMember(newMemberId);
+            
             meetingTestData.Meeting.AddAttendee(meetingTestData.MeetingGroup, newMemberId, 0);
 
             AssertBrokenRule<MemberIsAlreadyAnAttendeeOfMeetingRule>(() =>
@@ -132,7 +133,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
 
             var meetingAttendeesAddedEvents =
                 GetPublishedDomainEvents<MeetingAttendeeAddedDomainEvent>(meetingTestData.Meeting);
-
             Assert.That(meetingAttendeesAddedEvents.Count, Is.EqualTo(2));
             Assert.That(meetingAttendeesAddedEvents[0].AttendeeId, Is.EqualTo(creatorId));
             Assert.That(meetingAttendeesAddedEvents[0].Role, Is.EqualTo(MeetingAttendeeRole.Host));
@@ -150,12 +150,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             });    
             var newMemberId = new MemberId(Guid.NewGuid());
             meetingTestData.MeetingGroup.JoinToGroupMember(newMemberId);
-
             meetingTestData.Meeting.AddNotAttendee(newMemberId);
+            
             meetingTestData.Meeting.AddAttendee(meetingTestData.MeetingGroup, newMemberId, 0);
 
             var meetingNotAttendeeChangedDecision = GetPublishedDomainEvent<MeetingNotAttendeeChangedDecisionDomainEvent>(meetingTestData.Meeting);
-
             Assert.That(meetingNotAttendeeChangedDecision.MemberId, Is.EqualTo(newMemberId));
         }
     }
