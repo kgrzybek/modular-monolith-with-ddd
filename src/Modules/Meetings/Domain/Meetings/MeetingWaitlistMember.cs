@@ -2,6 +2,7 @@
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
 {
@@ -29,7 +30,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
         {
             this.MemberId = memberId;
             this.MeetingId = meetingId;
-            this.SignUpDate = DateTime.UtcNow;
+            this.SignUpDate = SystemClock.Now;
             _isMovedToAttendees = false;
 
             this.AddDomainEvent(new MeetingWaitlistMemberAddedDomainEvent(this.MeetingId, this.MemberId));
@@ -38,7 +39,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
         internal void MarkIsMovedToAttendees()
         {
             _isMovedToAttendees = true;
-            _movedToAttendeesDate = DateTime.UtcNow;
+            _movedToAttendeesDate = SystemClock.Now;
         }
 
         internal bool IsActiveOnWaitList(MemberId memberId)
@@ -54,7 +55,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
         internal void SignOff()
         {
             _isSignedOff = true;
-            _signOffDate = DateTime.UtcNow;
+            _signOffDate = SystemClock.Now;
 
             this.AddDomainEvent(new MemberSignedOffFromMeetingWaitlistDomainEvent(this.MeetingId, this.MemberId));
         }

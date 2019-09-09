@@ -1,5 +1,6 @@
 ﻿using System;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
 {
@@ -12,7 +13,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
             _rsvpTerm = rsvpTerm;
         }
 
-        public bool IsBroken() => !_rsvpTerm.IsInTerm(DateTime.UtcNow);
+        public bool IsBroken() => !_rsvpTerm.IsInTerm(SystemClock.Now);
 
         public string Message => "Attendee can be added only in RSVP term";
     }

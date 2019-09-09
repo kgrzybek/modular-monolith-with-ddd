@@ -84,14 +84,14 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
             this.SetRsvpTerm(rsvpTerm, _term);
             _eventFee = eventFee;
             _creatorId = creatorId;
-            _createDate = DateTime.UtcNow;
+            _createDate = SystemClock.Now;
 
             _attendees = new List<MeetingAttendee>();
             _notAttendees = new List<MeetingNotAttendee>();
             _waitlistMembers = new List<MeetingWaitlistMember>();
 
             this.AddDomainEvent(new MeetingCreatedDomainEvent(this.Id));
-            var rsvpDate = DateTime.UtcNow;
+            var rsvpDate = SystemClock.Now;
             if (hostsMembersIds.Any())
             {
                 foreach (var hostMemberId in hostsMembersIds)
@@ -131,7 +131,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
             this.SetRsvpTerm(rsvpTerm, _term);
             _eventFee = eventFee;
 
-            _changeDate = DateTime.UtcNow;
+            _changeDate = SystemClock.Now;
             _changeMemberId = modifyUserId;
 
             this.AddDomainEvent(new MeetingMainAttributesChangedDomainEvent(this.Id));
@@ -156,7 +156,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
 
             _attendees.Add(new MeetingAttendee(
                 this.Id, attendeeId, 
-                DateTime.UtcNow, 
+                SystemClock.Now, 
                 MeetingAttendeeRole.Attendee, 
                 guestsNumber,
                 _eventFee));

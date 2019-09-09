@@ -9,6 +9,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups.Rules;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups
 {
@@ -51,7 +52,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups
             this._description = description;
             this._creatorId = creatorId;
             this._location = location;
-            this._createDate = DateTime.UtcNow;
+            this._createDate = SystemClock.Now;
 
             this.AddDomainEvent(new MeetingGroupCreatedDomainEvent(this.Id, creatorId));
 

@@ -4,6 +4,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals.Event
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals.Rules;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals
 {
@@ -44,7 +45,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals
             _description = description;
             _location = location;
             _proposalUserId = proposalUserId;
-            _proposalDate = DateTime.UtcNow;
+            _proposalDate = SystemClock.Now;
             _status = MeetingGroupProposalStatus.InVerification;
 
             this.AddDomainEvent(new MeetingGroupProposedDomainEvent(this.Id, _name, _description, proposalUserId, _proposalDate, _location.City, _location.CountryCode));

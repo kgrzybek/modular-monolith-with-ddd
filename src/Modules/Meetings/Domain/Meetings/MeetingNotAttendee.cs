@@ -3,6 +3,7 @@ using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
 {
@@ -40,7 +41,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
         internal void ChangeDecision()
         {
             _decisionChanged = true;
-            _decisionChangeDate = DateTime.UtcNow;
+            _decisionChangeDate = SystemClock.Now;
 
             this.AddDomainEvent(new MeetingNotAttendeeChangedDecisionDomainEvent(this.MemberId, this.MeetingId));
         }

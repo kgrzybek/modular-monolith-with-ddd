@@ -69,7 +69,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
         internal void ChangeDecision()
         {
             _decisionChanged = true;
-            _decisionChangeDate = DateTime.UtcNow;
+            _decisionChangeDate = SystemClock.Now;
 
             this.AddDomainEvent(new MeetingAttendeeChangedDecisionDomainEvent(this.AttendeeId, this.MeetingId));
         }
