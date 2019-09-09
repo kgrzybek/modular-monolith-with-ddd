@@ -16,7 +16,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Members
             var member = Member.Create(memberId.Value, "memberLogin", "memberEmail@mail.com",
                 "John", "Doe", "John Doe");
 
-            var memberCreated = GetPublishedDomainEvent<MemberCreatedDomainEvent>(member);
+            var memberCreated = AssertPublishedDomainEvent<MemberCreatedDomainEvent>(member);
 
             Assert.That(memberCreated.MemberId, Is.EqualTo(memberId));
         }

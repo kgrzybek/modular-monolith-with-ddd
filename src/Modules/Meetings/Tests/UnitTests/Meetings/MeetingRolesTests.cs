@@ -61,7 +61,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
 
             meetingTestData.Meeting.SetHostRole(meetingTestData.MeetingGroup, creatorId, newOrganizerId);
 
-            var newMeetingHostSet = GetPublishedDomainEvent<NewMeetingHostSetDomainEvent>(meetingTestData.Meeting);
+            var newMeetingHostSet = AssertPublishedDomainEvent<NewMeetingHostSetDomainEvent>(meetingTestData.Meeting);
             Assert.That(newMeetingHostSet.HostId, Is.EqualTo(newOrganizerId));
         }
 
@@ -84,7 +84,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
 
             meetingTestData.Meeting.SetHostRole(meetingTestData.MeetingGroup, settingMemberId, newOrganizerId);
 
-            var newMeetingHostSetEvent = GetPublishedDomainEvent<NewMeetingHostSetDomainEvent>(meetingTestData.Meeting);
+            var newMeetingHostSetEvent = AssertPublishedDomainEvent<NewMeetingHostSetDomainEvent>(meetingTestData.Meeting);
             Assert.That(newMeetingHostSetEvent.HostId, Is.EqualTo(newOrganizerId));
         }
 
@@ -139,7 +139,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
 
             meetingTestData.Meeting.SetAttendeeRole(meetingTestData.MeetingGroup, creatorId, newOrganizerId);
 
-            var newMeetingHostSet = GetPublishedDomainEvent<MemberSetAsAttendeeDomainEvent>(meetingTestData.Meeting);
+            var newMeetingHostSet = AssertPublishedDomainEvent<MemberSetAsAttendeeDomainEvent>(meetingTestData.Meeting);
             Assert.That(newMeetingHostSet.HostId, Is.EqualTo(newOrganizerId));
         }
 

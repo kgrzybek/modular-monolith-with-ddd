@@ -22,7 +22,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.UnitTests.Meeting
             var meetingGroupProposal = MeetingGroupProposal.CreateToVerify(meetingGroupProposalId,
                 "meetingName", "meetingDescription", location, proposalUserId, proposalDate);
 
-            var meetingGroupProposalVerificationRequested = GetPublishedDomainEvent<MeetingGroupProposalVerificationRequestedDomainEvent>(meetingGroupProposal);
+            var meetingGroupProposalVerificationRequested = AssertPublishedDomainEvent<MeetingGroupProposalVerificationRequestedDomainEvent>(meetingGroupProposal);
             Assert.That(meetingGroupProposalVerificationRequested.Id, Is.EqualTo(new MeetingGroupProposalId(meetingGroupProposalId)));
         }
 
@@ -38,7 +38,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.UnitTests.Meeting
 
             meetingGroupProposal.Accept(new UserId(Guid.NewGuid()));
 
-            var meetingGroupProposalAccepted = GetPublishedDomainEvent<MeetingGroupProposalAcceptedDomainEvent>(meetingGroupProposal);
+            var meetingGroupProposalAccepted = AssertPublishedDomainEvent<MeetingGroupProposalAcceptedDomainEvent>(meetingGroupProposal);
 
             Assert.That(meetingGroupProposalAccepted.MeetingGroupProposalId, Is.EqualTo(new MeetingGroupProposalId(meetingGroupProposalId)));
         }

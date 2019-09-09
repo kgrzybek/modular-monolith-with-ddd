@@ -25,7 +25,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
             meetingGroup.EditGeneralAttributes("newName", "newDescription", meetingGroupLocation);
 
             var meetingGroupGeneralAttributesEdited =
-                GetPublishedDomainEvent<MeetingGroupGeneralAttributesEditedDomainEvent>(meetingGroup);
+                AssertPublishedDomainEvent<MeetingGroupGeneralAttributesEditedDomainEvent>(meetingGroup);
 
             Assert.That(meetingGroupGeneralAttributesEdited.NewName, Is.EqualTo("newName"));
             Assert.That(meetingGroupGeneralAttributesEdited.NewDescription, Is.EqualTo("newDescription"));
@@ -40,7 +40,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
             MemberId newMemberId = new MemberId(Guid.NewGuid());
             meetingGroup.JoinToGroupMember(newMemberId);
 
-            var newMeetingGroupMemberJoined = GetPublishedDomainEvent<NewMeetingGroupMemberJoinedDomainEvent>(meetingGroup);
+            var newMeetingGroupMemberJoined = AssertPublishedDomainEvent<NewMeetingGroupMemberJoinedDomainEvent>(meetingGroup);
 
             Assert.That(newMeetingGroupMemberJoined.MeetingGroupId, Is.EqualTo(meetingGroup.Id));
             Assert.That(newMeetingGroupMemberJoined.MemberId, Is.EqualTo(newMemberId));
@@ -70,7 +70,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
 
             meetingGroup.LeaveGroup(newMemberId);
 
-            var meetingGroupMemberLeft = GetPublishedDomainEvent<MeetingGroupMemberLeftGroupDomainEvent>(meetingGroup);
+            var meetingGroupMemberLeft = AssertPublishedDomainEvent<MeetingGroupMemberLeftGroupDomainEvent>(meetingGroup);
 
             Assert.That(meetingGroupMemberLeft.MemberId, Is.EqualTo(newMemberId));
         }
@@ -95,7 +95,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
 
             meetingGroup.UpdatePaymentInfo(dateTo);
 
-            var meetingGroupPaymentInfoUpdated = GetPublishedDomainEvent<MeetingGroupPaymentInfoUpdatedDomainEvent>(meetingGroup);
+            var meetingGroupPaymentInfoUpdated = AssertPublishedDomainEvent<MeetingGroupPaymentInfoUpdatedDomainEvent>(meetingGroup);
 
             Assert.That(meetingGroupPaymentInfoUpdated.MeetingGroupId, Is.EqualTo(meetingGroup.Id));
             Assert.That(meetingGroupPaymentInfoUpdated.PaymentDateTo, Is.EqualTo(dateTo));
@@ -145,7 +145,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
                 new List<MemberId>(),
                 definedProposalMemberId);
 
-            GetPublishedDomainEvent<MeetingCreatedDomainEvent>(meeting);
+            AssertPublishedDomainEvent<MeetingCreatedDomainEvent>(meeting);
         }
 
         [Test]
@@ -175,7 +175,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
                 hosts,
                 definedProposalMemberId);
 
-            var meetingAttendeeAddedEvents = GetPublishedDomainEvents<MeetingAttendeeAddedDomainEvent>(meeting);
+            var meetingAttendeeAddedEvents = AssertPublishedDomainEvents<MeetingAttendeeAddedDomainEvent>(meeting);
             Assert.That(meetingAttendeeAddedEvents.Count, Is.EqualTo(2));
             Assert.That(meetingAttendeeAddedEvents[0].AttendeeId, Is.EqualTo(hostOne));
             Assert.That(meetingAttendeeAddedEvents[0].Role, Is.EqualTo(MeetingAttendeeRole.Host));

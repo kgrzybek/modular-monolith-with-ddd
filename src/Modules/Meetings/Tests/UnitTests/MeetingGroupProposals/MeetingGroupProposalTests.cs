@@ -22,7 +22,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroupP
                 "name", "description",
                 new MeetingGroupLocation("Warsaw", "PL"), proposalMemberId);
 
-            var meetingGroupProposed = GetPublishedDomainEvent<MeetingGroupProposedDomainEvent>(meetingProposal);
+            var meetingGroupProposed = AssertPublishedDomainEvent<MeetingGroupProposedDomainEvent>(meetingProposal);
 
             Assert.That(meetingGroupProposed.Id, Is.EqualTo(meetingProposal.Id));
         }
@@ -38,7 +38,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroupP
 
             meetingProposal.Accept();
 
-            var meetingGroupProposalAccepted = GetPublishedDomainEvent<MeetingGroupProposalAcceptedDomainEvent>(meetingProposal);
+            var meetingGroupProposalAccepted = AssertPublishedDomainEvent<MeetingGroupProposalAcceptedDomainEvent>(meetingProposal);
 
             Assert.That(meetingGroupProposalAccepted.MeetingGroupProposalId, Is.EqualTo(meetingProposal.Id));
         }
@@ -73,8 +73,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroupP
 
             var meetingGroup = meetingProposal.CreateMeetingGroup();
 
-            var meetingGroupCreated = GetPublishedDomainEvent<MeetingGroupCreatedDomainEvent>(meetingGroup);
-            var newMeetingGroupMemberJoined = GetPublishedDomainEvent<NewMeetingGroupMemberJoinedDomainEvent>(meetingGroup);
+            var meetingGroupCreated = AssertPublishedDomainEvent<MeetingGroupCreatedDomainEvent>(meetingGroup);
+            var newMeetingGroupMemberJoined = AssertPublishedDomainEvent<NewMeetingGroupMemberJoinedDomainEvent>(meetingGroup);
 
             Assert.That(meetingGroupCreated.MeetingGroupId, Is.EqualTo(meetingProposal.Id));
             Assert.That(newMeetingGroupMemberJoined.MemberId, Is.EqualTo(proposalMemberId));

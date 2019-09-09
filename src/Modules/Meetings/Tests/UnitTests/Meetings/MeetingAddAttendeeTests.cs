@@ -132,7 +132,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             meetingTestData.Meeting.AddAttendee(meetingTestData.MeetingGroup, newMemberId, 3);
 
             var meetingAttendeesAddedEvents =
-                GetPublishedDomainEvents<MeetingAttendeeAddedDomainEvent>(meetingTestData.Meeting);
+                AssertPublishedDomainEvents<MeetingAttendeeAddedDomainEvent>(meetingTestData.Meeting);
             Assert.That(meetingAttendeesAddedEvents.Count, Is.EqualTo(2));
             Assert.That(meetingAttendeesAddedEvents[0].AttendeeId, Is.EqualTo(creatorId));
             Assert.That(meetingAttendeesAddedEvents[0].Role, Is.EqualTo(MeetingAttendeeRole.Host));
@@ -154,7 +154,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             
             meetingTestData.Meeting.AddAttendee(meetingTestData.MeetingGroup, newMemberId, 0);
 
-            var meetingNotAttendeeChangedDecision = GetPublishedDomainEvent<MeetingNotAttendeeChangedDecisionDomainEvent>(meetingTestData.Meeting);
+            var meetingNotAttendeeChangedDecision = AssertPublishedDomainEvent<MeetingNotAttendeeChangedDecisionDomainEvent>(meetingTestData.Meeting);
             Assert.That(meetingNotAttendeeChangedDecision.MemberId, Is.EqualTo(newMemberId));
         }
     }

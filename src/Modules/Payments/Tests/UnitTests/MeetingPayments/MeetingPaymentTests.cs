@@ -20,7 +20,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.MeetingPaymen
 
             var meetingPayment = MeetingPayment.CreatePaymentForMeeting(payerId, meetingId, fee);
 
-            var meetingCreated = GetPublishedDomainEvent<MeetingPaymentCreatedDomainEvent>(meetingPayment);
+            var meetingCreated = AssertPublishedDomainEvent<MeetingPaymentCreatedDomainEvent>(meetingPayment);
             Assert.That(meetingCreated.PayerId, Is.EqualTo(payerId));
             Assert.That(meetingCreated.MeetingId, Is.EqualTo(meetingId));
             Assert.That(meetingCreated.Fee, Is.EqualTo(fee));
@@ -51,7 +51,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.MeetingPaymen
             var meetingPayment = MeetingPayment.CreatePaymentForMeeting(payerId, meetingId, fee);
             meetingPayment.MarkIsPayed();
 
-            var meetingPayed = GetPublishedDomainEvent<MeetingPayedDomainEvent>(meetingPayment);
+            var meetingPayed = AssertPublishedDomainEvent<MeetingPayedDomainEvent>(meetingPayment);
 
             Assert.That(meetingPayed.MeetingId, Is.EqualTo(meetingId));
             Assert.That(meetingPayed.PayerId, Is.EqualTo(payerId));

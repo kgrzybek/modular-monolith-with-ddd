@@ -91,7 +91,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
            
             meetingTestData.Meeting.SignUpMemberToWaitlist(meetingTestData.MeetingGroup, memberId);
 
-            var meetingWaitlistMemberAdded = GetPublishedDomainEvent<MeetingWaitlistMemberAddedDomainEvent>(meetingTestData.Meeting);
+            var meetingWaitlistMemberAdded = AssertPublishedDomainEvent<MeetingWaitlistMemberAddedDomainEvent>(meetingTestData.Meeting);
             Assert.That(meetingWaitlistMemberAdded.MemberId, Is.EqualTo(memberId));
         }
 
@@ -143,7 +143,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
 
             meetingTestData.Meeting.SignOffMemberFromWaitlist(memberId);
 
-            var memberSignedOffFromMeetingWaitlist = GetPublishedDomainEvent<MemberSignedOffFromMeetingWaitlistDomainEvent>(meetingTestData.Meeting);
+            var memberSignedOffFromMeetingWaitlist = AssertPublishedDomainEvent<MemberSignedOffFromMeetingWaitlistDomainEvent>(meetingTestData.Meeting);
             Assert.That(memberSignedOffFromMeetingWaitlist.MemberId, Is.EqualTo(memberId));
         }
     }

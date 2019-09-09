@@ -16,7 +16,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.Payers
             var payer = Payer.Create(payerId, "payerLogin", "payerEmail@mail.com",
                 "John", "Doe", "John Doe");
 
-            var payerCreated = GetPublishedDomainEvent<PayerCreatedDomainEvent>(payer);
+            var payerCreated = AssertPublishedDomainEvent<PayerCreatedDomainEvent>(payer);
 
             Assert.That(payerCreated.PayerId, Is.EqualTo(new PayerId(payerId)));
         }

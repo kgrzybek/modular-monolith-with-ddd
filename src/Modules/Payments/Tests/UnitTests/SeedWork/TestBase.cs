@@ -9,7 +9,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SeedWork
 {
     public abstract class TestBase
     {
-        public static T GetPublishedDomainEvent<T>(Entity aggregate) where T : IDomainEvent
+        public static T AssertPublishedDomainEvent<T>(Entity aggregate) where T : IDomainEvent
         {
             var domainEvent = DomainEventsTestHelper.GetAllDomainEvents(aggregate).OfType<T>().SingleOrDefault();
 
@@ -21,7 +21,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SeedWork
             return domainEvent;
         }
 
-        public static List<T> GetPublishedDomainEvents<T>(Entity aggregate) where T : IDomainEvent
+        public static List<T> AssertPublishedDomainEvents<T>(Entity aggregate) where T : IDomainEvent
         {
             var domainEvents = DomainEventsTestHelper.GetAllDomainEvents(aggregate).OfType<T>().ToList();
 

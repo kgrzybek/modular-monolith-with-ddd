@@ -18,7 +18,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.MeetingGroupP
             var paymentScheduleForMeetingGroup = MeetingGroupPaymentRegister.CreatePaymentScheduleForMeetingGroup(meetingGroupId);
 
             var meetingGroupPaymentRegisterCreated =
-                GetPublishedDomainEvent<MeetingGroupPaymentRegisterCreatedDomainEvent>(paymentScheduleForMeetingGroup);
+                AssertPublishedDomainEvent<MeetingGroupPaymentRegisterCreatedDomainEvent>(paymentScheduleForMeetingGroup);
 
             Assert.That(meetingGroupPaymentRegisterCreated.MeetingGroupPaymentRegisterId.Value, Is.EqualTo(meetingGroupId.Value));
         }
@@ -36,7 +36,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.MeetingGroupP
             paymentScheduleForMeetingGroup.RegisterPayment(
                 paymentTerm, payerId);
 
-            var paymentRegistered = GetPublishedDomainEvent<PaymentRegisteredDomainEvent>(paymentScheduleForMeetingGroup);
+            var paymentRegistered = AssertPublishedDomainEvent<PaymentRegisteredDomainEvent>(paymentScheduleForMeetingGroup);
 
             Assert.That(paymentRegistered.MeetingGroupPaymentRegisterId, Is.EqualTo(paymentScheduleForMeetingGroup.Id));
             Assert.That(paymentRegistered.DateTo, Is.EqualTo(paymentTerm.EndDate));
@@ -62,7 +62,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.MeetingGroupP
             paymentScheduleForMeetingGroup.RegisterPayment(
                 nextPaymentTerm, payerId);
 
-            var domainEvents = GetPublishedDomainEvents<PaymentRegisteredDomainEvent>(paymentScheduleForMeetingGroup);
+            var domainEvents = AssertPublishedDomainEvents<PaymentRegisteredDomainEvent>(paymentScheduleForMeetingGroup);
 
             Assert.That(domainEvents.Count, Is.EqualTo(2));
             Assert.That(domainEvents[1].DateTo, Is.EqualTo(nextPaymentTerm.EndDate));

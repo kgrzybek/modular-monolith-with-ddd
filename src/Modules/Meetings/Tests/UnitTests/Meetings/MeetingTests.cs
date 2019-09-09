@@ -40,7 +40,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
 
             meetingTestData.Meeting.Cancel(creatorId);
 
-            var meetingCanceled = GetPublishedDomainEvent<MeetingCanceledDomainEvent>(meetingTestData.Meeting);
+            var meetingCanceled = AssertPublishedDomainEvent<MeetingCanceledDomainEvent>(meetingTestData.Meeting);
             Assert.That(meetingCanceled.MeetingId, Is.EqualTo(meetingTestData.Meeting.Id));
             Assert.That(meetingCanceled.CancelMemberId, Is.EqualTo(creatorId));
             Assert.That(meetingCanceled.CancelDate, Is.EqualTo(date));           
@@ -93,7 +93,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
 
             meetingTestData.Meeting.RemoveAttendee(attendeeToRemoveId, creatorId, reason);
 
-            var meetingAttendeeRemoved = GetPublishedDomainEvent<MeetingAttendeeRemovedDomainEvent>(meetingTestData.Meeting);
+            var meetingAttendeeRemoved = AssertPublishedDomainEvent<MeetingAttendeeRemovedDomainEvent>(meetingTestData.Meeting);
             Assert.That(meetingAttendeeRemoved.MemberId, Is.EqualTo(attendeeToRemoveId));
             Assert.That(meetingAttendeeRemoved.MeetingId, Is.EqualTo(meetingTestData.Meeting.Id));
             Assert.That(meetingAttendeeRemoved.Reason, Is.EqualTo(reason));
