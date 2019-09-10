@@ -46,7 +46,7 @@ Full Modular Monolith .NET application with Domain-Driven Design approach.
 
 &nbsp;&nbsp;[3.9 Security](#39-security)
 
-&nbsp;&nbsp;[3.10 Unit Tests](#310-unit-test)
+&nbsp;&nbsp;[3.10 Unit Tests](#310-unit-tests)
 
 [4. Technology](#4-technology)
 
@@ -811,8 +811,9 @@ This section is very easy - we execute **exactly one** public method on aggregat
 3. Assert
 
 In this section we check expectations. There are only 2 possible outcomes:
-a) Method completed and Domain Event was published (or many).
-b) Business rule was broken
+
+- Method completed and Domain Event was published (or many) or
+- Business rule was broken
 
 Simple example:
 ```csharp
