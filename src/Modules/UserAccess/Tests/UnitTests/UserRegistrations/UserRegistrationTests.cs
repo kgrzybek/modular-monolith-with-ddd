@@ -14,27 +14,31 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.UserRegistr
         [Test]
         public void NewUserRegistration_WithUniqueLogin_IsSuccessful()
         {
+            // Arrange
             var usersCounter = Substitute.For<IUsersCounter>();
 
+            // Act
             var userRegistration =
                 UserRegistration.RegisterNewUser(
                     "login", "password", "test@email", 
                     "firstName", "lastName", usersCounter);
 
-            var newUserRegisteredDomainEvent = GetPublishedDomainEvent<NewUserRegisteredDomainEvent>(userRegistration);
-
+            // Assert
+            var newUserRegisteredDomainEvent = AssertPublishedDomainEvent<NewUserRegisteredDomainEvent>(userRegistration);
             Assert.That(newUserRegisteredDomainEvent.UserRegistrationId, Is.EqualTo(userRegistration.Id));
         }
 
         [Test]
         public void NewUserRegistration_WithoutUniqueLogin_BreaksUserLoginMustBeUniqueRule()
         {
+            // Arrange
             var usersCounter = Substitute.For<IUsersCounter>();
-
             usersCounter.CountUsersWithLogin("login").Returns(x => 1);
 
+            // Assert
             AssertBrokenRule<UserLoginMustBeUniqueRule>(() =>
             {
+                // Act
                 UserRegistration.RegisterNewUser(
                     "login", "password", "test@email",
                     "firstName", "lastName", usersCounter);
@@ -52,7 +56,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.UserRegistr
 
             registration.Confirm();
 
-            var userRegistrationConfirmedDomainEvent = GetPublishedDomainEvent<UserRegistrationConfirmedDomainEvent>(registration);
+            var userRegistrationConfirmedDomainEvent = AssertPublishedDomainEvent<UserRegistrationConfirmedDomainEvent>(registration);
 
             Assert.That(userRegistrationConfirmedDomainEvent.UserRegistrationId, Is.EqualTo(registration.Id));
         }
@@ -102,7 +106,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.UserRegistr
 
             registration.Expire();
 
-            var userRegistrationExpired = GetPublishedDomainEvent<UserRegistrationExpiredDomainEvent>(registration);
+            var userRegistrationExpired = AssertPublishedDomainEvent<UserRegistrationExpiredDomainEvent>(registration);
 
             Assert.That(userRegistrationExpired.UserRegistrationId, Is.EqualTo(registration.Id));          
         }
@@ -137,7 +141,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.UserRegistr
 
             var user = registration.CreateUser();
 
-            var userCreated = GetPublishedDomainEvent<UserCreatedDomainEvent>(user);
+            var userCreated = AssertPublishedDomainEvent<UserCreatedDomainEvent>(user);
 
             Assert.That(user.Id, Is.EqualTo(registration.Id));
             Assert.That(userCreated.Id, Is.EqualTo(registration.Id));

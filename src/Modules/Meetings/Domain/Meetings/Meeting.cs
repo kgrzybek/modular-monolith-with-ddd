@@ -145,7 +145,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
 
             this.CheckRule(new MeetingAttendeeMustBeAMemberOfGroupRule(attendeeId, meetingGroup));
 
-            this.CheckRule(new MemberIsAlreadyAnAttendeeOfMeetingRule(attendeeId, _attendees));
+            this.CheckRule(new MemberCannotBeAnAttendeeOfMeetingMoreThanOnceRule(attendeeId, _attendees));
 
             this.CheckRule(new MeetingGuestsNumberIsAboveLimitRule(_guestsLimit, guestsNumber));
             

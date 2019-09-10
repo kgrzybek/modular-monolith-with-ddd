@@ -5,12 +5,12 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
 {
-    public class MemberIsAlreadyAnAttendeeOfMeetingRule : IBusinessRule
+    public class MemberCannotBeAnAttendeeOfMeetingMoreThanOnceRule : IBusinessRule
     {
         private readonly MemberId _attendeeId;
 
         private readonly List<MeetingAttendee> _attendees;
-        public MemberIsAlreadyAnAttendeeOfMeetingRule(MemberId attendeeId, List<MeetingAttendee> attendees)
+        public MemberCannotBeAnAttendeeOfMeetingMoreThanOnceRule(MemberId attendeeId, List<MeetingAttendee> attendees)
         {
             this._attendeeId = attendeeId;
             _attendees = attendees;

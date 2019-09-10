@@ -104,7 +104,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
 
         internal void SetAsAttendee()
         {
-            this.CheckRule(new MemberCannotBeAttendeeOfMeetingMoreThanOnceRule(_role));
+            this.CheckRule(new MemberCannotHaveSetAttendeeRoleMoreThanOnceRule(_role));
             _role = MeetingAttendeeRole.Attendee;
 
             this.AddDomainEvent(new MemberSetAsAttendeeDomainEvent(this.MeetingId, this.AttendeeId));

@@ -46,6 +46,8 @@ Full Modular Monolith .NET application with Domain-Driven Design approach.
 
 &nbsp;&nbsp;[3.9 Security](#39-security)
 
+&nbsp;&nbsp;[3.10 Unit Tests](#310-unit-test)
+
 [4. Technology](#4-technology)
 
 [5. How to run](#5-how-to-run)
@@ -754,6 +756,161 @@ public async Task<IActionResult> ProposeMeetingGroup(ProposeMeetingGroupRequest 
     return Ok();
 }
 ```
+### 3.10 Unit Tests
+
+**Definition:**
+
+>A unit test is an automated piece of code that invokes the unit of work being tested, and then checks some assumptions about a single end result of that unit. A unit test is almost always written using a unit testing framework. It can be written easily and runs quickly. It’s trustworthy, readable, and maintainable. It’s consistent in its results as long as production code hasn’t changed. [Art of Unit Testing 2nd Edition](https://www.manning.com/books/the-art-of-unit-testing-second-edition) Roy Osherove
+
+**Attributes of good unit test**
+
+- Automated
+- Maitainable
+- Runs very fast (in ms)
+- Consistent, Deterministic (always the same result)
+- Isolated from other tests
+- Readable
+- Can be executed by anyone
+- Testing public API, not internal behavior (overspecification)
+- Looks like production code
+- Treated as production code
+
+**Implementation**
+
+Each unit test has 3 standard sections: Arrange, Act and Assert
+
+![](docs/Images/UnitTestsGeneral.jpg)
+
+1. Arrange
+
+The Arrange section is responsible for preparing the Aggregate for testing the public method that we want to test. This public method is often called from the unit tests perspective as SUT (system under test). 
+
+Creating an Aggregate ready for testing involves **calling one or more other public constructors/methods** on the Domain Model. At first it may seem that we are testing too many things at the same time, but this is not true. We need to be in one percent sure, that the Aggreagate is in state exactly as it will be in production. This can only be ensured when:
+
+- **we use only public API of Domain Model**
+- we don't use [InternalsVisibleToAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.internalsvisibletoattribute?view=netframework-4.8) class. This exposes Domain Model to Unit Tests library removing encapsulation so our tests and production code is treated differently and it is very bad thing.
+- we don't use [ConditionalAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.conditionalattribute?view=netframework-4.8) classes. It reduces readability and increase complexity.
+- we don't create any special constructors/factory methods for tests (even with conditional compilation symbols). Special constructor/factory method only for unit tests causes duplication of business logic in test itself and focuses on state. Additionally, this kind of approach causes that test is very sensitive to changes and hard to maintain.
+- We don't remove encapsulation from Domain Model (for example: change keywords from  internal/private to public)
+- We don't make methods protected to inherit from tested class and this way making access to internal methods/properties. 
+
+**Isolation of external dependencies**
+There are 2 main concepts - stubs and mocks:
+
+> A stub is a controllable replacement for an existing dependency (or collaborator) in the system. By using a stub, you can test your code without dealing with the dependency directly.
+
+>A mock object is a fake object in the system that decides whether the unit test has passed or failed. It does so by verifying whether the object under test called the fake object as expected. There’s usually no more than one mock per test.
+>[Art of Unit Testing 2nd Edition](https://www.manning.com/books/the-art-of-unit-testing-second-edition) Roy Osherove
+
+Good advice is following: use stub if you need to, but try to avoid mocks. Mocking causes that we test too many internal things and leads to overspecification.
+
+2. Act
+
+This section is very easy - we execute **exactly one** public method on aggregate (SUT).
+
+3. Assert
+
+In this section we check expectations. There are only 2 possible outcomes:
+a) Method completed and Domain Event was published (or many).
+b) Business rule was broken
+
+Simple example:
+```csharp
+[Test]
+public void NewUserRegistration_WithUniqueLogin_IsSuccessful()
+{
+    // Arrange
+    var usersCounter = Substitute.For<IUsersCounter>();
+
+    // Act
+    var userRegistration =
+        UserRegistration.RegisterNewUser(
+            "login", "password", "test@email", 
+            "firstName", "lastName", usersCounter);
+
+    // Assert
+    var newUserRegisteredDomainEvent = AssertPublishedDomainEvent<NewUserRegisteredDomainEvent>(userRegistration);
+    Assert.That(newUserRegisteredDomainEvent.UserRegistrationId, Is.EqualTo(userRegistration.Id));
+}
+
+[Test]
+public void NewUserRegistration_WithoutUniqueLogin_BreaksUserLoginMustBeUniqueRule()
+{
+    // Arrange
+    var usersCounter = Substitute.For<IUsersCounter>();
+    usersCounter.CountUsersWithLogin("login").Returns(x => 1);
+
+    // Assert
+    AssertBrokenRule<UserLoginMustBeUniqueRule>(() =>
+    {
+        // Act
+        UserRegistration.RegisterNewUser(
+            "login", "password", "test@email",
+            "firstName", "lastName", usersCounter);
+    });
+}
+```
+
+Advanced example:
+```csharp
+[Test]
+public void AddAttendee_WhenMemberIsAlreadyAttendeeOfMeeting_IsNotPossible()
+{
+    // Arrange
+    var creatorId = new MemberId(Guid.NewGuid());
+    var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions
+    {
+        CreatorId = creatorId
+    });    
+    var newMemberId = new MemberId(Guid.NewGuid());
+    meetingTestData.MeetingGroup.JoinToGroupMember(newMemberId);
+    meetingTestData.Meeting.AddAttendee(meetingTestData.MeetingGroup, newMemberId, 0);
+
+    // Assert
+    AssertBrokenRule<MemberCannotBeAnAttendeeOfMeetingMoreThanOnceRule>(() =>
+    {
+        // Act
+        meetingTestData.Meeting.AddAttendee(meetingTestData.MeetingGroup, newMemberId, 0);
+    });          
+}
+```
+
+``CreateMeetingTestData`` method is implementation of [SUT Factory](https://blog.ploeh.dk/2009/02/13/SUTFactory/) described by Mark Seemann which allows to keep common creation logic in one place:
+
+```csharp
+protected MeetingTestData CreateMeetingTestData(MeetingTestDataOptions options)
+{
+    var proposalMemberId = options.CreatorId ?? new MemberId(Guid.NewGuid());
+    var meetingProposal = MeetingGroupProposal.ProposeNew(
+        "name", "description",
+        new MeetingGroupLocation("Warsaw", "PL"), proposalMemberId);
+
+    meetingProposal.Accept();
+
+    var meetingGroup = meetingProposal.CreateMeetingGroup();
+
+    meetingGroup.UpdatePaymentInfo(DateTime.Now.AddDays(1));
+
+    var meetingTerm = options.MeetingTerm ??
+                      new MeetingTerm(DateTime.UtcNow.AddDays(1), DateTime.UtcNow.AddDays(2));
+
+    var rsvpTerm = options.RvspTerm ?? Term.NoTerm;
+    var meeting = meetingGroup.CreateMeeting("title",
+        meetingTerm,
+        "description",
+        new MeetingLocation("Name", "Address", "PostalCode", "City"),
+        options.AttendeesLimit,
+        options.GuestsLimit,
+        rsvpTerm,
+        MoneyValue.Zero,
+        new List<MemberId>(),
+        proposalMemberId);
+
+    DomainEventsTestHelper.ClearAllDomainEvents(meetingGroup);
+
+    return new MeetingTestData(meetingGroup, meeting);
+}
+```
 
 ## 4. Technology
 
@@ -773,6 +930,8 @@ List of technologies, frameworks and libraries used to implementation:
 - [FluentValidation](https://fluentvalidation.net/) (data validation)
 - [MediatR](https://github.com/jbogard/MediatR) (mediator implementation)
 - [Postman](https://www.getpostman.com/) (API tests)
+- [NUnit](https://nunit.org/) (Testing framework)
+- [NSubstitute](https://nsubstitute.github.io/) (Testing isolation framework)
 
 ## 5. How to run
 
@@ -789,16 +948,16 @@ This project is still under analysis and development. I assume its maintenance f
 
 List of features/tasks/approaches to add:
 
-| Name                     | Priority |
-| ------------------------ | -------- |
-| Domain Model Unit Tests  | High     |
-| API automated tests      | Normal   |
-| FrontEnd SPA application | Normal   |
-| Meeting comments feature | Low   |
-| Notifications feature | Low   |
-| Messages feature | Low   |
-| Migration to .NET Core 3.0 | Low   |
-| More advanced Payments module | Low   |
+| Name                     | Priority | Status | Release date |
+| ------------------------ | -------- | -------- | -------- |
+| Domain Model Unit Tests | High     | Completed | 2019-09-10 |
+| API automated tests      | Normal   |    |    |
+| FrontEnd SPA application | Normal   |    |    |
+| Meeting comments feature | Low   |    |    |
+| Notifications feature | Low   |    |    |
+| Messages feature | Low   |    |    |
+| Migration to .NET Core 3.0 | Low   |    |    |
+| More advanced Payments module | Low   |    |    |
 
 NOTE: Please don't hesitate to suggest something else or change to existing code. All proposals will be considered.
 

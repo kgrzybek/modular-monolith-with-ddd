@@ -2,11 +2,11 @@
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
 {
-    public class MemberCannotBeAttendeeOfMeetingMoreThanOnceRule : IBusinessRule
+    public class MemberCannotHaveSetAttendeeRoleMoreThanOnceRule : IBusinessRule
     {
         private readonly MeetingAttendeeRole _meetingAttendeeRole;
 
-        internal MemberCannotBeAttendeeOfMeetingMoreThanOnceRule(MeetingAttendeeRole meetingAttendeeRole)
+        internal MemberCannotHaveSetAttendeeRoleMoreThanOnceRule(MeetingAttendeeRole meetingAttendeeRole)
         {
             _meetingAttendeeRole = meetingAttendeeRole;
         }

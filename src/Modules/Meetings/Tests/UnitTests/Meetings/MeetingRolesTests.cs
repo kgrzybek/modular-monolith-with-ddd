@@ -155,7 +155,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             meetingTestData.MeetingGroup.JoinToGroupMember(attendeeId);
             meetingTestData.Meeting.AddAttendee(meetingTestData.MeetingGroup, attendeeId, 0);
 
-            AssertBrokenRule<MemberCannotBeAttendeeOfMeetingMoreThanOnceRule>(() =>
+            AssertBrokenRule<MemberCannotHaveSetAttendeeRoleMoreThanOnceRule>(() =>
             {
                 meetingTestData.Meeting.SetAttendeeRole(meetingTestData.MeetingGroup, creatorId, attendeeId);
             });

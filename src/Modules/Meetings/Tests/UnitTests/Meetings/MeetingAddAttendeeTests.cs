@@ -61,6 +61,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
         [Test]
         public void AddAttendee_WhenMemberIsAlreadyAttendeeOfMeeting_IsNotPossible()
         {
+            // Arrange
             var creatorId = new MemberId(Guid.NewGuid());
             var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions
             {
@@ -68,11 +69,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             });    
             var newMemberId = new MemberId(Guid.NewGuid());
             meetingTestData.MeetingGroup.JoinToGroupMember(newMemberId);
-            
             meetingTestData.Meeting.AddAttendee(meetingTestData.MeetingGroup, newMemberId, 0);
 
-            AssertBrokenRule<MemberIsAlreadyAnAttendeeOfMeetingRule>(() =>
+            // Assert
+            AssertBrokenRule<MemberCannotBeAnAttendeeOfMeetingMoreThanOnceRule>(() =>
             {
+                // Act
                 meetingTestData.Meeting.AddAttendee(meetingTestData.MeetingGroup, newMemberId, 0);
             });          
         }
