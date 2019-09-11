@@ -72,6 +72,7 @@ This is list of main goals of this repository:
 - Presentation of the use of **design patterns**. When, how and why they can be used
 - Presentation of some **architectural** considerations, decisions, approaches
 - Presentation of the implementation using **Domain-Driven Design** approach (tactical patterns)
+- Presentation of the implementation of **Unit Tests** for Domain Model (Testable Design in mind).
 
 ### 1.2 Out of scope
 
@@ -401,6 +402,10 @@ Primitive attributes of Entites grouped together using ValueObjects.
 5. **Business language**
 
 All classes, methods and other members named in business language used in this Bounded Context.
+
+6. **Testable**
+
+Domain Model is critical part of system so it should be easy to test (Testable Design).
 
 ```csharp
 public class MeetingGroup : Entity, IAggregateRoot
@@ -785,7 +790,7 @@ Each unit test has 3 standard sections: Arrange, Act and Assert
 
 The Arrange section is responsible for preparing the Aggregate for testing the public method that we want to test. This public method is often called from the unit tests perspective as SUT (system under test). 
 
-Creating an Aggregate ready for testing involves **calling one or more other public constructors/methods** on the Domain Model. At first it may seem that we are testing too many things at the same time, but this is not true. We need to be in one percent sure, that the Aggreagate is in state exactly as it will be in production. This can only be ensured when:
+Creating an Aggregate ready for testing involves **calling one or more other public constructors/methods** on the Domain Model. At first it may seem that we are testing too many things at the same time, but this is not true. We need to be in one hundred percent sure, that the Aggregate is in state exactly as it will be in production. This can only be ensured when:
 
 - **we use only public API of Domain Model**
 - we don't use [InternalsVisibleToAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.internalsvisibletoattribute?view=netframework-4.8) class. This exposes Domain Model to Unit Tests library removing encapsulation so our tests and production code is treated differently and it is very bad thing.
