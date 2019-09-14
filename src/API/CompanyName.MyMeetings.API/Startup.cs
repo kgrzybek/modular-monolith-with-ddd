@@ -27,6 +27,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using Serilog;
 using Serilog.Formatting.Compact;
 
@@ -103,8 +104,15 @@ namespace CompanyName.MyMeetings.API
 
             app.UseHttpsRedirection();
 
-            app.UseMvc();
-           
+            app.UseRouting();
+
+            // Executes the endpoint that was selected by routing.
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                // endpoints.MapRazorPages();
+            });
+
         }
 
         private static void ConfigureLogger()
@@ -156,7 +164,7 @@ namespace CompanyName.MyMeetings.API
             services.AddSwaggerGen(options =>
             {
                 options.DescribeAllEnumsAsStrings();
-                options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
+                options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "MyMeetings API",
                     Version = "v1",
