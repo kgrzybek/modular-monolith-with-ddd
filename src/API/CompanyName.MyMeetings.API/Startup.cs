@@ -40,7 +40,7 @@ namespace CompanyName.MyMeetings.API
         private static ILogger _logger;
         private static ILogger _loggerForApi;
 
-        public Startup(IHostingEnvironment env)
+        public Startup(IWebHostEnvironment env)
         {
             ConfigureLogger();
 
@@ -61,7 +61,7 @@ namespace CompanyName.MyMeetings.API
             services.AddSingleton<IExecutionContextAccessor, ExecutionContextAccessor>();
 
             services
-                .AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                .AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
                 
             services.AddProblemDetails(x =>
             {
@@ -84,14 +84,14 @@ namespace CompanyName.MyMeetings.API
         }
      
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             app.UseMiddleware<CorrelationMiddleware>();
             ConfigureSwagger(app);
 
             app.UseIdentityServer();
 
-            if (env.IsDevelopment())
+            if (env.EnvironmentName == "Development")
             {
                 // app.UseProblemDetails();
                 app.UseDeveloperExceptionPage();
