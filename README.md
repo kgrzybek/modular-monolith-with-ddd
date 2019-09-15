@@ -938,6 +938,7 @@ List of technologies, frameworks and libraries used to implementation:
 - [Postman](https://www.getpostman.com/) (API tests)
 - [NUnit](https://nunit.org/) (Testing framework)
 - [NSubstitute](https://nsubstitute.github.io/) (Testing isolation framework)
+- [Visual Paradigm Community Edition](https://www.visual-paradigm.com/download/community.jsp) (CASE tool for modeling and documentation)
 
 ## 5. How to run
 
