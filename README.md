@@ -2,6 +2,8 @@
 
 Full Modular Monolith .NET application with Domain-Driven Design approach.
 
+[![Build Status](https://dev.azure.com/kgr0189/kgr/_apis/build/status/kgrzybek.modular-monolith-with-ddd?branchName=master)](https://dev.azure.com/kgr0189/kgr/_build/latest?definitionId=1&branchName=master)
+
 ## Table of contents
 
 [1. Introduction](#1-Introduction)
