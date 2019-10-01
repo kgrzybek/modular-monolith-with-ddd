@@ -168,7 +168,7 @@ To create new ```Meeting Group```, ```Member``` needs to propose this group. ```
 
 To be able to organize ```Meetings```, the ```Meeting Group``` must be paid for. ```Meeting Group``` ```Organizer``` who is the ```Payer```, must pay some fee according to payment plan.
 
-Additionally, Meeting organizer can set ```Event Fee```. Each ```Meeting Attendee``` of is obliged to pay a fee. All guests should be payed by Meeting Attendee too.
+Additionally, Meeting organizer can set ```Event Fee```. Each ```Meeting Attendee``` of is obliged to pay a fee. All guests should be paid by Meeting Attendee too.
 
 **Users**
 
@@ -183,7 +183,7 @@ Each ```User Role``` has set of ```Permissions```. ```Permission``` defines whet
 
 **Definition:**
 
-> Conceptual Model - A conceptual model is a representation of a system, made of the composition of concepts which are used to help people know, understand, or simulate a subject the model represents. [Wikipedia - Conceptual model](https://en.wikipedia.org/wiki/Conceptual_model)
+> Conceptual Model - A conceptual model is a representation of a system, made of the composition of concepts that are used to help people know, understand, or simulate a subject the model represents. [Wikipedia - Conceptual model](https://en.wikipedia.org/wiki/Conceptual_model)
 
 **Conceptual Model**
 
@@ -237,10 +237,10 @@ Modules description:
 **Key assumptions:**
 
 1. API doesn't have any application logic.
-2. API communicates with module using small interface to send Queries and Commands.
+2. API communicates with module using a small interface to send Queries and Commands.
 3. Each module has its own interface which is used by API.
 4. **Modules communicate each other only asynchronously using Events Bus**. Remote Procedure Call is not allowed.
-5. Each Module **has own data** - in separate schema or database. Shared data is not allowed.
+5. Each Module **has it's own data** - in separate schema or database. Shared data is not allowed.
 6. Module doesn't have dependency to other module. Module can have only dependency to integration events assembly of other module (see [Module level view](#32-module-level-view)).
 7. Each Module has its own [Composition Root](https://freecontent.manning.com/dependency-injection-in-net-2nd-edition-understanding-the-composition-root/). Which implies that each Module has its own Inversion Of Control container.
 8. API as a host needs to initialize each module. Each module has initialization method.
@@ -301,7 +301,7 @@ public interface IMeetingsModule
 }
 ```
 
-Note: Some people say that processing of command shouldn't return a result. This is good approach but sometimes impractical, especially when you create resource and want immediately return ID of this resource. Sometimes, boundary between Command and Query is blurry. One of the example is ``AuthenticateCommand`` - it returns token but it is not a query (has side effect).
+Note: Some people say that processing of command shouldn't return a result. This is good approach but sometimes impractical, especially when you create resource and want immediately return ID of this resource. Sometimes, boundary between Command and Query is blurry. One of the examples is ``AuthenticateCommand`` - it returns token but it is not a query (has side effect).
 
 ### 3.4 Module requests processing CQRS
 
@@ -370,7 +370,7 @@ internal class GetAllMeetingGroupsQueryHandler : IQueryHandler<GetAllMeetingGrou
 
 **Key advantages:**
 
-- Solution appropriate to problem - reading and writing needs are usually different
+- Solution appropriate to the problem - reading and writing needs are usually different
 - Supports SRP - one handler does one thing
 - Supports ISP - each handler implements interface with exactly one method
 - Commands and Queries are objects ([Parameter Object pattern](https://refactoring.com/catalog/introduceParameterObject.html)) which are easy to serialize/deserialize
@@ -383,7 +383,7 @@ More info can be found here: [Simple CQRS implementation with raw SQL and DDD](h
 
 ### 3.5 Domain Model principles and attributes
 
-Domain Model, which is the central and most critical part in the system, should be designed with special attention. Here are some key principles and attributes which are applied to Domain Models of each modules:
+Domain Model, which is the central and most critical part in the system, should be designed with special attention. Here are some key principles and attributes which are applied to Domain Models of each module:
 
 1. **High level of encapsulation**
 
@@ -397,7 +397,7 @@ No dependencies to infrastructure, databases, other stuff. All classes are POCO.
 
 All business logic is located in Domain Model. No leaks to application layer or other places.
 
-4. **Low level of primitive obssesion**
+4. **Low level of primitive obsession**
 
 Primitive attributes of Entites grouped together using ValueObjects.
 
@@ -666,9 +666,9 @@ Outbox and Inbox is implemented using two SQL tables and background worker for e
 
 The main principle of this system is that you can change its state only by calling a specific Command. 
 
-Sometimes, Command can be called not by API but by processing module itself. The main use case which uses this mechanism is data processing in eventual consistency mode, when we want process something in different process and transaction. This applies for example for Inbox processing, because we want do something (calling a Command) based on Integration Event from Inbox.
+Sometimes, Command can be called not by API but by processing module itself. The main use case which uses this mechanism is data processing in eventual consistency mode, when we want to process something in different process and transaction. This applies for example for Inbox processing, because we want to do something (calling a Command) based on Integration Event from Inbox.
 
-This idea is taken from Alberto's Brandolini Event Storming picture called "The picture that explains “almost” everything" which shows that every side effect (domain event) is created by invoking Command on Aggregate. See [EventStorming cheat sheat](https://xebia.com/blog/eventstorming-cheat-sheet/) article for more details.
+This idea is taken from Alberto's Brandolini Event Storming picture called "The picture that explains “almost” everything" which shows that every side effect (domain event) is created by invoking Command on Aggregate. See [EventStorming cheat sheet](https://xebia.com/blog/eventstorming-cheat-sheet/) article for more details.
 
 Implementation of internal processing is very similar to implementation of Outbox and Inbox. One SQL table and one background worker for processing. Each internally processing Command must inherit from ``InternalCommandBase`` class:
 
