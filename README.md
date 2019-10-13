@@ -135,7 +135,7 @@ As it is written above there are very few really good examples of this type of a
 
 For the purposes of this project, the meeting groups domain, based on the [Meetup](https://www.meetup.com/) system, was selected.
 
-**Main reasons of selection this domain:**
+**Main reasons of selecting this domain:**
 
 - It is common, a lot of people use Meetup site to organize or attend meetings.
 - There is system for it, so everyone can check how software which supports this domain works
@@ -146,19 +146,19 @@ For the purposes of this project, the meeting groups domain, based on the [Meetu
 
 **Meetings**
 
-Main business entities are ```Member```, ```Meeting Group``` and ```Meeting```. ```Member``` can create ```Meeting Group```, be part of ```Meeting Group``` or can attend the ```Meeting```. 
+Main business entities are ```Member```, ```Meeting Group``` and ```Meeting```. ```Member``` can create ```Meeting Group```, be part of ```Meeting Group``` or can attend the ```Meeting```.
 
-```Meeting Group Member``` can be an ```Organizer``` of this group or normal ```Member```.
+A ```Meeting Group Member``` can be an ```Organizer``` of this group or normal ```Member```.
 
 Only ```Organizer``` of ```Meeting Group``` can create new ```Meeting```.
 
-```Meeting``` have attendees, not attendees (```Members``` which declare that not attendee ```Meeting```) and ```Members``` on ```Waitlist```.
+A ```Meeting``` has attendees, not attendees (```Members``` which declare they will not attend the ```Meeting```) and ```Members``` on ```Waitlist```.
 
-```Meeting``` can have attendees limit. If the limit is reach, ```Members``` can only sign up to ``Waitlist``.
+A ```Meeting``` can have attendees limit. If the limit is reach, ```Members``` can only sign up to ``Waitlist``.
 
-```Meeting Attendee``` can bring to ```Meeting``` guests. Number of guests is an attribute of ```Meeting```. Bringing guests can be not allowed.
+A ```Meeting Attendee``` can bring guests to the ```Meeting```. Number of guests is an attribute of ```Meeting```. Bringing guests can be unallowed.
 
-```Meeting Attendee``` can have one of two roles : normal ```Attendee``` or ```Host```. ```Meeting``` must have at least one ```Host```. ```Host``` is special role which can edit ```Meeting``` information or change attendees list.
+A ```Meeting Attendee``` can have one of two roles : normal ```Attendee``` or ```Host```. A ```Meeting``` must have at least one ```Host```. ```Host``` is a special role which grants permission to edit ```Meeting``` information or change attendees list.
 
 **Administration**
 
@@ -168,13 +168,13 @@ To create new ```Meeting Group```, ```Member``` needs to propose this group. ```
 
 To be able to organize ```Meetings```, the ```Meeting Group``` must be paid for. ```Meeting Group``` ```Organizer``` who is the ```Payer```, must pay some fee according to payment plan.
 
-Additionally, Meeting organizer can set ```Event Fee```. Each ```Meeting Attendee``` of is obliged to pay a fee. All guests should be paid by Meeting Attendee too.
+Additionally, Meeting organizer can set ```Event Fee```. Each ```Meeting Attendee``` is required to pay a fee. All guests should be paid by Meeting Attendee too.
 
 **Users**
 
-Each ```Administrator```,```Member``` and ```Payer``` is an ```User```. To be an ```User```, ```User Registration``` is required and confirmed.
+Each ```Administrator```, ```Member``` and ```Payer``` is a ```User```. To be a ```User```, ```User Registration``` is required and confirmed.
 
-Each ```User``` has assigned one or more ```User Role```. 
+Each ```User``` is assigned one or more ```User Role```.
 
 Each ```User Role``` has set of ```Permissions```. ```Permission``` defines whether ```User``` can invoke particular action.
 
@@ -191,7 +191,7 @@ Each ```User Role``` has set of ```Permissions```. ```Permission``` defines whet
 
 ### 2.3 Event Storming
 
-Conceptual Model focuses on structures and relationships between them. What is more important is **behavior** end **events** that occurs in our domain. 
+Conceptual Model focuses on structures and relationships between them. What is more important is **behavior** end **events** that occurs in our domain.
 
 There are many ways to show behavior and events. One of them is a light technique called [Event Storming](https://www.eventstorming.com/) which is becoming more popular. Below are presented 3 main business processes using this technique : user registration, meeting group creation and meeting organization.
 
@@ -271,7 +271,7 @@ Each module has static ``Initialize`` method which is invoked in API ``Startup``
 
 ```csharp
 public static void Initialize(
-    string connectionString, 
+    string connectionString,
     IExecutionContextAccessor executionContextAccessor,
     ILogger logger,
     EmailsConfiguration emailsConfiguration)
@@ -305,7 +305,7 @@ Note: Some people say that processing of command shouldn't return a result. This
 
 ### 3.4 Module requests processing CQRS
 
-Commands and Queries processing is separated applying architectural style/pattern [Command Query Responsibility Segregation (CQRS)](https://docs.microsoft.com/pl-pl/azure/architecture/patterns/cqrs). 
+Commands and Queries processing is separated applying architectural style/pattern [Command Query Responsibility Segregation (CQRS)](https://docs.microsoft.com/pl-pl/azure/architecture/patterns/cqrs).
 
 ![](docs/Images/CQRS.jpg)
 
@@ -318,7 +318,7 @@ internal class CreateNewMeetingGroupCommandHandler : ICommandHandler<CreateNewMe
     private readonly IMeetingGroupProposalRepository _meetingGroupProposalRepository;
 
     internal CreateNewMeetingGroupCommandHandler(
-        IMeetingGroupRepository meetingGroupRepository, 
+        IMeetingGroupRepository meetingGroupRepository,
         IMeetingGroupProposalRepository meetingGroupProposalRepository)
     {
         _meetingGroupRepository = meetingGroupRepository;
@@ -429,14 +429,14 @@ public class MeetingGroup : Entity, IAggregateRoot
     private DateTime? _paymentDateTo;
 
     internal static MeetingGroup CreateBasedOnProposal(
-        MeetingGroupProposalId meetingGroupProposalId, 
-        string name, 
+        MeetingGroupProposalId meetingGroupProposalId,
+        string name,
         string description,
         MeetingGroupLocation location, MemberId creatorId)
     {
         return new MeetingGroup(meetingGroupProposalId, name, description, location, creatorId);
     }
-    
+
      public Meeting CreateMeeting(
             string title,
             MeetingTerm term,
@@ -485,8 +485,8 @@ internal class LoggingCommandHandlerDecorator<T> : ICommandHandler<T> where T:IC
     private readonly ICommandHandler<T> _decorated;
 
     public LoggingCommandHandlerDecorator(
-        ILogger logger, 
-        IExecutionContextAccessor executionContextAccessor, 
+        ILogger logger,
+        IExecutionContextAccessor executionContextAccessor,
         ICommandHandler<T> decorated)
     {
         _logger = logger;
@@ -549,8 +549,8 @@ internal class LoggingCommandHandlerDecorator<T> : ICommandHandler<T> where T:IC
         {
             if (_executionContextAccessor.IsAvailable)
             {
-                logEvent.AddOrUpdateProperty(new LogEventProperty("CorrelationId", new ScalarValue(_executionContextAccessor.CorrelationId))); 
-            }               
+                logEvent.AddOrUpdateProperty(new LogEventProperty("CorrelationId", new ScalarValue(_executionContextAccessor.CorrelationId)));
+            }
         }
     }
 }
@@ -567,7 +567,7 @@ internal class ValidationCommandHandlerDecorator<T> : ICommandHandler<T> where T
     private readonly ICommandHandler<T> _decorated;
 
     public ValidationCommandHandlerDecorator(
-        IList<IValidator<T>> validators, 
+        IList<IValidator<T>> validators,
         ICommandHandler<T> decorated)
     {
         this._validators = validators;
@@ -612,8 +612,8 @@ public class UnitOfWorkCommandHandlerDecorator<T> : ICommandHandler<T> where T:I
     private readonly MeetingsContext _meetingContext;
 
     public UnitOfWorkCommandHandlerDecorator(
-        ICommandHandler<T> decorated, 
-        IUnitOfWork unitOfWork, 
+        ICommandHandler<T> decorated,
+        IUnitOfWork unitOfWork,
         MeetingsContext meetingContext)
     {
         _decorated = decorated;
@@ -664,7 +664,7 @@ Outbox and Inbox is implemented using two SQL tables and background worker for e
 
 ### 3.8 Internal processing
 
-The main principle of this system is that you can change its state only by calling a specific Command. 
+The main principle of this system is that you can change its state only by calling a specific Command.
 
 Sometimes, Command can be called not by API but by processing module itself. The main use case which uses this mechanism is data processing in eventual consistency mode, when we want to process something in different process and transaction. This applies for example for Inbox processing, because we want to do something (calling a Command) based on Integration Event from Inbox.
 
@@ -731,13 +731,13 @@ public class ResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
         if (!authenticationResult.IsAuthenticated)
         {
             context.Result = new GrantValidationResult(
-                TokenRequestErrors.InvalidGrant, 
+                TokenRequestErrors.InvalidGrant,
                 authenticationResult.AuthenticationError);
             return;
         }
         context.Result = new GrantValidationResult(
-            authenticationResult.User.Id.ToString(), 
-            "forms", 
+            authenticationResult.User.Id.ToString(),
+            "forms",
             authenticationResult.User.Claims);
     }
 }
@@ -755,9 +755,9 @@ public async Task<IActionResult> ProposeMeetingGroup(ProposeMeetingGroupRequest 
 {
     await _meetingsModule.ExecuteCommandAsync(
         new ProposeMeetingGroupCommand(
-            request.Name, 
-            request.Description, 
-            request.LocationCity, 
+            request.Name,
+            request.Description,
+            request.LocationCity,
             request.LocationCountryCode));
 
     return Ok();
@@ -790,7 +790,7 @@ Each unit test has 3 standard sections: Arrange, Act and Assert
 
 1. Arrange
 
-The Arrange section is responsible for preparing the Aggregate for testing the public method that we want to test. This public method is often called from the unit tests perspective as SUT (system under test). 
+The Arrange section is responsible for preparing the Aggregate for testing the public method that we want to test. This public method is often called from the unit tests perspective as SUT (system under test).
 
 Creating an Aggregate ready for testing involves **calling one or more other public constructors/methods** on the Domain Model. At first it may seem that we are testing too many things at the same time, but this is not true. We need to be in one hundred percent sure, that the Aggregate is in state exactly as it will be in production. This can only be ensured when:
 
@@ -799,7 +799,7 @@ Creating an Aggregate ready for testing involves **calling one or more other pub
 - we don't use [ConditionalAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.conditionalattribute?view=netframework-4.8) classes. It reduces readability and increase complexity.
 - we don't create any special constructors/factory methods for tests (even with conditional compilation symbols). Special constructor/factory method only for unit tests causes duplication of business logic in test itself and focuses on state. Additionally, this kind of approach causes that test is very sensitive to changes and hard to maintain.
 - We don't remove encapsulation from Domain Model (for example: change keywords from  internal/private to public)
-- We don't make methods protected to inherit from tested class and this way making access to internal methods/properties. 
+- We don't make methods protected to inherit from tested class and this way making access to internal methods/properties.
 
 **Isolation of external dependencies**
 There are 2 main concepts - stubs and mocks:
@@ -833,7 +833,7 @@ public void NewUserRegistration_WithUniqueLogin_IsSuccessful()
     // Act
     var userRegistration =
         UserRegistration.RegisterNewUser(
-            "login", "password", "test@email", 
+            "login", "password", "test@email",
             "firstName", "lastName", usersCounter);
 
     // Assert
@@ -869,7 +869,7 @@ public void AddAttendee_WhenMemberIsAlreadyAttendeeOfMeeting_IsNotPossible()
     var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions
     {
         CreatorId = creatorId
-    });    
+    });
     var newMemberId = new MemberId(Guid.NewGuid());
     meetingTestData.MeetingGroup.JoinToGroupMember(newMemberId);
     meetingTestData.Meeting.AddAttendee(meetingTestData.MeetingGroup, newMemberId, 0);
@@ -879,7 +879,7 @@ public void AddAttendee_WhenMemberIsAlreadyAttendeeOfMeeting_IsNotPossible()
     {
         // Act
         meetingTestData.Meeting.AddAttendee(meetingTestData.MeetingGroup, newMemberId, 0);
-    });          
+    });
 }
 ```
 
@@ -926,7 +926,7 @@ List of technologies, frameworks and libraries used to implementation:
 
 - [.NET Core 2.2](https://dotnet.microsoft.com/download) (platform)
 - [MS SQL Server Express](https://www.microsoft.com/en-us/sql-server/sql-server-editions-express) (database)
-- [Entity Framework Core 2.2](https://docs.microsoft.com/en-us/ef/core/) (ORM Write Model implementation for DDD) 
+- [Entity Framework Core 2.2](https://docs.microsoft.com/en-us/ef/core/) (ORM Write Model implementation for DDD)
 - [Autofac](https://autofac.org/) (Inversion of Control Container)
 - [IdentityServer4](http://docs.identityserver.io) (Authentication and Authorization)
 - [Serilog](https://serilog.net/) (structured logging)
