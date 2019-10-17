@@ -68,8 +68,8 @@ Full Modular Monolith .NET application with Domain-Driven Design approach.
 
 This is list of main goals of this repository:
 
-- Showing how you can implement the **monolith** application in a **modular** way
-- Presentation of the **full implementation** of the application. This is not another simple application. This is not another proof of concept (PoC). The assumption is to present the implementation of the application that would be ready to run on production
+- Showing how you can implement a **monolith** application in a **modular** way
+- Presentation of the **full implementation** of an application. This is not another simple application. This is not another proof of concept (PoC). The goal is to present the implementation of an application that would be ready to run in production
 - Showing the application of **best practices** and **object-oriented programming principles**
 - Presentation of the use of **design patterns**. When, how and why they can be used
 - Presentation of some **architectural** considerations, decisions, approaches
@@ -78,13 +78,13 @@ This is list of main goals of this repository:
 
 ### 1.2 Out of scope
 
-This is list of subjects which are out of scope of this repository:
+This is list of subjects which are out of scope for this repository:
 - Business requirements gathering and analysis
 - System analysis
 - Domain exploration
 - Domain distillation
 - Domain-Driven Design strategic patterns
-- Architecture evaluation, quality attributes analyzes
+- Architecture evaluation, quality attributes analysis
 - Integration, system tests
 - Project management
 - Infrastructure
@@ -99,8 +99,8 @@ This is list of subjects which are out of scope of this repository:
 The reason for creating this repository is the lack of something similar. Most sample applications on GitHub have at least one issue of the following:
 - it is very, very simple - few entities and use cases implemented
 - it is not finished (for example there is no authentication, logging, etc..)
-- it is poor designed (in my opinion)
-- it is poor implemented  (in my opinion)
+- it is poorly designed (in my opinion)
+- it is poorly implemented (in my opinion)
 - it is not well described
 - assumptions and decisions are not clearly explained
 - it implements "Orders" domain. Yes, everyone knows this domain, but something different is needed
@@ -111,11 +111,11 @@ To sum up, there are some very good examples, but there are far too few of them.
 
 ### 1.4 Disclaimer
 
-Software architecture should always be created to resolve specific **business problems**. Software architecture always supports some of quality attributes and at the same time does not support others. A lot of other factors influence your software architecture - your team, opinions, preferences, experiences, technical constraints, time, budget etc.
+Software architecture should always be created to resolve specific **business problems**. Software architecture always supports some quality attributes and at the same time does not support others. A lot of other factors influence your software architecture - your team, opinions, preferences, experiences, technical constraints, time, budget etc.
 
-Always functional requirements, quality attributes, technical constraints and other factors should be considered before architectural decision is made.
+Always functional requirements, quality attributes, technical constraints and other factors should be considered before an architectural decision is made.
 
-Because of the above, the architecture and implementation presented in this repository is **one of the many ways** to solve some problems. Take from this repository as much as you want, use it as you like but remember to **always pick the best solution which is appropriate to problem class you have**.
+Because of the above, the architecture and implementation presented in this repository is **one of the many ways** to solve some problems. Take from this repository as much as you want, use it as you like but remember to **always pick the best solution which is appropriate to the problem class you have**.
 
 ### 1.5 Give a Star
 
@@ -135,10 +135,10 @@ As it is written above there are very few really good examples of this type of a
 
 For the purposes of this project, the meeting groups domain, based on the [Meetup](https://www.meetup.com/) system, was selected.
 
-**Main reasons of selecting this domain:**
+**Main reasons for selecting this domain:**
 
-- It is common, a lot of people use Meetup site to organize or attend meetings.
-- There is system for it, so everyone can check how software which supports this domain works
+- It is common, a lot of people use the Meetup site to organize or attend meetings.
+- There is a system for it, so everyone can check how software which supports this domain works
 - It is not complex so it is easy to understand
 - It is not trivial, there are some business rules and logic. It does not have only CRUD operations
 - You don't need much specific domain knowledge as for other domains like financing, banking, medical
@@ -168,7 +168,7 @@ To create new ```Meeting Group```, ```Member``` needs to propose this group. ```
 
 To be able to organize ```Meetings```, the ```Meeting Group``` must be paid for. ```Meeting Group``` ```Organizer``` who is the ```Payer```, must pay some fee according to payment plan.
 
-Additionally, Meeting organizer can set ```Event Fee```. Each ```Meeting Attendee``` is required to pay a fee. All guests should be paid by Meeting Attendee too.
+Additionally, Meeting organizer can set ```Event Fee```. Each ```Meeting Attendee``` is obliged to pay a fee. All guests should be paid by ```Meeting Attendee``` too.
 
 **Users**
 
@@ -176,7 +176,7 @@ Each ```Administrator```, ```Member``` and ```Payer``` is a ```User```. To be a 
 
 Each ```User``` is assigned one or more ```User Role```.
 
-Each ```User Role``` has set of ```Permissions```. ```Permission``` defines whether ```User``` can invoke particular action.
+Each ```User Role``` has set of ```Permissions```. ```Permission``` defines whether ```User``` can invoke a particular action.
 
 
 ### 2.2 Conceptual Model
@@ -191,11 +191,11 @@ Each ```User Role``` has set of ```Permissions```. ```Permission``` defines whet
 
 ### 2.3 Event Storming
 
-Conceptual Model focuses on structures and relationships between them. What is more important is **behavior** end **events** that occurs in our domain.
+Conceptual Model focuses on structures and relationships between them. What is more important is **behavior** and **events** that occur in our domain. 
 
 There are many ways to show behavior and events. One of them is a light technique called [Event Storming](https://www.eventstorming.com/) which is becoming more popular. Below are presented 3 main business processes using this technique : user registration, meeting group creation and meeting organization.
 
-Note: Event Storming is light, live workshop. Here is presented only one of the possible outputs of this workshop. Even you are not doing Event Storming workshops, this type of presentation of process can be very valuable to you and your stakeholders.
+Note: Event Storming is a light, live workshop. Here is presented only one of the possible outputs of this workshop. Even if you are not doing Event Storming workshops, this type of presentation of process can be very valuable to you and your stakeholders.
 
 **User Registration process**
 
@@ -241,10 +241,10 @@ Modules description:
 3. Each module has its own interface which is used by API.
 4. **Modules communicate each other only asynchronously using Events Bus**. Remote Procedure Call is not allowed.
 5. Each Module **has it's own data** - in separate schema or database. Shared data is not allowed.
-6. Module doesn't have dependency to other module. Module can have only dependency to integration events assembly of other module (see [Module level view](#32-module-level-view)).
+6. Module doesn't have dependencies on other modules. Module can have only dependency on integration events assembly of other module (see [Module level view](#32-module-level-view)).
 7. Each Module has its own [Composition Root](https://freecontent.manning.com/dependency-injection-in-net-2nd-edition-understanding-the-composition-root/). Which implies that each Module has its own Inversion Of Control container.
-8. API as a host needs to initialize each module. Each module has initialization method.
-9. Each module is **highly encapsulated**. Only required types and members are public - rest is internal or private.
+8. API as a host needs to initialize each module. Each module has an initialization method.
+9. Each module is **highly encapsulated**. Only required types and members are public - the rest is internal or private.
 
 ### 3.2 Module Level View
 
@@ -259,7 +259,7 @@ Each Module consists of the following submodules (assemblies):
 
 ![](docs/Images/VSSolution.png)
 
-Note: Application, Domain and Infrastructure assemblies can be merged to one assembly. Some people like horizontal layering or more decomposition, some don't. Implementing Domain Model or Infrastructure in separate assembly gives opportunity to encapsulate it using internal keyword. Sometimes Bounded Context logic is not worth it because it is too simple. As always, be pragmatic and take approach whatever you like.
+Note: Application, Domain and Infrastructure assemblies can be merged into one assembly. Some people like horizontal layering or more decomposition, some don't. Implementing Domain Model or Infrastructure in separate assembly gives opportunity to encapsulate it using internal keyword. Sometimes Bounded Context logic is not worth it because it is too simple. As always, be pragmatic and take approach whatever you like.
 
 ### 3.3 API and Module Communication
 
@@ -267,7 +267,7 @@ API communicates with Module only in two places: during module initialization an
 
 **Module initialization**
 
-Each module has static ``Initialize`` method which is invoked in API ``Startup`` class. All configuration needed by this module should be provided as argument in this method. During initialization all services are configured and Composition Root using Inversion Of Control Container is created.
+Each module has static ``Initialize`` method which is invoked in API ``Startup`` class. All configuration needed by this module should be provided as arguments to this method. During initialization all services are configured and Composition Root using Inversion Of Control Container is created.
 
 ```csharp
 public static void Initialize(
@@ -301,7 +301,7 @@ public interface IMeetingsModule
 }
 ```
 
-Note: Some people say that processing of command shouldn't return a result. This is good approach but sometimes impractical, especially when you create resource and want immediately return ID of this resource. Sometimes, boundary between Command and Query is blurry. One of the examples is ``AuthenticateCommand`` - it returns token but it is not a query (has side effect).
+Note: Some people say that processing of command shouldn't return a result. This is a good approach but sometimes impractical, especially when you create a resource and want to immediately return the ID of this resource. Sometimes, boundary between Command and Query is blurry. One of the examples is ``AuthenticateCommand`` - it returns a token but it is not a query (has side effect).
 
 ### 3.4 Module requests processing CQRS
 
@@ -407,7 +407,7 @@ All classes, methods and other members named in business language used in this B
 
 6. **Testable**
 
-Domain Model is critical part of system so it should be easy to test (Testable Design).
+Domain Model is a critical part of the system so it should be easy to test (Testable Design).
 
 ```csharp
 public class MeetingGroup : Entity, IAggregateRoot
@@ -602,6 +602,7 @@ internal class ValidationCommandHandlerDecorator<T> : ICommandHandler<T> where T
 ```
 
 **Unit Of Work**
+
 Every Command processing has side effects. To not call commit on every handler, ``UnitOfWorkCommandHandlerDecorator`` is used. It additionally marks ``InternalCommand`` as processed (if it is Internal Command) and dispatches all Domain Events (as part of [Unit Of Work](https://martinfowler.com/eaaCatalog/unitOfWork.html)).
 
 ```csharp
@@ -648,7 +649,7 @@ public class UnitOfWorkCommandHandlerDecorator<T> : ICommandHandler<T> where T:I
 
 Integration between modules takes place only in an **asynchronous** way using Integration Events and In Memory Events Bus as broker. In this way coupling between modules is minimal and exists only on structure of Integration Events.
 
-**Modules don't share data** so it is not possible and wanted to create transaction which spans more than one module. To ensure maximum reliability, [Outbox / Inbox pattern](http://www.kamilgrzybek.com/design/the-outbox-pattern/) are used. They provide accordingly *"At-Least-Once delivery"* and *"At-Least-Once processing"*.
+**Modules don't share data** so it is not possible or desirable to create a transaction which spans more than one module. To ensure maximum reliability, [Outbox / Inbox pattern](http://www.kamilgrzybek.com/design/the-outbox-pattern/) are used. They provide accordingly *"At-Least-Once delivery"* and *"At-Least-Once processing"*.
 
 ![](docs/Images/OutboxInbox.jpg)
 
@@ -666,7 +667,7 @@ Outbox and Inbox is implemented using two SQL tables and background worker for e
 
 The main principle of this system is that you can change its state only by calling a specific Command.
 
-Sometimes, Command can be called not by API but by processing module itself. The main use case which uses this mechanism is data processing in eventual consistency mode, when we want to process something in different process and transaction. This applies for example for Inbox processing, because we want to do something (calling a Command) based on Integration Event from Inbox.
+Sometimes, Command can be called not by API but by processing module itself. The main use case which uses this mechanism is data processing in eventual consistency mode, when we want to process something in a different process and transaction. This applies for example to Inbox processing, because we want to do something (calling a Command) based on Integration Event from Inbox.
 
 This idea is taken from Alberto's Brandolini Event Storming picture called "The picture that explains “almost” everything" which shows that every side effect (domain event) is created by invoking Command on Aggregate. See [EventStorming cheat sheet](https://xebia.com/blog/eventstorming-cheat-sheet/) article for more details.
 
@@ -745,7 +746,7 @@ public class ResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
 
 **Authorization**
 
-Authorization mechanism implements [RBAC (Role Based Access Control)](https://en.wikipedia.org/wiki/Role-based_access_control) using Permissions. Permissions are more granular and much better way to secure your application than Roles. Each User has set of Roles and each Role contains one or more Permission. With this mapping User has set of Permissions which are always checked on ``Controller`` level:
+Authorization mechanism implements [RBAC (Role Based Access Control)](https://en.wikipedia.org/wiki/Role-based_access_control) using Permissions. Permissions are more granular and much better way to secure your application than Roles. Each User has a set of Roles and each Role contains one or more Permission. With this mapping User has set of Permissions which are always checked on ``Controller`` level:
 
 ```csharp
 [HttpPost]
@@ -792,16 +793,17 @@ Each unit test has 3 standard sections: Arrange, Act and Assert
 
 The Arrange section is responsible for preparing the Aggregate for testing the public method that we want to test. This public method is often called from the unit tests perspective as SUT (system under test).
 
-Creating an Aggregate ready for testing involves **calling one or more other public constructors/methods** on the Domain Model. At first it may seem that we are testing too many things at the same time, but this is not true. We need to be in one hundred percent sure, that the Aggregate is in state exactly as it will be in production. This can only be ensured when:
+Creating an Aggregate ready for testing involves **calling one or more other public constructors/methods** on the Domain Model. At first it may seem that we are testing too many things at the same time, but this is not true. We need to be one hundred percent sure, that the Aggregate is in a state exactly as it will be in production. This can only be ensured when:
 
 - **we use only public API of Domain Model**
-- we don't use [InternalsVisibleToAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.internalsvisibletoattribute?view=netframework-4.8) class. This exposes Domain Model to Unit Tests library removing encapsulation so our tests and production code is treated differently and it is very bad thing.
-- we don't use [ConditionalAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.conditionalattribute?view=netframework-4.8) classes. It reduces readability and increase complexity.
-- we don't create any special constructors/factory methods for tests (even with conditional compilation symbols). Special constructor/factory method only for unit tests causes duplication of business logic in test itself and focuses on state. Additionally, this kind of approach causes that test is very sensitive to changes and hard to maintain.
+- we don't use [InternalsVisibleToAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.internalsvisibletoattribute?view=netframework-4.8) class. This exposes Domain Model to Unit Tests library removing encapsulation so our tests and production code is treated differently and it is a very bad thing.
+- we don't use [ConditionalAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.conditionalattribute?view=netframework-4.8) classes. It reduces readability and increases complexity.
+- we don't create any special constructors/factory methods for tests (even with conditional compilation symbols). Special constructor/factory method only for unit tests causes duplication of business logic in the test itself and focuses on state. Additionally, this kind of approach causes the test to be very sensitive to changes and hard to maintain.
 - We don't remove encapsulation from Domain Model (for example: change keywords from  internal/private to public)
-- We don't make methods protected to inherit from tested class and this way making access to internal methods/properties.
+- We don't make methods protected to inherit from tested class and in this way provide access to internal methods/properties. 
 
 **Isolation of external dependencies**
+
 There are 2 main concepts - stubs and mocks:
 
 > A stub is a controllable replacement for an existing dependency (or collaborator) in the system. By using a stub, you can test your code without dealing with the dependency directly.
@@ -809,7 +811,7 @@ There are 2 main concepts - stubs and mocks:
 >A mock object is a fake object in the system that decides whether the unit test has passed or failed. It does so by verifying whether the object under test called the fake object as expected. There’s usually no more than one mock per test.
 >[Art of Unit Testing 2nd Edition](https://www.manning.com/books/the-art-of-unit-testing-second-edition) Roy Osherove
 
-Good advice is following: use stub if you need to, but try to avoid mocks. Mocking causes that we test too many internal things and leads to overspecification.
+Good advice is following: use stubs if you need to, but try to avoid mocks. Mocking causes us to test too many internal things and leads to overspecification.
 
 2. Act
 
@@ -883,7 +885,7 @@ public void AddAttendee_WhenMemberIsAlreadyAttendeeOfMeeting_IsNotPossible()
 }
 ```
 
-``CreateMeetingTestData`` method is implementation of [SUT Factory](https://blog.ploeh.dk/2009/02/13/SUTFactory/) described by Mark Seemann which allows to keep common creation logic in one place:
+``CreateMeetingTestData`` method is an implementation of [SUT Factory](https://blog.ploeh.dk/2009/02/13/SUTFactory/) described by Mark Seemann which allows keeping common creation logic in one place:
 
 ```csharp
 protected MeetingTestData CreateMeetingTestData(MeetingTestDataOptions options)
@@ -922,7 +924,7 @@ protected MeetingTestData CreateMeetingTestData(MeetingTestDataOptions options)
 
 ## 4. Technology
 
-List of technologies, frameworks and libraries used to implementation:
+List of technologies, frameworks and libraries used for implementation:
 
 - [.NET Core 2.2](https://dotnet.microsoft.com/download) (platform)
 - [MS SQL Server Express](https://www.microsoft.com/en-us/sql-server/sql-server-editions-express) (database)
