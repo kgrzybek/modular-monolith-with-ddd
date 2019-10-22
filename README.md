@@ -68,24 +68,27 @@ Full Modular Monolith .NET application with Domain-Driven Design approach.
 
 ### 1.1 Purpose of this Repository
 
-This is list of main goals of this repository:
+This is a list of the main goals of this repository:
 
 - Showing how you can implement a **monolith** application in a **modular** way
-- Presentation of the **full implementation** of an application. This is not another simple application. This is not another proof of concept (PoC). The goal is to present the implementation of an application that would be ready to run in production
+- Presentation of the **full implementation** of an application
+  - This is not another simple application
+  - This is not another proof of concept (PoC)
+  - The goal is to present the implementation of an application that would be ready to run in production
 - Showing the application of **best practices** and **object-oriented programming principles**
 - Presentation of the use of **design patterns**. When, how and why they can be used
 - Presentation of some **architectural** considerations, decisions, approaches
-- Presentation of the implementation using **Domain-Driven Design** approach (tactical patterns)
-- Presentation of the implementation of **Unit Tests** for Domain Model (Testable Design in mind).
+- Presentation of the implementation using **Domain-Driven Design** approach (**tactical** patterns)
+- Presentation of the implementation of **Unit Tests** for Domain Model (Testable Design in mind)
 
 ### 1.2 Out of Scope
 
-This is list of subjects which are out of scope for this repository:
+This is a list of subjects which are out of scope for this repository:
 - Business requirements gathering and analysis
 - System analysis
 - Domain exploration
 - Domain distillation
-- Domain-Driven Design strategic patterns
+- Domain-Driven Design **strategic** patterns
 - Architecture evaluation, quality attributes analysis
 - Integration, system tests
 - Project management
@@ -98,22 +101,22 @@ This is list of subjects which are out of scope for this repository:
 
 ### 1.3 Reason
 
-The reason for creating this repository is the lack of something similar. Most sample applications on GitHub have at least one issue of the following:
-- it is very, very simple - few entities and use cases implemented
-- it is not finished (for example there is no authentication, logging, etc..)
-- it is poorly designed (in my opinion)
-- it is poorly implemented (in my opinion)
-- it is not well described
-- assumptions and decisions are not clearly explained
-- it implements "Orders" domain. Yes, everyone knows this domain, but something different is needed
-- is implemented in old technology
-- is not maintained
+The reason for creating this repository is the lack of something similar. Most sample applications on GitHub have at least one of the following issues:
+- Very, very simple - few entities and use cases implemented
+- Not finished (for example there is no authentication, logging, etc..)
+- Poorly designed (in my opinion)
+- Poorly implemented (in my opinion)
+- Not well described
+- Assumptions and decisions are not clearly explained
+- Implements "Orders" domain - yes, everyone knows this domain, but something different is needed
+- Implemented in old technology
+- Not maintained
 
 To sum up, there are some very good examples, but there are far too few of them. This repository has the task of filling this gap at some level.
 
 ### 1.4 Disclaimer
 
-Software architecture should always be created to resolve specific **business problems**. Software architecture always supports some quality attributes and at the same time does not support others. A lot of other factors influence your software architecture - your team, opinions, preferences, experiences, technical constraints, time, budget etc.
+Software architecture should always be created to resolve specific **business problems**. Software architecture always supports some quality attributes and at the same time does not support others. A lot of other factors influence your software architecture - your team, opinions, preferences, experiences, technical constraints, time, budget, etc.
 
 Always functional requirements, quality attributes, technical constraints and other factors should be considered before an architectural decision is made.
 
@@ -121,11 +124,11 @@ Because of the above, the architecture and implementation presented in this repo
 
 ### 1.5 Give a Star
 
-In this project on the first place I focus on its quality. Create good quality involves a lot of analysis, research and work. It takes a lot of time. If you like this project, learned something or you are using it in your applications, please give it a star :star:.  This is the best motivation for me to continue this work. Thanks!
+My primary focus in this project is on quality. Creating a good quality product involves a lot of analysis, research and work. It takes a lot of time. If you like this project, learned something or you are using it in your applications, please give it a star :star:.  This is the best motivation for me to continue this work. Thanks!
 
 ### 1.6 Share It
 
-As it is written above there are very few really good examples of this type of application. If you think this repository makes a difference and is worth it, please share it with your friends and on social networks. I will be extremely grateful.
+There are very few really good examples of this type of application. If you think this repository makes a difference and is worth it, please share it with your friends and on social networks. I will be extremely grateful.
 
 ## 2. Domain
 
@@ -135,42 +138,42 @@ As it is written above there are very few really good examples of this type of a
 
 > Domain - A sphere of knowledge, influence, or activity. The subject area to which the user applies a program is the domain of the software. [Domain-Driven Design Reference](http://domainlanguage.com/ddd/reference/), Eric Evans
 
-For the purposes of this project, the meeting groups domain, based on the [Meetup](https://www.meetup.com/) system, was selected.
+The **Meeting Groups** domain was selected for the purposes of this project based on the [Meetup](https://www.meetup.com/) system.
 
 **Main reasons for selecting this domain:**
 
-- It is common, a lot of people use the Meetup site to organize or attend meetings.
-- There is a system for it, so everyone can check how software which supports this domain works
+- It is common, a lot of people use the Meetup site to organize or attend meetings
+- There is a system for it, so everyone can check this implementation against a working site which supports this domain
 - It is not complex so it is easy to understand
-- It is not trivial, there are some business rules and logic. It does not have only CRUD operations
-- You don't need much specific domain knowledge as for other domains like financing, banking, medical
+- It is not trivial - there are some business rules and logic and it is not just CRUD operations
+- You don't need much specific domain knowledge as opposed to other domains like financing, banking, medical
 - It is not big so it is easier to implement
 
 **Meetings**
 
-Main business entities are ```Member```, ```Meeting Group``` and ```Meeting```. ```Member``` can create ```Meeting Group```, be part of ```Meeting Group``` or can attend the ```Meeting```.
+Main business entities are ```Member```, ```Meeting Group``` and ```Meeting```. A ```Member``` can create a ```Meeting Group```, be part of a ```Meeting Group``` or can attend a ```Meeting```.
 
-A ```Meeting Group Member``` can be an ```Organizer``` of this group or normal ```Member```.
+A ```Meeting Group Member``` can be an ```Organizer``` of this group or a normal ```Member```.
 
-Only ```Organizer``` of ```Meeting Group``` can create new ```Meeting```.
+Only an ```Organizer``` of a ```Meeting Group``` can create a new ```Meeting```.
 
-A ```Meeting``` has attendees, not attendees (```Members``` which declare they will not attend the ```Meeting```) and ```Members``` on ```Waitlist```.
+A ```Meeting``` has attendees, not attendees (```Members``` which declare they will not attend the ```Meeting```) and ```Members``` on the ```Waitlist```.
 
-A ```Meeting``` can have attendees limit. If the limit is reach, ```Members``` can only sign up to ``Waitlist``.
+A ```Meeting``` can have an attendee limit. If the limit is reached, ```Members``` can only sign up to the ```Waitlist```.
 
-A ```Meeting Attendee``` can bring guests to the ```Meeting```. Number of guests is an attribute of ```Meeting```. Bringing guests can be unallowed.
+A ```Meeting Attendee``` can bring guests to the ```Meeting```. The number of guests allowed is an attribute of the ```Meeting```. Bringing guests can be unallowed.
 
-A ```Meeting Attendee``` can have one of two roles : normal ```Attendee``` or ```Host```. A ```Meeting``` must have at least one ```Host```. ```Host``` is a special role which grants permission to edit ```Meeting``` information or change attendees list.
+A ```Meeting Attendee``` can have one of two roles: ```Attendee``` or ```Host```. A ```Meeting``` must have at least one ```Host```. The ```Host``` is a special role which grants permission to edit ```Meeting``` information or change the attendees list.
 
 **Administration**
 
-To create new ```Meeting Group```, ```Member``` needs to propose this group. ```Meeting Group Proposal``` is sent to ```Administrators```. ```Administrator``` can accept or reject ```Meeting Group Proposal```. If ```Meeting Group Proposal``` is accepted, ```Meeting Group``` is created.
+To create a new ```Meeting Group```, a ```Member``` needs to propose the group. A ```Meeting Group Proposal``` is sent to ```Administrators```. An ```Administrator``` can accept or reject a ```Meeting Group Proposal```. If a ```Meeting Group Proposal``` is accepted, a ```Meeting Group``` is created.
 
 **Payments**
 
-To be able to organize ```Meetings```, the ```Meeting Group``` must be paid for. ```Meeting Group``` ```Organizer``` who is the ```Payer```, must pay some fee according to payment plan.
+To be able to organize ```Meetings```, the ```Meeting Group``` must be paid for. The ```Meeting Group``` ```Organizer``` who is the ```Payer```, must pay some fee according to a payment plan.
 
-Additionally, Meeting organizer can set ```Event Fee```. Each ```Meeting Attendee``` is obliged to pay a fee. All guests should be paid by ```Meeting Attendee``` too.
+Additionally, Meeting organizer can set an ```Event Fee```. Each ```Meeting Attendee``` is obliged to pay the fee. All guests should be paid by ```Meeting Attendee``` too.
 
 **Users**
 
@@ -178,7 +181,7 @@ Each ```Administrator```, ```Member``` and ```Payer``` is a ```User```. To be a 
 
 Each ```User``` is assigned one or more ```User Role```.
 
-Each ```User Role``` has set of ```Permissions```. ```Permission``` defines whether ```User``` can invoke a particular action.
+Each ```User Role``` has set of ```Permissions```. A ```Permission``` defines whether ```User``` can invoke a particular action.
 
 
 ### 2.2 Conceptual Model
@@ -952,13 +955,11 @@ List of technologies, frameworks and libraries used for implementation:
 - Download and install MS SQL Server Express or other
 - Create empty database and run [InitializeDatabase.sql](src/Database/InitializeDatabase.sql) script
   - 2 test users will be created - check the script for usernames and passwords
-- Set database connection string called ```MeetingsConnectionString``` in root of API project's appsettings.json or use [Secrets](https://blogs.msdn.microsoft.com/mihansen/2017/09/10/managing-secrets-in-net-core-2-0-apps/)
+- Set a database connection string called ```MeetingsConnectionString``` in the root of the API project's appsettings.json or use [Secrets](https://blogs.msdn.microsoft.com/mihansen/2017/09/10/managing-secrets-in-net-core-2-0-apps/)
 
-  Example config setting in appsettings.json for database called ```ModularMonolith```:
+  Example config setting in appsettings.json for a database called ```ModularMonolith```:
   ```json
   {
-	  ...
-	  ,
 	  "MeetingsConnectionString": "Server=(localdb)\\mssqllocaldb;Database=ModularMonolith;Trusted_Connection=True;"
   }
   ```
@@ -974,7 +975,7 @@ List of technologies, frameworks and libraries used for implementation:
   - ```username = testMember@mail.com```
   - ```password = testMemberPass```
   
-  This will fetch a token for this user to make authorized API reqeusts using the HTTP request header ```Authorization: Bearer <access_token>```
+  This will fetch a token for this user to make authorized API requests using the HTTP request header ```Authorization: Bearer <access_token>```
 
 ## 6. Contribution
 
