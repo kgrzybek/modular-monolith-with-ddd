@@ -8,25 +8,25 @@ Full Modular Monolith .NET application with Domain-Driven Design approach.
 
 [1. Introduction](#1-Introduction)
 
-&nbsp;&nbsp;[1.1 Purpose of this repository](#11-Purpose-of-this-repository)
+&nbsp;&nbsp;[1.1 Purpose of this Repository](#11-purpose-of-this-repository)
 
-&nbsp;&nbsp;[1.2 Out of scope](#12-Out-of-scope)
+&nbsp;&nbsp;[1.2 Out of Scope](#12-out-of-scope)
 
-&nbsp;&nbsp;[1.3 Reason](#13-Reason)
+&nbsp;&nbsp;[1.3 Reason](#13-reason)
 
-&nbsp;&nbsp;[1.4 Disclaimer](#14-Disclaimer)
+&nbsp;&nbsp;[1.4 Disclaimer](#14-disclaimer)
 
-&nbsp;&nbsp;[1.5 Give a star](#15-Give-a-star)
+&nbsp;&nbsp;[1.5 Give a Star](#15-give-a-star)
 
-&nbsp;&nbsp;[1.6 Share it](#16-share-it)
+&nbsp;&nbsp;[1.6 Share It](#16-share-it)
 
 [2. Domain](#2-Domain)
 
-&nbsp;&nbsp;[2.1 Description](#21-Description)
+&nbsp;&nbsp;[2.1 Description](#21-description)
 
 &nbsp;&nbsp;[2.2 Conceptual Model](#22-conceptual-model)
 
-&nbsp;&nbsp;[2.3 Event Storming](#23-Event-Storming)
+&nbsp;&nbsp;[2.3 Event Storming](#23-event-storming)
 
 [3. Architecture](#3-Architecture)
 
@@ -36,15 +36,15 @@ Full Modular Monolith .NET application with Domain-Driven Design approach.
 
 &nbsp;&nbsp;[3.3 API and Module Communication](#33-api-and-module-communication)
 
-&nbsp;&nbsp;[3.4 Module requests processing CQRS](#34-module-requests-processing-cqrs)
+&nbsp;&nbsp;[3.4 Module Requests Processing CQRS](#34-module-requests-processing-cqrs)
 
-&nbsp;&nbsp;[3.5 Domain Model principles and attributes](#35-domain-model-principles-and-attributes)
+&nbsp;&nbsp;[3.5 Domain Model Principles and Attributes](#35-domain-model-principles-and-attributes)
 
-&nbsp;&nbsp;[3.6 Cross-cutting-concerns](#36-cross-cutting-concerns)
+&nbsp;&nbsp;[3.6 Cross-Cutting Concerns](#36-cross-cutting-concerns)
 
-&nbsp;&nbsp;[3.7 Modules integration](#37-modules-integration)
+&nbsp;&nbsp;[3.7 Modules Integration](#37-modules-integration)
 
-&nbsp;&nbsp;[3.8 Internal processing](#38-internal-processing)
+&nbsp;&nbsp;[3.8 Internal Processing](#38-internal-processing)
 
 &nbsp;&nbsp;[3.9 Security](#39-security)
 
@@ -52,7 +52,7 @@ Full Modular Monolith .NET application with Domain-Driven Design approach.
 
 [4. Technology](#4-technology)
 
-[5. How to run](#5-how-to-run)
+[5. How to Run](#5-how-to-run)
 
 [6. Contribution](#6-contribution)
 
@@ -66,7 +66,7 @@ Full Modular Monolith .NET application with Domain-Driven Design approach.
 
 ## 1. Introduction
 
-### 1.1 Purpose of this repository
+### 1.1 Purpose of this Repository
 
 This is list of main goals of this repository:
 
@@ -78,7 +78,7 @@ This is list of main goals of this repository:
 - Presentation of the implementation using **Domain-Driven Design** approach (tactical patterns)
 - Presentation of the implementation of **Unit Tests** for Domain Model (Testable Design in mind).
 
-### 1.2 Out of scope
+### 1.2 Out of Scope
 
 This is list of subjects which are out of scope for this repository:
 - Business requirements gathering and analysis
@@ -123,7 +123,7 @@ Because of the above, the architecture and implementation presented in this repo
 
 In this project on the first place I focus on its quality. Create good quality involves a lot of analysis, research and work. It takes a lot of time. If you like this project, learned something or you are using it in your applications, please give it a star :star:.  This is the best motivation for me to continue this work. Thanks!
 
-### 1.6 Share it
+### 1.6 Share It
 
 As it is written above there are very few really good examples of this type of application. If you think this repository makes a difference and is worth it, please share it with your friends and on social networks. I will be extremely grateful.
 
@@ -305,7 +305,7 @@ public interface IMeetingsModule
 
 Note: Some people say that processing of command shouldn't return a result. This is a good approach but sometimes impractical, especially when you create a resource and want to immediately return the ID of this resource. Sometimes, boundary between Command and Query is blurry. One of the examples is ``AuthenticateCommand`` - it returns a token but it is not a query (has side effect).
 
-### 3.4 Module requests processing CQRS
+### 3.4 Module Requests Processing CQRS
 
 Commands and Queries processing is separated applying architectural style/pattern [Command Query Responsibility Segregation (CQRS)](https://docs.microsoft.com/pl-pl/azure/architecture/patterns/cqrs).
 
@@ -383,7 +383,7 @@ One disadvantage - introduction of mediation gives more indirection and is harde
 
 More info can be found here: [Simple CQRS implementation with raw SQL and DDD](https://www.kamilgrzybek.com/design/simple-cqrs-implementation-with-raw-sql-and-ddd/)
 
-### 3.5 Domain Model principles and attributes
+### 3.5 Domain Model Principles and Attributes
 
 Domain Model, which is the central and most critical part in the system, should be designed with special attention. Here are some key principles and attributes which are applied to Domain Models of each module:
 
@@ -469,7 +469,7 @@ public class MeetingGroup : Entity, IAggregateRoot
         }
 ```
 
-### 3.6 Cross-cutting concerns
+### 3.6 Cross-Cutting Concerns
 
 To support [Single Responsibility Principle](https://en.wikipedia.org/wiki/Single_responsibility_principle) and [Don't Repeat Yourself](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) principles, implementation of cross-cutting concerns is done using [Decorator Pattern](https://en.wikipedia.org/wiki/Decorator_pattern). Each Command processing is decorated by 3 decorators: logging, validation and unit of work.
 
@@ -647,7 +647,7 @@ public class UnitOfWorkCommandHandlerDecorator<T> : ICommandHandler<T> where T:I
 }
 ```
 
-### 3.7 Modules integration
+### 3.7 Modules Integration
 
 Integration between modules takes place only in an **asynchronous** way using Integration Events and In Memory Events Bus as broker. In this way coupling between modules is minimal and exists only on structure of Integration Events.
 
@@ -665,7 +665,7 @@ Outbox and Inbox is implemented using two SQL tables and background worker for e
 
 ![](docs/Images/OutboxProcessing.png)
 
-### 3.8 Internal processing
+### 3.8 Internal Processing
 
 The main principle of this system is that you can change its state only by calling a specific Command.
 
@@ -946,7 +946,7 @@ List of technologies, frameworks and libraries used for implementation:
 - [NSubstitute](https://nsubstitute.github.io/) (Testing isolation framework)
 - [Visual Paradigm Community Edition](https://www.visual-paradigm.com/download/community.jsp) (CASE tool for modeling and documentation)
 
-## 5. How to run
+## 5. How to Run
 
 - Download and install .NET Core 2.2 SDK
 - Download and install MS SQL Server Express or other
