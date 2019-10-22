@@ -950,8 +950,31 @@ List of technologies, frameworks and libraries used for implementation:
 
 - Download and install .NET Core 2.2 SDK
 - Download and install MS SQL Server Express or other
-- Create empty database and run ![InitializeDatabase.sql](src/Database/InitializeDatabase.sql) script
-- Set connection string to database in appsettings.json file or using [Secrets](https://blogs.msdn.microsoft.com/mihansen/2017/09/10/managing-secrets-in-net-core-2-0-apps/)
+- Create empty database and run [InitializeDatabase.sql](src/Database/InitializeDatabase.sql) script
+  - 2 test users will be created - check the script for usernames and passwords
+- Set database connection string called ```MeetingsConnectionString``` in root of API project's appsettings.json or use [Secrets](https://blogs.msdn.microsoft.com/mihansen/2017/09/10/managing-secrets-in-net-core-2-0-apps/)
+
+  Example config setting in appsettings.json for database called ```ModularMonolith```:
+  ```json
+  {
+	  ...
+	  ,
+	  "MeetingsConnectionString": "Server=(localdb)\\mssqllocaldb;Database=ModularMonolith;Trusted_Connection=True;"
+  }
+  ```
+
+- Set the Startup Item in VS2019 to the API Project, not IIS Express
+- Once it is running you'll need a token to make API calls. This is done via OAuth2 [Password Grant Type](https://www.oauth.com/oauth2-servers/access-tokens/password-grant/). By default IdentityServer is configured with the following:
+  - ```client_id = ro.client```
+  - ```client_secret = secret``` **(this is literally the value - not a statement that this value is secret!)**
+  - ```scope = myMeetingsAPI openid profile```
+  - ```grant_type = password```
+  
+  POST to http://localhost:5000/connect/token with these fields in the body, as well as
+  - ```username = testMember@mail.com```
+  - ```password = testMemberPass```
+  
+  This will fetch a token for this user to make authorized API reqeusts using the HTTP request header ```Authorization: Bearer <access_token>```
 
 ## 6. Contribution
 
