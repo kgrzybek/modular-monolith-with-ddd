@@ -138,7 +138,7 @@ There are very few really good examples of this type of application. If you thin
 
 > Domain - A sphere of knowledge, influence, or activity. The subject area to which the user applies a program is the domain of the software. [Domain-Driven Design Reference](http://domainlanguage.com/ddd/reference/), Eric Evans
 
-The **Meeting Groups** domain was selected for the purposes of this project based on the [Meetup](https://www.meetup.com/) system.
+The **Meeting Groups** domain was selected for the purposes of this project based on the [Meetup.com](https://www.meetup.com/) system.
 
 **Main reasons for selecting this domain:**
 
@@ -146,12 +146,12 @@ The **Meeting Groups** domain was selected for the purposes of this project base
 - There is a system for it, so everyone can check this implementation against a working site which supports this domain
 - It is not complex so it is easy to understand
 - It is not trivial - there are some business rules and logic and it is not just CRUD operations
-- You don't need much specific domain knowledge as opposed to other domains like financing, banking, medical
+- You don't need much specific domain knowledge unlike other domains like financing, banking, medical
 - It is not big so it is easier to implement
 
 **Meetings**
 
-Main business entities are ```Member```, ```Meeting Group``` and ```Meeting```. A ```Member``` can create a ```Meeting Group```, be part of a ```Meeting Group``` or can attend a ```Meeting```.
+The main business entities are ```Member```, ```Meeting Group``` and ```Meeting```. A ```Member``` can create a ```Meeting Group```, be part of a ```Meeting Group``` or can attend a ```Meeting```.
 
 A ```Meeting Group Member``` can be an ```Organizer``` of this group or a normal ```Member```.
 
