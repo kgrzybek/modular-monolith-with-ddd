@@ -151,37 +151,37 @@ The **Meeting Groups** domain was selected for the purposes of this project base
 
 **Meetings**
 
-The main business entities are ```Member```, ```Meeting Group``` and ```Meeting```. A ```Member``` can create a ```Meeting Group```, be part of a ```Meeting Group``` or can attend a ```Meeting```.
+The main business entities are `Member`, `Meeting Group` and `Meeting`. A `Member` can create a `Meeting Group`, be part of a `Meeting Group` or can attend a `Meeting`.
 
-A ```Meeting Group Member``` can be an ```Organizer``` of this group or a normal ```Member```.
+A `Meeting Group Member` can be an `Organizer` of this group or a normal `Member`.
 
-Only an ```Organizer``` of a ```Meeting Group``` can create a new ```Meeting```.
+Only an `Organizer` of a `Meeting Group` can create a new `Meeting`.
 
-A ```Meeting``` has attendees, not attendees (```Members``` which declare they will not attend the ```Meeting```) and ```Members``` on the ```Waitlist```.
+A `Meeting` has attendees, not attendees (`Members` which declare they will not attend the `Meeting`) and `Members` on the `Waitlist`.
 
-A ```Meeting``` can have an attendee limit. If the limit is reached, ```Members``` can only sign up to the ```Waitlist```.
+A `Meeting` can have an attendee limit. If the limit is reached, `Members` can only sign up to the `Waitlist`.
 
-A ```Meeting Attendee``` can bring guests to the ```Meeting```. The number of guests allowed is an attribute of the ```Meeting```. Bringing guests can be unallowed.
+A `Meeting Attendee` can bring guests to the `Meeting`. The number of guests allowed is an attribute of the `Meeting`. Bringing guests can be unallowed.
 
-A ```Meeting Attendee``` can have one of two roles: ```Attendee``` or ```Host```. A ```Meeting``` must have at least one ```Host```. The ```Host``` is a special role which grants permission to edit ```Meeting``` information or change the attendees list.
+A `Meeting Attendee` can have one of two roles: `Attendee` or `Host`. A `Meeting` must have at least one `Host`. The `Host` is a special role which grants permission to edit `Meeting` information or change the attendees list.
 
 **Administration**
 
-To create a new ```Meeting Group```, a ```Member``` needs to propose the group. A ```Meeting Group Proposal``` is sent to ```Administrators```. An ```Administrator``` can accept or reject a ```Meeting Group Proposal```. If a ```Meeting Group Proposal``` is accepted, a ```Meeting Group``` is created.
+To create a new `Meeting Group`, a `Member` needs to propose the group. A `Meeting Group Proposal` is sent to `Administrators`. An `Administrator` can accept or reject a `Meeting Group Proposal`. If a `Meeting Group Proposal` is accepted, a `Meeting Group` is created.
 
 **Payments**
 
-To be able to organize ```Meetings```, the ```Meeting Group``` must be paid for. The ```Meeting Group``` ```Organizer``` who is the ```Payer```, must pay some fee according to a payment plan.
+To be able to organize `Meetings`, the `Meeting Group` must be paid for. The `Meeting Group` `Organizer` who is the `Payer`, must pay some fee according to a payment plan.
 
-Additionally, Meeting organizer can set an ```Event Fee```. Each ```Meeting Attendee``` is obliged to pay the fee. All guests should be paid by ```Meeting Attendee``` too.
+Additionally, Meeting organizer can set an `Event Fee`. Each `Meeting Attendee` is obliged to pay the fee. All guests should be paid by `Meeting Attendee` too.
 
 **Users**
 
-Each ```Administrator```, ```Member``` and ```Payer``` is a ```User```. To be a ```User```, ```User Registration``` is required and confirmed.
+Each `Administrator`, `Member` and `Payer` is a `User`. To be a `User`, `User Registration` is required and confirmed.
 
-Each ```User``` is assigned one or more ```User Role```.
+Each `User` is assigned one or more `User Role`.
 
-Each ```User Role``` has set of ```Permissions```. A ```Permission``` defines whether ```User``` can invoke a particular action.
+Each `User Role` has set of `Permissions`. A `Permission` defines whether `User` can invoke a particular action.
 
 
 ### 2.2 Conceptual Model
@@ -265,7 +265,7 @@ Each Module consists of the following submodules (assemblies):
 
 ![](docs/Images/VSSolution.png)
 
-**Note:** Application, Domain and Infrastructure assemblies could be merged into one assembly. Some people like horizontal layering or more decomposition, some don't. Implementing the Domain Model or Infrastructure in separate assembly allows encapsulation using the [```internal```](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/internal) keyword. Sometimes Bounded Context logic is not worth it because it is too simple. As always, be pragmatic and take whatever approach you like.
+**Note:** Application, Domain and Infrastructure assemblies could be merged into one assembly. Some people like horizontal layering or more decomposition, some don't. Implementing the Domain Model or Infrastructure in separate assembly allows encapsulation using the [`internal`](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/internal) keyword. Sometimes Bounded Context logic is not worth it because it is too simple. As always, be pragmatic and take whatever approach you like.
 
 ### 3.3 API and Module Communication
 
@@ -970,18 +970,32 @@ List of technologies, frameworks and libraries used for implementation:
   }
   ```
 
-- Set the Startup Item in VS2019 to the API Project, not IIS Express
+- Set the Startup Item in your IDE to the API Project, not IIS Express
 - Once it is running you'll need a token to make API calls. This is done via OAuth2 [Resource Owner Password Grant Type](https://www.oauth.com/oauth2-servers/access-tokens/password-grant/). By default IdentityServer is configured with the following:
   - `client_id = ro.client`
   - `client_secret = secret` **(this is literally the value - not a statement that this value is secret!)**
   - `scope = myMeetingsAPI openid profile`
   - `grant_type = password`
   
-  POST to http://localhost:5000/connect/token with the above fields in the body, as well as the credentials of a test user created in the [InitializeDatabase.sql](src/Database/InitializeDatabase.sql) script - for example:
+  Include the credentials of a test user created in the [InitializeDatabase.sql](src/Database/InitializeDatabase.sql) script - for example:
   - `username = testMember@mail.com`
   - `password = testMemberPass`
-  
-  This will fetch an access token for this user to make authorized API requests using the HTTP request header `Authorization: Bearer <access_token>`
+
+**Example HTTP Request for an Access Token:**
+```http
+POST /connect/token HTTP/1.1
+Host: localhost:5000
+ 
+grant_type=password
+&username=testMember@mail.com
+&password=testMemberPass
+&client_id=ro.client
+&client_secret=secret
+```
+
+This will fetch an access token for this user to make authorized API requests using the HTTP request header `Authorization: Bearer <access_token>`
+
+If you use a tool such as Postman to test your API, the token can be fetched and stored within the tool itself and appended to all API calls. Check your tool documentation for instructions.
 
 ## 6. Contribution
 
