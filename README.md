@@ -196,11 +196,11 @@ Each ```User Role``` has set of ```Permissions```. A ```Permission``` defines wh
 
 ### 2.3 Event Storming
 
-Conceptual Model focuses on structures and relationships between them. What is more important is **behavior** and **events** that occur in our domain. 
+While a Conceptual Model focuses on structures and relationships between them, **behavior** and **events** that occur in our domain are more important.
 
-There are many ways to show behavior and events. One of them is a light technique called [Event Storming](https://www.eventstorming.com/) which is becoming more popular. Below are presented 3 main business processes using this technique : user registration, meeting group creation and meeting organization.
+There are many ways to show behavior and events. One of them is a light technique called [Event Storming](https://www.eventstorming.com/) which is becoming more popular. Below are presented 3 main business processes using this technique: user registration, meeting group creation and meeting organization.
 
-Note: Event Storming is a light, live workshop. Here is presented only one of the possible outputs of this workshop. Even if you are not doing Event Storming workshops, this type of presentation of process can be very valuable to you and your stakeholders.
+Note: Event Storming is a light, live workshop. One of the possible outputs of this workshop is presented here. Even if you are not doing Event Storming workshops, this type of process presentation can be very valuable to you and your stakeholders.
 
 **User Registration process**
 
@@ -226,14 +226,14 @@ Note: Event Storming is a light, live workshop. Here is presented only one of th
 
 ![](docs/Images/Architecture_high_level.png)
 
-Modules description:
+**Module descriptions:**
 
-- **API** - REST API application. Very thin, hosting ASP.NET MVC Core application. Main responsibilities are
-&nbsp;&nbsp;1. Take request
-&nbsp;&nbsp;1. Authenticate and Authorize request (using User Access module)
-&nbsp;&nbsp;2. Delegate work to specific module sending Command or Query
-&nbsp;&nbsp;3. Return response
-- **User Access** - responsible for users authentication, authorization and registration
+- **API** - Very thin ASP.NET MVC Core REST API application. Main responsibilities are:
+  1. Accept request
+  2. Authenticate and authorize request (using User Access module)
+  3. Delegate work to specific module sending Command or Query
+  4. Return response
+- **User Access** - responsible for user authentication, authorization and registration
 - **Meetings** - implements Meetings Bounded Context: creating meeting groups, meetings
 - **Administration** - implements Administration Bounded Context: implements administrative tasks like meeting group proposal verification
 - **Payments** - implements Payments Bounded Context: implements all functionalities associated with payments
@@ -241,15 +241,16 @@ Modules description:
 
 **Key assumptions:**
 
-1. API doesn't have any application logic.
-2. API communicates with module using a small interface to send Queries and Commands.
-3. Each module has its own interface which is used by API.
-4. **Modules communicate each other only asynchronously using Events Bus**. Remote Procedure Call is not allowed.
-5. Each Module **has it's own data** - in separate schema or database. Shared data is not allowed.
-6. Module doesn't have dependencies on other modules. Module can have only dependency on integration events assembly of other module (see [Module level view](#32-module-level-view)).
-7. Each Module has its own [Composition Root](https://freecontent.manning.com/dependency-injection-in-net-2nd-edition-understanding-the-composition-root/). Which implies that each Module has its own Inversion Of Control container.
-8. API as a host needs to initialize each module. Each module has an initialization method.
-9. Each module is **highly encapsulated**. Only required types and members are public - the rest is internal or private.
+1. API contains no application logic
+2. API communicates with Modules using a small interface to send Queries and Commands
+3. Each Module has its own interface which is used by API
+4. **Modules communicate each other only asynchronously using Events Bus** - direct method calls are not allowed
+5. Each Module **has it's own data** in a separate schema - shared data is not allowed
+   - Module data could be moved into separate databases if desired
+6. Modules can only have a dependency on the integration events assembly of other Module (see [Module level view](#32-module-level-view))
+7. Each Module has its own [Composition Root](https://freecontent.manning.com/dependency-injection-in-net-2nd-edition-understanding-the-composition-root/), which implies that each Module has its own Inversion-of-Control container
+8. API as a host needs to initialize each module and each module has an initialization method
+9. Each Module is **highly encapsulated** - only required types and members are public, the rest are internal or private
 
 ### 3.2 Module Level View
 
@@ -257,14 +258,14 @@ Modules description:
 
 Each Module consists of the following submodules (assemblies):
 
-- Application - it is main submodule which is responsible for initialization, processing all requests, internal commands, integration events.
-- Domain - Domain Model in Domain-Driven Design terms implementation applicable in particular [Bounded Context](https://martinfowler.com/bliki/BoundedContext.html).
-- Infrastructure - implementation of infrastructural code like EF configuration and mappings.
-- IntegrationEvents -  Integration Events **contracts** which are published to Events Bus. Only this assembly can be shared between other modules.
+- **Application** - the main submodule which is responsible for initialization, processing all requests, internal commands and integration events
+- **Domain** - Domain Model in Domain-Driven Design terms implements the applicable [Bounded Context](https://martinfowler.com/bliki/BoundedContext.html)
+- **Infrastructure** - infrastructural code like Entity Framework configuration and mappings
+- **IntegrationEvents** - **Contracts** published to the Events Bus; only this assembly can be called by other modules
 
 ![](docs/Images/VSSolution.png)
 
-Note: Application, Domain and Infrastructure assemblies can be merged into one assembly. Some people like horizontal layering or more decomposition, some don't. Implementing Domain Model or Infrastructure in separate assembly gives opportunity to encapsulate it using internal keyword. Sometimes Bounded Context logic is not worth it because it is too simple. As always, be pragmatic and take approach whatever you like.
+**Note:** Application, Domain and Infrastructure assemblies could be merged into one assembly. Some people like horizontal layering or more decomposition, some don't. Implementing the Domain Model or Infrastructure in separate assembly allows encapsulation using the [```internal```](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/internal) keyword. Sometimes Bounded Context logic is not worth it because it is too simple. As always, be pragmatic and take whatever approach you like.
 
 ### 3.3 API and Module Communication
 
