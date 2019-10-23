@@ -36,7 +36,7 @@ Full Modular Monolith .NET application with Domain-Driven Design approach.
 
 &nbsp;&nbsp;[3.3 API and Module Communication](#33-api-and-module-communication)
 
-&nbsp;&nbsp;[3.4 Module Requests Processing CQRS](#34-module-requests-processing-cqrs)
+&nbsp;&nbsp;[3.4 Module Requests Processing via CQRS](#34-module-requests-processing-via-cqrs)
 
 &nbsp;&nbsp;[3.5 Domain Model Principles and Attributes](#35-domain-model-principles-and-attributes)
 
@@ -309,9 +309,9 @@ public interface IMeetingsModule
 
 **Note:** Some people say that processing a command should not return a result. This is an understandable approach but sometimes impractical, especially when you want to immediately return the ID of a newly created resource. Sometimes the boundary between Command and Query is blurry. One example is ``AuthenticateCommand`` - it returns a token but it is not a query because it has a side effect.
 
-### 3.4 Module Requests Processing CQRS
+### 3.4 Module Requests Processing via CQRS
 
-Commands and Queries processing is separated applying architectural style/pattern [Command Query Responsibility Segregation (CQRS)](https://docs.microsoft.com/pl-pl/azure/architecture/patterns/cqrs).
+Processing of Commands and Queries is separated by applying the architectural style/pattern [Command Query Responsibility Segregation (CQRS)](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs).
 
 ![](docs/Images/CQRS.jpg)
 
@@ -376,16 +376,17 @@ internal class GetAllMeetingGroupsQueryHandler : IQueryHandler<GetAllMeetingGrou
 
 **Key advantages:**
 
-- Solution appropriate to the problem - reading and writing needs are usually different
-- Supports SRP - one handler does one thing
-- Supports ISP - each handler implements interface with exactly one method
-- Commands and Queries are objects ([Parameter Object pattern](https://refactoring.com/catalog/introduceParameterObject.html)) which are easy to serialize/deserialize
-- Easy way to apply Decorator pattern to handle cross-cutting concerns.
-- Louse coupling - introduction of [Mediator pattern](https://en.wikipedia.org/wiki/Mediator_pattern) separates invoker of request from handler of request.
+- Solution is appropriate to the problem - reading and writing needs are usually different
+- Supports [Single Responsibility Principle](https://en.wikipedia.org/wiki/Single_responsibility_principle) (SRP) - one handler does one thing
+- Supports [Interface Segregation Principle](https://en.wikipedia.org/wiki/Interface_segregation_principle) (ISP) - each handler implements interface with exactly one method
+- Supports [Parameter Object pattern](https://refactoring.com/catalog/introduceParameterObject.html) - Commands and Queries are objects which are easy to serialize/deserialize
+- Easy way to apply [Decorator pattern](https://en.wikipedia.org/wiki/Decorator_pattern) to handle cross-cutting concerns
+- Supports Loose Coupling by use of the [Mediator pattern](https://en.wikipedia.org/wiki/Mediator_pattern) - separates invoker of request from handler of request
 
-One disadvantage - introduction of mediation gives more indirection and is harder to reason about which class handles the request.
+**Disadvantage:**
+- Mediator pattern introduces extra indirection and is harder to reason about which class handles the request
 
-More info can be found here: [Simple CQRS implementation with raw SQL and DDD](https://www.kamilgrzybek.com/design/simple-cqrs-implementation-with-raw-sql-and-ddd/)
+For more information: [Simple CQRS implementation with raw SQL and DDD](https://www.kamilgrzybek.com/design/simple-cqrs-implementation-with-raw-sql-and-ddd/)
 
 ### 3.5 Domain Model Principles and Attributes
 
