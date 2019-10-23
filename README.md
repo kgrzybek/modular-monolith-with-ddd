@@ -394,27 +394,27 @@ The Domain Model, which is the central and most critical part in the system, sho
 
 1. **High level of encapsulation**
 
-All members are ``private`` by default, then ``internal`` - only ``public`` at the very edge.
+    All members are ``private`` by default, then ``internal`` - only ``public`` at the very edge.
 
 2. **High level of PI (Persistence Ignorance)**
 
-No dependencies to infrastructure, databases, etc. All classes are [POCOs](https://en.wikipedia.org/wiki/Plain_old_CLR_object).
+    No dependencies to infrastructure, databases, etc. All classes are [POCOs](https://en.wikipedia.org/wiki/Plain_old_CLR_object).
 
 3. **Rich in behavior**
 
-All business logic is located in the Domain Model. No leaks to the application layer or elsewhere.
+    All business logic is located in the Domain Model. No leaks to the application layer or elsewhere.
 
 4. **Low level of Primitive Obsession**
 
-Primitive attributes of Entites grouped together using ValueObjects.
+    Primitive attributes of Entites grouped together using ValueObjects.
 
 5. **Business language**
 
-All classes, methods and other members are named in business language used in this Bounded Context.
+    All classes, methods and other members are named in business language used in this Bounded Context.
 
 6. **Testable**
 
-The Domain Model is a critical part of the system so it should be easy to test (Testable Design).
+    The Domain Model is a critical part of the system so it should be easy to test (Testable Design).
 
 ```csharp
 public class MeetingGroup : Entity, IAggregateRoot
@@ -721,7 +721,7 @@ public async Task<Unit> Handle(T command, CancellationToken cancellationToken)
 
 **Authentication**
 
-Authentication is implemented using JWT Token and Bearer scheme using IdentityServer. For now, only one authentication method is implemented: OAuth2 [Resource Owner Password Grant Type](https://www.oauth.com/oauth2-servers/access-tokens/password-grant/). It requires implementation of `IResourceOwnerPasswordValidator` interface:
+Authentication is implemented using JWT Token and Bearer scheme using IdentityServer. For now, only one authentication method is implemented: forms style authentication (username and password) via the OAuth2 [Resource Owner Password Grant Type](https://www.oauth.com/oauth2-servers/access-tokens/password-grant/). It requires implementation of the `IResourceOwnerPasswordValidator` interface:
 
 ```csharp
 public class ResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
