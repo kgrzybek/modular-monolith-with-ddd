@@ -269,11 +269,11 @@ Each Module consists of the following submodules (assemblies):
 
 ### 3.3 API and Module Communication
 
-API communicates with Module only in two places: during module initialization and request processing.
+The API only communicates with Modules in two ways: during module initialization and request processing.
 
 **Module initialization**
 
-Each module has static ``Initialize`` method which is invoked in API ``Startup`` class. All configuration needed by this module should be provided as arguments to this method. During initialization all services are configured and Composition Root using Inversion Of Control Container is created.
+Each module has a static ``Initialize`` method which is invoked in the API ``Startup`` class. All configuration needed by this module should be provided as arguments to this method. All services are configured during initialization and the Composition Root is created using the Inversion-of-Control Container.
 
 ```csharp
 public static void Initialize(
@@ -292,9 +292,9 @@ public static void Initialize(
 }
 ```
 
-**Requests processing**
+**Request processing**
 
-Each module has the same signature interface exposed to API. It contains 3 methods: to execute command with result, command without result and query.
+Each module has the same interface signature exposed to the API. It contains 3 methods: command with result, command without result and query.
 
 ```csharp
 public interface IMeetingsModule
@@ -307,7 +307,7 @@ public interface IMeetingsModule
 }
 ```
 
-Note: Some people say that processing of command shouldn't return a result. This is a good approach but sometimes impractical, especially when you create a resource and want to immediately return the ID of this resource. Sometimes, boundary between Command and Query is blurry. One of the examples is ``AuthenticateCommand`` - it returns a token but it is not a query (has side effect).
+**Note:** Some people say that processing a command should not return a result. This is an understandable approach but sometimes impractical, especially when you want to immediately return the ID of a newly created resource. Sometimes the boundary between Command and Query is blurry. One example is ``AuthenticateCommand`` - it returns a token but it is not a query because it has a side effect.
 
 ### 3.4 Module Requests Processing CQRS
 
