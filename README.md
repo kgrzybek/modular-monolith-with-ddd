@@ -390,31 +390,31 @@ For more information: [Simple CQRS implementation with raw SQL and DDD](https://
 
 ### 3.5 Domain Model Principles and Attributes
 
-Domain Model, which is the central and most critical part in the system, should be designed with special attention. Here are some key principles and attributes which are applied to Domain Models of each module:
+The Domain Model, which is the central and most critical part in the system, should be designed with special attention. Here are some key principles and attributes which are applied to Domain Models of each module:
 
 1. **High level of encapsulation**
 
-All members are ``private`` by default, then ``internal``, only at the very end ``public``.
+All members are ``private`` by default, then ``internal`` - only ``public`` at the very edge.
 
 2. **High level of PI (Persistence Ignorance)**
 
-No dependencies to infrastructure, databases, other stuff. All classes are POCO.
+No dependencies to infrastructure, databases, etc. All classes are [POCOs](https://en.wikipedia.org/wiki/Plain_old_CLR_object).
 
 3. **Rich in behavior**
 
-All business logic is located in Domain Model. No leaks to application layer or other places.
+All business logic is located in the Domain Model. No leaks to the application layer or elsewhere.
 
-4. **Low level of primitive obsession**
+4. **Low level of Primitive Obsession**
 
 Primitive attributes of Entites grouped together using ValueObjects.
 
 5. **Business language**
 
-All classes, methods and other members named in business language used in this Bounded Context.
+All classes, methods and other members are named in business language used in this Bounded Context.
 
 6. **Testable**
 
-Domain Model is a critical part of the system so it should be easy to test (Testable Design).
+The Domain Model is a critical part of the system so it should be easy to test (Testable Design).
 
 ```csharp
 public class MeetingGroup : Entity, IAggregateRoot
@@ -476,13 +476,13 @@ public class MeetingGroup : Entity, IAggregateRoot
 
 ### 3.6 Cross-Cutting Concerns
 
-To support [Single Responsibility Principle](https://en.wikipedia.org/wiki/Single_responsibility_principle) and [Don't Repeat Yourself](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) principles, implementation of cross-cutting concerns is done using [Decorator Pattern](https://en.wikipedia.org/wiki/Decorator_pattern). Each Command processing is decorated by 3 decorators: logging, validation and unit of work.
+To support [Single Responsibility Principle](https://en.wikipedia.org/wiki/Single_responsibility_principle) and [Don't Repeat Yourself](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) principles, the implementation of cross-cutting concerns is done using the [Decorator Pattern](https://en.wikipedia.org/wiki/Decorator_pattern). Each Command processor is decorated by 3 decorators: logging, validation and unit of work.
 
 ![](docs/Images/Decorator.jpg)
 
 **Logging**
 
-Logging decorator logs execution, arguments and processing of each Command. This way each log inside processing has log context of processing command.
+The Logging decorator logs execution, arguments and processing of each Command. This way each log inside a processor has the log context of the processing command.
 
 ```csharp
 internal class LoggingCommandHandlerDecorator<T> : ICommandHandler<T> where T:ICommand
@@ -565,7 +565,7 @@ internal class LoggingCommandHandlerDecorator<T> : ICommandHandler<T> where T:IC
 
 **Validation**
 
-Validation decorator performs Command data validation. It checks rules against Command arguments. It uses FluentValidation library to do it.
+The Validation decorator performs Command data validation. It checks rules against Command arguments using the FluentValidation library.
 
 ```csharp
 internal class ValidationCommandHandlerDecorator<T> : ICommandHandler<T> where T:ICommand
@@ -610,7 +610,7 @@ internal class ValidationCommandHandlerDecorator<T> : ICommandHandler<T> where T
 
 **Unit Of Work**
 
-Every Command processing has side effects. To not call commit on every handler, ``UnitOfWorkCommandHandlerDecorator`` is used. It additionally marks ``InternalCommand`` as processed (if it is Internal Command) and dispatches all Domain Events (as part of [Unit Of Work](https://martinfowler.com/eaaCatalog/unitOfWork.html)).
+All Command processing has side effects. To avoid calling commit on every handler, `UnitOfWorkCommandHandlerDecorator` is used. It additionally marks `InternalCommand` as processed (if it is Internal Command) and dispatches all Domain Events (as part of [Unit Of Work](https://martinfowler.com/eaaCatalog/unitOfWork.html)).
 
 ```csharp
 public class UnitOfWorkCommandHandlerDecorator<T> : ICommandHandler<T> where T:ICommand
@@ -654,13 +654,13 @@ public class UnitOfWorkCommandHandlerDecorator<T> : ICommandHandler<T> where T:I
 
 ### 3.7 Modules Integration
 
-Integration between modules takes place only in an **asynchronous** way using Integration Events and In Memory Events Bus as broker. In this way coupling between modules is minimal and exists only on structure of Integration Events.
+Integration between modules is strictly **asynchronous** using Integration Events and the In Memory Event Bus as broker. In this way coupling between modules is minimal and exists only on the structure of Integration Events.
 
-**Modules don't share data** so it is not possible or desirable to create a transaction which spans more than one module. To ensure maximum reliability, [Outbox / Inbox pattern](http://www.kamilgrzybek.com/design/the-outbox-pattern/) are used. They provide accordingly *"At-Least-Once delivery"* and *"At-Least-Once processing"*.
+**Modules don't share data** so it is not possible nor desirable to create a transaction which spans more than one module. To ensure maximum reliability, the [Outbox / Inbox pattern](http://www.kamilgrzybek.com/design/the-outbox-pattern/) is used. This pattern provides accordingly *"At-Least-Once delivery"* and *"At-Least-Once processing"*.
 
 ![](docs/Images/OutboxInbox.jpg)
 
-Outbox and Inbox is implemented using two SQL tables and background worker for each module. Background worker is implemented using Quartz.NET library.
+The Outbox and Inbox is implemented using two SQL tables and a background worker for each module. The background worker is implemented using the Quartz.NET library.
 
 **Saving to Outbox:**
 
@@ -674,11 +674,11 @@ Outbox and Inbox is implemented using two SQL tables and background worker for e
 
 The main principle of this system is that you can change its state only by calling a specific Command.
 
-Sometimes, Command can be called not by API but by processing module itself. The main use case which uses this mechanism is data processing in eventual consistency mode, when we want to process something in a different process and transaction. This applies for example to Inbox processing, because we want to do something (calling a Command) based on Integration Event from Inbox.
+Commands can be called not only by the API, but by the processing module itself. The main use case which implements this mechanism is data processing in eventual consistency mode when we want to process something in a different process and transaction. This applies, for example, to Inbox processing because we want to do something (calling a Command) based on an Integration Event from the Inbox.
 
-This idea is taken from Alberto's Brandolini Event Storming picture called "The picture that explains “almost” everything" which shows that every side effect (domain event) is created by invoking Command on Aggregate. See [EventStorming cheat sheet](https://xebia.com/blog/eventstorming-cheat-sheet/) article for more details.
+This idea is taken from Alberto's Brandolini's Event Storming picture called "The picture that explains “almost” everything" which shows that every side effect (domain event) is created by invoking a Command on Aggregate. See [EventStorming cheat sheet](https://xebia.com/blog/eventstorming-cheat-sheet/) article for more details.
 
-Implementation of internal processing is very similar to implementation of Outbox and Inbox. One SQL table and one background worker for processing. Each internally processing Command must inherit from ``InternalCommandBase`` class:
+Implementation of internal processing is very similar to implementation of the Outbox and Inbox. One SQL table and one background worker for processing. Each internally processing Command must inherit from `InternalCommandBase` class:
 
 ```csharp
 internal abstract class InternalCommandBase : ICommand
@@ -692,7 +692,7 @@ internal abstract class InternalCommandBase : ICommand
 }
 ```
 
-This is important because ``UnitOfWorkCommandHandlerDecorator`` must mark internal Command as processed during committing:
+This is important because the `UnitOfWorkCommandHandlerDecorator` must mark an internal Command as processed during committing:
 
 ```csharp
 public async Task<Unit> Handle(T command, CancellationToken cancellationToken)
@@ -721,7 +721,7 @@ public async Task<Unit> Handle(T command, CancellationToken cancellationToken)
 
 **Authentication**
 
-Authentication is implemented using JWT Token and Bearer scheme using IdentityServer. For now, only one authentication method is implemented (forms authentication by providing login and password). It requires implementation of ``IResourceOwnerPasswordValidator`` interface:
+Authentication is implemented using JWT Token and Bearer scheme using IdentityServer. For now, only one authentication method is implemented: OAuth2 [Resource Owner Password Grant Type](https://www.oauth.com/oauth2-servers/access-tokens/password-grant/). It requires implementation of `IResourceOwnerPasswordValidator` interface:
 
 ```csharp
 public class ResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
@@ -753,7 +753,7 @@ public class ResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
 
 **Authorization**
 
-Authorization mechanism implements [RBAC (Role Based Access Control)](https://en.wikipedia.org/wiki/Role-based_access_control) using Permissions. Permissions are more granular and much better way to secure your application than Roles. Each User has a set of Roles and each Role contains one or more Permission. With this mapping User has set of Permissions which are always checked on ``Controller`` level:
+Authorization is achieved by implementing [RBAC (Role Based Access Control)](https://en.wikipedia.org/wiki/Role-based_access_control) using Permissions. Permissions are more granular and a much better way to secure your application than Roles alone. Each User has a set of Roles and each Role contains one or more Permission. The User's set of Permissions is extracted from all Roles the User belongs to. Permissions are always checked on `Controller` level - never Roles:
 
 ```csharp
 [HttpPost]
@@ -796,18 +796,20 @@ Each unit test has 3 standard sections: Arrange, Act and Assert
 
 ![](docs/Images/UnitTestsGeneral.jpg)
 
-1. Arrange
+**1\. Arrange**
 
-The Arrange section is responsible for preparing the Aggregate for testing the public method that we want to test. This public method is often called from the unit tests perspective as SUT (system under test).
+The Arrange section is responsible for preparing the Aggregate for testing the public method that we want to test. This public method is often called (from the unit tests perspective) the SUT (system under test).
 
-Creating an Aggregate ready for testing involves **calling one or more other public constructors/methods** on the Domain Model. At first it may seem that we are testing too many things at the same time, but this is not true. We need to be one hundred percent sure, that the Aggregate is in a state exactly as it will be in production. This can only be ensured when:
+Creating an Aggregate ready for testing involves **calling one or more other public constructors/methods** on the Domain Model. At first it may seem that we are testing too many things at the same time, but this is not true. We need to be one hundred percent sure that the Aggregate is in a state exactly as it will be in production. This can only be ensured when we:
 
-- **we use only public API of Domain Model**
-- we don't use [InternalsVisibleToAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.internalsvisibletoattribute?view=netframework-4.8) class. This exposes Domain Model to Unit Tests library removing encapsulation so our tests and production code is treated differently and it is a very bad thing.
-- we don't use [ConditionalAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.conditionalattribute?view=netframework-4.8) classes. It reduces readability and increases complexity.
-- we don't create any special constructors/factory methods for tests (even with conditional compilation symbols). Special constructor/factory method only for unit tests causes duplication of business logic in the test itself and focuses on state. Additionally, this kind of approach causes the test to be very sensitive to changes and hard to maintain.
-- We don't remove encapsulation from Domain Model (for example: change keywords from  internal/private to public)
-- We don't make methods protected to inherit from tested class and in this way provide access to internal methods/properties. 
+- **Use only public API of Domain Model**
+- Don't use [InternalsVisibleToAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.internalsvisibletoattribute?view=netframework-4.8) class
+  - This exposes the Domain Model to the Unit Tests library, removing encapsulation so our tests and production code are treated differently and it is a very bad thing
+- Don't use [ConditionalAttribute](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.conditionalattribute?view=netframework-4.8) classes - it reduces readability and increases complexity
+- Don't create any special constructors/factory methods for tests (even with conditional compilation symbols)
+  - Special constructor/factory method only for unit tests causes duplication of business logic in the test itself and focuses on state - this kind of approach causes the test to be very sensitive to changes and hard to maintain
+- Don't remove encapsulation from Domain Model (for example: change keywords from `internal`/`private` to `public`)
+- Don't make methods `protected` to inherit from tested class and in this way provide access to internal methods/properties
 
 **Isolation of external dependencies**
 
@@ -818,20 +820,21 @@ There are 2 main concepts - stubs and mocks:
 >A mock object is a fake object in the system that decides whether the unit test has passed or failed. It does so by verifying whether the object under test called the fake object as expected. There’s usually no more than one mock per test.
 >[Art of Unit Testing 2nd Edition](https://www.manning.com/books/the-art-of-unit-testing-second-edition) Roy Osherove
 
-Good advice is following: use stubs if you need to, but try to avoid mocks. Mocking causes us to test too many internal things and leads to overspecification.
+Good advice: use stubs if you need to, but try to avoid mocks. Mocking causes us to test too many internal things and leads to overspecification.
 
-2. Act
+**2\. Act**
 
 This section is very easy - we execute **exactly one** public method on aggregate (SUT).
 
-3. Assert
+**3\. Assert**
 
 In this section we check expectations. There are only 2 possible outcomes:
 
-- Method completed and Domain Event was published (or many) or
+- Method completed and Domain Event(s) published
 - Business rule was broken
 
 Simple example:
+
 ```csharp
 [Test]
 public void NewUserRegistration_WithUniqueLogin_IsSuccessful()
@@ -869,6 +872,7 @@ public void NewUserRegistration_WithoutUniqueLogin_BreaksUserLoginMustBeUniqueRu
 ```
 
 Advanced example:
+
 ```csharp
 [Test]
 public void AddAttendee_WhenMemberIsAlreadyAttendeeOfMeeting_IsNotPossible()
@@ -892,7 +896,7 @@ public void AddAttendee_WhenMemberIsAlreadyAttendeeOfMeeting_IsNotPossible()
 }
 ```
 
-``CreateMeetingTestData`` method is an implementation of [SUT Factory](https://blog.ploeh.dk/2009/02/13/SUTFactory/) described by Mark Seemann which allows keeping common creation logic in one place:
+`CreateMeetingTestData` method is an implementation of [SUT Factory](https://blog.ploeh.dk/2009/02/13/SUTFactory/) described by Mark Seemann which allows keeping common creation logic in one place:
 
 ```csharp
 protected MeetingTestData CreateMeetingTestData(MeetingTestDataOptions options)
@@ -955,11 +959,11 @@ List of technologies, frameworks and libraries used for implementation:
 
 - Download and install .NET Core 2.2 SDK
 - Download and install MS SQL Server Express or other
-- Create empty database and run [InitializeDatabase.sql](src/Database/InitializeDatabase.sql) script
+- Create an empty database and run [InitializeDatabase.sql](src/Database/InitializeDatabase.sql) script
   - 2 test users will be created - check the script for usernames and passwords
-- Set a database connection string called ```MeetingsConnectionString``` in the root of the API project's appsettings.json or use [Secrets](https://blogs.msdn.microsoft.com/mihansen/2017/09/10/managing-secrets-in-net-core-2-0-apps/)
+- Set a database connection string called `MeetingsConnectionString` in the root of the API project's appsettings.json or use [Secrets](https://blogs.msdn.microsoft.com/mihansen/2017/09/10/managing-secrets-in-net-core-2-0-apps/)
 
-  Example config setting in appsettings.json for a database called ```ModularMonolith```:
+  Example config setting in appsettings.json for a database called `ModularMonolith`:
   ```json
   {
 	  "MeetingsConnectionString": "Server=(localdb)\\mssqllocaldb;Database=ModularMonolith;Trusted_Connection=True;"
@@ -967,21 +971,21 @@ List of technologies, frameworks and libraries used for implementation:
   ```
 
 - Set the Startup Item in VS2019 to the API Project, not IIS Express
-- Once it is running you'll need a token to make API calls. This is done via OAuth2 [Password Grant Type](https://www.oauth.com/oauth2-servers/access-tokens/password-grant/). By default IdentityServer is configured with the following:
-  - ```client_id = ro.client```
-  - ```client_secret = secret``` **(this is literally the value - not a statement that this value is secret!)**
-  - ```scope = myMeetingsAPI openid profile```
-  - ```grant_type = password```
+- Once it is running you'll need a token to make API calls. This is done via OAuth2 [Resource Owner Password Grant Type](https://www.oauth.com/oauth2-servers/access-tokens/password-grant/). By default IdentityServer is configured with the following:
+  - `client_id = ro.client`
+  - `client_secret = secret` **(this is literally the value - not a statement that this value is secret!)**
+  - `scope = myMeetingsAPI openid profile`
+  - `grant_type = password`
   
-  POST to http://localhost:5000/connect/token with these fields in the body, as well as
-  - ```username = testMember@mail.com```
-  - ```password = testMemberPass```
+  POST to http://localhost:5000/connect/token with the above fields in the body, as well as the credentials of a test user created in the [InitializeDatabase.sql](src/Database/InitializeDatabase.sql) script - for example:
+  - `username = testMember@mail.com`
+  - `password = testMemberPass`
   
-  This will fetch a token for this user to make authorized API requests using the HTTP request header ```Authorization: Bearer <access_token>```
+  This will fetch an access token for this user to make authorized API requests using the HTTP request header `Authorization: Bearer <access_token>`
 
 ## 6. Contribution
 
-This project is still under analysis and development. I assume its maintenance for a long time. I would appreciate if you would like to contribute to it. Please let me know, create an Issue or Pull Request.
+This project is still under analysis and development. I assume its maintenance for a long time and I would appreciate your contribution to it. Please let me know by creating an Issue or Pull Request.
 
 ## 7. Roadmap
 
@@ -998,7 +1002,7 @@ List of features/tasks/approaches to add:
 | Migration to .NET Core 3.0 | Low   |    |    |
 | More advanced Payments module | Low   |    |    |
 
-NOTE: Please don't hesitate to suggest something else or change to existing code. All proposals will be considered.
+NOTE: Please don't hesitate to suggest something else or a change to the existing code. All proposals will be considered.
 
 ## 8. Author
 
