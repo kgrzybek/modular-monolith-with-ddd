@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-using Autofac;
+﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using CompanyName.MyMeetings.API.Configuration.Authorization;
 using CompanyName.MyMeetings.API.Configuration.Validation;
@@ -29,6 +26,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Formatting.Compact;
+using System;
 
 namespace CompanyName.MyMeetings.API
 {
@@ -52,7 +50,7 @@ namespace CompanyName.MyMeetings.API
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            this.AddSwagger(services);
+            services.AddSwaggerDocumentation();
 
             ConfigureIdentityServer(services);
 
@@ -86,7 +84,8 @@ namespace CompanyName.MyMeetings.API
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             app.UseMiddleware<CorrelationMiddleware>();
-            ConfigureSwagger(app);
+            
+            app.UseSwaggerDocumentation();
 
             app.UseIdentityServer();
 
@@ -140,36 +139,7 @@ namespace CompanyName.MyMeetings.API
                     x.RequireHttpsMetadata = false;
                 });
         }
-
-        private static void ConfigureSwagger(IApplicationBuilder app)
-        {
-            app.UseSwagger();
-
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyMeetings API");
-            });
-        }
-
-        private void AddSwagger(IServiceCollection services)
-        {
-            services.AddSwaggerGen(options =>
-            {
-                options.DescribeAllEnumsAsStrings();
-                options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
-                {
-                    Title = "MyMeetings API",
-                    Version = "v1",
-                    Description = "MyMeetings API for modular monolith .NET application.",
-                });
-
-                var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                var commentsFileName = Assembly.GetExecutingAssembly().GetName().Name + ".XML";
-                var commentsFile = Path.Combine(baseDirectory, commentsFileName);
-                options.IncludeXmlComments(commentsFile);
-            });
-        }
-
+        
         private IServiceProvider CreateAutofacServiceProvider(IServiceCollection services)
         {
             var containerBuilder = new ContainerBuilder();
