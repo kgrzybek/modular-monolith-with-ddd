@@ -270,3 +270,4 @@ Logs
 
 #Ignore uploaded files folder
 UploadedFiles
+/src/CompanyName.MyMeetings.v3.ncrunchsolution
