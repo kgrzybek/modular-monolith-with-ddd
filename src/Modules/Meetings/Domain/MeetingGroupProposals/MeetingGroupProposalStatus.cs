@@ -9,7 +9,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals
         
         public string Value { get; }
 
-        internal MeetingGroupProposalStatus(string value)
+        private MeetingGroupProposalStatus(string value)
         {
             Value = value;
         }
