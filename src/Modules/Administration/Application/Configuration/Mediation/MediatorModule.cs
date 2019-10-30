@@ -5,6 +5,7 @@ using System.Reflection;
 using Autofac;
 using Autofac.Core;
 using Autofac.Features.Variance;
+using FluentValidation;
 using MediatR;
 using MediatR.Pipeline;
 
@@ -20,13 +21,15 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.Configuratio
 
             builder.RegisterSource(new ScopedContravariantRegistrationSource(
                 typeof(IRequestHandler<,>),
-                typeof(INotificationHandler<>)
+                typeof(INotificationHandler<>),
+                typeof(IValidator<>)
             ));
 
             var mediatorOpenTypes = new[]
             {
                 typeof(IRequestHandler<,>),
-                typeof(INotificationHandler<>)
+                typeof(INotificationHandler<>),
+                typeof(IValidator<>)
             };
 
             foreach (var mediatorOpenType in mediatorOpenTypes)
