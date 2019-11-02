@@ -1,4 +1,4 @@
-# 2.  Use .NET Core and C# language
+# 3.  Use .NET Core and C# language
 
 Date: 2019-07-01
 
