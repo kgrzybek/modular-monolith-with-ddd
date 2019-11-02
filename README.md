@@ -50,6 +50,8 @@ Full Modular Monolith .NET application with Domain-Driven Design approach.
 
 &nbsp;&nbsp;[3.10 Unit Tests](#310-unit-tests)
 
+&nbsp;&nbsp;[3.11 Architecture Decision Log](#311-architecture-decision-log)
+
 [4. Technology](#4-technology)
 
 [5. How to Run](#5-how-to-run)
@@ -932,6 +934,12 @@ protected MeetingTestData CreateMeetingTestData(MeetingTestDataOptions options)
     return new MeetingTestData(meetingGroup, meeting);
 }
 ```
+
+### 3.11 Architecture Decision Log
+
+All Architectural Decisions (AD) are documented in the [Architecture Decision Log (ADL)](docs/architecture-decision-log) (in progress).
+
+More information about documenting architecture-related decisions in this way : [https://github.com/joelparkerhenderson/architecture_decision_record](https://github.com/joelparkerhenderson/architecture_decision_record)
 
 ## 4. Technology
 
