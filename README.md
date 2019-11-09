@@ -937,7 +937,7 @@ protected MeetingTestData CreateMeetingTestData(MeetingTestDataOptions options)
 
 ### 3.11 Architecture Decision Log
 
-All Architectural Decisions (AD) are documented in the [Architecture Decision Log (ADL)](docs/architecture-decision-log) (in progress).
+All Architectural Decisions (AD) are documented in the [Architecture Decision Log (ADL)](docs/architecture-decision-log).
 
 More information about documenting architecture-related decisions in this way : [https://github.com/joelparkerhenderson/architecture_decision_record](https://github.com/joelparkerhenderson/architecture_decision_record)
 
@@ -968,6 +968,7 @@ List of technologies, frameworks and libraries used for implementation:
 - Download and install .NET Core 2.2 SDK
 - Download and install MS SQL Server Express or other
 - Create an empty database and run [InitializeDatabase.sql](src/Database/InitializeDatabase.sql) script
+  
   - 2 test users will be created - check the script for usernames and passwords
 - Set a database connection string called `MeetingsConnectionString` in the root of the API project's appsettings.json or use [Secrets](https://blogs.msdn.microsoft.com/mihansen/2017/09/10/managing-secrets-in-net-core-2-0-apps/)
 
@@ -1016,6 +1017,7 @@ List of features/tasks/approaches to add:
 | Name                     | Priority | Status | Release date |
 | ------------------------ | -------- | -------- | -------- |
 | Domain Model Unit Tests | High     | Completed | 2019-09-10 |
+| Architecture Decision Log update | High     | Completed | 2019-11-09 |
 | API automated tests      | Normal   |    |    |
 | FrontEnd SPA application | Normal   |    |    |
 | Meeting comments feature | Low   |    |    |

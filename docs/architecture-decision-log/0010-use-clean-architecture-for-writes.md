@@ -10,7 +10,7 @@ Accepted
 
 ## Context
 
-We applied the CQRS style (see [ADR 7. Use CQRS architectural style](007-use-cqrs-architectural-style.md)), now we need to decide how to handle writing operations (Commands).
+We applied the CQRS style (see [ADR #7](0007-use-cqrs-architectural-style.md)), now we need to decide how to handle writing operations (Commands).
 
 ## Decision
 
