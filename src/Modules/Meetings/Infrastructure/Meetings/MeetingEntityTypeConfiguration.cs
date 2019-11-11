@@ -102,6 +102,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Meetings
                 y.Property<bool>("_isMovedToAttendees").HasColumnName("IsMovedToAttendees");
                 y.Property<DateTime?>("_movedToAttendeesDate").HasColumnName("MovedToAttendeesDate");
             });
+
+            builder.OwnsOne<MeetingLimits>("_meetingLimits", meetingLimits =>
+            {
+                meetingLimits.Property(x => x.AttendeesLimit).HasColumnName("AttendeesLimit");
+                meetingLimits.Property(x => x.GuestsLimit).HasColumnName("GuestsLimit");
+            });
         }
     }
 }

@@ -26,8 +26,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.ChangeMee
                 new MeetingTerm(request.TermStartDate, request.TermStartDate), 
                 request.Description,
                 new MeetingLocation(request.MeetingLocationName, request.MeetingLocationAddress, request.MeetingLocationPostalCode, request.MeetingLocationCity),
-                request.AttendeesLimit,
-                request.GuestsLimit,
+                MeetingLimits.Create(request.AttendeesLimit, request.GuestsLimit), 
                 new Term(request.RSVPTermStartDate, request.RSVPTermEndDate),
                 new MoneyValue(request.EventFeeValue, request.EventFeeCurrency),
                 _memberContext.MemberId);

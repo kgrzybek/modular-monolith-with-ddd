@@ -30,9 +30,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
 
         private List<MeetingWaitlistMember> _waitlistMembers;
 
-        private int? _attendeesLimit;
-
-        private int _guestsLimit;
+        private MeetingLimits _meetingLimits;
 
         private Term _rsvpTerm;
 
@@ -65,8 +63,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
             MeetingTerm term, 
             string description, 
             MeetingLocation location, 
-            int? attendeesLimit, 
-            int guestsLimit, 
+            MeetingLimits meetingLimits,
             Term rsvpTerm, 
             MoneyValue eventFee,
             List<MemberId> hostsMembersIds,
@@ -78,8 +75,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
             _term = term;
             _description = description;
             _location = location;
-            _attendeesLimit = attendeesLimit;
-            _guestsLimit = guestsLimit;
+            _meetingLimits = meetingLimits;
 
             this.SetRsvpTerm(rsvpTerm, _term);
             _eventFee = eventFee;
@@ -105,29 +101,25 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
             }
         }
 
-
-
         public void ChangeMainAttributes(
             string title,
             MeetingTerm term,
             string description,
             MeetingLocation location,
-            int? attendeesLimit,
-            int guestsLimit,
+            MeetingLimits meetingLimits,
             Term rsvpTerm,
             MoneyValue eventFee,
             MemberId modifyUserId)
         {
             base.CheckRule(new AttendeesLimitCannotBeChangedToSmallerThanActiveAttendeesRule(
-                attendeesLimit, 
+                meetingLimits, 
                 this.GetAllActiveAttendeesWithGuestsNumber()));
 
             _title = title;
             _term = term;
             _description = description;
             _location = location;
-            _attendeesLimit = attendeesLimit;
-            _guestsLimit = guestsLimit;
+            _meetingLimits = meetingLimits;
             this.SetRsvpTerm(rsvpTerm, _term);
             _eventFee = eventFee;
 
@@ -147,9 +139,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
 
             this.CheckRule(new MemberCannotBeAnAttendeeOfMeetingMoreThanOnceRule(attendeeId, _attendees));
 
-            this.CheckRule(new MeetingGuestsNumberIsAboveLimitRule(_guestsLimit, guestsNumber));
+            this.CheckRule(new MeetingGuestsNumberIsAboveLimitRule(_meetingLimits.GuestsLimit, guestsNumber));
             
-            this.CheckRule(new MeetingAttendeesNumberIsAboveLimitRule(_attendeesLimit, this.GetAllActiveAttendeesWithGuestsNumber(), guestsNumber));
+            this.CheckRule(new MeetingAttendeesNumberIsAboveLimitRule(_meetingLimits.AttendeesLimit, this.GetAllActiveAttendeesWithGuestsNumber(), guestsNumber));
 
             var notAttendee = this.GetActiveNotAttendee(attendeeId);
             notAttendee?.ChangeDecision();

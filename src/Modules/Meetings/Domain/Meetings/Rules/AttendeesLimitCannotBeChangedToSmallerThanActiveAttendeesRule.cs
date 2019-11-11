@@ -8,10 +8,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
 
         private readonly int _allActiveAttendeesWithGuestsNumber;
         internal AttendeesLimitCannotBeChangedToSmallerThanActiveAttendeesRule(
-            int? attendeesLimit, 
+            MeetingLimits meetingLimits, 
             int allActiveAttendeesWithGuestsNumber)
         {
-            this._attendeesLimit = attendeesLimit;
+            this._attendeesLimit = meetingLimits.AttendeesLimit;
             this._allActiveAttendeesWithGuestsNumber = allActiveAttendeesWithGuestsNumber;
         }
 
