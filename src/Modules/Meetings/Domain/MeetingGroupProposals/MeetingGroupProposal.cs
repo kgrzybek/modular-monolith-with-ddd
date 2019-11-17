@@ -46,7 +46,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals
             _location = location;
             _proposalUserId = proposalUserId;
             _proposalDate = SystemClock.Now;
-            _status = MeetingGroupProposalStatus.CreateInVerification;
+            _status = MeetingGroupProposalStatus.InVerification;
 
             this.AddDomainEvent(new MeetingGroupProposedDomainEvent(this.Id, _name, _description, proposalUserId, _proposalDate, _location.City, _location.CountryCode));
         }
@@ -63,7 +63,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals
         {
             this.CheckRule(new MeetingGroupProposalCannotBeAcceptedMoreThanOnceRule(_status));
 
-            _status = MeetingGroupProposalStatus.CreateAccepted;
+            _status = MeetingGroupProposalStatus.Accepted;
 
             this.AddDomainEvent(new MeetingGroupProposalAcceptedDomainEvent(this.Id));
         }
