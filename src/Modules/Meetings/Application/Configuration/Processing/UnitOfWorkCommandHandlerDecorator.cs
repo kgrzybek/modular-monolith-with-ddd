@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Processing
 {
-    public class UnitOfWorkCommandHandlerDecorator<T> : ICommandHandler<T> where T:ICommand
+    internal class UnitOfWorkCommandHandlerDecorator<T> : ICommandHandler<T> where T:ICommand
     {
         private readonly ICommandHandler<T> _decorated;
         private readonly IUnitOfWork _unitOfWork;

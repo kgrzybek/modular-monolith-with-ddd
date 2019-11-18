@@ -8,7 +8,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SignUpMemberToWaitlist
 {
-    public class SignUpMemberToWaitlistCommandHandler : ICommandHandler<SignUpMemberToWaitlistCommand>
+    internal class SignUpMemberToWaitlistCommandHandler : ICommandHandler<SignUpMemberToWaitlistCommand>
     {
         private readonly IMemberContext _memberContext;
         private readonly IMeetingRepository _meetingRepository;

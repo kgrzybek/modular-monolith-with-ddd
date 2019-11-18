@@ -33,13 +33,13 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.CreateMee
 
             var meeting = meetingGroup.CreateMeeting(
                 request.Title,
-                new MeetingTerm(request.TermStartDate, request.TermStartDate), 
+                MeetingTerm.CreateNewBetweenDates(request.TermStartDate, request.TermStartDate), 
                 request.Description,
-                new MeetingLocation(request.MeetingLocationName, request.MeetingLocationAddress, request.MeetingLocationPostalCode, request.MeetingLocationCity),
+                MeetingLocation.CreateNew(request.MeetingLocationName, request.MeetingLocationAddress, request.MeetingLocationPostalCode, request.MeetingLocationCity),
                 request.AttendeesLimit,
                 request.GuestsLimit,
-                new Term(request.RSVPTermStartDate, request.RSVPTermEndDate),
-                new MoneyValue(request.EventFeeValue, request.EventFeeCurrency),
+                Term.CreateNewBetweenDates(request.RSVPTermStartDate, request.RSVPTermEndDate),
+                request.EventFeeValue.HasValue ? MoneyValue.Of(request.EventFeeValue.Value, request.EventFeeCurrency) : MoneyValue.Undefined,
                 hostsMembersIds,
                 _memberContext.MemberId);
 

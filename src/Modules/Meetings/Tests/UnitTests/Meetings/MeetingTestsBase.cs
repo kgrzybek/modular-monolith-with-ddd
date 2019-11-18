@@ -41,7 +41,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             var proposalMemberId = options.CreatorId ?? new MemberId(Guid.NewGuid());
             var meetingProposal = MeetingGroupProposal.ProposeNew(
                 "name", "description",
-                new MeetingGroupLocation("Warsaw", "PL"), proposalMemberId);
+                MeetingGroupLocation.CreateNew("Warsaw", "PL"), proposalMemberId);
 
             meetingProposal.Accept();
 
@@ -50,17 +50,17 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             meetingGroup.UpdatePaymentInfo(DateTime.Now.AddDays(1));
 
             var meetingTerm = options.MeetingTerm ??
-                              new MeetingTerm(DateTime.UtcNow.AddDays(1), DateTime.UtcNow.AddDays(2));
+                              MeetingTerm.CreateNewBetweenDates(DateTime.UtcNow.AddDays(1), DateTime.UtcNow.AddDays(2));
 
             var rsvpTerm = options.RvspTerm ?? Term.NoTerm;
             var meeting = meetingGroup.CreateMeeting("title",
                 meetingTerm,
                 "description",
-                new MeetingLocation("Name", "Address", "PostalCode", "City"),
+                MeetingLocation.CreateNew("Name", "Address", "PostalCode", "City"),
                 options.AttendeesLimit,
                 options.GuestsLimit,
                 rsvpTerm,
-                MoneyValue.Zero,
+                MoneyValue.Undefined,
                 new List<MemberId>(),
                 proposalMemberId);
 

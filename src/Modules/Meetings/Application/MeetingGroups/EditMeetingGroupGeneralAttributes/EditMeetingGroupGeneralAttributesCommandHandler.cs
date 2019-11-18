@@ -23,7 +23,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.Edit
             MeetingGroup meetingGroup =
                 await _meetingGroupRepository.GetByIdAsync(new MeetingGroupId(request.MeetingGroupId));
 
-            meetingGroup.EditGeneralAttributes(request.Name, request.Description, new MeetingGroupLocation(request.LocationCity, request.LocationCountry));
+            meetingGroup.EditGeneralAttributes(request.Name, request.Description, MeetingGroupLocation.CreateNew(request.LocationCity, request.LocationCountry));
 
             await _meetingGroupRepository.Commit();
 

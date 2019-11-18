@@ -10,22 +10,18 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
 
         public DateTime EndDate { get; }
 
-        public MeetingTerm(DateTime startDate, DateTime endDate)
+        public static MeetingTerm CreateNewBetweenDates(DateTime startDate, DateTime endDate)
+        {
+            return new MeetingTerm(startDate, endDate);
+        }
+
+        private MeetingTerm(DateTime startDate, DateTime endDate)
         {
             this.StartDate = startDate;
             this.EndDate = endDate;
         }
 
-        internal bool IsInTerm(DateTime date)
-        {
-            var left = this.StartDate <= date;
-
-            var right =  this.EndDate >= date;
-
-            return left && right;
-        }
-
-        public bool IsAfterStart()
+        internal bool IsAfterStart()
         {
             return SystemClock.Now > this.StartDate;
         }

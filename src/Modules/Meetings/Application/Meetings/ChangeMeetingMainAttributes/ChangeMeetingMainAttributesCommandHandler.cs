@@ -7,7 +7,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.ChangeMeetingMainAttributes
 {
-    public class ChangeMeetingMainAttributesCommandHandler : ICommandHandler<ChangeMeetingMainAttributesCommand>
+    internal class ChangeMeetingMainAttributesCommandHandler : ICommandHandler<ChangeMeetingMainAttributesCommand>
     {
         private readonly IMemberContext _memberContext;
         private readonly IMeetingRepository _meetingRepository;
@@ -23,12 +23,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.ChangeMee
             var meeting = await _meetingRepository.GetByIdAsync(new MeetingId(request.MeetingId));
 
             meeting.ChangeMainAttributes(request.Title,
-                new MeetingTerm(request.TermStartDate, request.TermStartDate), 
+                MeetingTerm.CreateNewBetweenDates(request.TermStartDate, request.TermStartDate), 
                 request.Description,
-                new MeetingLocation(request.MeetingLocationName, request.MeetingLocationAddress, request.MeetingLocationPostalCode, request.MeetingLocationCity),
+                MeetingLocation.CreateNew(request.MeetingLocationName, request.MeetingLocationAddress, request.MeetingLocationPostalCode, request.MeetingLocationCity),
                 MeetingLimits.Create(request.AttendeesLimit, request.GuestsLimit), 
-                new Term(request.RSVPTermStartDate, request.RSVPTermEndDate),
-                new MoneyValue(request.EventFeeValue, request.EventFeeCurrency),
+                Term.CreateNewBetweenDates(request.RSVPTermStartDate, request.RSVPTermEndDate),
+                request.EventFeeValue.HasValue ? MoneyValue.Of(request.EventFeeValue.Value, request.EventFeeCurrency) : MoneyValue.Undefined,
                 _memberContext.MemberId);
 
             return Unit.Value;

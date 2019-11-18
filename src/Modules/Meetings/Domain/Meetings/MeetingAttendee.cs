@@ -37,7 +37,18 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
 
         }
 
-        internal MeetingAttendee(
+        internal static MeetingAttendee CreateNew(
+            MeetingId meetingId,
+            MemberId attendeeId,
+            DateTime decisionDate,
+            MeetingAttendeeRole role,
+            int guestsNumber,
+            MoneyValue eventFee)
+        {
+            return new MeetingAttendee(meetingId, attendeeId, decisionDate, role, guestsNumber, eventFee);
+        }
+
+        private MeetingAttendee(
             MeetingId meetingId, 
             MemberId attendeeId, 
             DateTime decisionDate, 
@@ -54,13 +65,13 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
 
             MoneyValue fee;
 
-            if (eventFee != MoneyValue.Zero)
+            if (eventFee != MoneyValue.Undefined)
             {
                 fee = (1 + guestsNumber) * eventFee;
             }
             else
             {
-                fee = MoneyValue.Zero;
+                fee = MoneyValue.Undefined;
             }
 
             this.AddDomainEvent(new MeetingAttendeeAddedDomainEvent(this.MeetingId, AttendeeId, decisionDate, role, guestsNumber, fee));

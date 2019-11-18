@@ -57,7 +57,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups
             this.AddDomainEvent(new MeetingGroupCreatedDomainEvent(this.Id, creatorId));
 
             this._members = new List<MeetingGroupMember>();
-            this._members.Add(new MeetingGroupMember(this.Id, this._creatorId, MeetingGroupMemberRole.Organizer));
+            this._members.Add(MeetingGroupMember.CreateNew(this.Id, this._creatorId, MeetingGroupMemberRole.Organizer));
         }
 
         public void EditGeneralAttributes(string name, string description, MeetingGroupLocation location)
@@ -73,7 +73,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups
         {
             this.CheckRule(new MeetingGroupMemberCannotBeAddedTwiceRule(_members, memberId));
 
-            this._members.Add(new MeetingGroupMember(this.Id, memberId, MeetingGroupMemberRole.Member));
+            this._members.Add(MeetingGroupMember.CreateNew(this.Id, memberId, MeetingGroupMemberRole.Member));
         }
 
         public void LeaveGroup(MemberId memberId)
@@ -108,7 +108,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups
 
             this.CheckRule(new MeetingHostMustBeAMeetingGroupMemberRule(creatorId, hostsMembersIds, _members));
 
-            return new Meeting(this.Id,
+            return Meeting.CreateNew(this.Id,
                 title,
                 term,
                 description,

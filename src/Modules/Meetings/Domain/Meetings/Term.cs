@@ -11,7 +11,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
 
         public DateTime? EndDate { get; }
 
-        public Term(DateTime? startDate, DateTime? endDate)
+        public static Term CreateNewBetweenDates(DateTime? startDate, DateTime? endDate)
+        {
+            return new Term(startDate, endDate);
+        }
+
+        private Term(DateTime? startDate, DateTime? endDate)
         {
             this.StartDate = startDate;
             this.EndDate = endDate;
