@@ -18,6 +18,7 @@
     <ProjectReference Include="..\BuildingBlocks\Domain\CompanyName.MyMeetings.BuildingBlocks.Domain.csproj" />
     <ProjectReference Include="..\Modules\Meetings\Application\CompanyName.MyMeetings.Modules.Meetings.Application.csproj" />
     <ProjectReference Include="..\Modules\Meetings\Domain\CompanyName.MyMeetings.Modules.Meetings.Domain.csproj" />
+    <ProjectReference Include="..\Modules\Meetings\Infrastructure\CompanyName.MyMeetings.Modules.Meetings.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals;
+using CompanyName.MyMeetings.Modules.Meetings.Infrastructure;
 using NetArchTest.Rules;
 using NUnit.Framework;
 
@@ -13,6 +14,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.ArchitectureTests.SeedWork
     {
         protected static Assembly ApplicationAssembly = typeof(CommandBase).Assembly;
         protected static Assembly DomainAssembly = typeof(MeetingGroupProposal).Assembly;
+        protected static Assembly InfrastructureAssembly = typeof(MeetingsContext).Assembly;
 
         protected static void AssertAreImmutable(IEnumerable<Type> types)
         {

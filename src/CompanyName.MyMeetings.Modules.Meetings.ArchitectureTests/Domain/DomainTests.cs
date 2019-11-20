@@ -202,5 +202,31 @@ namespace CompanyName.MyMeetings.Modules.Meetings.ArchitectureTests.Domain
 
             AssertFailingTypes(failingTypes);
         }
+
+        [Test]
+        public void DomainEvent_Should_Have_DomainEventPostfix()
+        {
+            var result = Types.InAssembly(DomainAssembly)
+                .That()
+                .Inherit(typeof(DomainEventBase))
+                .Or()
+                .Inherit(typeof(IDomainEvent))
+                .Should().HaveNameEndingWith("DomainEvent")
+                .GetResult();
+
+            AssertArchTestResult(result);
+        }
+
+        [Test]
+        public void BusinessRule_Should_Have_RulePostfix()
+        {
+            var result = Types.InAssembly(DomainAssembly)
+                .That()
+                .Inherit(typeof(IBusinessRule))
+                .Should().HaveNameEndingWith("Rule")
+                .GetResult();
+
+            AssertArchTestResult(result);
+        }
     }
 }
