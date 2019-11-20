@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Processing;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Processing.InternalCommands;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Meetings.ArchitectureTests.SeedWork;
+using MediatR;
 using NetArchTest.Rules;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -118,6 +120,32 @@ namespace CompanyName.MyMeetings.Modules.Meetings.ArchitectureTests.Application
             }
 
             AssertFailingTypes(failingTypes); 
+        }
+
+        [Test]
+        public void MediatR_RequestHandler_Should_NotBe_Used_Directly()
+        {
+            var types = Types.InAssembly(ApplicationAssembly)
+                .That().DoNotHaveName("ICommandHandler`1")
+                .Should().ImplementInterface(typeof(IRequestHandler<>))
+                .GetTypes();
+
+            List<Type> failingTypes = new List<Type>();
+            foreach (var type in types)
+            {
+                bool isCommandHandler = type.GetInterfaces().Any(x =>
+                    x.IsGenericType &&
+                    x.GetGenericTypeDefinition() == typeof(ICommandHandler<>));
+                bool isQueryHandler = type.GetInterfaces().Any(x =>
+                    x.IsGenericType &&
+                    x.GetGenericTypeDefinition() == typeof(IQueryHandler<,>));
+                if (!isCommandHandler && !isQueryHandler)
+                {
+                    failingTypes.Add(type);
+                }
+            }
+            
+            AssertFailingTypes(failingTypes);      
         }
     }
 }

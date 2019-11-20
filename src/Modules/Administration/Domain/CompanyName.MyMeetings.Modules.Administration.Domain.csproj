@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\BuildingBlocks\Domain\CompanyName.MyMeetings.BuildingBlocks.Domain.csproj" />
+    <ProjectReference Include="..\..\Payments\Domain\CompanyName.MyMeetings.Modules.Payments.Domain.csproj" />
   </ItemGroup>
 
 </Project>

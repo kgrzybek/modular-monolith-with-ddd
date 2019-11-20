@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using CompanyName.MyMeetings.API.Configuration.Authorization;
 using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.AcceptMeetingGroupProposal;
-using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyName.MyMeetings.API.Modules.Administration.MeetingGroupProposals
