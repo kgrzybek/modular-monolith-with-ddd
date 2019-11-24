@@ -3,7 +3,7 @@ using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Processing.InternalCommands
 {
-    internal abstract class InternalCommandBase : ICommand
+    public abstract class InternalCommandBase : ICommand
     {
         public Guid Id { get; }
 

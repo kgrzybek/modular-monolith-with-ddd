@@ -23,7 +23,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroup
                 request.MeetingGroupProposalId,
                 request.Name,
                 request.Description,
-                new MeetingGroupLocation(request.LocationCity, request.LocationCountryCode),
+                MeetingGroupLocation.Create(request.LocationCity, request.LocationCountryCode),
                 new UserId(request.ProposalUserId),
                 request.ProposalDate
             );

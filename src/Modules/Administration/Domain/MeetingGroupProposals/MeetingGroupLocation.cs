@@ -3,10 +3,15 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupPropo
 {
     public class MeetingGroupLocation : ValueObject
     {
-        public MeetingGroupLocation(string city, string countryCode)
+        private MeetingGroupLocation(string city, string countryCode)
         {
             City = city;
             CountryCode = countryCode;
+        }
+
+        public static MeetingGroupLocation Create(string city, string countryCode)
+        {
+            return new MeetingGroupLocation(city, countryCode);
         }
 
         public string City { get; }

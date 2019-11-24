@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Application.Configuration.Processing.Inbox
 {
-    internal class ProcessInboxCommandHandler : IRequestHandler<ProcessInboxCommand>
+    internal class ProcessInboxCommandHandler : ICommandHandler<ProcessInboxCommand>
     {
         private readonly IMediator _mediator;
         private readonly ISqlConnectionFactory _sqlConnectionFactory;

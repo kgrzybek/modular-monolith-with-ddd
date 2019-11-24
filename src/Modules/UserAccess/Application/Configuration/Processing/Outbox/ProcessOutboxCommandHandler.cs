@@ -13,7 +13,7 @@ using Serilog.Events;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Processing.Outbox
 {
-    public class ProcessOutboxCommandHandler : IRequestHandler<ProcessOutboxCommand>
+    internal class ProcessOutboxCommandHandler : ICommandHandler<ProcessOutboxCommand>
     {
         private readonly IMediator _mediator;
         private readonly ISqlConnectionFactory _sqlConnectionFactory;

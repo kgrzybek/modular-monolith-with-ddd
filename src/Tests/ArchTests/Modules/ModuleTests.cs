@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
-using CompanyName.MyMeetings.ArchitectureTests.SeedWork;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
+using CompanyName.MyMeetings.ArchTests.SeedWork;
 using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupProposals;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure;
@@ -18,8 +17,7 @@ using MediatR;
 using NetArchTest.Rules;
 using NUnit.Framework;
 
-
-namespace CompanyName.MyMeetings.ArchitectureTests.Modules
+namespace CompanyName.MyMeetings.ArchTests.Modules
 {
     [TestFixture]
     public class ModuleTests : TestBase

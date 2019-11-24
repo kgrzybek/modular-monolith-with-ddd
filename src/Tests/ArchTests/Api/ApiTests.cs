@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using CompanyName.MyMeetings.ArchitectureTests.SeedWork;
+using CompanyName.MyMeetings.ArchTests.SeedWork;
 using NetArchTest.Rules;
 using NUnit.Framework;
 
-namespace CompanyName.MyMeetings.ArchitectureTests.Api
+namespace CompanyName.MyMeetings.ArchTests.Api
 {
     [TestFixture]
     public class ApiTests : TestBase

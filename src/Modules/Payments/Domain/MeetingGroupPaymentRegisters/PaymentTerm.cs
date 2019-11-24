@@ -9,10 +9,15 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingGroupPaymentRegi
 
         public DateTime EndDate { get; }
 
-        public PaymentTerm(DateTime startDate, DateTime endDate)
+        private PaymentTerm(DateTime startDate, DateTime endDate)
         {
             this.StartDate = startDate;
             this.EndDate = endDate;
+        }
+
+        public static PaymentTerm Create(DateTime startDate, DateTime endDate)
+        {
+            return new PaymentTerm(startDate, endDate);
         }
 
         internal bool OverlapsWith(PaymentTerm term)

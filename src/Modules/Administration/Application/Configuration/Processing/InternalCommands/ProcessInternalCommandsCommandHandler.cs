@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Application.Configuration.Processing.InternalCommands
 {
-    internal class ProcessInternalCommandsCommandHandler : IRequestHandler<ProcessInternalCommandsCommand>
+    internal class ProcessInternalCommandsCommandHandler : ICommandHandler<ProcessInternalCommandsCommand>
     {
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 

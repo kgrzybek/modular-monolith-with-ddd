@@ -6,7 +6,7 @@ using CompanyName.MyMeetings.API;
 using NetArchTest.Rules;
 using NUnit.Framework;
 
-namespace CompanyName.MyMeetings.ArchitectureTests.SeedWork
+namespace CompanyName.MyMeetings.ArchTests.SeedWork
 {
     public abstract class TestBase
     {

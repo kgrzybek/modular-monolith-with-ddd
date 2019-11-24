@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -15,10 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BuildingBlocks\Domain\CompanyName.MyMeetings.BuildingBlocks.Domain.csproj" />
-    <ProjectReference Include="..\Modules\Meetings\Application\CompanyName.MyMeetings.Modules.Meetings.Application.csproj" />
-    <ProjectReference Include="..\Modules\Meetings\Domain\CompanyName.MyMeetings.Modules.Meetings.Domain.csproj" />
-    <ProjectReference Include="..\Modules\Meetings\Infrastructure\CompanyName.MyMeetings.Modules.Meetings.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\..\BuildingBlocks\Domain\CompanyName.MyMeetings.BuildingBlocks.Domain.csproj" />
+    <ProjectReference Include="..\..\Application\CompanyName.MyMeetings.Modules.Meetings.Application.csproj" />
+    <ProjectReference Include="..\..\Domain\CompanyName.MyMeetings.Modules.Meetings.Domain.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\CompanyName.MyMeetings.Modules.Meetings.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

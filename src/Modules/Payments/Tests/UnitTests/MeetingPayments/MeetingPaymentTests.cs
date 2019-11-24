@@ -16,7 +16,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.MeetingPaymen
         {
             var payerId = new PayerId(Guid.NewGuid());
             var meetingId = new MeetingId(Guid.NewGuid());
-            var fee = new MoneyValue(100, "EUR");
+            var fee = MoneyValue.Of(100, "EUR");
 
             var meetingPayment = MeetingPayment.CreatePaymentForMeeting(payerId, meetingId, fee);
 
@@ -31,7 +31,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.MeetingPaymen
         {
             var payerId = new PayerId(Guid.NewGuid());
             var meetingId = new MeetingId(Guid.NewGuid());
-            var fee = new MoneyValue(0, "EUR");
+            var fee = MoneyValue.Of(0, "EUR");
 
             AssertBrokenRule<MeetingPaymentFeeMustBeGreaterThanZeroRule>(() =>
             {
@@ -44,7 +44,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.MeetingPaymen
         {
             var payerId = new PayerId(Guid.NewGuid());
             var meetingId = new MeetingId(Guid.NewGuid());
-            var fee = new MoneyValue(100, "EUR");
+            var fee = MoneyValue.Of(100, "EUR");
             var paymentDate = DateTime.UtcNow;
             SystemClock.Set(paymentDate);
 
@@ -63,7 +63,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.MeetingPaymen
         {
             var payerId = new PayerId(Guid.NewGuid());
             var meetingId = new MeetingId(Guid.NewGuid());
-            var fee = new MoneyValue(100, "EUR");
+            var fee = MoneyValue.Of(100, "EUR");
 
             var meetingPayment = MeetingPayment.CreatePaymentForMeeting(payerId, meetingId, fee);
             meetingPayment.MarkIsPayed();

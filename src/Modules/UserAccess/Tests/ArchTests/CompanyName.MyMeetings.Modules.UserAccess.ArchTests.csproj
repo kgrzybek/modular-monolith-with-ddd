@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NetArchTest.Rules" Version="1.2.3" />
+    <PackageReference Include="nunit" Version="3.11.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.11.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BuildingBlocks\Domain\CompanyName.MyMeetings.BuildingBlocks.Domain.csproj" />
+    <ProjectReference Include="..\..\Application\CompanyName.MyMeetings.Modules.UserAccess.Application.csproj" />
+    <ProjectReference Include="..\..\Domain\CompanyName.MyMeetings.Modules.UserAccess.Domain.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

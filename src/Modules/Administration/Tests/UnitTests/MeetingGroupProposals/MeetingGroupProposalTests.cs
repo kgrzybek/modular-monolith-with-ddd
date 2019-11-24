@@ -15,7 +15,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.UnitTests.Meeting
         public void CreateProposalToVerify_IsSuccessful()
         {
             var meetingGroupProposalId = Guid.NewGuid();
-            var location = new MeetingGroupLocation("Warsaw", "Poland");
+            var location = MeetingGroupLocation.Create("Warsaw", "Poland");
             var proposalUserId = new UserId(Guid.NewGuid());
             var proposalDate = DateTime.Now;
             
@@ -30,7 +30,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.UnitTests.Meeting
         public void AcceptProposal_WhenDecisionIsNotMade_IsSuccessful()
         {
             var meetingGroupProposalId = Guid.NewGuid();
-            var location = new MeetingGroupLocation("Warsaw", "Poland");
+            var location = MeetingGroupLocation.Create("Warsaw", "Poland");
             var proposalUserId = new UserId(Guid.NewGuid());
             var proposalDate = DateTime.Now;          
             var meetingGroupProposal = MeetingGroupProposal.CreateToVerify(meetingGroupProposalId,
@@ -47,7 +47,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.UnitTests.Meeting
         public void AcceptProposal_WhenDecisionIsMade_CanBeVerifiedOnlyOnce()
         {
             var meetingGroupProposalId = Guid.NewGuid();
-            var location = new MeetingGroupLocation("Warsaw", "Poland");
+            var location = MeetingGroupLocation.Create("Warsaw", "Poland");
             var userId = new UserId(Guid.NewGuid());
             var proposalUserId = userId;
             var proposalDate = DateTime.Now;          
@@ -66,7 +66,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.UnitTests.Meeting
         public void RejectProposal_WhenDecisionIsMade_CanBeVerifiedOnlyOnce()
         {
             var meetingGroupProposalId = Guid.NewGuid();
-            var location = new MeetingGroupLocation("Warsaw", "Poland");
+            var location = MeetingGroupLocation.Create("Warsaw", "Poland");
             var userId = new UserId(Guid.NewGuid());
             var proposalUserId = userId;
             var proposalDate = DateTime.Now;          
@@ -85,7 +85,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.UnitTests.Meeting
         public void RejectProposal_WithoutProvidedReason_CannotBeRejected()
         {
             var meetingGroupProposalId = Guid.NewGuid();
-            var location = new MeetingGroupLocation("Warsaw", "Poland");
+            var location = MeetingGroupLocation.Create("Warsaw", "Poland");
             var userId = new UserId(Guid.NewGuid());
             var proposalUserId = userId;
             var proposalDate = DateTime.Now;          
