@@ -7,7 +7,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingGroupPaymentRegisters.RegisterPayment
 {
-    public class RegisterPaymentCommandHandler : ICommandHandler<RegisterPaymentCommand>
+    internal class RegisterPaymentCommandHandler : ICommandHandler<RegisterPaymentCommand>
     {
         private readonly IMeetingGroupPaymentRegisterRepository _meetingGroupPaymentRegisterRepository;
         private readonly IPayerContext _payerContext;
@@ -24,7 +24,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingGroupPaymen
                 await _meetingGroupPaymentRegisterRepository.GetByIdAsync(
                     new MeetingGroupPaymentRegisterId(command.MeetingGroupId));
 
-            paymentRegister.RegisterPayment(new PaymentTerm(command.StartDate, command.EndDate), _payerContext.PayerId);
+            paymentRegister.RegisterPayment(PaymentTerm.Create(command.StartDate, command.EndDate), _payerContext.PayerId);
 
             return Unit.Value;
         }

@@ -9,7 +9,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups
 
         public string Value { get; }
 
-        public MeetingGroupMemberRole(string value)
+        private MeetingGroupMemberRole(string value)
         {
             this.Value = value;
         }

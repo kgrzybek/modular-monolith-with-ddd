@@ -38,12 +38,12 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupPropo
         {
             if (this.IsAccepted)
             {
-                return new MeetingGroupProposalStatus("Verified");
+                return MeetingGroupProposalStatus.Create("Verified");
             }
 
             if (this.IsRejected)
             {
-                return new MeetingGroupProposalStatus("Rejected");
+                return MeetingGroupProposalStatus.Create("Rejected");
             }
 
             return MeetingGroupProposalStatus.ToVerify;

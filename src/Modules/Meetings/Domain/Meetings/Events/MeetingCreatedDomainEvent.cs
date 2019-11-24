@@ -9,6 +9,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Events
             MeetingId = meetingId;
         }
 
-        public MeetingId MeetingId { get;}
+        public MeetingId MeetingId { get; }
     }
 }

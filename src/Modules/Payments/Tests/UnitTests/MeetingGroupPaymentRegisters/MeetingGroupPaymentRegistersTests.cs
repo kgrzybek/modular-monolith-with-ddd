@@ -30,7 +30,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.MeetingGroupP
             var paymentScheduleForMeetingGroup = MeetingGroupPaymentRegister.CreatePaymentScheduleForMeetingGroup(meetingGroupId);
 
             var payerId = new PayerId(Guid.NewGuid());
-            var paymentTerm = new PaymentTerm(
+            var paymentTerm = PaymentTerm.Create(
                 new DateTime(2019, 1, 1), 
                 new DateTime(2019, 1, 31));
             paymentScheduleForMeetingGroup.RegisterPayment(
@@ -49,13 +49,13 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.MeetingGroupP
             var paymentScheduleForMeetingGroup = MeetingGroupPaymentRegister.CreatePaymentScheduleForMeetingGroup(meetingGroupId);
 
             var payerId = new PayerId(Guid.NewGuid());
-            var paymentTerm = new PaymentTerm(
+            var paymentTerm = PaymentTerm.Create(
                 new DateTime(2019, 1, 1), 
                 new DateTime(2019, 1, 31));
             paymentScheduleForMeetingGroup.RegisterPayment(
                 paymentTerm, payerId);
 
-            var nextPaymentTerm = new PaymentTerm(
+            var nextPaymentTerm = PaymentTerm.Create(
                 new DateTime(2019, 2, 1), 
                 new DateTime(2019, 2, 28));
 
@@ -75,13 +75,13 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.MeetingGroupP
             var paymentScheduleForMeetingGroup = MeetingGroupPaymentRegister.CreatePaymentScheduleForMeetingGroup(meetingGroupId);
 
             var payerId = new PayerId(Guid.NewGuid());
-            var paymentTerm = new PaymentTerm(
+            var paymentTerm = PaymentTerm.Create(
                 new DateTime(2019, 1, 1), 
                 new DateTime(2019, 1, 31));
             paymentScheduleForMeetingGroup.RegisterPayment(
                 paymentTerm, payerId);
 
-            var nextPaymentTerm = new PaymentTerm(
+            var nextPaymentTerm = PaymentTerm.Create(
                 new DateTime(2019, 1, 31), 
                 new DateTime(2019, 2, 28));
 

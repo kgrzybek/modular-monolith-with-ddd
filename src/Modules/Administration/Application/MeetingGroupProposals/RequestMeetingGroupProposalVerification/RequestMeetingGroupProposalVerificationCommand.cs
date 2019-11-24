@@ -21,7 +21,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroup
         public DateTime ProposalDate { get; }
 
         [JsonConstructor]
-        public RequestMeetingGroupProposalVerificationCommand(
+        internal RequestMeetingGroupProposalVerificationCommand(
             Guid id,
             Guid meetingGroupProposalId,
             string name,

@@ -20,7 +20,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.MeetingGroupPay
             {
                 paymentBuilder.ToTable("MeetingGroupPayments", "payments");
 
-                paymentBuilder.HasKey(x => x.Id);
+                paymentBuilder.HasKey("Id");
 
                 paymentBuilder.Property<MeetingGroupPaymentRegisterId>("MeetingGroupPaymentRegisterId");
                 paymentBuilder.HasForeignKey("MeetingGroupPaymentRegisterId");

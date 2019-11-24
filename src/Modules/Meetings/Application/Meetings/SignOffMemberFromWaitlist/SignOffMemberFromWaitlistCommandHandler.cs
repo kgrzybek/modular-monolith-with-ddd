@@ -7,7 +7,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SignOffMemberFromWaitlist
 {
-    public class SignOffMemberFromWaitlistCommandHandler : ICommandHandler<SignOffMemberFromWaitlistCommand>
+    internal class SignOffMemberFromWaitlistCommandHandler : ICommandHandler<SignOffMemberFromWaitlistCommand>
     {
         private readonly IMemberContext _memberContext;
         private readonly IMeetingRepository _meetingRepository;

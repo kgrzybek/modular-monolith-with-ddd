@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
 

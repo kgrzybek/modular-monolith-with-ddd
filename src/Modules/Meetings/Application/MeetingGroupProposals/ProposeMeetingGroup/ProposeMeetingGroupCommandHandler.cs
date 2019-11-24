@@ -9,7 +9,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals.ProposeMeetingGroup
 {
-    public class ProposeMeetingGroupCommandHandler : ICommandHandler<ProposeMeetingGroupCommand>
+    internal class ProposeMeetingGroupCommandHandler : ICommandHandler<ProposeMeetingGroupCommand>
     {
         private readonly IMeetingGroupProposalRepository _meetingGroupProposalRepository;
         private readonly IMemberContext _memberContext;
@@ -27,7 +27,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupPropos
             var meetingGroupProposal = MeetingGroupProposal.ProposeNew(
                 request.Name, 
                 request.Description,
-                new MeetingGroupLocation(request.LocationCity, request.LocationCountryCode), 
+                MeetingGroupLocation.CreateNew(request.LocationCity, request.LocationCountryCode), 
                 _memberContext.MemberId);
 
             await _meetingGroupProposalRepository.AddAsync(meetingGroupProposal);

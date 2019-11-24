@@ -20,7 +20,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroupP
 
             var meetingProposal = MeetingGroupProposal.ProposeNew(
                 "name", "description",
-                new MeetingGroupLocation("Warsaw", "PL"), proposalMemberId);
+                MeetingGroupLocation.CreateNew("Warsaw", "PL"), proposalMemberId);
 
             var meetingGroupProposed = AssertPublishedDomainEvent<MeetingGroupProposedDomainEvent>(meetingProposal);
 
@@ -34,7 +34,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroupP
 
             var meetingProposal = MeetingGroupProposal.ProposeNew(
                 "name", "description",
-                new MeetingGroupLocation("Warsaw", "PL"), proposalMemberId);
+                MeetingGroupLocation.CreateNew("Warsaw", "PL"), proposalMemberId);
 
             meetingProposal.Accept();
 
@@ -50,7 +50,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroupP
 
             var meetingProposal = MeetingGroupProposal.ProposeNew(
                 "name", "description",
-                new MeetingGroupLocation("Warsaw", "PL"), proposalMemberId);
+                MeetingGroupLocation.CreateNew("Warsaw", "PL"), proposalMemberId);
 
             meetingProposal.Accept();
 
@@ -66,7 +66,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroupP
             var proposalMemberId = new MemberId(Guid.NewGuid());
             var name = "name";
             var description = "description";
-            var meetingGroupLocation = new MeetingGroupLocation("Warsaw", "PL");
+            var meetingGroupLocation = MeetingGroupLocation.CreateNew("Warsaw", "PL");
             var meetingProposal = MeetingGroupProposal.ProposeNew(
                 name, description,
                 meetingGroupLocation, proposalMemberId);

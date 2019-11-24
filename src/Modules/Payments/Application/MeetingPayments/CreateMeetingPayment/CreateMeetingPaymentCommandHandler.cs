@@ -20,7 +20,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingPayments.Cr
             var meetingPayment = MeetingPayment.CreatePaymentForMeeting(
                 request.PayerId, 
                 request.MeetingId,
-                new MoneyValue(request.Value, request.Currency));
+                MoneyValue.Of(request.Value, request.Currency));
 
             await _meetingPaymentRepository.AddAsync(meetingPayment);
 

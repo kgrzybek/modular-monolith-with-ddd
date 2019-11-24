@@ -26,7 +26,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
             
         }
 
-        internal MeetingWaitlistMember(MeetingId meetingId, MemberId memberId)
+        private MeetingWaitlistMember(MeetingId meetingId, MemberId memberId)
         {
             this.MemberId = memberId;
             this.MeetingId = meetingId;
@@ -34,6 +34,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
             _isMovedToAttendees = false;
 
             this.AddDomainEvent(new MeetingWaitlistMemberAddedDomainEvent(this.MeetingId, this.MemberId));
+        }
+
+        internal static MeetingWaitlistMember CreateNew(MeetingId meetingId, MemberId memberId)
+        {
+            return new MeetingWaitlistMember(meetingId, memberId);
         }
 
         internal void MarkIsMovedToAttendees()

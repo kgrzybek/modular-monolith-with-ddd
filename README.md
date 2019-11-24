@@ -52,6 +52,8 @@ Full Modular Monolith .NET application with Domain-Driven Design approach.
 
 &nbsp;&nbsp;[3.11 Architecture Decision Log](#311-architecture-decision-log)
 
+&nbsp;&nbsp;[3.12 Architecture Unit Tests](#312-architecture-unit-tests)
+
 [4. Technology](#4-technology)
 
 [5. How to Run](#5-how-to-run)
@@ -941,6 +943,19 @@ All Architectural Decisions (AD) are documented in the [Architecture Decision Lo
 
 More information about documenting architecture-related decisions in this way : [https://github.com/joelparkerhenderson/architecture_decision_record](https://github.com/joelparkerhenderson/architecture_decision_record)
 
+### 3.12 Architecture Unit Tests
+
+In some cases it is not possible to enforce the application architecture, design or established conventions using compiler (compile-time). For this reason, code implementations can diverge from the original design and architecture. We want to minimize this behavior, not only by code review.</br>
+
+To do this, unit tests of system architecture, design, major conventions and assumptions  have been written. In .NET there is special library for this task: [NetArchTest](https://github.com/BenMorris/NetArchTest). This library has been written based on the very popular JAVA architecture unit tests library - [ArchUnit](https://www.archunit.org/).</br>
+
+Using this kind of tests we can test proper layering of our application, dependencies, encapsulation, immutability, DDD correct implementation, naming, conventions and so on - everything what we need to test. Example:</br>
+
+![](docs/Images/architecture_unit_tests.png)
+
+More information about architecture unit tests here: [https://blogs.oracle.com/javamagazine/unit-test-your-architecture-with-archunit](https://blogs.oracle.com/javamagazine/unit-test-your-architecture-with-archunit)
+
+
 ## 4. Technology
 
 List of technologies, frameworks and libraries used for implementation:
@@ -962,6 +977,7 @@ List of technologies, frameworks and libraries used for implementation:
 - [NUnit](https://nunit.org/) (Testing framework)
 - [NSubstitute](https://nsubstitute.github.io/) (Testing isolation framework)
 - [Visual Paradigm Community Edition](https://www.visual-paradigm.com/download/community.jsp) (CASE tool for modeling and documentation)
+- [NetArchTest](https://github.com/BenMorris/NetArchTest) (Architecture Unit Tests library)
 
 ## 5. How to Run
 
@@ -1103,6 +1119,7 @@ The project is under [MIT license](https://opensource.org/licenses/MIT).
 
 ### Testing
 - ["The Art of Unit Testing: with examples in C#"](https://www.amazon.com/Art-Unit-Testing-examples/dp/1617290890) book, Roy Osherove
+- ["Unit Test Your Architecture with ArchUnit"](https://blogs.oracle.com/javamagazine/unit-test-your-architecture-with-archunit) article, Jonas Havers
 
 ### UML
 - ["UML Distilled: A Brief Guide to the Standard Object Modeling Language (3rd Edition)"](https://www.amazon.com/UML-Distilled-Standard-Modeling-Language/dp/0321193687) book, Martin Fowler

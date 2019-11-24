@@ -8,10 +8,15 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments
 
         public string Currency { get; }
 
-        public MoneyValue(decimal? value, string currency)
+        private MoneyValue(decimal? value, string currency)
         {
             this.Value = value;
             this.Currency = currency;
+        }
+
+        public static MoneyValue Of(decimal? value, string currency)
+        {
+            return new MoneyValue(value, currency);
         }
 
         public static bool operator > (decimal left, MoneyValue right) => left > right.Value;

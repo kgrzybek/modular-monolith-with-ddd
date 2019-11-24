@@ -7,7 +7,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.Users
         public static UserRole Member => new UserRole(nameof(Member));
         public string Value { get; }
 
-        public UserRole(string value)
+        private UserRole(string value)
         {
             this.Value = value;
         }

@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.0" />
+    <PackageReference Include="NetArchTest.Rules" Version="1.2.3" />
+    <PackageReference Include="nunit" Version="3.11.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.11.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\API\CompanyName.MyMeetings.API\CompanyName.MyMeetings.API.csproj" />
+    <ProjectReference Include="..\..\Modules\Administration\Application\CompanyName.MyMeetings.Modules.Administration.Application.csproj" />
+    <ProjectReference Include="..\..\Modules\Administration\Domain\CompanyName.MyMeetings.Modules.Administration.Domain.csproj" />
+    <ProjectReference Include="..\..\Modules\Administration\Infrastructure\CompanyName.MyMeetings.Modules.Administration.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Modules\Administration\IntegrationEvents\CompanyName.MyMeetings.Modules.Administration.IntegrationEvents.csproj" />
+    <ProjectReference Include="..\..\Modules\Meetings\Application\CompanyName.MyMeetings.Modules.Meetings.Application.csproj" />
+    <ProjectReference Include="..\..\Modules\Meetings\Domain\CompanyName.MyMeetings.Modules.Meetings.Domain.csproj" />
+    <ProjectReference Include="..\..\Modules\Meetings\Infrastructure\CompanyName.MyMeetings.Modules.Meetings.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Modules\Meetings\IntegrationEvents\CompanyName.MyMeetings.Modules.Meetings.IntegrationEvents.csproj" />
+    <ProjectReference Include="..\..\Modules\Payments\Application\CompanyName.MyMeetings.Modules.Payments.Application.csproj" />
+    <ProjectReference Include="..\..\Modules\Payments\Domain\CompanyName.MyMeetings.Modules.Payments.Domain.csproj" />
+    <ProjectReference Include="..\..\Modules\Payments\Infrastructure\CompanyName.MyMeetings.Modules.Payments.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Modules\Payments\IntegrationEvents\CompanyName.MyMeetings.Modules.Payments.IntegrationEvents.csproj" />
+    <ProjectReference Include="..\..\Modules\UserAccess\Application\CompanyName.MyMeetings.Modules.UserAccess.Application.csproj" />
+    <ProjectReference Include="..\..\Modules\UserAccess\Domain\CompanyName.MyMeetings.Modules.UserAccess.Domain.csproj" />
+    <ProjectReference Include="..\..\Modules\UserAccess\Infrastructure\CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Modules\UserAccess\IntegrationEvents\CompanyName.MyMeetings.Modules.UserAccess.IntegrationEvents.csproj" />
+  </ItemGroup>
+
+</Project>

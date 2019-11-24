@@ -17,7 +17,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions
             {
                 CreatorId = creatorId,
-                MeetingTerm = new MeetingTerm(DateTime.UtcNow.AddDays(-2), DateTime.UtcNow.AddDays(-1))
+                MeetingTerm = MeetingTerm.CreateNewBetweenDates(DateTime.UtcNow.AddDays(-2), DateTime.UtcNow.AddDays(-1))
             });         
             var memberId = new MemberId(Guid.NewGuid());
 
@@ -34,7 +34,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions
             {
                 CreatorId = creatorId,
-                RvspTerm = new Term(DateTime.UtcNow.AddDays(-2), DateTime.UtcNow.AddDays(-1))
+                RvspTerm = Term.CreateNewBetweenDates(DateTime.UtcNow.AddDays(-2), DateTime.UtcNow.AddDays(-1))
             });               
             var memberId = new MemberId(Guid.NewGuid());
 
@@ -102,7 +102,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions
             {
                 CreatorId = creatorId,
-                MeetingTerm = new MeetingTerm(DateTime.UtcNow.AddDays(-2), DateTime.UtcNow.AddDays(-1))
+                MeetingTerm = MeetingTerm.CreateNewBetweenDates(DateTime.UtcNow.AddDays(-2), DateTime.UtcNow.AddDays(-1))
             });         
             var memberId = new MemberId(Guid.NewGuid());
 

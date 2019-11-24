@@ -4,14 +4,19 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups
 {
     public class MeetingGroupLocation : ValueObject
     {
-        public MeetingGroupLocation(string city, string countryCode)
+        public static MeetingGroupLocation CreateNew(string city, string countryCode)
         {
-            City = city;
-            CountryCode = countryCode;
+            return new MeetingGroupLocation(city, countryCode);
         }
 
         public string City { get; }
 
         public string CountryCode { get; }
+
+        private MeetingGroupLocation(string city, string countryCode)
+        {
+            City = city;
+            CountryCode = countryCode;
+        }
     }
 }

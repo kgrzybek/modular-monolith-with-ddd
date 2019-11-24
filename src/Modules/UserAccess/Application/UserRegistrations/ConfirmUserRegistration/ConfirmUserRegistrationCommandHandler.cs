@@ -7,7 +7,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.ConfirmUserRegistration
 {
-    public class ConfirmUserRegistrationCommandHandler : ICommandHandler<ConfirmUserRegistrationCommand>
+    internal class ConfirmUserRegistrationCommandHandler : ICommandHandler<ConfirmUserRegistrationCommand>
     {
         private readonly IUserRegistrationRepository _userRegistrationRepository;
 

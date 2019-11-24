@@ -38,7 +38,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingGroupPaymentRegi
 
         public void RegisterPayment(PaymentTerm term, PayerId payerId)
         {
-            var meetingGroupPayment = new MeetingGroupPayment(term, payerId);
+            var meetingGroupPayment = MeetingGroupPayment.CreateForTerm(term, payerId);
 
             this.CheckRule(new MeetingGroupPaymentsCannotOverlapRule(_payments, meetingGroupPayment));
             

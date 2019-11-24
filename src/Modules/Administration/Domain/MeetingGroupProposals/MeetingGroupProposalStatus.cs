@@ -7,9 +7,14 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupPropo
         
         public string Value { get; }
 
-        internal MeetingGroupProposalStatus(string value)
+        private MeetingGroupProposalStatus(string value)
         {
             Value = value;
+        }
+
+        internal static MeetingGroupProposalStatus Create(string value)
+        {
+            return new MeetingGroupProposalStatus(value);
         }
     }
 }

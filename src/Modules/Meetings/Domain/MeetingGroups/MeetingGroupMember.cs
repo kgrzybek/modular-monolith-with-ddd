@@ -25,7 +25,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups
             // Only for EF.
         }
 
-        public MeetingGroupMember(
+        private MeetingGroupMember(
             MeetingGroupId meetingGroupId, 
             MemberId memberId,
             MeetingGroupMemberRole role)
@@ -39,7 +39,15 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups
             this.AddDomainEvent(new NewMeetingGroupMemberJoinedDomainEvent(this.MeetingGroupId, this.MemberId, this._role));
         }
 
-        public void Leave()
+        internal static MeetingGroupMember CreateNew(
+            MeetingGroupId meetingGroupId,
+            MemberId memberId,
+            MeetingGroupMemberRole role)
+        {
+            return new MeetingGroupMember(meetingGroupId, memberId, role);
+        }
+
+        internal void Leave()
         {
             _isActive = false;
             _leaveDate = SystemClock.Now;

@@ -4,7 +4,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
 {
     public class MeetingLocation : ValueObject
     {
-        public MeetingLocation(string name, string address, string postalCode, string city)
+        public static MeetingLocation CreateNew(string name, string address, string postalCode, string city)
+        {
+            return new MeetingLocation(name, address, postalCode, city);
+        }
+
+        private MeetingLocation(string name, string address, string postalCode, string city)
         {
             Name = name;
             Address = address;

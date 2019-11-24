@@ -2,12 +2,13 @@
 using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
+using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Processing;
 using Dapper;
 using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.GetAllMeetingGroups
 {
-    internal class GetAllMeetingGroupsQueryHandler : IRequestHandler<GetAllMeetingGroupsQuery, List<MeetingGroupDto>>
+    internal class GetAllMeetingGroupsQueryHandler : IQueryHandler<GetAllMeetingGroupsQuery, List<MeetingGroupDto>>
     {
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
