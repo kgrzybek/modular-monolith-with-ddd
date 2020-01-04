@@ -22,7 +22,6 @@
     <ProjectReference Include="..\..\Administration\IntegrationEvents\CompanyName.MyMeetings.Modules.Administration.IntegrationEvents.csproj" PrivateAssets="All" />
     <ProjectReference Include="..\..\Meetings\IntegrationEvents\CompanyName.MyMeetings.Modules.Meetings.IntegrationEvents.csproj" />
     <ProjectReference Include="..\Domain\CompanyName.MyMeetings.Modules.Payments.Domain.csproj" PrivateAssets="All" />
-    <ProjectReference Include="..\Infrastructure\CompanyName.MyMeetings.Modules.Payments.Infrastructure.csproj" PrivateAssets="All" />
     <ProjectReference Include="..\IntegrationEvents\CompanyName.MyMeetings.Modules.Payments.IntegrationEvents.csproj" PrivateAssets="All" />
     <ProjectReference Include="..\..\UserAccess\IntegrationEvents\CompanyName.MyMeetings.Modules.UserAccess.IntegrationEvents.csproj" />
   </ItemGroup>

@@ -1,5 +1,5 @@
 ﻿using System;
-using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Processing.InternalCommands;
+using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Payers;
 using Newtonsoft.Json;

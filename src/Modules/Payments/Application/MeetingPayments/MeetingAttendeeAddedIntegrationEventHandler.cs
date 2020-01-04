@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.Modules.Meetings.IntegrationEvents;
-using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Processing.InternalCommands;
+using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Payments.Application.MeetingPayments.CreateMeetingPayment;
 using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Payers;

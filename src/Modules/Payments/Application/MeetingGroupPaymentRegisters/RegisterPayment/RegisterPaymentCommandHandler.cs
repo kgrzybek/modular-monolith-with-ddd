@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Processing;
+using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingGroupPaymentRegisters;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Payers;
 using MediatR;
