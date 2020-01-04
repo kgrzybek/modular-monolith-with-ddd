@@ -10,7 +10,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\Application\CompanyName.MyMeetings.BuildingBlocks.Application.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\EventBus\CompanyName.MyMeetings.BuildingBlocks.EventBus.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\Infrastructure\CompanyName.MyMeetings.BuildingBlocks.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Administration\IntegrationEvents\CompanyName.MyMeetings.Modules.Administration.IntegrationEvents.csproj" />
+    <ProjectReference Include="..\..\Payments\IntegrationEvents\CompanyName.MyMeetings.Modules.Payments.IntegrationEvents.csproj" />
+    <ProjectReference Include="..\..\UserAccess\IntegrationEvents\CompanyName.MyMeetings.Modules.UserAccess.IntegrationEvents.csproj" />
+    <ProjectReference Include="..\Application\CompanyName.MyMeetings.Modules.Meetings.Application.csproj" />
     <ProjectReference Include="..\Domain\CompanyName.MyMeetings.Modules.Meetings.Domain.csproj" />
   </ItemGroup>
 

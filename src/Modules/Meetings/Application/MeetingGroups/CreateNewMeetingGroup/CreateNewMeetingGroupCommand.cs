@@ -1,5 +1,5 @@
 ﻿using System;
-using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Processing.InternalCommands;
+using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals;
 using Newtonsoft.Json;
 

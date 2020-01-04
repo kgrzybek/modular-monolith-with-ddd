@@ -25,6 +25,7 @@ using Serilog;
 using Serilog.Formatting.Compact;
 using System;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration;
+using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration;
 

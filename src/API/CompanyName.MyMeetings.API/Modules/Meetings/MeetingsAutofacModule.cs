@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
+using CompanyName.MyMeetings.Modules.Meetings.Infrastructure;
 
 namespace CompanyName.MyMeetings.API.Modules.Meetings
 {

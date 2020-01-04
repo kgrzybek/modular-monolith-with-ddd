@@ -3,7 +3,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.Members
 {
-    internal class MemberContext : IMemberContext
+    public class MemberContext : IMemberContext
     {
         private readonly IExecutionContextAccessor _executionContextAccessor;
 
