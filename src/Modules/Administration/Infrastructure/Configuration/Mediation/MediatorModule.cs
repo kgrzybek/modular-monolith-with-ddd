@@ -37,7 +37,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             foreach (var mediatorOpenType in mediatorOpenTypes)
             {
                 builder
-                    .RegisterAssemblyTypes(typeof(InternalCommandBase).Assembly, ThisAssembly)
+                    .RegisterAssemblyTypes(Assemblies.Application, ThisAssembly)
                     .AsClosedTypesOf(mediatorOpenType)
                     .AsImplementedInterfaces()
                     .FindConstructorsWith(new AllConstructorFinder());

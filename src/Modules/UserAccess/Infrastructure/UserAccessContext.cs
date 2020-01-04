@@ -2,10 +2,10 @@
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Outbox;
 using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations;
 using CompanyName.MyMeetings.Modules.UserAccess.Domain.Users;
+using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Domain.UserRegistrations;
+using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Domain.Users;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.InternalCommands;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Outbox;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.UserRegistrations;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 

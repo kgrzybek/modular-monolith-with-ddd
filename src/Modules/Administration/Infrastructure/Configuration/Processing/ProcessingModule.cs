@@ -46,7 +46,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
                 typeof(DomainEventsDispatcherNotificationHandlerDecorator<>), 
                 typeof(INotificationHandler<>));
 
-            builder.RegisterAssemblyTypes(ThisAssembly)
+            builder.RegisterAssemblyTypes(Assemblies.Application)
                 .AsClosedTypesOf(typeof(IDomainEventNotification<>))
                 .InstancePerDependency()
                 .FindConstructorsWith(new AllConstructorFinder());  

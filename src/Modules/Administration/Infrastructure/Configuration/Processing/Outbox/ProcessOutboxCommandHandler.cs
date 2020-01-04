@@ -46,7 +46,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             {
                 foreach (var message in messagesList)
                 {
-                    Type type = Assembly.GetExecutingAssembly()
+                    Type type = Assemblies.Application
                         .GetType(message.Type);
                     var request = JsonConvert.DeserializeObject(message.Data, type) as IDomainEventNotification;
 
