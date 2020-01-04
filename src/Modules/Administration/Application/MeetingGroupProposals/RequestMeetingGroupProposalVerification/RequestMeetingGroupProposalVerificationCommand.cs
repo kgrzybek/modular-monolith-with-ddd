@@ -1,5 +1,6 @@
 ﻿using System;
-using CompanyName.MyMeetings.Modules.Administration.Application.Configuration.Processing.InternalCommands;
+using CompanyName.MyMeetings.Modules.Administration.Application.Configuration;
+using CompanyName.MyMeetings.Modules.Administration.Application.Configuration.Commands;
 using Newtonsoft.Json;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.RequestMeetingGroupProposalVerification

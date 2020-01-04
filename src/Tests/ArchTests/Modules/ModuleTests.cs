@@ -4,6 +4,7 @@ using CompanyName.MyMeetings.ArchTests.SeedWork;
 using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupProposals;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure;
+using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Domain;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure;

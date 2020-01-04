@@ -9,7 +9,6 @@ using CompanyName.MyMeetings.API.Modules.UserAccess;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
-using CompanyName.MyMeetings.Modules.Administration.Application.Configuration;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration;
 using CompanyName.MyMeetings.Modules.Payments.Application.Configuration;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration;
@@ -27,6 +26,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Formatting.Compact;
 using System;
+using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration;
 
 namespace CompanyName.MyMeetings.API
 {

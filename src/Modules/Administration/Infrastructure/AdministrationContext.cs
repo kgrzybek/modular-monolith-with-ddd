@@ -2,9 +2,9 @@
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Outbox;
 using CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupProposals;
 using CompanyName.MyMeetings.Modules.Administration.Domain.Members;
+using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Domain.MeetingGroupProposals;
+using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Domain.Members;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.InternalCommands;
-using CompanyName.MyMeetings.Modules.Administration.Infrastructure.MeetingGroupProposals;
-using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Members;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Outbox;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
