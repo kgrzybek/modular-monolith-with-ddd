@@ -30,11 +30,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.ArchitectureTests.Module
         }
 
         [Test]
-        public void InfrastructureLayer_DoesNotHaveDependency_ToApplicationLayer()
+        public void ApplicationLayer_DoesNotHaveDependency_ToInfrastructureLayer()
         {
-            var result = Types.InAssembly(InfrastructureAssembly)
+            var result = Types.InAssembly(ApplicationAssembly)
                 .Should()
-                .NotHaveDependencyOn(ApplicationAssembly.GetName().Name)
+                .NotHaveDependencyOn(InfrastructureAssembly.GetName().Name)
                 .GetResult();
 
             AssertArchTestResult(result);
