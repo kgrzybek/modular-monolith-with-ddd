@@ -260,11 +260,11 @@ Note: Event Storming is a light, live workshop. One of the possible outputs of t
 
 ![](docs/Images/Module_level_diagram.png)
 
-Each Module consists of the following submodules (assemblies):
+Each Module has [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) and consists of the following submodules (assemblies):
 
-- **Application** - the main submodule which is responsible for initialization, processing all requests, internal commands and integration events
+- **Application** - the application logic submodule which is responsible for requests processing: use cases, domain events, integration events, internal commands.
 - **Domain** - Domain Model in Domain-Driven Design terms implements the applicable [Bounded Context](https://martinfowler.com/bliki/BoundedContext.html)
-- **Infrastructure** - infrastructural code like Entity Framework configuration and mappings
+- **Infrastructure** - infrastructural code responsible for module initialization, background processing, data access, communication with Events Bus and other external components or systems
 - **IntegrationEvents** - **Contracts** published to the Events Bus; only this assembly can be called by other modules
 
 ![](docs/Images/VSSolution.png)
