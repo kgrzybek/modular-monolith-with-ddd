@@ -14,7 +14,7 @@ We applied the CQRS style (see [ADR #7](0007-use-cqrs-architectural-style.md)), 
 
 ## Decision
 
-We will use **Clean Architecture** to handle commands with 4 layers: **API layer**, **Application Service layer** **Infrastructure layer** and **Domain layer**. </br>
+We will use **Clean Architecture** to handle commands with 4 layers: **API layer**, **Application Service layer**, **Infrastructure layer** and **Domain layer**. </br>
 We need to add Domain layer because domain logic will be complex and we want to isolate this logic from other stuff like infrastructure or API. Isolation of domain logic supports testing, maintainability and readability.
 
 ## Consequences
