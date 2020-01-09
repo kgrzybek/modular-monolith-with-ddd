@@ -8,6 +8,8 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Domain
 
         protected TypedIdValueBase(Guid value)
         {
+            if (value == Guid.Empty)
+                throw new InvalidOperationException("Id value cannot be empty!");
             Value = value;
         }
 
@@ -24,7 +26,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Domain
 
         public bool Equals(TypedIdValueBase other)
         {
-            return this.Value == other.Value;
+            return this.Value == other?.Value;
         }
 
         public static bool operator ==(TypedIdValueBase obj1, TypedIdValueBase obj2)
