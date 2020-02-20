@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Authentication;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Commands;
@@ -7,7 +8,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.RegisterNewUser
 {
-    internal class RegisterNewUserCommandHandler : ICommandHandler<RegisterNewUserCommand>
+    internal class RegisterNewUserCommandHandler : ICommandHandler<RegisterNewUserCommand, Guid>
     {
         private readonly IUserRegistrationRepository _userRegistrationRepository;
         private readonly IUsersCounter _usersCounter;
@@ -20,7 +21,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistration
             _usersCounter = usersCounter;
         }
 
-        public async Task<Unit> Handle(RegisterNewUserCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(RegisterNewUserCommand request, CancellationToken cancellationToken)
         {
             var password = PasswordManager.HashPassword(request.Password);
 
@@ -34,7 +35,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistration
 
             await _userRegistrationRepository.AddAsync(userRegistration);
 
-            return Unit.Value;
+            return userRegistration.Id.Value;
         }
     }
 }

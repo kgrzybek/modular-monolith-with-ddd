@@ -1,8 +1,9 @@
-﻿using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
+﻿using System;
+using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.RegisterNewUser
 {
-    public class RegisterNewUserCommand : CommandBase
+    public class RegisterNewUserCommand : CommandBase<Guid>
     {
         public RegisterNewUserCommand(string login, string password, string email, string firstName, string lastName)
         {

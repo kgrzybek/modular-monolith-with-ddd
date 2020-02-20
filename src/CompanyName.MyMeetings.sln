@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.API", "API\CompanyName.MyMeetings.API\CompanyName.MyMeetings.API.csproj", "{49D08B64-AC8E-4607-820F-8A0B989CFD33}"
 EndProject
@@ -94,6 +94,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.Payments.ArchTests", "Modules\Payments\Tests\ArchTests\CompanyName.MyMeetings.Modules.Payments.ArchTests.csproj", "{1885C71E-1624-4673-B0BC-BF4035CFFE72}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.UserAccess.ArchTests", "Modules\UserAccess\Tests\ArchTests\CompanyName.MyMeetings.Modules.UserAccess.ArchTests.csproj", "{F8EE61DA-0E8B-4074-A0AF-433244EC1FB8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests", "Modules\UserAccess\Tests\IntegrationTests\CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.csproj", "{396A6C3F-74BA-4D85-8BF3-1182F9DE9D95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -227,6 +229,10 @@ Global
 		{F8EE61DA-0E8B-4074-A0AF-433244EC1FB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8EE61DA-0E8B-4074-A0AF-433244EC1FB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8EE61DA-0E8B-4074-A0AF-433244EC1FB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{396A6C3F-74BA-4D85-8BF3-1182F9DE9D95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{396A6C3F-74BA-4D85-8BF3-1182F9DE9D95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{396A6C3F-74BA-4D85-8BF3-1182F9DE9D95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{396A6C3F-74BA-4D85-8BF3-1182F9DE9D95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -271,6 +277,7 @@ Global
 		{475AF987-1458-447E-8504-4F1040B56A2C} = {237A249C-B589-49B8-9B84-CA504DE5D137}
 		{1885C71E-1624-4673-B0BC-BF4035CFFE72} = {53E4F002-E708-45F7-8444-19EB8977B5C9}
 		{F8EE61DA-0E8B-4074-A0AF-433244EC1FB8} = {0FF699EF-8156-43CB-8D18-8EA28F30E9EE}
+		{396A6C3F-74BA-4D85-8BF3-1182F9DE9D95} = {0FF699EF-8156-43CB-8D18-8EA28F30E9EE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B94C21A-AA6D-4D82-963E-C69C0353B938}
