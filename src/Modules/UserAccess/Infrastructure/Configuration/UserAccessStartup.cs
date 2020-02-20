@@ -24,7 +24,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
             IExecutionContextAccessor executionContextAccessor,
             ILogger logger,
             EmailsConfiguration emailsConfiguration,
-            string textEncryptionKey)
+            string textEncryptionKey,
+            IEmailSender emailSender)
         {
             var moduleLogger = logger.ForContext("Module", "UserAccess");
 
@@ -32,7 +33,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
                 executionContextAccessor,
                 logger,
                 emailsConfiguration,
-                textEncryptionKey);
+                textEncryptionKey,
+                emailSender);
             
             QuartzStartup.Initialize(moduleLogger);
 
@@ -44,7 +46,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
             IExecutionContextAccessor executionContextAccessor, 
             ILogger logger,
             EmailsConfiguration emailsConfiguration,
-            string textEncryptionKey)
+            string textEncryptionKey,
+            IEmailSender emailSender)
         {
             var containerBuilder = new ContainerBuilder();
           
@@ -58,7 +61,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
             containerBuilder.RegisterModule(new MediatorModule());
             containerBuilder.RegisterModule(new OutboxModule());
             containerBuilder.RegisterModule(new QuartzModule()); 
-            containerBuilder.RegisterModule(new EmailModule(emailsConfiguration)); 
+            containerBuilder.RegisterModule(new EmailModule(emailsConfiguration, emailSender)); 
             containerBuilder.RegisterModule(new SecurityModule(textEncryptionKey)); 
 
             containerBuilder.RegisterInstance(executionContextAccessor);

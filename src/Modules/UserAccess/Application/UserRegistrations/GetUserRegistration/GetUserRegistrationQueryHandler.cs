@@ -26,7 +26,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistration
                                "[UserRegistration].[Email], " +
                                "[UserRegistration].[FirstName], " +
                                "[UserRegistration].[LastName], " +
-                               "[UserRegistration].[Name] " +
+                               "[UserRegistration].[Name], " +
+                               "[UserRegistration].[StatusCode] " +
                                "FROM [users].[v_UserRegistrations] AS [UserRegistration] " +
                                "WHERE [UserRegistration].[Id] = @UserRegistrationId";
             

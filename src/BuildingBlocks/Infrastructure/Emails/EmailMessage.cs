@@ -1,6 +1,6 @@
 ﻿namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails
 {
-    public class EmailMessage
+    public struct EmailMessage
     {
         public string To { get; }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
@@ -8,6 +9,7 @@ using CompanyName.MyMeetings.Modules.UserAccess.Domain.Users;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration;
 using Dapper;
+using MediatR;
 using Microsoft.Extensions.Logging.Abstractions;
 using NSubstitute;
 using NUnit.Framework;
@@ -22,6 +24,8 @@ namespace CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.SeedWork
         protected ILogger Logger;
 
         protected IUserAccessModule UserAccessModule;
+
+        protected IEmailSender EmailSender;
 
 
         [SetUp]
@@ -42,12 +46,15 @@ namespace CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.SeedWork
             }
 
             Logger = Substitute.For<ILogger>();
+            EmailSender = Substitute.For<IEmailSender>();
+
             UserAccessStartup.Initialize(
                 ConnectionString,
                 new ExecutionContextMock(Guid.NewGuid()),
                 Logger,
                 new EmailsConfiguration("from@email.com"),
-                "key");
+                "key",
+                EmailSender);
 
             UserAccessModule = new UserAccessModule();
         }
@@ -64,6 +71,16 @@ namespace CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.SeedWork
                                "DELETE FROM [users].[Permissions] ";
 
            await connection.ExecuteScalarAsync(sql);
+        }
+
+        protected async Task<T> GetLastOutboxMessage<T>() where T : class, INotification
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var messages = await OutboxMessagesHelper.GetOutboxMessages(connection);
+
+                return OutboxMessagesHelper.Deserialize<T>(messages.Last());
+            }
         }
     }
 }

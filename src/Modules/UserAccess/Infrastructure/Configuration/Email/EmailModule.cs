@@ -5,19 +5,30 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
 {
     internal class EmailModule : Module
     {
+        private readonly IEmailSender _emailSender;
         private readonly EmailsConfiguration _configuration;
 
-        public EmailModule(EmailsConfiguration configuration)
+        public EmailModule(
+            EmailsConfiguration configuration, 
+            IEmailSender emailSender)
         {
             _configuration = configuration;
+            _emailSender = emailSender;
         }
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<EmailSender>()
-                .As<IEmailSender>()
-                .WithParameter("configuration", _configuration)
-                .InstancePerLifetimeScope();
+            if (_emailSender != null)
+            {
+                builder.RegisterInstance(_emailSender);
+            }
+            else
+            {
+                builder.RegisterType<EmailSender>()
+                    .As<IEmailSender>()
+                    .WithParameter("configuration", _configuration)
+                    .InstancePerLifetimeScope();
+            }
         }
     }
 }

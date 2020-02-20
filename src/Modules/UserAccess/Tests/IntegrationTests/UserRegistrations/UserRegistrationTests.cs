@@ -13,36 +13,29 @@ namespace CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.UserRegist
         [Test]
         public async Task RegisterNewUserCommand_Test()
         {
-            const string email = "john@mail.com";
-            const string login = "john";
-            const string firstName = "John";
-            const string lastName = "Smith";
-
-            var registerNewCommand = new RegisterNewUserCommand(
-                login, 
-                "qwerty",
-                email, 
-                firstName, 
-                lastName);
-
-            var registrationId = await UserAccessModule.ExecuteCommandAsync(registerNewCommand);
+            var registrationId = await UserAccessModule.ExecuteCommandAsync(new RegisterNewUserCommand(
+                UserRegistrationSampleData.Login,
+                UserRegistrationSampleData.Password,
+                UserRegistrationSampleData.Email,
+                UserRegistrationSampleData.FirstName,
+                UserRegistrationSampleData.LastName));
 
             var userRegistration = await UserAccessModule.ExecuteQueryAsync(new GetUserRegistrationQuery(registrationId));
 
-            Assert.That(userRegistration.Email, Is.EqualTo(email));
-            Assert.That(userRegistration.Login, Is.EqualTo(login));
-            Assert.That(userRegistration.FirstName, Is.EqualTo(firstName));
-            Assert.That(userRegistration.LastName, Is.EqualTo(lastName));
+            Assert.That(userRegistration.Email, Is.EqualTo(UserRegistrationSampleData.Email));
+            Assert.That(userRegistration.Login, Is.EqualTo(UserRegistrationSampleData.Login));
+            Assert.That(userRegistration.FirstName, Is.EqualTo(UserRegistrationSampleData.FirstName));
+            Assert.That(userRegistration.LastName, Is.EqualTo(UserRegistrationSampleData.LastName));
 
             var connection = new SqlConnection(ConnectionString);
             var messagesList = await OutboxMessagesHelper.GetOutboxMessages(connection);
 
             Assert.That(messagesList.Count, Is.EqualTo(1));
 
-            var customerRegisteredNotification =
-                OutboxMessagesHelper.Deserialize<NewUserRegisteredNotification>(messagesList[0]);
+            var newUserRegisteredNotification =
+                await GetLastOutboxMessage<NewUserRegisteredNotification>();
 
-            Assert.That(customerRegisteredNotification.DomainEvent.Login, Is.EqualTo(login));
+            Assert.That(newUserRegisteredNotification.DomainEvent.Login, Is.EqualTo(UserRegistrationSampleData.Login));
         }
     }
 }

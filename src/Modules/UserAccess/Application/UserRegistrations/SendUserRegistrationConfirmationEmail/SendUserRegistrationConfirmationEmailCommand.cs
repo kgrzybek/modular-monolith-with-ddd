@@ -5,10 +5,10 @@ using Newtonsoft.Json;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.SendUserRegistrationConfirmationEmail
 {
-    internal class SendUserRegistrationConfirmationEmailCommand : InternalCommandBase
+    public class SendUserRegistrationConfirmationEmailCommand : InternalCommandBase
     {
         [JsonConstructor]
-        internal SendUserRegistrationConfirmationEmailCommand(Guid id, UserRegistrationId userRegistrationId, string email)
+        public SendUserRegistrationConfirmationEmailCommand(Guid id, UserRegistrationId userRegistrationId, string email)
         : base(id)
         {
             UserRegistrationId = userRegistrationId;

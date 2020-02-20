@@ -15,5 +15,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistration
         public string LastName { get; set; }
 
         public string Name { get; set; }
+
+        public string StatusCode { get; set; }
     }
 }
