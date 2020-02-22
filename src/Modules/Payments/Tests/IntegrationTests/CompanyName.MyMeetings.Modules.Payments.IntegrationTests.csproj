@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Application\CompanyName.MyMeetings.Modules.Payments.Application.csproj" />
     <ProjectReference Include="..\..\Infrastructure\CompanyName.MyMeetings.Modules.Payments.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\IntegrationEvents\CompanyName.MyMeetings.Modules.Payments.IntegrationEvents.csproj" />
   </ItemGroup>
 
 </Project>

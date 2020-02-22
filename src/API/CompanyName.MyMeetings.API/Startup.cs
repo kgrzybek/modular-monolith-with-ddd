@@ -168,7 +168,11 @@ namespace CompanyName.MyMeetings.API
                 emailsConfiguration,
                 this._configuration["Security:TextEncryptionKey"],
                 null);
-            PaymentsStartup.Initialize(this._configuration[MeetingsConnectionString], executionContextAccessor, _logger);
+            PaymentsStartup.Initialize(
+                this._configuration[MeetingsConnectionString], 
+                executionContextAccessor, 
+                _logger, 
+                null);
 
             return new AutofacServiceProvider(container);
         }

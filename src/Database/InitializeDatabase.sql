@@ -657,6 +657,38 @@ SELECT
 FROM [payments].[Payers] AS [Payer]
 GO
 
+CREATE VIEW [payments].[v_MeetingGroupPaymentRegisters]
+AS
+SELECT
+    [MeetingGroupPaymentRegister].[Id],
+    [MeetingGroupPaymentRegister].[CreateDate]
+FROM [payments].[MeetingGroupPaymentRegisters] AS [MeetingGroupPaymentRegister]
+GO
+
+CREATE VIEW [payments].[v_MeetingGroupPayments]
+AS
+SELECT
+    [MeetingGroupPayment].[Id],
+    [MeetingGroupPayment].[MeetingGroupPaymentRegisterId],
+    [MeetingGroupPayment].[Date],
+    [MeetingGroupPayment].[PaymentTermStartDate],
+    [MeetingGroupPayment].[PaymentTermEndDate],
+    [MeetingGroupPayment].[PayerId]
+FROM [payments].[MeetingGroupPayments] AS [MeetingGroupPayment]
+GO
+
+CREATE VIEW [payments].[v_MeetingPayments]
+AS
+SELECT
+    [MeetingPayment].[PayerId],
+    [MeetingPayment].[MeetingId],
+    [MeetingPayment].[CreateDate],
+    [MeetingPayment].[PaymentDate],
+    [MeetingPayment].[FeeValue],
+    [MeetingPayment].[FeeCurrency]
+FROM [payments].[MeetingPayments] AS [MeetingPayment]
+GO
+
 -- Initialize some data
 
 -- Add Test Member

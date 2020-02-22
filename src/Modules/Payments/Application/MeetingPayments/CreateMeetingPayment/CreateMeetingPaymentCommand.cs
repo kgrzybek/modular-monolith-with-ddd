@@ -6,10 +6,10 @@ using Newtonsoft.Json;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingPayments.CreateMeetingPayment
 {
-    internal class CreateMeetingPaymentCommand : InternalCommandBase
+    public class CreateMeetingPaymentCommand : InternalCommandBase
     {
         [JsonConstructor]
-        internal CreateMeetingPaymentCommand(Guid id, PayerId payerId, MeetingId meetingId, decimal value, string currency) : base(id)
+        public CreateMeetingPaymentCommand(Guid id, PayerId payerId, MeetingId meetingId, decimal value, string currency) : base(id)
         {
             PayerId = payerId;
             MeetingId = meetingId;
