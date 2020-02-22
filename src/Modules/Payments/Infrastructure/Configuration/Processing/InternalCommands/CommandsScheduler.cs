@@ -40,6 +40,25 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
             });
         }
 
+        public async Task EnqueueAsync<T>(ICommand<T> command)
+        {
+            var connection = this._sqlConnectionFactory.GetOpenConnection();
+
+            const string sqlInsert = "INSERT INTO [payments].[InternalCommands] ([Id], [EnqueueDate], [Type], [Data]) VALUES " +
+                                     "(@Id, @EnqueueDate, @Type, @Data)";
+
+            await connection.ExecuteAsync(sqlInsert, new
+            {
+                command.Id,
+                EnqueueDate = DateTime.UtcNow,
+                Type = command.GetType().FullName,
+                Data = JsonConvert.SerializeObject(command, new JsonSerializerSettings
+                {
+                    ContractResolver = new AllPropertiesContractResolver()
+                })
+            });
+        }
+
         private class AllPropertiesContractResolver : DefaultContractResolver
         {
             protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)

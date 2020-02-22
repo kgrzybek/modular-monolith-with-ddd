@@ -97,6 +97,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests", "Modules\UserAccess\Tests\IntegrationTests\CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.csproj", "{396A6C3F-74BA-4D85-8BF3-1182F9DE9D95}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.Payments.IntegrationTests", "Modules\Payments\Tests\IntegrationTests\CompanyName.MyMeetings.Modules.Payments.IntegrationTests.csproj", "{B448FDC3-5F85-47EE-9F4A-2654E8CC67E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -233,6 +235,10 @@ Global
 		{396A6C3F-74BA-4D85-8BF3-1182F9DE9D95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{396A6C3F-74BA-4D85-8BF3-1182F9DE9D95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{396A6C3F-74BA-4D85-8BF3-1182F9DE9D95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B448FDC3-5F85-47EE-9F4A-2654E8CC67E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B448FDC3-5F85-47EE-9F4A-2654E8CC67E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B448FDC3-5F85-47EE-9F4A-2654E8CC67E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B448FDC3-5F85-47EE-9F4A-2654E8CC67E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -278,6 +284,7 @@ Global
 		{1885C71E-1624-4673-B0BC-BF4035CFFE72} = {53E4F002-E708-45F7-8444-19EB8977B5C9}
 		{F8EE61DA-0E8B-4074-A0AF-433244EC1FB8} = {0FF699EF-8156-43CB-8D18-8EA28F30E9EE}
 		{396A6C3F-74BA-4D85-8BF3-1182F9DE9D95} = {0FF699EF-8156-43CB-8D18-8EA28F30E9EE}
+		{B448FDC3-5F85-47EE-9F4A-2654E8CC67E1} = {53E4F002-E708-45F7-8444-19EB8977B5C9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B94C21A-AA6D-4D82-963E-C69C0353B938}
