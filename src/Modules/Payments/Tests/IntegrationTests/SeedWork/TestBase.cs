@@ -4,18 +4,16 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
-using CompanyName.MyMeetings.Modules.UserAccess.Domain.Users;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration;
+using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
+using CompanyName.MyMeetings.Modules.Payments.Infrastructure;
+using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration;
 using Dapper;
 using MediatR;
-using Microsoft.Extensions.Logging.Abstractions;
 using NSubstitute;
 using NUnit.Framework;
 using Serilog;
 
-namespace CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.SeedWork
+namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
 {
     public class TestBase
     {
@@ -23,7 +21,7 @@ namespace CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.SeedWork
 
         protected ILogger Logger;
 
-        protected IUserAccessModule UserAccessModule;
+        protected IPaymentsModule PaymentsModule;
 
         protected IEmailSender EmailSender;
 
@@ -48,29 +46,25 @@ namespace CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.SeedWork
             Logger = Substitute.For<ILogger>();
             EmailSender = Substitute.For<IEmailSender>();
 
-            UserAccessStartup.Initialize(
+            PaymentsStartup.Initialize(
                 ConnectionString,
                 new ExecutionContextMock(Guid.NewGuid()),
-                Logger,
-                new EmailsConfiguration("from@email.com"),
-                "key",
-                EmailSender);
+                Logger);
 
-            UserAccessModule = new UserAccessModule();
+            PaymentsModule = new PaymentsModule();
         }
 
         private static async Task ClearDatabase(IDbConnection connection)
         {
-            const string sql = "DELETE FROM [users].[InboxMessages] " +
-                               "DELETE FROM [users].[InternalCommands] " +
-                               "DELETE FROM [users].[OutboxMessages] " +
-                               "DELETE FROM [users].[UserRegistrations] " +
-                               "DELETE FROM [users].[Users] " +
-                               "DELETE FROM [users].[RolesToPermissions] " +
-                               "DELETE FROM [users].[UserRoles] " +
-                               "DELETE FROM [users].[Permissions] ";
+            const string sql = "DELETE FROM [payments].[InboxMessages] " +
+                               "DELETE FROM [payments].[InternalCommands] " +
+                               "DELETE FROM [payments].[OutboxMessages] " +
+                               "DELETE FROM [payments].[MeetingPayments] " +
+                               "DELETE FROM [payments].[MeetingGroupPayments] " +
+                               "DELETE FROM [payments].[MeetingGroupPaymentRegisters] " +
+                               "DELETE FROM [payments].[Payers] ";
 
-           await connection.ExecuteScalarAsync(sql);
+            await connection.ExecuteScalarAsync(sql);
         }
 
         protected async Task<T> GetLastOutboxMessage<T>() where T : class, INotification

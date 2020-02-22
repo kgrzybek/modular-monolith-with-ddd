@@ -69,6 +69,7 @@
     <Folder Include="meetings\Views" />
     <Folder Include="users\Views" />
     <Folder Include="Scripts" />
+    <Folder Include="payments\Views" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Security\Schemas.sql" />
@@ -109,6 +110,7 @@
     <Build Include="administration\Tables\Members.sql" />
     <Build Include="payments\Tables\MeetingPayments.sql" />
     <Build Include="users\Views\v_UserRegistrations.sql" />
+    <Build Include="payments\Views\v_Payers.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="administration\Tables\MeetingGroupProposals.sql" />

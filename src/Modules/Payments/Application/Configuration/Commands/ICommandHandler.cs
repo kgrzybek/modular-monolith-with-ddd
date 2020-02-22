@@ -7,4 +7,10 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Comm
     {
         
     }
+
+    public interface ICommandHandler<in TCommand, TResult> :
+        IRequestHandler<TCommand, TResult> where TCommand : ICommand<TResult>
+    {
+
+    }
 }
