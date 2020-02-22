@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
+using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration;
@@ -25,6 +26,10 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
 
         protected IEmailSender EmailSender;
 
+        protected EventsBusMock EventsBus;
+
+        protected ExecutionContextMock ExecutionContext;
+
 
         [SetUp]
         public async Task BeforeEachTest()
@@ -45,11 +50,15 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
 
             Logger = Substitute.For<ILogger>();
             EmailSender = Substitute.For<IEmailSender>();
-
+            EventsBus = new EventsBusMock();
+            ExecutionContext = new ExecutionContextMock(Guid.NewGuid());
+            
             PaymentsStartup.Initialize(
                 ConnectionString,
-                new ExecutionContextMock(Guid.NewGuid()),
-                Logger);
+                ExecutionContext,
+                Logger,
+                EventsBus,
+                false);
 
             PaymentsModule = new PaymentsModule();
         }

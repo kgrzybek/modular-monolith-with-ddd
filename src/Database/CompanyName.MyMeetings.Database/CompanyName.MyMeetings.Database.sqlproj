@@ -111,6 +111,9 @@
     <Build Include="payments\Tables\MeetingPayments.sql" />
     <Build Include="users\Views\v_UserRegistrations.sql" />
     <Build Include="payments\Views\v_Payers.sql" />
+    <Build Include="payments\Views\v_MeetingGroupPaymentRegisters.sql" />
+    <Build Include="payments\Views\v_MeetingGroupPayments.sql" />
+    <Build Include="payments\Views\v_MeetingPayments.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="administration\Tables\MeetingGroupProposals.sql" />

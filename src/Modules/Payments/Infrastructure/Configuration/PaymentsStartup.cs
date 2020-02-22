@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
+using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Authentication;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.DataAccess;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.EventsBus;
@@ -20,13 +21,18 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration
         public static void Initialize(
             string connectionString,
             IExecutionContextAccessor executionContextAccessor,
-            ILogger logger)
+            ILogger logger,
+            IEventsBus eventsBus,
+            bool runQuartz = true)
         {
             var moduleLogger = logger.ForContext("Module", "Payments");
 
-            ConfigureCompositionRoot(connectionString, executionContextAccessor, moduleLogger);
+            ConfigureCompositionRoot(connectionString, executionContextAccessor, moduleLogger, eventsBus, runQuartz);
 
-            QuartzStartup.Initialize(moduleLogger);
+            if (runQuartz)
+            {
+                QuartzStartup.Initialize(moduleLogger);
+            }
 
             EventsBusStartup.Initialize(moduleLogger);
         }
@@ -34,7 +40,9 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration
         private static void ConfigureCompositionRoot(
             string connectionString,
             IExecutionContextAccessor executionContextAccessor,
-            ILogger logger)
+            ILogger logger,
+            IEventsBus eventsBus,
+            bool runQuartz = true)
         {
             var containerBuilder = new ContainerBuilder();
 
@@ -44,11 +52,16 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration
             containerBuilder.RegisterModule(new DataAccessModule(connectionString, loggerFactory));
 
             containerBuilder.RegisterModule(new ProcessingModule());
-            containerBuilder.RegisterModule(new EventsBusModule());
+            containerBuilder.RegisterModule(new EventsBusModule(eventsBus));
             containerBuilder.RegisterModule(new MediatorModule());
             containerBuilder.RegisterModule(new AuthenticationModule());
             containerBuilder.RegisterModule(new OutboxModule());
-            containerBuilder.RegisterModule(new QuartzModule());
+            
+            if (runQuartz)
+            {
+                containerBuilder.RegisterModule(new QuartzModule());
+            }
+            
 
             containerBuilder.RegisterInstance(executionContextAccessor);
 
