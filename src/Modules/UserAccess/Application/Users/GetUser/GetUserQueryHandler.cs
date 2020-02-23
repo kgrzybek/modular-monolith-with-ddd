@@ -6,7 +6,7 @@ using Dapper;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Users.GetUser
 {
-    public class GetUserQueryHandler : IQueryHandler<GetUserQuery, UserDto>
+    internal class GetUserQueryHandler : IQueryHandler<GetUserQuery, UserDto>
     {
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 

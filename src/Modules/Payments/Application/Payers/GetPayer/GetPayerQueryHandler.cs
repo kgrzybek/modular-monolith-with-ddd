@@ -6,7 +6,7 @@ using Dapper;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Payers.GetPayer
 {
-    public class GetPayerQueryHandler : IQueryHandler<GetPayerQuery, PayerDto>
+    internal class GetPayerQueryHandler : IQueryHandler<GetPayerQuery, PayerDto>
     {
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 

@@ -8,7 +8,7 @@ using Dapper;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingGroupPaymentRegisters.GetMeetingGroupPayments
 {
-    public class GetMeetingGroupPaymentsQueryHandler : IQueryHandler<GetMeetingGroupPaymentsQuery, List<MeetingGroupPaymentDto>>
+    internal class GetMeetingGroupPaymentsQueryHandler : IQueryHandler<GetMeetingGroupPaymentsQuery, List<MeetingGroupPaymentDto>>
     {
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 

@@ -67,19 +67,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.ArchTests.Application
         }
 
         [Test]
-        public void InternalCommands_Should_Not_Be_Public()
-        {
-            var result = Types.InAssembly(ApplicationAssembly)
-                .That()
-                .Inherit(typeof(InternalCommandBase))
-                .Should()
-                .NotBePublic()
-                .GetResult();
-
-            AssertArchTestResult(result); 
-        }
-
-        [Test]
         public void Command_And_Query_Handlers_Should_Not_Be_Public()
         {
             var types = Types.InAssembly(ApplicationAssembly)
@@ -93,7 +80,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.ArchTests.Application
         }
 
         [Test]
-        public void InternalCommand_Should_Have_Internal_Constructor_With_JsonConstructorAttribute()
+        public void InternalCommand_Should_Have_JsonConstructorAttribute()
         {
             var types = Types.InAssembly(ApplicationAssembly)
                 .That().Inherit(typeof(InternalCommandBase)).GetTypes();
@@ -103,7 +90,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.ArchTests.Application
             foreach (var type in types)
             {
                 bool hasJsonConstructorDefined = false;
-                var constructors = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance);
+                var constructors = type.GetConstructors(BindingFlags.Public | BindingFlags.Instance);
                 foreach (var constructorInfo in constructors)
                 {
                     var jsonConstructorAttribute = constructorInfo.GetCustomAttributes(typeof(JsonConstructorAttribute), false);
