@@ -1,14 +1,13 @@
 ﻿using System;
-using CompanyName.MyMeetings.Modules.Administration.Application.Configuration;
 using CompanyName.MyMeetings.Modules.Administration.Application.Configuration.Commands;
 using Newtonsoft.Json;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Application.Members
 {
-    internal class CreateMemberCommand : InternalCommandBase
+    public class CreateMemberCommand : InternalCommandBase<Guid>
     {
         [JsonConstructor]
-        internal CreateMemberCommand(Guid id,
+        public CreateMemberCommand(Guid id,
             Guid memberId,
             string login,
             string email,

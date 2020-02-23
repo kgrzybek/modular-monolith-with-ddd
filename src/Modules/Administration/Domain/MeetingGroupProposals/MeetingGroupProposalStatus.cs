@@ -3,8 +3,9 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupPropo
 {
     public class MeetingGroupProposalStatus : ValueObject
     {
-        internal static MeetingGroupProposalStatus ToVerify => new MeetingGroupProposalStatus("ToVerify");
-        
+        public static MeetingGroupProposalStatus ToVerify => new MeetingGroupProposalStatus("ToVerify");
+        public static MeetingGroupProposalStatus Verified => new MeetingGroupProposalStatus("Verified");
+
         public string Value { get; }
 
         private MeetingGroupProposalStatus(string value)

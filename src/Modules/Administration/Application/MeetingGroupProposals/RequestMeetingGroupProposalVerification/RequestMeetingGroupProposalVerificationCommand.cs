@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.RequestMeetingGroupProposalVerification
 {
-    internal class RequestMeetingGroupProposalVerificationCommand : InternalCommandBase
+    public class RequestMeetingGroupProposalVerificationCommand : InternalCommandBase<Guid>
     {
         public Guid MeetingGroupProposalId { get;  }
 
@@ -22,7 +22,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroup
         public DateTime ProposalDate { get; }
 
         [JsonConstructor]
-        internal RequestMeetingGroupProposalVerificationCommand(
+        public RequestMeetingGroupProposalVerificationCommand(
             Guid id,
             Guid meetingGroupProposalId,
             string name,

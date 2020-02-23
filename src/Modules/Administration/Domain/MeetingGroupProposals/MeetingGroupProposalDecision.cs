@@ -38,7 +38,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupPropo
         {
             if (this.IsAccepted)
             {
-                return MeetingGroupProposalStatus.Create("Verified");
+                return MeetingGroupProposalStatus.Verified;
             }
 
             if (this.IsRejected)

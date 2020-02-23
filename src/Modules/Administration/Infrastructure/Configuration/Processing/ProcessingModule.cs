@@ -35,12 +35,25 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
                 typeof(ICommandHandler<>));
 
             builder.RegisterGenericDecorator(
+                typeof(UnitOfWorkCommandHandlerWithResultDecorator<,>),
+                typeof(ICommandHandler<,>));
+
+            builder.RegisterGenericDecorator(
                 typeof(ValidationCommandHandlerDecorator<>),
-                typeof(ICommandHandler<>)); 
+                typeof(ICommandHandler<>));
+
+            builder.RegisterGenericDecorator(
+                typeof(ValidationCommandHandlerWithResultDecorator<,>),
+                typeof(ICommandHandler<,>));
 
             builder.RegisterGenericDecorator(
                 typeof(LoggingCommandHandlerDecorator<>),
-                typeof(ICommandHandler<>));  
+                typeof(ICommandHandler<>));
+
+            builder.RegisterGenericDecorator(
+                typeof(LoggingCommandHandlerWithResultDecorator<,>),
+                typeof(ICommandHandler<,>));
+
 
             builder.RegisterGenericDecorator(
                 typeof(DomainEventsDispatcherNotificationHandlerDecorator<>), 

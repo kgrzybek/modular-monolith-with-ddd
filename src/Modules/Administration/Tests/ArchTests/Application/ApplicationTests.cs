@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using CompanyName.MyMeetings.Modules.Administration.Application.Configuration;
 using CompanyName.MyMeetings.Modules.Administration.Application.Configuration.Commands;
+using CompanyName.MyMeetings.Modules.Administration.Application.Configuration.Queries;
 using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Administration.ArchTests.SeedWork;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Processing;

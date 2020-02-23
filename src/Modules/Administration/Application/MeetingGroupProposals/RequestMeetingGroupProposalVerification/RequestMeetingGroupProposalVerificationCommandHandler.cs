@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.Modules.Administration.Application.Configuration;
 using CompanyName.MyMeetings.Modules.Administration.Application.Configuration.Commands;
@@ -9,7 +10,7 @@ using MediatR;
 namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.RequestMeetingGroupProposalVerification
 {
     internal class RequestMeetingGroupProposalVerificationCommandHandler : 
-        ICommandHandler<RequestMeetingGroupProposalVerificationCommand>
+        ICommandHandler<RequestMeetingGroupProposalVerificationCommand, Guid>
     {
         private readonly IMeetingGroupProposalRepository _meetingGroupProposalRepository;
 
@@ -18,7 +19,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroup
             _meetingGroupProposalRepository = meetingGroupProposalRepository;
         }
 
-        public async Task<Unit> Handle(RequestMeetingGroupProposalVerificationCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(RequestMeetingGroupProposalVerificationCommand request, CancellationToken cancellationToken)
         {
             var meetingGroupProposal = MeetingGroupProposal.CreateToVerify(
                 request.MeetingGroupProposalId,
@@ -31,7 +32,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroup
 
             await _meetingGroupProposalRepository.AddAsync(meetingGroupProposal);
 
-            return Unit.Value;
+            return meetingGroupProposal.Id.Value;
         }
     }
 }

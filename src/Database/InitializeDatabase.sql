@@ -689,6 +689,36 @@ SELECT
 FROM [payments].[MeetingPayments] AS [MeetingPayment]
 GO
 
+CREATE VIEW [administration].[v_Members]
+AS
+SELECT
+    [Member].[Id],
+    [Member].[Login],
+    [Member].[Email],
+    [Member].[FirstName],
+    [Member].[LastName],
+    [Member].[Name]
+FROM [administration].[Members] AS [Member]
+GO
+
+CREATE VIEW [administration].[v_MeetingGroupProposals]
+AS
+SELECT
+    [MeetingGroupProposal].[Id],
+    [MeetingGroupProposal].[Name],
+    [MeetingGroupProposal].[Description],
+    [MeetingGroupProposal].[LocationCity],
+    [MeetingGroupProposal].[LocationCountryCode],
+    [MeetingGroupProposal].[ProposalUserId],
+    [MeetingGroupProposal].[ProposalDate],
+    [MeetingGroupProposal].[StatusCode],
+    [MeetingGroupProposal].[DecisionDate],
+    [MeetingGroupProposal].[DecisionUserId],
+    [MeetingGroupProposal].[DecisionCode],
+    [MeetingGroupProposal].[DecisionRejectReason]
+FROM [administration].[MeetingGroupProposals] AS [MeetingGroupProposal]
+GO
+
 -- Initialize some data
 
 -- Add Test Member
