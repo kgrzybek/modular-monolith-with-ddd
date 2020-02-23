@@ -54,6 +54,8 @@ Full Modular Monolith .NET application with Domain-Driven Design approach.
 
 &nbsp;&nbsp;[3.12 Architecture Unit Tests](#312-architecture-unit-tests)
 
+&nbsp;&nbsp;[3.13 Integration Tests](#313-integration-tests)
+
 [4. Technology](#4-technology)
 
 [5. How to Run](#5-how-to-run)
@@ -796,7 +798,10 @@ public async Task<IActionResult> ProposeMeetingGroup(ProposeMeetingGroupRequest 
 
 **Implementation**
 
-Each unit test has 3 standard sections: Arrange, Act and Assert
+Unit tests should mainly test business logic (domain model): </br>
+![](docs/Images/unit_tests.jpg)
+
+Each unit test has 3 standard sections: Arrange, Act and Assert:
 
 ![](docs/Images/UnitTestsGeneral.jpg)
 
@@ -955,6 +960,97 @@ Using this kind of tests we can test proper layering of our application, depende
 
 More information about architecture unit tests here: [https://blogs.oracle.com/javamagazine/unit-test-your-architecture-with-archunit](https://blogs.oracle.com/javamagazine/unit-test-your-architecture-with-archunit)
 
+### 3.13 Integration Tests
+
+#### Definition
+
+"Integration Test" term is blurred. It can mean test between classes, modules, services, even systems - see [this](https://martinfowler.com/bliki/IntegrationTest.html) article (by Martin Fowler). </br>
+
+For this reason, the definition of integration test in this project is as follows:</br>
+- it verifies how system works in integration with "out-of-process" dependencies - database, messaging system, file system or external API
+- it tests particular use case
+- it can be slow (as opposed to Unit Test)
+
+#### Approach
+
+- **Do not mock dependencies over which you have full control** (like database). Full control dependency means you can always revert all changes (remove side-effects) and no one can notice it. They are not visible to others. See next point, please.
+- **Use "production", normal, real database version**. Some use e.g. in memory repository, some use light databases instead "production" version. This is still mocking. Testing makes sense if we have full confidence in testing. You can't trust the test if you know that the infrastructure in the production environment will vary. Be always as close to production environment as possible.
+- **Mock dependencies over which you don't have control**. No control dependency means you can't remove side-effects after interaction with this dependency (external API, messaging system, SMTP server etc.). They can be visible to others.
+
+#### Implementation
+
+Integration test should test exactly one use case. One use case is represented by one Command/Query processing so CommandHandler/QueryHandler in Application layer is perfect starting point for running the Integration Test:</br>
+
+![](docs/Images/integration_tests.jpg)
+For each test, the following preparation steps must be performed:</br>
+
+1. Clear database
+2. Prepare mocks
+3. Initialize testing module
+
+```csharp
+[SetUp]
+public async Task BeforeEachTest()
+{
+    const string connectionStringEnvironmentVariable =
+        "ASPNETCORE_MyMeetings_IntegrationTests_ConnectionString";
+    ConnectionString = Environment.GetEnvironmentVariable(connectionStringEnvironmentVariable, EnvironmentVariableTarget.Machine);
+    if (ConnectionString == null)
+    {
+        throw new ApplicationException(
+            $"Define connection string to integration tests database using environment variable: {connectionStringEnvironmentVariable}");
+    }
+
+    using (var sqlConnection = new SqlConnection(ConnectionString))
+    {
+        await ClearDatabase(sqlConnection);
+    }
+
+    Logger = Substitute.For<ILogger>();
+    EmailSender = Substitute.For<IEmailSender>();
+    EventsBus = new EventsBusMock();
+    ExecutionContext = new ExecutionContextMock(Guid.NewGuid());
+    
+    PaymentsStartup.Initialize(
+        ConnectionString,
+        ExecutionContext,
+        Logger,
+        EventsBus,
+        false);
+
+    PaymentsModule = new PaymentsModule();
+}
+```
+After preparation, test is performed on clear database. Usually, it is the execution of some (or many) Commands and: </br>
+a) running a Query or/and  </br>
+b) verifying mocks </br>
+to check the result.
+
+```csharp
+[TestFixture]
+public class MeetingPaymentTests : TestBase
+{
+    [Test]
+    public async Task CreateMeetingPayment_Test()
+    {
+        PayerId payerId = new PayerId(Guid.NewGuid());
+        MeetingId meetingId = new MeetingId(Guid.NewGuid());
+        decimal value = 100;
+        string currency = "EUR";
+        await PaymentsModule.ExecuteCommandAsync(new CreateMeetingPaymentCommand(Guid.NewGuid(),
+            payerId, meetingId, value, currency));
+
+        var payment = await PaymentsModule.ExecuteQueryAsync(new GetMeetingPaymentQuery(meetingId.Value, payerId.Value));
+
+        Assert.That(payment.PayerId, Is.EqualTo(payerId.Value));
+        Assert.That(payment.MeetingId, Is.EqualTo(meetingId.Value));
+        Assert.That(payment.FeeValue, Is.EqualTo(value));
+        Assert.That(payment.FeeCurrency, Is.EqualTo(currency));
+    }
+}
+```
+
+Each Command/Query processing is a separate execution (with different object graph resolution, context, database connection etc.) thanks to Composition Root of each module. This behavior is important and desirable.
 
 ## 4. Technology
 
@@ -1034,6 +1130,7 @@ List of features/tasks/approaches to add:
 | ------------------------ | -------- | -------- | -------- |
 | Domain Model Unit Tests | High     | Completed | 2019-09-10 |
 | Architecture Decision Log update | High     | Completed | 2019-11-09 |
+| Integration automated tests      | Normal   | Completed | 2020-02-24 |
 | API automated tests      | Normal   |    |    |
 | FrontEnd SPA application | Normal   |    |    |
 | Meeting comments feature | Low   |    |    |
@@ -1120,6 +1217,7 @@ The project is under [MIT license](https://opensource.org/licenses/MIT).
 ### Testing
 - ["The Art of Unit Testing: with examples in C#"](https://www.amazon.com/Art-Unit-Testing-examples/dp/1617290890) book, Roy Osherove
 - ["Unit Test Your Architecture with ArchUnit"](https://blogs.oracle.com/javamagazine/unit-test-your-architecture-with-archunit) article, Jonas Havers
+- ["Unit Testing Principles, Practices, and Patterns"](https://www.amazon.com/Unit-Testing-Principles-Practices-Patterns/dp/1617296279) book, Vladimir Khorikov
 
 ### UML
 - ["UML Distilled: A Brief Guide to the Standard Object Modeling Language (3rd Edition)"](https://www.amazon.com/UML-Distilled-Standard-Modeling-Language/dp/0321193687) book, Martin Fowler
