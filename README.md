@@ -1056,9 +1056,9 @@ Each Command/Query processing is a separate execution (with different object gra
 
 List of technologies, frameworks and libraries used for implementation:
 
-- [.NET Core 2.2](https://dotnet.microsoft.com/download) (platform)
+- [.NET Core 3.1](https://dotnet.microsoft.com/download) (platform)
 - [MS SQL Server Express](https://www.microsoft.com/en-us/sql-server/sql-server-editions-express) (database)
-- [Entity Framework Core 2.2](https://docs.microsoft.com/en-us/ef/core/) (ORM Write Model implementation for DDD)
+- [Entity Framework Core 3.1](https://docs.microsoft.com/en-us/ef/core/) (ORM Write Model implementation for DDD)
 - [Autofac](https://autofac.org/) (Inversion of Control Container)
 - [IdentityServer4](http://docs.identityserver.io) (Authentication and Authorization)
 - [Serilog](https://serilog.net/) (structured logging)
@@ -1077,7 +1077,7 @@ List of technologies, frameworks and libraries used for implementation:
 
 ## 5. How to Run
 
-- Download and install .NET Core 2.2 SDK
+- Download and install .NET Core 3.1 SDK
 - Download and install MS SQL Server Express or other
 - Create an empty database and run [InitializeDatabase.sql](src/Database/InitializeDatabase.sql) script
   
