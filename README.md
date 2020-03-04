@@ -924,7 +924,7 @@ protected MeetingTestData CreateMeetingTestData(MeetingTestDataOptions options)
     var meetingTerm = options.MeetingTerm ??
                       new MeetingTerm(DateTime.UtcNow.AddDays(1), DateTime.UtcNow.AddDays(2));
 
-    var rsvpTerm = options.RvspTerm ?? Term.NoTerm;
+    var rsvpTerm = options.RsvpTerm ?? Term.NoTerm;
     var meeting = meetingGroup.CreateMeeting("title",
         meetingTerm,
         "description",
