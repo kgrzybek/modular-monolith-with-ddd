@@ -9,7 +9,6 @@ using CompanyName.MyMeetings.API.Modules.UserAccess;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
-using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.IdentityServer;
 using Hellang.Middleware.ProblemDetails;
 using IdentityServer4.AccessTokenValidation;
@@ -18,7 +17,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -28,6 +26,7 @@ using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration;
+using Microsoft.Extensions.Hosting;
 
 namespace CompanyName.MyMeetings.API
 {
@@ -38,7 +37,7 @@ namespace CompanyName.MyMeetings.API
         private static ILogger _logger;
         private static ILogger _loggerForApi;
 
-        public Startup(IHostingEnvironment env)
+        public Startup(IWebHostEnvironment env)
         {
             ConfigureLogger();
 
@@ -51,6 +50,8 @@ namespace CompanyName.MyMeetings.API
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
+
             services.AddSwaggerDocumentation();
 
             ConfigureIdentityServer(services);
@@ -58,9 +59,6 @@ namespace CompanyName.MyMeetings.API
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IExecutionContextAccessor, ExecutionContextAccessor>();
 
-            services
-                .AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-                
             services.AddProblemDetails(x =>
             {
                 x.Map<InvalidCommandException>(ex => new InvalidCommandProblemDetails(ex));
@@ -82,11 +80,13 @@ namespace CompanyName.MyMeetings.API
         }
      
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             app.UseMiddleware<CorrelationMiddleware>();
             
             app.UseSwaggerDocumentation();
+
+
 
             app.UseIdentityServer();
 
@@ -103,8 +103,12 @@ namespace CompanyName.MyMeetings.API
 
             app.UseHttpsRedirection();
 
-            app.UseMvc();
-           
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+
         }
 
         private static void ConfigureLogger()

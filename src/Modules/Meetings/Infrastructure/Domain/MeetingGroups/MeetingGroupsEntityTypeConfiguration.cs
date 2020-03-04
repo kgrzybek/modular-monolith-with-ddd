@@ -28,11 +28,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.MeetingG
 
             builder.OwnsMany<MeetingGroupMember>("_members", y =>
             {
+                y.WithOwner().HasForeignKey("MeetingGroupId");
                 y.ToTable("MeetingGroupMembers", "meetings");
                 y.Property<MemberId>("MemberId");
                 y.Property<MeetingGroupId>("MeetingGroupId");
                 y.Property<DateTime>("JoinedDate").HasColumnName("JoinedDate");
-                y.HasForeignKey("MeetingGroupId");
                 y.HasKey("MemberId", "MeetingGroupId", "JoinedDate");
                 
                 y.Property<DateTime?>("_leaveDate").HasColumnName("LeaveDate");

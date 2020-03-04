@@ -56,11 +56,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.Meetings
 
             builder.OwnsMany<MeetingAttendee>("_attendees", y =>
             {
+                y.WithOwner().HasForeignKey("MeetingId");
                 y.ToTable("MeetingAttendees", "meetings");
                 y.Property<MemberId>("AttendeeId");
                 y.Property<MeetingId>("MeetingId");
                 y.Property<DateTime>("_decisionDate").HasColumnName("DecisionDate");
-                y.HasForeignKey("MeetingId");
                 y.HasKey("AttendeeId", "MeetingId", "_decisionDate");
                 y.Property<bool>("_decisionChanged").HasColumnName("DecisionChanged");
                 y.Property<int>("_guestsNumber").HasColumnName("GuestsNumber");
@@ -78,11 +78,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.Meetings
 
             builder.OwnsMany<MeetingNotAttendee>("_notAttendees", y =>
             {
+                y.WithOwner().HasForeignKey("MeetingId");
                 y.ToTable("MeetingNotAttendees", "meetings");
                 y.Property<MemberId>("MemberId");
                 y.Property<MeetingId>("MeetingId");
                 y.Property<DateTime>("_decisionDate").HasColumnName("DecisionDate");
-                y.HasForeignKey("MeetingId");
                 y.HasKey("MemberId", "MeetingId", "_decisionDate");              
                 y.Property<bool>("_decisionChanged").HasColumnName("DecisionChanged");
                 y.Property<DateTime?>("_decisionChangeDate").HasColumnName("DecisionChangeDate");
@@ -90,11 +90,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.Meetings
 
             builder.OwnsMany<MeetingWaitlistMember>("_waitlistMembers", y =>
             {
+                y.WithOwner().HasForeignKey("MeetingId");
                 y.ToTable("MeetingWaitlistMembers", "meetings");
                 y.Property<MemberId>("MemberId");
                 y.Property<MeetingId>("MeetingId");
                 y.Property<DateTime>("SignUpDate").HasColumnName("SignUpDate");
-                y.HasForeignKey("MeetingId");
                 y.HasKey("MemberId", "MeetingId", "SignUpDate");              
                 y.Property<bool>("_isSignedOff").HasColumnName("IsSignedOff");
                 y.Property<DateTime?>("_signOffDate").HasColumnName("SignOffDate");

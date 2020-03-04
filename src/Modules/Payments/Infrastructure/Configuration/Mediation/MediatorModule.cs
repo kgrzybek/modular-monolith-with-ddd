@@ -15,15 +15,17 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.M
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterAssemblyTypes(typeof(IMediator).GetTypeInfo().Assembly)
-                .AsImplementedInterfaces()
-                .InstancePerLifetimeScope();
-
             builder.RegisterSource(new ScopedContravariantRegistrationSource(
                 typeof(IRequestHandler<,>),
                 typeof(INotificationHandler<>),
                 typeof(IValidator<>)
             ));
+
+            builder.RegisterAssemblyTypes(typeof(IMediator).GetTypeInfo().Assembly)
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+
+
 
             var mediatorOpenTypes = new[]
             {

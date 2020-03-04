@@ -21,6 +21,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.M
 
             builder.RegisterSource(new ScopedContravariantRegistrationSource(
                 typeof(IRequestHandler<,>),
+                typeof(IRequestHandler<>),
                 typeof(INotificationHandler<>),
                 typeof(IValidator<>)
             ));
@@ -28,6 +29,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.M
             var mediatorOpenTypes = new[]
             {
                 typeof(IRequestHandler<,>),
+                typeof(IRequestHandler<>),
                 typeof(INotificationHandler<>),
                 typeof(IValidator<>)
             };

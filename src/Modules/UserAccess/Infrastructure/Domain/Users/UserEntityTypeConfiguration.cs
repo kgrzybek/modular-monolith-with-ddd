@@ -22,10 +22,10 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Domain.Users
 
             builder.OwnsMany<UserRole>("_roles", b =>
             {
+                b.WithOwner().HasForeignKey("UserId");
                 b.ToTable("UserRoles", "users");
                 b.Property<UserId>("UserId");
                 b.Property<string>("Value").HasColumnName("RoleCode");
-                b.HasForeignKey("UserId");
                 b.HasKey("UserId", "Value");
             });
         }

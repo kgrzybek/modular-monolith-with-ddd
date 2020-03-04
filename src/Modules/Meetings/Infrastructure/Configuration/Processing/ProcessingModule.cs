@@ -31,15 +31,19 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.P
 
             builder.RegisterGenericDecorator(
                 typeof(UnitOfWorkCommandHandlerDecorator<>),
-                typeof(ICommandHandler<>));
+                typeof(IRequestHandler<>));
 
             builder.RegisterGenericDecorator(
                 typeof(ValidationCommandHandlerDecorator<>),
-                typeof(ICommandHandler<>)); 
+                typeof(IRequestHandler<>)); 
 
             builder.RegisterGenericDecorator(
                 typeof(LoggingCommandHandlerDecorator<>),
-                typeof(ICommandHandler<>));  
+                typeof(IRequestHandler<>));
+
+            builder.RegisterGenericDecorator(
+                typeof(LoggingCommandHandlerWithResultDecorator<,>),
+                typeof(ICommandHandler<,>));
 
             builder.RegisterGenericDecorator(
                 typeof(DomainEventsDispatcherNotificationHandlerDecorator<>), 

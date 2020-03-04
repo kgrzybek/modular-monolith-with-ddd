@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
@@ -9,7 +10,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals.ProposeMeetingGroup
 {
-    internal class ProposeMeetingGroupCommandHandler : ICommandHandler<ProposeMeetingGroupCommand>
+    internal class ProposeMeetingGroupCommandHandler : IRequestHandler<ProposeMeetingGroupCommand>
     {
         private readonly IMeetingGroupProposalRepository _meetingGroupProposalRepository;
         private readonly IMemberContext _memberContext;

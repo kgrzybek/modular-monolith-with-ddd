@@ -18,12 +18,12 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Domain.MeetingG
 
             builder.OwnsMany<MeetingGroupPayment>("_payments", paymentBuilder =>
             {
+                paymentBuilder.WithOwner().HasForeignKey("MeetingGroupPaymentRegisterId");
                 paymentBuilder.ToTable("MeetingGroupPayments", "payments");
 
                 paymentBuilder.HasKey("Id");
 
                 paymentBuilder.Property<MeetingGroupPaymentRegisterId>("MeetingGroupPaymentRegisterId");
-                paymentBuilder.HasForeignKey("MeetingGroupPaymentRegisterId");
                 paymentBuilder.Property<DateTime>("_date").HasColumnName("Date");
                 paymentBuilder.Property<PayerId>("_payerId").HasColumnName("PayerId");
 

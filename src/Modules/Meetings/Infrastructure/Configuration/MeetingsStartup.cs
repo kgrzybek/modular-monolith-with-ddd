@@ -10,7 +10,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Media
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Processing;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Processing.Outbox;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Quartz;
-using Serilog.AspNetCore;
+using Serilog.Extensions.Logging;
 using ILogger = Serilog.ILogger;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration
@@ -41,19 +41,19 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration
             EmailsConfiguration emailsConfiguration)
         {
             var containerBuilder = new ContainerBuilder();
-          
+
             containerBuilder.RegisterModule(new LoggingModule(logger.ForContext("Module", "Meetings")));
-            
+
             var loggerFactory = new SerilogLoggerFactory(logger);
             containerBuilder.RegisterModule(new DataAccessModule(connectionString, loggerFactory));
 
             containerBuilder.RegisterModule(new ProcessingModule());
             containerBuilder.RegisterModule(new EventsBusModule());
-            containerBuilder.RegisterModule(new MediatorModule());
+                 containerBuilder.RegisterModule(new MediatorModule());
             containerBuilder.RegisterModule(new AuthenticationModule());
             containerBuilder.RegisterModule(new OutboxModule());
-            containerBuilder.RegisterModule(new EmailModule(emailsConfiguration)); 
-            containerBuilder.RegisterModule(new QuartzModule()); 
+            containerBuilder.RegisterModule(new EmailModule(emailsConfiguration));
+            containerBuilder.RegisterModule(new QuartzModule());
 
             containerBuilder.RegisterInstance(executionContextAccessor);
 
