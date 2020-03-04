@@ -1131,12 +1131,12 @@ List of features/tasks/approaches to add:
 | Domain Model Unit Tests | High     | Completed | 2019-09-10 |
 | Architecture Decision Log update | High     | Completed | 2019-11-09 |
 | Integration automated tests      | Normal   | Completed | 2020-02-24 |
+| Migration to .NET Core 3.1 | Low   | Completed   |  2020-03-04  |
 | API automated tests      | Normal   |    |    |
 | FrontEnd SPA application | Normal   |    |    |
 | Meeting comments feature | Low   |    |    |
 | Notifications feature | Low   |    |    |
 | Messages feature | Low   |    |    |
-| Migration to .NET Core 3.0 | Low   |    |    |
 | More advanced Payments module | Low   |    |    |
 
 NOTE: Please don't hesitate to suggest something else or a change to the existing code. All proposals will be considered.

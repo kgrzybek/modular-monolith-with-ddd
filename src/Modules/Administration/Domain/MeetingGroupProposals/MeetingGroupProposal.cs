@@ -27,6 +27,8 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupPropo
         private MeetingGroupProposal()
         {
             // Only for EF.
+
+            _decision = MeetingGroupProposalDecision.NoDecision;
         }
 
         private MeetingGroupProposal(
