@@ -34,16 +34,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.P
 
             if (errors.Any())
             {
-                var errorBuilder = new StringBuilder();
-
-                errorBuilder.AppendLine("Invalid command, reason: ");
-
-                foreach (var error in errors)
-                {
-                    errorBuilder.AppendLine(error.ErrorMessage);
-                }
-
-                throw new InvalidCommandException(errorBuilder.ToString(), null);
+                throw new InvalidCommandException(errors.Select(x => x.ErrorMessage).ToList());
             }
 
             return _decorated.Handle(command, cancellationToken);

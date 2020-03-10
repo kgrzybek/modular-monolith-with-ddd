@@ -92,8 +92,8 @@ namespace CompanyName.MyMeetings.API
 
             if (env.IsDevelopment())
             {
-                // app.UseProblemDetails();
-                app.UseDeveloperExceptionPage();
+                 app.UseProblemDetails();
+              //  app.UseDeveloperExceptionPage();
             }
             else
             {

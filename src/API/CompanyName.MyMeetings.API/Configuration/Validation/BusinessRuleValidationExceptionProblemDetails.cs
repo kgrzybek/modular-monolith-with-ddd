@@ -7,9 +7,9 @@ namespace CompanyName.MyMeetings.API.Configuration.Validation
     {
         public BusinessRuleValidationExceptionProblemDetails(BusinessRuleValidationException exception)
         {
-            this.Title = exception.Message;
+            this.Title = "Business rule broken";
             this.Status = StatusCodes.Status409Conflict;
-            this.Detail = exception.Details;
+            this.Detail = exception.Message;
             this.Type = "https://somedomain/business-rule-validation-error";
         }
     }

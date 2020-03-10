@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CompanyName.MyMeetings.BuildingBlocks.Application
 {
     public class InvalidCommandException : Exception
     {
-        public string Details { get; }
+        public List<string> Errors { get; }
 
-        public InvalidCommandException(string message, string details) : base(message)
+        public InvalidCommandException(List<string> errors)
         {
-            this.Details = details;
+            this.Errors = errors;
         }
     }
 }
