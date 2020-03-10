@@ -1,8 +1,10 @@
 ﻿using System.Threading.Tasks;
+using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.AcceptMeetingGroupProposal;
 using CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.GetMeetingGroupProposal;
 using CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.RequestMeetingGroupProposalVerification;
 using CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupProposals;
+using CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupProposals.Rules;
 using CompanyName.MyMeetings.Modules.Administration.IntegrationTests.SeedWork;
 using NUnit.Framework;
 
@@ -37,7 +39,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.IntegrationTests.Meeting
         }
 
         [Test]
-        public async Task AcceptMeetingGroupProposal_Test()
+        public async Task AcceptMeetingGroupProposal_WhenProposalIsNotAccepted_IsSuccessful()
         {
             var proposalId = await AdministrationModule.ExecuteCommandAsync(new RequestMeetingGroupProposalVerificationCommand(
                 MeetingGroupProposalSampleData.MeetingGroupProposalId,
@@ -59,6 +61,28 @@ namespace CompanyName.MyMeetings.Modules.Administration.IntegrationTests.Meeting
             var acceptedNotification = await GetLastOutboxMessage<MeetingGroupProposalAcceptedNotification>();
 
             Assert.That(acceptedNotification.DomainEvent.MeetingGroupProposalId.Value, Is.EqualTo(proposalId));
+        }
+
+        [Test]
+        public async Task AcceptMeetingGroupProposal_WhenProposalIsAlreadyAccepted_BreaksMeetingGroupProposalCanBeVerifiedOnceRule()
+        {
+            var proposalId = await AdministrationModule.ExecuteCommandAsync(new RequestMeetingGroupProposalVerificationCommand(
+                MeetingGroupProposalSampleData.MeetingGroupProposalId,
+                MeetingGroupProposalSampleData.MeetingGroupProposalId,
+                MeetingGroupProposalSampleData.Name,
+                MeetingGroupProposalSampleData.Description,
+                MeetingGroupProposalSampleData.LocationCity,
+                MeetingGroupProposalSampleData.LocationCountryCode,
+                MeetingGroupProposalSampleData.ProposalUserId,
+                MeetingGroupProposalSampleData.ProposalDate));
+
+            await AdministrationModule.ExecuteCommandAsync(
+                new AcceptMeetingGroupProposalCommand(MeetingGroupProposalSampleData.MeetingGroupProposalId));
+
+            AssertBrokenRule<MeetingGroupProposalCanBeVerifiedOnceRule>(async () =>
+                await AdministrationModule.ExecuteCommandAsync(
+                    new AcceptMeetingGroupProposalCommand(MeetingGroupProposalSampleData.MeetingGroupProposalId))
+            );
         }
     }
 }
