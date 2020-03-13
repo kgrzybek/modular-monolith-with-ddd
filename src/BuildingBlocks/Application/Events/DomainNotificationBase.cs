@@ -1,7 +1,7 @@
 ﻿using System;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 
-namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.SeedWork
+namespace CompanyName.MyMeetings.BuildingBlocks.Application.Events
 {
     public class DomainNotificationBase<T> : IDomainEventNotification<T> where T:IDomainEvent
     {

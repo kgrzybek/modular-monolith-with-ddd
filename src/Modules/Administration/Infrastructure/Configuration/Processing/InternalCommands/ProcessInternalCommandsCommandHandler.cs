@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
-using CompanyName.MyMeetings.Modules.Administration.Application.Configuration;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.Modules.Administration.Application.Configuration.Commands;
-using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
 using Dapper;
 using MediatR;
 using Newtonsoft.Json;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Processing.InternalCommands
 {
-    internal class ProcessInternalCommandsCommandHandler : ICommandHandler<ProcessInternalCommandsCommand>
+    internal class ProcessInternalCommandsCommandHandler : ICommandHandler<ProcessInternalCommandsCommand, Unit>
     {
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
@@ -38,8 +35,8 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             foreach (var internalCommand in internalCommandsList)
             {
                 Type type = Assemblies.Application.GetType(internalCommand.Type);
-                var commandToProcess = JsonConvert.DeserializeObject(internalCommand.Data, type) as ICommand;
-                
+                dynamic commandToProcess = JsonConvert.DeserializeObject(internalCommand.Data, type);
+
                 await CommandsExecutor.Execute(commandToProcess);
             }
 

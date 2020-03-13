@@ -1,4 +1,4 @@
-﻿namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails
+﻿namespace CompanyName.MyMeetings.BuildingBlocks.Application.Emails
 {
     public struct EmailMessage
     {

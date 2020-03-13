@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
 using Serilog;
 
 namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails

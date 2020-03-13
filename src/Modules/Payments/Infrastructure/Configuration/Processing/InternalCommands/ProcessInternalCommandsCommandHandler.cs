@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
-using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 using Dapper;
 using MediatR;
 using Newtonsoft.Json;
@@ -36,7 +35,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
             foreach (var internalCommand in internalCommandsList)
             {
                 Type type = Assemblies.Application.GetType(internalCommand.Type);
-                var commandToProcess = JsonConvert.DeserializeObject(internalCommand.Data, type) as ICommand;
+                dynamic commandToProcess = JsonConvert.DeserializeObject(internalCommand.Data, type);
                 
                 await CommandsExecutor.Execute(commandToProcess);
             }

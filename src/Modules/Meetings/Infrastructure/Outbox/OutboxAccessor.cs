@@ -1,4 +1,4 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Outbox;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Outbox;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Outbox
 {

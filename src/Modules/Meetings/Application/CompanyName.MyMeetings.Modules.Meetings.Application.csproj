@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\BuildingBlocks\Domain\CompanyName.MyMeetings.BuildingBlocks.Domain.csproj" PrivateAssets="All" />
-    <ProjectReference Include="..\..\..\BuildingBlocks\Infrastructure\CompanyName.MyMeetings.BuildingBlocks.Infrastructure.csproj" PrivateAssets="All" />
     <ProjectReference Include="..\..\..\BuildingBlocks\Application\CompanyName.MyMeetings.BuildingBlocks.Application.csproj" PrivateAssets="All" />
     <ProjectReference Include="..\..\..\BuildingBlocks\EventBus\CompanyName.MyMeetings.BuildingBlocks.EventBus.csproj" PrivateAssets="All" />
     <ProjectReference Include="..\..\Administration\IntegrationEvents\CompanyName.MyMeetings.Modules.Administration.IntegrationEvents.csproj" PrivateAssets="All" />

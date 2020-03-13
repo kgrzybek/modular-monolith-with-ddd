@@ -1,5 +1,5 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.InternalCommands;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Outbox;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Outbox;
+using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.InternalCommands;
 using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations;
 using CompanyName.MyMeetings.Modules.UserAccess.Domain.Users;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Domain.UserRegistrations;

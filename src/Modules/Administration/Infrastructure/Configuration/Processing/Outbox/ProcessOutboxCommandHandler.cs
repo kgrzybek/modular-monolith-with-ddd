@@ -2,8 +2,9 @@
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Events;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.SeedWork;
 using CompanyName.MyMeetings.Modules.Administration.Application.Configuration;
 using CompanyName.MyMeetings.Modules.Administration.Application.Configuration.Commands;
 using Dapper;
@@ -15,7 +16,7 @@ using Serilog.Events;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Processing.Outbox
 {
-    internal class ProcessOutboxCommandHandler : ICommandHandler<ProcessOutboxCommand>
+    internal class ProcessOutboxCommandHandler : ICommandHandler<ProcessOutboxCommand, Unit>
     {
         private readonly IMediator _mediator;
         private readonly ISqlConnectionFactory _sqlConnectionFactory;

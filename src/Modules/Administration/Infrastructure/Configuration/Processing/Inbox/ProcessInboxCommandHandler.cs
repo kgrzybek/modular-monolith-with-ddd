@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.Modules.Administration.Application.Configuration;
 using CompanyName.MyMeetings.Modules.Administration.Application.Configuration.Commands;
@@ -11,7 +12,7 @@ using Newtonsoft.Json;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Processing.Inbox
 {
-    internal class ProcessInboxCommandHandler : ICommandHandler<ProcessInboxCommand>
+    internal class ProcessInboxCommandHandler : ICommandHandler<ProcessInboxCommand, Unit>
     {
         private readonly IMediator _mediator;
         private readonly ISqlConnectionFactory _sqlConnectionFactory;

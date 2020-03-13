@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Outbox;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Outbox;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Outbox;
 using Module = Autofac.Module;
 

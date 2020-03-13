@@ -1,5 +1,5 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.InternalCommands;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Outbox;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Outbox;
+using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.InternalCommands;
 using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingGroupPaymentRegisters;
 using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Payers;

@@ -29,21 +29,21 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
 
         public async Task<Unit> Handle(T command, CancellationToken cancellationToken)
         {
-            await this._decorated.Handle(command, cancellationToken);
+            //await this._decorated.Handle(command, cancellationToken);
 
-            if (command is InternalCommandBase)
-            {
-                var internalCommand =
-                    await _administrationContext.InternalCommands.FirstOrDefaultAsync(x => x.Id == command.Id,
-                        cancellationToken: cancellationToken);
+            //if (command is InternalCommandBase<>))
+            //{
+            //    var internalCommand =
+            //        await _administrationContext.InternalCommands.FirstOrDefaultAsync(x => x.Id == command.Id,
+            //            cancellationToken: cancellationToken);
 
-                if (internalCommand != null)
-                {
-                    internalCommand.ProcessedDate = DateTime.UtcNow;
-                }
-            }
+            //    if (internalCommand != null)
+            //    {
+            //        internalCommand.ProcessedDate = DateTime.UtcNow;
+            //    }
+            //}
 
-            await this._unitOfWork.CommitAsync(cancellationToken);
+            //await this._unitOfWork.CommitAsync(cancellationToken);
 
             return Unit.Value;
         }

@@ -1,5 +1,4 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Outbox;
-
+﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Outbox;
 namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Outbox
 {
     public class OutboxAccessor : IOutbox

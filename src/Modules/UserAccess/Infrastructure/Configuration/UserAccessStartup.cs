@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.DataAccess;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Domain;

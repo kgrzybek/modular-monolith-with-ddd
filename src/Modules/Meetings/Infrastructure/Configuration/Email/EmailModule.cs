@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Email

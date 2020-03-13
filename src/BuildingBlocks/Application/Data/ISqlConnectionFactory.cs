@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure
+namespace CompanyName.MyMeetings.BuildingBlocks.Application.Data
 {
     public interface ISqlConnectionFactory
     {

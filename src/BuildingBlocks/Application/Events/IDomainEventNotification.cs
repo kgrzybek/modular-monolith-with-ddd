@@ -1,7 +1,7 @@
 ﻿using System;
 using MediatR;
 
-namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.SeedWork
+namespace CompanyName.MyMeetings.BuildingBlocks.Application.Events
 {
     public interface IDomainEventNotification<out TEventType> : IDomainEventNotification
     {

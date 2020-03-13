@@ -1,5 +1,5 @@
 ﻿using System;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.SeedWork;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Events;
 using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingGroupPaymentRegisters;
 using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingGroupPaymentRegisters.Events;
 

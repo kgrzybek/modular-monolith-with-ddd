@@ -5,9 +5,9 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Core;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Events;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Outbox;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Outbox;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.SeedWork;
 using MediatR;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -50,7 +50,7 @@ public class DomainEventsDispatcher : IDomainEventsDispatcher
 
                 if (domainNotification != null)
                 {
-                    domainEventNotifications.Add(domainNotification as SeedWork.IDomainEventNotification<IDomainEvent>);
+                    domainEventNotifications.Add(domainNotification as IDomainEventNotification<IDomainEvent>);
                 }
             }
 

@@ -8,7 +8,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.AcceptMeetingGroupProposal
 {
-    internal class AcceptMeetingGroupProposalCommandHandler : ICommandHandler<AcceptMeetingGroupProposalCommand>
+    internal class AcceptMeetingGroupProposalCommandHandler : ICommandHandler<AcceptMeetingGroupProposalCommand, Unit>
     {
         private readonly IMeetingGroupProposalRepository _meetingGroupProposalRepository;
         private readonly IUserContext _userContext;

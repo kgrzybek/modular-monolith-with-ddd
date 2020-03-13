@@ -1,4 +1,5 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
+using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations;
 using Dapper;
 
