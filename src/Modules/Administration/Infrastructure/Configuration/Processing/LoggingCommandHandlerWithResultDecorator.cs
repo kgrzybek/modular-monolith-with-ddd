@@ -28,6 +28,11 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
         }
         public async Task<TResult> Handle(T command, CancellationToken cancellationToken)
         {
+            if (command is IRecurringCommand)
+            {
+                return await _decorated.Handle(command, cancellationToken);
+            }
+
             using (
                 LogContext.Push(
                     new RequestLogEnricher(_executionContextAccessor),

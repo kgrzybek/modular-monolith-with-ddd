@@ -748,6 +748,16 @@ INSERT INTO users.Users VALUES
 	'John Doe'
 )
 
+INSERT INTO meetings.Members VALUES
+(
+	'2EBFECFC-ED13-43B8-B516-6AC89D51C510',
+	'testMember@mail.com',
+	'testMember@mail.com',
+	'John',
+	'Doe',
+	'John Doe'
+)
+
 INSERT INTO users.UserRoles VALUES
 ('2EBFECFC-ED13-43B8-B516-6AC89D51C510', 'Member')
 
