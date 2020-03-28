@@ -1,21 +1,24 @@
-using System;
+﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
+using CompanyName.MyMeetings.BuildingBlocks.EventBus;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
+using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
 using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration;
+using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
+using CompanyName.MyMeetings.Modules.Meetings.Infrastructure;
+using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration;
 using Dapper;
-using MediatR;
 using NSubstitute;
 using NUnit.Framework;
 using Serilog;
 
-namespace CompanyName.MyMeetings.Modules.Administration.IntegrationTests.SeedWork
+namespace CompanyName.MyMeetings.IntegrationTests.SeedWork
 {
     public class TestBase
     {
@@ -25,9 +28,13 @@ namespace CompanyName.MyMeetings.Modules.Administration.IntegrationTests.SeedWor
 
         protected IAdministrationModule AdministrationModule;
 
+        protected IMeetingsModule MeetingsModule;
+
         protected IEmailSender EmailSender;
 
         protected ExecutionContextMock ExecutionContext;
+
+        protected IEventsBus EventsBus;
 
 
         [SetUp]
@@ -51,13 +58,23 @@ namespace CompanyName.MyMeetings.Modules.Administration.IntegrationTests.SeedWor
             EmailSender = Substitute.For<IEmailSender>();
             ExecutionContext = new ExecutionContextMock(Guid.NewGuid());
 
+            EventsBus = new InMemoryEventBusClient(Logger);
+
             AdministrationStartup.Initialize(
                 ConnectionString,
                 ExecutionContext,
                 Logger,
-                null);
+                EventsBus);
+            
+            MeetingsStartup.Initialize(
+                ConnectionString, 
+                ExecutionContext,
+                Logger,
+                new EmailsConfiguration("from@email.com"),
+                EventsBus);
 
             AdministrationModule = new AdministrationModule();
+            MeetingsModule = new MeetingsModule();
         }
 
         private static async Task ClearDatabase(IDbConnection connection)
@@ -66,19 +83,20 @@ namespace CompanyName.MyMeetings.Modules.Administration.IntegrationTests.SeedWor
                                "DELETE FROM [administration].[InternalCommands] " +
                                "DELETE FROM [administration].[OutboxMessages] " +
                                "DELETE FROM [administration].[MeetingGroupProposals] " +
-                               "DELETE FROM [administration].[Members] ";
+                               "DELETE FROM [administration].[Members] " +
+                               "DELETE FROM [meetings].[InboxMessages] " +
+                               "DELETE FROM [meetings].[InternalCommands] " +
+                               "DELETE FROM [meetings].[OutboxMessages] " +
+                               "DELETE FROM [meetings].[MeetingAttendees] " +
+                               "DELETE FROM [meetings].[MeetingGroupMembers] " +
+                               "DELETE FROM [meetings].[MeetingGroupProposals] " +
+                               "DELETE FROM [meetings].[MeetingGroups] " +
+                               "DELETE FROM [meetings].[MeetingNotAttendees] " +
+                               "DELETE FROM [meetings].[Meetings] " +
+                               "DELETE FROM [meetings].[MeetingWaitlistMembers] " +
+                               "DELETE FROM [meetings].[Members] ";
 
             await connection.ExecuteScalarAsync(sql);
-        }
-
-        protected async Task<T> GetLastOutboxMessage<T>() where T : class, INotification
-        {
-            using (var connection = new SqlConnection(ConnectionString))
-            {
-                var messages = await OutboxMessagesHelper.GetOutboxMessages(connection);
-
-                return OutboxMessagesHelper.Deserialize<T>(messages.Last());
-            }
         }
 
         protected static void AssertBrokenRule<TRule>(AsyncTestDelegate testDelegate) where TRule : class, IBusinessRule
@@ -89,6 +107,11 @@ namespace CompanyName.MyMeetings.Modules.Administration.IntegrationTests.SeedWor
             {
                 Assert.That(businessRuleValidationException.BrokenRule, Is.TypeOf<TRule>(), message);
             }
+        }
+
+        protected static void AssertEventually(IProbe probe, int timeout)
+        {
+            new Poller(timeout).Check(probe);
         }
     }
 }

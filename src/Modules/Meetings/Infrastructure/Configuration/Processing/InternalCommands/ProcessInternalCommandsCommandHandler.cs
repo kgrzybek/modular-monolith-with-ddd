@@ -37,7 +37,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.P
             foreach (var internalCommand in internalCommandsList)
             {
                 Type type = Assemblies.Application.GetType(internalCommand.Type);
-                var commandToProcess = JsonConvert.DeserializeObject(internalCommand.Data, type) as ICommand;
+                dynamic commandToProcess = JsonConvert.DeserializeObject(internalCommand.Data, type);
                 
                 await CommandsExecutor.Execute(commandToProcess);
             }

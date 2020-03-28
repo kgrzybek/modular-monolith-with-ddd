@@ -9,7 +9,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals.ProposeMeetingGroup
 {
-    internal class ProposeMeetingGroupCommandHandler : ICommandHandler<ProposeMeetingGroupCommand>
+    internal class ProposeMeetingGroupCommandHandler : ICommandHandler<ProposeMeetingGroupCommand, Guid>
     {
         private readonly IMeetingGroupProposalRepository _meetingGroupProposalRepository;
         private readonly IMemberContext _memberContext;
@@ -22,7 +22,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupPropos
             _memberContext = memberContext;
         }
 
-        public async Task<Unit> Handle(ProposeMeetingGroupCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(ProposeMeetingGroupCommand request, CancellationToken cancellationToken)
         {
             var meetingGroupProposal = MeetingGroupProposal.ProposeNew(
                 request.Name, 
@@ -32,7 +32,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupPropos
 
             await _meetingGroupProposalRepository.AddAsync(meetingGroupProposal);
 
-            return new Unit();
+            return meetingGroupProposal.Id.Value;
         }
     }
 }

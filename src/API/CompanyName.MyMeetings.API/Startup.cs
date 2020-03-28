@@ -163,8 +163,19 @@ namespace CompanyName.MyMeetings.API
 
             var emailsConfiguration = new EmailsConfiguration(_configuration["EmailsConfiguration:FromEmail"]);
             
-            MeetingsStartup.Initialize(this._configuration[MeetingsConnectionString], executionContextAccessor, _logger, emailsConfiguration);
-            AdministrationStartup.Initialize(this._configuration[MeetingsConnectionString], executionContextAccessor, _logger);
+            MeetingsStartup.Initialize(
+                this._configuration[MeetingsConnectionString], 
+                executionContextAccessor, 
+                _logger, 
+                emailsConfiguration,
+                null);
+            
+            AdministrationStartup.Initialize(
+                this._configuration[MeetingsConnectionString], 
+                executionContextAccessor, 
+                _logger,
+                null);
+
             UserAccessStartup.Initialize(
                 this._configuration[MeetingsConnectionString], 
                 executionContextAccessor, 
@@ -172,6 +183,7 @@ namespace CompanyName.MyMeetings.API
                 emailsConfiguration,
                 this._configuration["Security:TextEncryptionKey"],
                 null);
+
             PaymentsStartup.Initialize(
                 this._configuration[MeetingsConnectionString], 
                 executionContextAccessor, 

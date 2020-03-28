@@ -56,6 +56,8 @@ Full Modular Monolith .NET application with Domain-Driven Design approach.
 
 &nbsp;&nbsp;[3.13 Integration Tests](#313-integration-tests)
 
+&nbsp;&nbsp;[3.14 System Integration Testing](#314-system-integration-testing)
+
 [4. Technology](#4-technology)
 
 [5. How to Run](#5-how-to-run)
@@ -1052,6 +1054,170 @@ public class MeetingPaymentTests : TestBase
 
 Each Command/Query processing is a separate execution (with different object graph resolution, context, database connection etc.) thanks to Composition Root of each module. This behavior is important and desirable.
 
+### 3.14 System Integration Testing
+
+#### Definition
+[System Integration Testing (SIT)](https://en.wikipedia.org/wiki/System_integration_testing) is performed to verify the interactions between the modules of a software system. It involves the overall testing of a complete system of many subsystem components or elements.
+
+#### Implementation
+
+Implementation of system integration tests is based on approach of integration testing of modules in isolation (invoking commands and queries) described in the previous section.
+
+The problem is that in this case we are dealing with **asynchronous communication**. Due to asynchrony, our **test must wait for the result** at certain times. 
+
+To correctly implement such tests, the **Sampling** technique and implementation described in the [Growing Object-Oriented Software, Guided by Tests](https://www.amazon.com/Growing-Object-Oriented-Software-Guided-Tests/dp/0321503627) book was used:
+
+>An asynchronous test must wait for success and use timeouts to detect failure. This implies that every tested activity must have an observable effect: a test must affect the system so that its observable state becomes different. This sounds obvious but it drives how we think about writing asynchronous tests. If an activity has no observable effect, there is nothing the test can wait for, and therefore no way for the test to synchronize with the system it is testing. There are two ways a test can observe the system: by sampling its observable state or by listening for events that it sends out.
+
+![](docs/Images/SystemIntegrationTests.jpg)
+
+Test below:
+1. Creates Meeting Group Proposal in Meetings module
+2. Waits until Meeting Group Proposal to verification will be available in Administration module with 10 seconds timeout
+3. Accepts Meeting Group Proposal in Administration module
+4. Waits until Meeting Group is created in Meetings module with 15 seconds timeout
+
+```csharp
+public class CreateMeetingGroupTests : TestBase
+{
+    [Test]
+    public async Task CreateMeetingGroupScenario_WhenProposalIsAccepted()
+    {
+        var meetingGroupId = await MeetingsModule.ExecuteCommandAsync(
+            new ProposeMeetingGroupCommand("Name",
+            "Description",
+            "Location",
+            "PL"));
+
+        AssertEventually(
+            new GetMeetingGroupProposalFromAdministrationProbe(meetingGroupId, AdministrationModule), 
+            10000);
+
+        await AdministrationModule.ExecuteCommandAsync(new AcceptMeetingGroupProposalCommand(meetingGroupId));
+
+        AssertEventually(
+            new GetCreatedMeetingGroupFromMeetingsProbe(meetingGroupId, MeetingsModule),
+            15000);
+    }
+
+    private class GetCreatedMeetingGroupFromMeetingsProbe : IProbe
+    {
+        private readonly Guid _expectedMeetingGroupId;
+
+        private readonly IMeetingsModule _meetingsModule;
+
+        private List<MeetingGroupDto> _allMeetingGroups;
+
+        public GetCreatedMeetingGroupFromMeetingsProbe(
+            Guid expectedMeetingGroupId, 
+            IMeetingsModule meetingsModule)
+        {
+            _expectedMeetingGroupId = expectedMeetingGroupId;
+            _meetingsModule = meetingsModule;
+        }
+
+        public bool IsSatisfied()
+        {
+            return _allMeetingGroups != null && 
+                   _allMeetingGroups.Any(x => x.Id == _expectedMeetingGroupId);
+        }
+
+        public async Task SampleAsync()
+        {
+            _allMeetingGroups = await _meetingsModule.ExecuteQueryAsync(new GetAllMeetingGroupsQuery());
+        }
+
+        public string DescribeFailureTo() 
+            => $"Meeting group with ID: {_expectedMeetingGroupId} is not created";
+    }
+
+    private class GetMeetingGroupProposalFromAdministrationProbe : IProbe
+    {
+        private readonly Guid _expectedMeetingGroupProposalId;
+
+        private MeetingGroupProposalDto _meetingGroupProposal;
+
+        private readonly IAdministrationModule _administrationModule;
+
+        public GetMeetingGroupProposalFromAdministrationProbe(Guid expectedMeetingGroupProposalId, IAdministrationModule administrationModule)
+        {
+            _expectedMeetingGroupProposalId = expectedMeetingGroupProposalId;
+            _administrationModule = administrationModule;
+        }
+
+        public bool IsSatisfied()
+        {
+            if (_meetingGroupProposal == null)
+            {
+                return false;
+            }
+
+            if (_meetingGroupProposal.Id == _expectedMeetingGroupProposalId &&
+                _meetingGroupProposal.StatusCode == MeetingGroupProposalStatus.ToVerify.Value)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task SampleAsync()
+        {
+            try
+            {
+                _meetingGroupProposal =
+                    await _administrationModule.ExecuteQueryAsync(
+                        new GetMeetingGroupProposalQuery(_expectedMeetingGroupProposalId));
+            }
+            catch
+            {
+                // ignored
+            }
+        }
+
+        public string DescribeFailureTo()
+            => $"Meeting group proposal with ID: {_expectedMeetingGroupProposalId} to verification not created";
+    }
+}
+```
+
+Poller class implementation (based on example in the book):
+
+```csharp
+public class Poller
+{
+    private readonly int _timeoutMillis;
+
+    private readonly int _pollDelayMillis;
+
+    public Poller(int timeoutMillis)
+    {
+        _timeoutMillis = timeoutMillis;
+        _pollDelayMillis = 1000;
+    }
+
+    public void Check(IProbe probe)
+    {
+        var timeout = new Timeout(_timeoutMillis);
+        while (!probe.IsSatisfied())
+        {
+            if (timeout.HasTimedOut())
+            {
+                throw new AssertErrorException(DescribeFailureOf(probe));
+            }
+
+            Thread.Sleep(_pollDelayMillis);
+            probe.SampleAsync();
+        }
+    }
+
+    private static string DescribeFailureOf(IProbe probe)
+    {
+        return probe.DescribeFailureTo();
+    }
+}
+```
+
 ## 4. Technology
 
 List of technologies, frameworks and libraries used for implementation:
@@ -1132,6 +1298,7 @@ List of features/tasks/approaches to add:
 | Architecture Decision Log update | High     | Completed | 2019-11-09 |
 | Integration automated tests      | Normal   | Completed | 2020-02-24 |
 | Migration to .NET Core 3.1 | Low   | Completed   |  2020-03-04  |
+| System Integration Testing | Normal   | Completed   |  2020-03-28  |
 | API automated tests      | Normal   |    |    |
 | FrontEnd SPA application | Normal   |    |    |
 | Meeting comments feature | Low   |    |    |
@@ -1218,6 +1385,7 @@ The project is under [MIT license](https://opensource.org/licenses/MIT).
 - ["The Art of Unit Testing: with examples in C#"](https://www.amazon.com/Art-Unit-Testing-examples/dp/1617290890) book, Roy Osherove
 - ["Unit Test Your Architecture with ArchUnit"](https://blogs.oracle.com/javamagazine/unit-test-your-architecture-with-archunit) article, Jonas Havers
 - ["Unit Testing Principles, Practices, and Patterns"](https://www.amazon.com/Unit-Testing-Principles-Practices-Patterns/dp/1617296279) book, Vladimir Khorikov
+- ["Growing Object-Oriented Software, Guided by Tests"](https://www.amazon.com/Growing-Object-Oriented-Software-Guided-Tests/dp/0321503627) book, Steve Freeman, Nat Pryce
 
 ### UML
 - ["UML Distilled: A Brief Guide to the Standard Object Modeling Language (3rd Edition)"](https://www.amazon.com/UML-Distilled-Standard-Modeling-Language/dp/0321193687) book, Martin Fowler

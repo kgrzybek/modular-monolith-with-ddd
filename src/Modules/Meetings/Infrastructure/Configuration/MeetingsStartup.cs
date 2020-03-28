@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
+using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Authentication;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.DataAccess;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Email;
@@ -23,11 +24,17 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration
             string connectionString, 
             IExecutionContextAccessor executionContextAccessor,
             ILogger logger,
-            EmailsConfiguration emailsConfiguration)
+            EmailsConfiguration emailsConfiguration,
+            IEventsBus eventsBus)
         {
             var moduleLogger = logger.ForContext("Module", "Meetings");
 
-            ConfigureCompositionRoot(connectionString, executionContextAccessor, moduleLogger, emailsConfiguration);
+            ConfigureCompositionRoot(
+                connectionString, 
+                executionContextAccessor, 
+                moduleLogger, 
+                emailsConfiguration,
+                eventsBus);
 
             QuartzStartup.Initialize(moduleLogger);
 
@@ -38,7 +45,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration
             string connectionString, 
             IExecutionContextAccessor executionContextAccessor, 
             ILogger logger,
-            EmailsConfiguration emailsConfiguration)
+            EmailsConfiguration emailsConfiguration,
+            IEventsBus eventsBus)
         {
             var containerBuilder = new ContainerBuilder();
 
@@ -48,7 +56,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration
             containerBuilder.RegisterModule(new DataAccessModule(connectionString, loggerFactory));
 
             containerBuilder.RegisterModule(new ProcessingModule());
-            containerBuilder.RegisterModule(new EventsBusModule());
+            containerBuilder.RegisterModule(new EventsBusModule(eventsBus));
                  containerBuilder.RegisterModule(new MediatorModule());
             containerBuilder.RegisterModule(new AuthenticationModule());
             containerBuilder.RegisterModule(new OutboxModule());

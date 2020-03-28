@@ -6,11 +6,26 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.E
 {
     internal class EventsBusModule : Autofac.Module
     {
+        private readonly IEventsBus _eventsBus;
+
+        public EventsBusModule(IEventsBus eventsBus)
+        {
+            _eventsBus = eventsBus;
+        }
+
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<InMemoryEventBusClient>()
+            if (_eventsBus != null)
+            {
+                builder.RegisterInstance(_eventsBus).SingleInstance();
+            }
+            else
+            {
+                builder.RegisterType<InMemoryEventBusClient>()
                 .As<IEventsBus>()
                 .SingleInstance();
+
+            }
         }
     }
 }

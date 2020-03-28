@@ -101,6 +101,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.Administration.IntegrationTests", "Modules\Administration\Tests\IntegrationTests\CompanyName.MyMeetings.Modules.Administration.IntegrationTests.csproj", "{3D7FDF4A-6B8B-49CA-8E28-5B292DC0954F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.IntegrationTests", "Tests\IntegrationTests\CompanyName.MyMeetings.IntegrationTests.csproj", "{586DB9FA-CBBF-4867-A57D-E2359925D09A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -245,6 +247,10 @@ Global
 		{3D7FDF4A-6B8B-49CA-8E28-5B292DC0954F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D7FDF4A-6B8B-49CA-8E28-5B292DC0954F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D7FDF4A-6B8B-49CA-8E28-5B292DC0954F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{586DB9FA-CBBF-4867-A57D-E2359925D09A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{586DB9FA-CBBF-4867-A57D-E2359925D09A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{586DB9FA-CBBF-4867-A57D-E2359925D09A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{586DB9FA-CBBF-4867-A57D-E2359925D09A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -292,6 +298,7 @@ Global
 		{396A6C3F-74BA-4D85-8BF3-1182F9DE9D95} = {0FF699EF-8156-43CB-8D18-8EA28F30E9EE}
 		{B448FDC3-5F85-47EE-9F4A-2654E8CC67E1} = {53E4F002-E708-45F7-8444-19EB8977B5C9}
 		{3D7FDF4A-6B8B-49CA-8E28-5B292DC0954F} = {F544D6DA-740A-4313-9542-D989666EA9DE}
+		{586DB9FA-CBBF-4867-A57D-E2359925D09A} = {8B08A9EE-CE27-4CC3-ACB3-3BD9628E5479}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B94C21A-AA6D-4D82-963E-C69C0353B938}

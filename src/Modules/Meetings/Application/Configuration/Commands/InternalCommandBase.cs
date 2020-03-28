@@ -12,4 +12,19 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Comm
             this.Id = id;
         }
     }
+
+    public abstract class InternalCommandBase<TResult> : ICommand<TResult>
+    {
+        public Guid Id { get; }
+
+        protected InternalCommandBase()
+        {
+            this.Id = Guid.NewGuid();
+        }
+
+        protected InternalCommandBase(Guid id)
+        {
+            this.Id = id;
+        }
+    }
 }

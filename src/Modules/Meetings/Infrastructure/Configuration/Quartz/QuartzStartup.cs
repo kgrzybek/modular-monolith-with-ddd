@@ -30,7 +30,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Q
                 TriggerBuilder
                     .Create()
                     .StartNow()
-                    .WithCronSchedule("0/15 * * ? * *")
+                    .WithCronSchedule("0/2 * * ? * *")
                     .Build();
 
             scheduler
@@ -42,7 +42,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Q
                 TriggerBuilder
                     .Create()
                     .StartNow()
-                    .WithCronSchedule("0/15 * * ? * *")
+                    .WithCronSchedule("0/2 * * ? * *")
                     .Build();
 
             scheduler
@@ -54,7 +54,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Q
                 TriggerBuilder
                     .Create()
                     .StartNow()
-                    .WithCronSchedule("0/15 * * ? * *")
+                    .WithCronSchedule("0/2 * * ? * *")
                     .Build();
             scheduler.ScheduleJob(processInternalCommandsJob, triggerCommandsProcessing).GetAwaiter().GetResult();
 

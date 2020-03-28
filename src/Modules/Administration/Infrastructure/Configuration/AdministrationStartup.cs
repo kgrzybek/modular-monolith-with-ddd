@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
+using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Authentication;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.DataAccess;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.EventsBus;
@@ -20,11 +21,12 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
         public static void Initialize(
             string connectionString,
             IExecutionContextAccessor executionContextAccessor,
-            ILogger logger)
+            ILogger logger,
+            IEventsBus eventsBus)
         {
             var moduleLogger = logger.ForContext("Module", "Administration");
 
-            ConfigureContainer(connectionString, executionContextAccessor, moduleLogger);
+            ConfigureContainer(connectionString, executionContextAccessor, moduleLogger, eventsBus);
 
             QuartzStartup.Initialize(moduleLogger);
 
@@ -33,7 +35,8 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
 
         private static void ConfigureContainer(string connectionString, 
             IExecutionContextAccessor executionContextAccessor,
-            ILogger logger)
+            ILogger logger,
+            IEventsBus eventsBus)
         {
             var containerBuilder = new ContainerBuilder();
           
@@ -43,7 +46,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             containerBuilder.RegisterModule(new DataAccessModule(connectionString, loggerFactory));
 
             containerBuilder.RegisterModule(new ProcessingModule());
-            containerBuilder.RegisterModule(new EventsBusModule());
+            containerBuilder.RegisterModule(new EventsBusModule(eventsBus));
             containerBuilder.RegisterModule(new MediatorModule());
             containerBuilder.RegisterModule(new AuthenticationModule());
             containerBuilder.RegisterModule(new OutboxModule());
