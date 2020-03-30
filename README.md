@@ -1222,7 +1222,7 @@ public class Poller
 
 List of technologies, frameworks and libraries used for implementation:
 
-- [.NET Core 3.1](https://dotnet.microsoft.com/download) (platform)
+- [.NET Core 3.1](https://dotnet.microsoft.com/download) (platform). Note for Visual Studio users: **VS 2019** is required.
 - [MS SQL Server Express](https://www.microsoft.com/en-us/sql-server/sql-server-editions-express) (database)
 - [Entity Framework Core 3.1](https://docs.microsoft.com/en-us/ef/core/) (ORM Write Model implementation for DDD)
 - [Autofac](https://autofac.org/) (Inversion of Control Container)
