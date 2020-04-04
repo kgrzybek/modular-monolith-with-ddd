@@ -6,14 +6,12 @@ using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Queries;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Meetings.ArchitectureTests.SeedWork;
-using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Processing;
-using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Processing.InternalCommands;
 using MediatR;
 using NetArchTest.Rules;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
-namespace CompanyName.MyMeetings.Modules.Meetings.ArchitectureTests.Application
+namespace CompanyName.MyMeetings.Modules.Meetings.ArchTests.Application
 {
     [TestFixture]
     public class ApplicationTests : TestBase
@@ -68,19 +66,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.ArchitectureTests.Application
         }
 
         [Test]
-        public void InternalCommands_Should_Not_Be_Public()
-        {
-            var result = Types.InAssembly(ApplicationAssembly)
-                .That()
-                .Inherit(typeof(InternalCommandBase))
-                .Should()
-                .NotBePublic()
-                .GetResult();
-
-            AssertArchTestResult(result); 
-        }
-
-        [Test]
         public void Command_And_Query_Handlers_Should_Not_Be_Public()
         {
             var types = Types.InAssembly(ApplicationAssembly)
@@ -94,7 +79,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.ArchitectureTests.Application
         }
 
         [Test]
-        public void InternalCommand_Should_Have_Internal_Constructor_With_JsonConstructorAttribute()
+        public void InternalCommand_Should_Have_Constructor_With_JsonConstructorAttribute()
         {
             var types = Types.InAssembly(ApplicationAssembly)
                 .That().Inherit(typeof(InternalCommandBase)).GetTypes();
@@ -104,7 +89,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.ArchitectureTests.Application
             foreach (var type in types)
             {
                 bool hasJsonConstructorDefined = false;
-                var constructors = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance);
+                var constructors = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
                 foreach (var constructorInfo in constructors)
                 {
                     var jsonConstructorAttribute = constructorInfo.GetCustomAttributes(typeof(JsonConstructorAttribute), false);

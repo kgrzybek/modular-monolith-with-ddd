@@ -117,6 +117,7 @@
     <Build Include="payments\Views\v_MeetingPayments.sql" />
     <Build Include="administration\Views\v_Members.sql" />
     <Build Include="administration\Views\v_MeetingGroupProposals.sql" />
+    <Build Include="meetings\Views\v_MeetingGroupProposals.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="administration\Tables\MeetingGroupProposals.sql" />
