@@ -808,9 +808,9 @@ INSERT INTO users.UserRoles VALUES
 -- Roles to Permissions
 
 INSERT INTO users.[Permissions] (Code, Name) VALUES
-(
 	-- Meetings
-	'ProposeMeetingGroup', 'ProposeMeetingGroup'),
+	('GetMeetingGroupProposals', 'GetMeetingGroupProposals'),
+	('ProposeMeetingGroup', 'ProposeMeetingGroup'),
 	('CreateNewMeeting','CreateNewMeeting'),
 	('EditMeeting','EditMeeting'),
 	('AddMeetingAttendee','AddMeetingAttendee'),
@@ -834,6 +834,7 @@ INSERT INTO users.[Permissions] (Code, Name) VALUES
 	('RegisterPayment','RegisterPayment')
 
 
+INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetMeetingGroupProposals')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'ProposeMeetingGroup')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'CreateNewMeeting')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'EditMeeting')

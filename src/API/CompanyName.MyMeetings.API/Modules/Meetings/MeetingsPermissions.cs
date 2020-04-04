@@ -2,6 +2,7 @@
 {
     public class MeetingsPermissions
     {
+        public const string GetMeetingGroupProposals = "GetMeetingGroupProposals";
         public const string ProposeMeetingGroup = "ProposeMeetingGroup";
         public const string CreateNewMeeting = "CreateNewMeeting";
         public const string EditMeeting = "EditMeeting";
