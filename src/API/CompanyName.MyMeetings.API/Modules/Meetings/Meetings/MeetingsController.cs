@@ -15,7 +15,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SignOffMember
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SignUpMemberToWaitlist;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CompanyName.MyMeetings.API.Modules.Meetings
+namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
 {
     [Route("api/meetings/meetings")]
     [ApiController]
@@ -63,9 +63,9 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings
 
         [HttpPost("{meetingId}/attendees")]
         [HasPermission(MeetingsPermissions.AddMeetingAttendee)]
-        public async Task<IActionResult> AddMeetingAttendee([FromRoute]Guid meetingId, [FromBody]AddMeetingAttendeeCommandRequest attendeeCommandRequest)
+        public async Task<IActionResult> AddMeetingAttendee([FromRoute]Guid meetingId, [FromBody]AddMeetingAttendeeRequest attendeeRequest)
         {
-            await _meetingsModule.ExecuteCommandAsync(new AddMeetingAttendeeCommand(meetingId, attendeeCommandRequest.GuestsNumber));
+            await _meetingsModule.ExecuteCommandAsync(new AddMeetingAttendeeCommand(meetingId, attendeeRequest.GuestsNumber));
 
             return Ok();
         }

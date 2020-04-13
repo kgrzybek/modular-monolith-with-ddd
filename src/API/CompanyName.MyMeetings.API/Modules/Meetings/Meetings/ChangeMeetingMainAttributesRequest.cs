@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.ChangeMeetingMainAttributes
+namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
 {
     public class ChangeMeetingMainAttributesRequest
     {
