@@ -1,0 +1,36 @@
+name: .NET Core CI
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches-ignore:
+      - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.101
+
+      - name: Build with dotnet
+        run: dotnet build --configuration Release
+
+      - name: Test with dotnet
+        run: dotnet test --collect:"XPlat Code Coverage" --settings codecov.runsettings
+
+      - uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+          file: ./test/ci-cd-react-unit-tests/TestResults/** # optional
+          flags: unittests # optional
+          name: codecov-umbrella # optional
+          fail_ci_if_error: true # optional (default = false)
