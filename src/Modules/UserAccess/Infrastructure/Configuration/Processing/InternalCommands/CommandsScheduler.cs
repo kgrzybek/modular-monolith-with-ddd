@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
+using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Serialization;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
 using Dapper;
@@ -58,24 +59,6 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
                     ContractResolver = new AllPropertiesContractResolver()
                 })
             });
-        }
-
-        private class AllPropertiesContractResolver : DefaultContractResolver
-        {
-            protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
-            {
-                var props = type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                    .Select(p => base.CreateProperty(p, memberSerialization))
-                    .Union(type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                        .Select(f => base.CreateProperty(f, memberSerialization)))
-                    .ToList();
-                props.ForEach(p =>
-                {
-                    p.Writable = true;
-                    p.Readable = true;
-                });
-                return props;
-            }
         }
     }
 }

@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Core;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Events;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Outbox;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
+using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Serialization;
 using MediatR;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispatching
 {
@@ -77,24 +76,6 @@ public class DomainEventsDispatcher : IDomainEventsDispatcher
                     type,
                     data);
                 _outbox.Add(outboxMessage);
-            }
-        }
-
-        private class AllPropertiesContractResolver : DefaultContractResolver
-        {
-            protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
-            {
-                var props = type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                    .Select(p => base.CreateProperty(p, memberSerialization))
-                    .Union(type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                        .Select(f => base.CreateProperty(f, memberSerialization)))
-                    .ToList();
-                props.ForEach(p =>
-                {
-                    p.Writable = true;
-                    p.Readable = true;
-                });
-                return props;
             }
         }
     }
