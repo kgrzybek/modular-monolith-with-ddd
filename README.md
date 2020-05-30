@@ -1240,6 +1240,7 @@ List of technologies, frameworks and libraries used for implementation:
 - [NSubstitute](https://nsubstitute.github.io/) (Testing isolation framework)
 - [Visual Paradigm Community Edition](https://www.visual-paradigm.com/download/community.jsp) (CASE tool for modeling and documentation)
 - [NetArchTest](https://github.com/BenMorris/NetArchTest) (Architecture Unit Tests library)
+- [Polly](https://github.com/App-vNext/Polly) (Resilience and transient-fault-handling library)
 
 ## 5. How to Run
 

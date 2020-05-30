@@ -46,6 +46,7 @@ CREATE TABLE [administration].[InternalCommands] (
     [Type]          VARCHAR (255)    NOT NULL,
     [Data]          VARCHAR (MAX)    NOT NULL,
     [ProcessedDate] DATETIME2 (7)    NULL,
+    [Error] NVARCHAR(MAX) NULL,
     CONSTRAINT [PK_administration_InternalCommands_Id] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
@@ -299,6 +300,7 @@ CREATE TABLE [meetings].[InternalCommands] (
     [Type]          VARCHAR (255)    NOT NULL,
     [Data]          VARCHAR (MAX)    NOT NULL,
     [ProcessedDate] DATETIME2 (7)    NULL,
+    [Error] NVARCHAR(MAX) NULL,
     CONSTRAINT [PK_meetings_InternalCommands_Id] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
@@ -402,6 +404,7 @@ CREATE TABLE [payments].[InternalCommands] (
     [Type]          VARCHAR (255)    NOT NULL,
     [Data]          VARCHAR (MAX)    NOT NULL,
     [ProcessedDate] DATETIME2 (7)    NULL,
+    [Error] NVARCHAR(MAX) NULL,
     CONSTRAINT [PK_payments_InternalCommands_Id] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
@@ -521,6 +524,7 @@ CREATE TABLE [users].[InternalCommands] (
     [Type]          VARCHAR (255)    NOT NULL,
     [Data]          VARCHAR (MAX)    NOT NULL,
     [ProcessedDate] DATETIME2 (7)    NULL,
+    [Error] NVARCHAR(MAX) NULL,
     CONSTRAINT [PK_users_InternalCommands_Id] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
