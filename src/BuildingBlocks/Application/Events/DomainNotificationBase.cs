@@ -9,9 +9,9 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Application.Events
 
         public Guid Id { get; }
 
-        public DomainNotificationBase(T domainEvent)
+        public DomainNotificationBase(T domainEvent, Guid id)
         {
-            this.Id = Guid.NewGuid();
+            this.Id = id;
             this.DomainEvent = domainEvent;
         }
     }

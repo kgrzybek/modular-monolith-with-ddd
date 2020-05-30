@@ -21,7 +21,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Application.Outbox
 
         public OutboxMessage(Guid id, DateTime occurredOn, string type, string data)
         {
-            this.Id = Guid.NewGuid();
+            this.Id = id;
             this.OccurredOn = occurredOn;
             this.Type = type;
             this.Data = data;

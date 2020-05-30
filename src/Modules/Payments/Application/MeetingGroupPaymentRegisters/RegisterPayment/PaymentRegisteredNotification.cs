@@ -7,7 +7,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingGroupPaymen
 {
     public class PaymentRegisteredNotification : DomainNotificationBase<PaymentRegisteredDomainEvent>
     {
-        public PaymentRegisteredNotification(PaymentRegisteredDomainEvent domainEvent) : base(domainEvent)
+        public PaymentRegisteredNotification(PaymentRegisteredDomainEvent domainEvent, Guid id) : base(domainEvent, id)
         {
             MeetingGroupPaymentRegisterId = domainEvent.MeetingGroupPaymentRegisterId;
             DateTo = domainEvent.DateTo;

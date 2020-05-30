@@ -13,14 +13,14 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups
 
         internal MemberId CreatorId { get; }
 
-        internal MeetingGroupCreatedNotification(MeetingGroupCreatedDomainEvent domainEvent) : base(domainEvent)
+        internal MeetingGroupCreatedNotification(MeetingGroupCreatedDomainEvent domainEvent, Guid id) : base(domainEvent, id)
         {
             this.MeetingGroupId = domainEvent.MeetingGroupId;
             this.CreatorId = domainEvent.CreatorId;
         }
         
         [JsonConstructor]
-        internal MeetingGroupCreatedNotification(MeetingGroupId meetingGroupId, MemberId creatorId) : base(null)
+        internal MeetingGroupCreatedNotification(MeetingGroupId meetingGroupId, MemberId creatorId, Guid id) : base(null, id)
         {
             this.MeetingGroupId = meetingGroupId;
             this.CreatorId = creatorId;

@@ -8,7 +8,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupPropos
     public class MeetingGroupProposalAcceptedNotification : DomainNotificationBase<MeetingGroupProposalAcceptedDomainEvent>
     {
         internal MeetingGroupProposalId MeetingGroupProposalId { get; }
-        public MeetingGroupProposalAcceptedNotification(MeetingGroupProposalAcceptedDomainEvent domainEvent) : base(domainEvent)
+
+        public MeetingGroupProposalAcceptedNotification(MeetingGroupProposalAcceptedDomainEvent domainEvent, Guid id) : base(domainEvent, id)
         {
             this.MeetingGroupProposalId = domainEvent.MeetingGroupProposalId;
         }

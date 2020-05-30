@@ -61,7 +61,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.MeetingGroupP
 
             var meetingGroupPaymentRegisterId = new MeetingGroupPaymentRegisterId(Guid.NewGuid());
             var dateTo = new DateTime(2020, 1, 31);
-            var notification = new PaymentRegisteredNotification(new PaymentRegisteredDomainEvent(meetingGroupPaymentRegisterId, dateTo));
+            var notification = new PaymentRegisteredNotification(new PaymentRegisteredDomainEvent(meetingGroupPaymentRegisterId, dateTo), Guid.NewGuid());
             
             await paymentRegisteredNotificationHandler.Handle(notification, CancellationToken.None);
 

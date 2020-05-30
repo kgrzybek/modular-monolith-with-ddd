@@ -1,4 +1,5 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Events;
+﻿using System;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
@@ -9,11 +10,13 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SendMeeti
     public class MeetingAttendeeAddedNotification : DomainNotificationBase<MeetingAttendeeAddedDomainEvent>
     {
         public MeetingId MeetingId { get; }
+
         public MemberId AttendeeId { get; }
 
         public MoneyValue Fee { get; }
+
         [JsonConstructor]
-        public MeetingAttendeeAddedNotification(MeetingAttendeeAddedDomainEvent domainEvent) : base(domainEvent)
+        public MeetingAttendeeAddedNotification(MeetingAttendeeAddedDomainEvent domainEvent, Guid id) : base(domainEvent, id)
         {
             Fee = domainEvent.Fee;
             this.MeetingId = domainEvent.MeetingId;

@@ -44,7 +44,8 @@ public class DomainEventsDispatcher : IDomainEventsDispatcher
                 var domainNotificationWithGenericType = domainEvenNotificationType.MakeGenericType(domainEvent.GetType());
                 var domainNotification = _scope.ResolveOptional(domainNotificationWithGenericType, new List<Parameter>
                 {
-                    new NamedParameter("domainEvent", domainEvent)
+                    new NamedParameter("domainEvent", domainEvent),
+                    new NamedParameter("id", Guid.NewGuid())
                 });
 
                 if (domainNotification != null)
