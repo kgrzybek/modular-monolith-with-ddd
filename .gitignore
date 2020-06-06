@@ -266,7 +266,7 @@ pub/
 .mfractor
 
 #Ignore logs folder
-Logs
+[Ll]ogs
 
 #Ignore uploaded files folder
 UploadedFiles
