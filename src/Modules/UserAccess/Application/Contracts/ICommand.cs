@@ -1,4 +1,5 @@
 ﻿using System;
+
 using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts
@@ -8,8 +9,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts
         Guid Id { get; }
     }
 
-    public interface ICommand: IRequest
+    public interface ICommand : ICommand<Unit>
     {
-        Guid Id { get; }
     }
 }

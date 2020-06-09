@@ -1,23 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+
 using CompanyName.MyMeetings.BuildingBlocks.Application;
-using CompanyName.MyMeetings.Modules.Administration.Application.Configuration.Commands;
-using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
+
 using FluentValidation;
+
+using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Processing
 {
-    internal class ValidationCommandHandlerWithResultDecorator<T, TResult> : ICommandHandler<T, TResult> where T : ICommand<TResult>
+    internal class ValidationCommandHandlerWithResultDecorator<T, TResult> : IRequestHandler<T, TResult> where T : IRequest<TResult>
     {
         private readonly IList<IValidator<T>> _validators;
-        private readonly ICommandHandler<T, TResult> _decorated;
+        private readonly IRequestHandler<T, TResult> _decorated;
 
         public ValidationCommandHandlerWithResultDecorator(
             IList<IValidator<T>> validators,
-            ICommandHandler<T, TResult> decorated)
+            IRequestHandler<T, TResult> decorated)
         {
             this._validators = validators;
             _decorated = decorated;
