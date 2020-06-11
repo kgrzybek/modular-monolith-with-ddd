@@ -12,6 +12,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
 
         private string _countryCode;
 
+        private Subscription()
+        {
+
+        }
+
         private Subscription(
             PayerId payerId,
             SubscriptionPeriod period,
@@ -41,6 +46,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
             _payerId = new PayerId(@event.PayerId);
             _subscriptionPeriod = SubscriptionPeriod.Of(@event.SubscriptionPeriodCode);
             _countryCode = @event.CountryCode;
+        }
+
+        protected override void Apply(IDomainEvent @event)
+        {
+            this.Apply((dynamic)@event);
         }
     }
 }

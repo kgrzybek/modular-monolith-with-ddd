@@ -3,7 +3,7 @@ using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions
 {
-    public class BuySubscriptionCommand : CommandBase
+    public class BuySubscriptionCommand : CommandBase<Guid>
     {
         public BuySubscriptionCommand(
             Guid payerId, 

@@ -7,7 +7,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork
     {
         public Guid Id { get; protected set; }
 
-        public int VersionId { get; private set; }
+        public int Version { get; private set; }
 
         private readonly List<IDomainEvent> _domainEvents;
 
@@ -15,7 +15,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork
         {
             _domainEvents = new List<IDomainEvent>();
 
-            VersionId = -1;
+            Version = -1;
         }
 
         protected void AddDomainEvent(IDomainEvent @event)
@@ -24,5 +24,16 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork
         }
 
         public IReadOnlyCollection<IDomainEvent> GetDomainEvents() => _domainEvents.AsReadOnly();
+
+        public void Load(IEnumerable<IDomainEvent> history)
+        {
+            foreach (var e in history)
+            {
+                Apply(e);
+                Version++;
+            }
+        }
+
+        protected abstract void Apply(IDomainEvent @event);
     }
 }

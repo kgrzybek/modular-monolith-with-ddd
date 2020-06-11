@@ -12,10 +12,16 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
         [Test]
         public async Task BuySubscription_Test()
         {
-            await PaymentsModule.ExecuteCommandAsync(
+            var subscriptionId = await PaymentsModule.ExecuteCommandAsync(
                 new BuySubscriptionCommand(Guid.NewGuid(),
                 "Month",
                 "PL"));
+
+            await PaymentsModule.ExecuteCommandAsync(
+                new RenewSubscriptionCommand(subscriptionId,
+                    "Month"));
+
+
         }
     }
 }

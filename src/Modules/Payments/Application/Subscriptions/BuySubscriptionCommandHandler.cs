@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Payers;
@@ -8,7 +9,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions
 {
-    public class BuySubscriptionCommandHandler : ICommandHandler<BuySubscriptionCommand>
+    public class BuySubscriptionCommandHandler : ICommandHandler<BuySubscriptionCommand, Guid>
     {
         private readonly IAggregateStore _aggregateStore;
 
@@ -17,7 +18,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions
             _aggregateStore = aggregateStore;
         }
 
-        public async Task<Unit> Handle(BuySubscriptionCommand command, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(BuySubscriptionCommand command, CancellationToken cancellationToken)
         {
             var subscription = Subscription.Buy(
                 new PayerId(command.PayerId),
@@ -26,7 +27,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions
 
             await _aggregateStore.Save(subscription);
 
-            return Unit.Value;
+            return subscription.Id;
         }
     }
 }
