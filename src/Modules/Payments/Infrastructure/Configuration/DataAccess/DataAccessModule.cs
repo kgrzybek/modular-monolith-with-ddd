@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
+using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
+using CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Logging;
@@ -22,6 +24,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.D
         {
             builder.RegisterType<SqlConnectionFactory>()
                 .As<ISqlConnectionFactory>()
+                .WithParameter("connectionString", _databaseConnectionString)
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<SqlStreamAggregateStore>()
+                .As<IAggregateStore>()
                 .WithParameter("connectionString", _databaseConnectionString)
                 .InstancePerLifetimeScope();
 
