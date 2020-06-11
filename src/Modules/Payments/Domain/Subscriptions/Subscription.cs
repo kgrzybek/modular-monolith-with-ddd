@@ -39,6 +39,16 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
             this.AddDomainEvent(subscriptionPurchasedDomainEvent);
         }
 
+        public void Apply(SubscriptionPurchasedDomainEvent @event)
+        {
+            this.Id = @event.SubscriptionId;
+            _payerId = new PayerId(@event.PayerId);
+            _subscriptionPeriod = SubscriptionPeriod.Of(@event.SubscriptionPeriodCode);
+            _countryCode = @event.CountryCode;
+            _status = SubscriptionStatus.Active;
+            _expirationDate = @event.ExpirationDate;
+        }
+
         public static Subscription Buy(
             PayerId payerId,
             SubscriptionPeriod period,
@@ -59,22 +69,26 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
             this.AddDomainEvent(subscriptionRenewedDomainEvent);
         }
 
-        public void Apply(SubscriptionPurchasedDomainEvent @event)
-        {
-            this.Id = @event.SubscriptionId;
-            _payerId = new PayerId(@event.PayerId);
-            _subscriptionPeriod = SubscriptionPeriod.Of(@event.SubscriptionPeriodCode);
-            _countryCode = @event.CountryCode;
-            _status = SubscriptionStatus.Active;
-            _expirationDate = @event.ExpirationDate;
-        }
-
         public void Apply(SubscriptionRenewedDomainEvent @event)
         {
             this.Id = @event.SubscriptionId;
             _subscriptionPeriod = SubscriptionPeriod.Of(@event.SubscriptionPeriodCode);
             _status = SubscriptionStatus.Active;
             _expirationDate = @event.ExpirationDate;
+        }
+
+        public void Expire()
+        {
+            SubscriptionExpiredDomainEvent subscriptionExpiredDomainEvent = 
+                new SubscriptionExpiredDomainEvent(this.Id);
+
+            this.Apply(subscriptionExpiredDomainEvent);
+            this.AddDomainEvent(subscriptionExpiredDomainEvent);
+        }
+
+        public void Apply(SubscriptionExpiredDomainEvent @event)
+        {
+            _status = SubscriptionStatus.Expired;
         }
 
         protected override void Apply(IDomainEvent @event)

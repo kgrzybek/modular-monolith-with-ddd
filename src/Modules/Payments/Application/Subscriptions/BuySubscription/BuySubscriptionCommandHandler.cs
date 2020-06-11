@@ -5,9 +5,8 @@ using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands
 using CompanyName.MyMeetings.Modules.Payments.Domain.Payers;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions;
-using MediatR;
 
-namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions
+namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuySubscription
 {
     public class BuySubscriptionCommandHandler : ICommandHandler<BuySubscriptionCommand, Guid>
     {

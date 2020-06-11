@@ -23,6 +23,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
             _domainEventMappings = new Dictionary<string, Type>();
             _domainEventMappings.Add("SubscriptionPurchased", typeof(SubscriptionPurchasedDomainEvent));
             _domainEventMappings.Add("SubscriptionRenewed", typeof(SubscriptionRenewedDomainEvent));
+            _domainEventMappings.Add("SubscriptionExpired", typeof(SubscriptionExpiredDomainEvent));
         }
 
         public async Task Save<T>(T aggregate) where T : AggregateRoot

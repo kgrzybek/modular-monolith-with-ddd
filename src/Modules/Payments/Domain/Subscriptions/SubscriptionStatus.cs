@@ -6,6 +6,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
     {
         public static SubscriptionStatus Active => new SubscriptionStatus(nameof(Active));
 
+        public static SubscriptionStatus Expired => new SubscriptionStatus(nameof(Expired));
+
         public string Code { get; }
 
         private SubscriptionStatus(string code)
