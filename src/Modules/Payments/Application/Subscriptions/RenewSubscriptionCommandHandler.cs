@@ -20,6 +20,10 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions
         {
             var subscription = await _aggregateStore.Load(new SubscriptionId(command.SubscriptionId));
 
+            subscription.Renew(SubscriptionPeriod.Of(command.SubscriptionTypeCode));
+
+            await _aggregateStore.Save(subscription);
+
             return Unit.Value;
         }
     }

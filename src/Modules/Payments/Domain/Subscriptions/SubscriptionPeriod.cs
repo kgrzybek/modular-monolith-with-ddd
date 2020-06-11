@@ -19,5 +19,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
         {
             Code = code;
         }
+
+        public int GetMonthsNumber() => this == Month ? 1 : 6;
     }
 }

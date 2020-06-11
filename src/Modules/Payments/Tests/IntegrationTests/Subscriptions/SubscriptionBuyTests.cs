@@ -20,8 +20,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
             await PaymentsModule.ExecuteCommandAsync(
                 new RenewSubscriptionCommand(subscriptionId,
                     "Month"));
-
-
         }
     }
 }

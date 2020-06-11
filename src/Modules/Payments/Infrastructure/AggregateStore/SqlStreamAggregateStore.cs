@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Serialization;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
-using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions;
+using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions.Events;
 using Newtonsoft.Json;
 using SqlStreamStore;
 using SqlStreamStore.Streams;
@@ -24,6 +22,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
 
             _domainEventMappings = new Dictionary<string, Type>();
             _domainEventMappings.Add("SubscriptionPurchased", typeof(SubscriptionPurchasedDomainEvent));
+            _domainEventMappings.Add("SubscriptionRenewed", typeof(SubscriptionRenewedDomainEvent));
         }
 
         public async Task Save<T>(T aggregate) where T : AggregateRoot
@@ -119,8 +118,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
 
         private IStreamStore GetSqlServerStore()
         {
-            return new MsSqlStreamStore(
-                new MsSqlStreamStoreSettings(_connectionString));
+            return new MsSqlStreamStore(new MsSqlStreamStoreSettings(_connectionString));
         }
     }
 }

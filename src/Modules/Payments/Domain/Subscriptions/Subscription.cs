@@ -1,6 +1,7 @@
 ﻿using System;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Payers;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
+using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions.Events;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
 {
@@ -10,7 +11,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
 
         private SubscriptionPeriod _subscriptionPeriod;
 
+        private SubscriptionStatus _status;
+
         private string _countryCode;
+
+        private DateTime _expirationDate;
 
         private Subscription()
         {
@@ -20,13 +25,15 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
         private Subscription(
             PayerId payerId,
             SubscriptionPeriod period,
-            string countryCode)
+            string countryCode,
+            DateTime expirationDate)
         {
             var subscriptionPurchasedDomainEvent = new SubscriptionPurchasedDomainEvent(
                 Guid.NewGuid(),
                 payerId.Value, 
                 period.Code, 
-                countryCode);
+                countryCode,
+                expirationDate);
             
             this.Apply(subscriptionPurchasedDomainEvent);
             this.AddDomainEvent(subscriptionPurchasedDomainEvent);
@@ -37,7 +44,19 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
             SubscriptionPeriod period,
             string countryCode)
         {
-            return new Subscription(payerId, period, countryCode);
+            var expirationDate = SubscriptionDateExpirationCalculator.CalculateForNew(period);
+
+            return new Subscription(payerId, period, countryCode, expirationDate);
+        }
+
+        public void Renew(SubscriptionPeriod period)
+        {
+            var expirationDate = SubscriptionDateExpirationCalculator.CalculateForRenewal(_expirationDate, period);
+            SubscriptionRenewedDomainEvent subscriptionRenewedDomainEvent = new SubscriptionRenewedDomainEvent(this.Id,
+                expirationDate, period.Code);
+
+            this.Apply(subscriptionRenewedDomainEvent);
+            this.AddDomainEvent(subscriptionRenewedDomainEvent);
         }
 
         public void Apply(SubscriptionPurchasedDomainEvent @event)
@@ -46,6 +65,16 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
             _payerId = new PayerId(@event.PayerId);
             _subscriptionPeriod = SubscriptionPeriod.Of(@event.SubscriptionPeriodCode);
             _countryCode = @event.CountryCode;
+            _status = SubscriptionStatus.Active;
+            _expirationDate = @event.ExpirationDate;
+        }
+
+        public void Apply(SubscriptionRenewedDomainEvent @event)
+        {
+            this.Id = @event.SubscriptionId;
+            _subscriptionPeriod = SubscriptionPeriod.Of(@event.SubscriptionPeriodCode);
+            _status = SubscriptionStatus.Active;
+            _expirationDate = @event.ExpirationDate;
         }
 
         protected override void Apply(IDomainEvent @event)
