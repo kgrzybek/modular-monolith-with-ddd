@@ -22,41 +22,26 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
 
         }
 
-        private Subscription(
-            PayerId payerId,
-            SubscriptionPeriod period,
-            string countryCode,
-            DateTime expirationDate)
-        {
-            var subscriptionPurchasedDomainEvent = new SubscriptionPurchasedDomainEvent(
-                Guid.NewGuid(),
-                payerId.Value, 
-                period.Code, 
-                countryCode,
-                expirationDate);
-            
-            this.Apply(subscriptionPurchasedDomainEvent);
-            this.AddDomainEvent(subscriptionPurchasedDomainEvent);
-        }
-
-        public void Apply(SubscriptionPurchasedDomainEvent @event)
-        {
-            this.Id = @event.SubscriptionId;
-            _payerId = new PayerId(@event.PayerId);
-            _subscriptionPeriod = SubscriptionPeriod.Of(@event.SubscriptionPeriodCode);
-            _countryCode = @event.CountryCode;
-            _status = SubscriptionStatus.Active;
-            _expirationDate = @event.ExpirationDate;
-        }
-
         public static Subscription Buy(
             PayerId payerId,
             SubscriptionPeriod period,
             string countryCode)
         {
+            var subscription = new Subscription();
+
             var expirationDate = SubscriptionDateExpirationCalculator.CalculateForNew(period);
 
-            return new Subscription(payerId, period, countryCode, expirationDate);
+            var subscriptionPurchasedDomainEvent = new SubscriptionPurchasedDomainEvent(
+                Guid.NewGuid(),
+                payerId.Value,
+                period.Code,
+                countryCode,
+                expirationDate);
+
+            subscription.Apply(subscriptionPurchasedDomainEvent);
+            subscription.AddDomainEvent(subscriptionPurchasedDomainEvent);
+
+            return subscription;
         }
 
         public void Renew(SubscriptionPeriod period)
@@ -69,7 +54,26 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
             this.AddDomainEvent(subscriptionRenewedDomainEvent);
         }
 
-        public void Apply(SubscriptionRenewedDomainEvent @event)
+        public void Expire()
+        {
+            SubscriptionExpiredDomainEvent subscriptionExpiredDomainEvent =
+                new SubscriptionExpiredDomainEvent(this.Id);
+
+            this.When(subscriptionExpiredDomainEvent);
+            this.AddDomainEvent(subscriptionExpiredDomainEvent);
+        }
+
+        private void When(SubscriptionPurchasedDomainEvent @event)
+        {
+            this.Id = @event.SubscriptionId;
+            _payerId = new PayerId(@event.PayerId);
+            _subscriptionPeriod = SubscriptionPeriod.Of(@event.SubscriptionPeriodCode);
+            _countryCode = @event.CountryCode;
+            _status = SubscriptionStatus.Active;
+            _expirationDate = @event.ExpirationDate;
+        }
+
+        private void When(SubscriptionRenewedDomainEvent @event)
         {
             this.Id = @event.SubscriptionId;
             _subscriptionPeriod = SubscriptionPeriod.Of(@event.SubscriptionPeriodCode);
@@ -77,23 +81,14 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
             _expirationDate = @event.ExpirationDate;
         }
 
-        public void Expire()
-        {
-            SubscriptionExpiredDomainEvent subscriptionExpiredDomainEvent = 
-                new SubscriptionExpiredDomainEvent(this.Id);
-
-            this.Apply(subscriptionExpiredDomainEvent);
-            this.AddDomainEvent(subscriptionExpiredDomainEvent);
-        }
-
-        public void Apply(SubscriptionExpiredDomainEvent @event)
+        private void When(SubscriptionExpiredDomainEvent @event)
         {
             _status = SubscriptionStatus.Expired;
         }
 
-        protected override void Apply(IDomainEvent @event)
+        protected sealed override void Apply(IDomainEvent @event)
         {
-            this.Apply((dynamic)@event);
+            this.When((dynamic)@event);
         }
     }
 }
