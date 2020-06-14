@@ -14,5 +14,10 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
         {
             Code = code;
         }
+
+        public static SubscriptionStatus Of(string code)
+        {
+            return new SubscriptionStatus(code);
+        }
     }
 }

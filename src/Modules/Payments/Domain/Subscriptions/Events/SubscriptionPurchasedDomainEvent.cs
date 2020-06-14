@@ -10,12 +10,14 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions.Events
             Guid payerId, 
             string subscriptionPeriodCode, 
             string countryCode, 
-            DateTime expirationDate)
+            DateTime expirationDate,
+            string status)
         {
             SubscriptionId = subscriptionId;
             SubscriptionPeriodCode = subscriptionPeriodCode;
             CountryCode = countryCode;
             ExpirationDate = expirationDate;
+            Status = status;
             PayerId = payerId;
         }
 
@@ -28,5 +30,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions.Events
         public string CountryCode { get; }
 
         public DateTime ExpirationDate { get; }
+
+        public string Status { get; }
     }
 }

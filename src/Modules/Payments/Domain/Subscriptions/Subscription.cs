@@ -36,7 +36,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
                 payerId.Value,
                 period.Code,
                 countryCode,
-                expirationDate);
+                expirationDate,
+                SubscriptionStatus.Active.Code);
 
             subscription.Apply(subscriptionPurchasedDomainEvent);
             subscription.AddDomainEvent(subscriptionPurchasedDomainEvent);
@@ -47,8 +48,12 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
         public void Renew(SubscriptionPeriod period)
         {
             var expirationDate = SubscriptionDateExpirationCalculator.CalculateForRenewal(_expirationDate, period);
-            SubscriptionRenewedDomainEvent subscriptionRenewedDomainEvent = new SubscriptionRenewedDomainEvent(this.Id,
-                expirationDate, period.Code);
+            SubscriptionRenewedDomainEvent subscriptionRenewedDomainEvent = new SubscriptionRenewedDomainEvent(
+                this.Id,
+                expirationDate, 
+                period.Code,
+                SubscriptionStatus.Active.Code
+                );
 
             this.Apply(subscriptionRenewedDomainEvent);
             this.AddDomainEvent(subscriptionRenewedDomainEvent);
@@ -57,7 +62,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
         public void Expire()
         {
             SubscriptionExpiredDomainEvent subscriptionExpiredDomainEvent =
-                new SubscriptionExpiredDomainEvent(this.Id);
+                new SubscriptionExpiredDomainEvent(this.Id, SubscriptionStatus.Expired.Code);
 
             this.When(subscriptionExpiredDomainEvent);
             this.AddDomainEvent(subscriptionExpiredDomainEvent);
@@ -69,7 +74,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
             _payerId = new PayerId(@event.PayerId);
             _subscriptionPeriod = SubscriptionPeriod.Of(@event.SubscriptionPeriodCode);
             _countryCode = @event.CountryCode;
-            _status = SubscriptionStatus.Active;
+            _status = SubscriptionStatus.Of(@event.Status);
             _expirationDate = @event.ExpirationDate;
         }
 
@@ -77,13 +82,13 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
         {
             this.Id = @event.SubscriptionId;
             _subscriptionPeriod = SubscriptionPeriod.Of(@event.SubscriptionPeriodCode);
-            _status = SubscriptionStatus.Active;
+            _status = SubscriptionStatus.Of(@event.Status);
             _expirationDate = @event.ExpirationDate;
         }
 
         private void When(SubscriptionExpiredDomainEvent @event)
         {
-            _status = SubscriptionStatus.Expired;
+            _status = SubscriptionStatus.Of(@event.Status);
         }
 
         protected sealed override void Apply(IDomainEvent @event)

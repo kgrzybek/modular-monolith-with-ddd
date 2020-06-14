@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
+using CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Authentication;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.DataAccess;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.EventsBus;
@@ -61,13 +62,21 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration
             {
                 containerBuilder.RegisterModule(new QuartzModule());
             }
-            
 
             containerBuilder.RegisterInstance(executionContextAccessor);
 
             _container = containerBuilder.Build();
 
             PaymentsCompositionRoot.SetContainer(_container);
+
+            RunEventsProjectors();
+        }
+
+        private static void RunEventsProjectors()
+        {
+            var subscriptionsManager =_container.Resolve<SubscriptionsManager>();
+
+            subscriptionsManager.Start();
         }
     }
 }

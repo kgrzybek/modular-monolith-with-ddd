@@ -8,11 +8,13 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions.Events
         public SubscriptionRenewedDomainEvent(
             Guid subscriptionId, 
             DateTime expirationDate, 
-            string subscriptionPeriodCode)
+            string subscriptionPeriodCode,
+            string status)
         {
             SubscriptionId = subscriptionId;
             ExpirationDate = expirationDate;
             SubscriptionPeriodCode = subscriptionPeriodCode;
+            Status = status;
         }
 
         public Guid SubscriptionId { get; }
@@ -20,5 +22,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions.Events
         public DateTime ExpirationDate { get; }
 
         public string SubscriptionPeriodCode { get; }
+
+        public string Status { get; }
     }
 }

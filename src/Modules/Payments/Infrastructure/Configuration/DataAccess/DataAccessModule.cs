@@ -1,11 +1,15 @@
-﻿using Autofac;
+﻿using System.Collections.Generic;
+using Autofac;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
+using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Projections;
+using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetSubscriptionDetails;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Logging;
+using SqlStreamStore;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.DataAccess
 {
@@ -27,10 +31,24 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.D
                 .WithParameter("connectionString", _databaseConnectionString)
                 .InstancePerLifetimeScope();
 
+            IStreamStore streamStore = new MsSqlStreamStore(new MsSqlStreamStoreSettings(_databaseConnectionString));
+
+            builder.RegisterInstance(streamStore);
+
             builder.RegisterType<SqlStreamAggregateStore>()
                 .As<IAggregateStore>()
-                .WithParameter("connectionString", _databaseConnectionString)
                 .InstancePerLifetimeScope();
+
+            var applicationAssembly = typeof(IProjector).Assembly;
+            builder.RegisterAssemblyTypes(applicationAssembly)
+                .Where(type => type.Name.EndsWith("Projector"))
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope()
+                .FindConstructorsWith(new AllConstructorFinder());
+
+            builder.RegisterType<SubscriptionsManager>()
+                .As<SubscriptionsManager>()
+                .SingleInstance();
 
             builder
                 .Register(c =>

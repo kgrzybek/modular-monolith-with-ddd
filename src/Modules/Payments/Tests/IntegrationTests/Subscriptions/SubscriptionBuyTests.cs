@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuySubscription;
@@ -20,12 +21,18 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
                 "Month",
                 "PL"));
 
+            Thread.Sleep(5000);
+
             await PaymentsModule.ExecuteCommandAsync(
                 new RenewSubscriptionCommand(subscriptionId,
                     "Month"));
 
+            Thread.Sleep(5000);
+
             await PaymentsModule.ExecuteCommandAsync(
                 new ExpireSubscriptionCommand(subscriptionId));
+
+            Thread.Sleep(5000);
         }
     }
 }

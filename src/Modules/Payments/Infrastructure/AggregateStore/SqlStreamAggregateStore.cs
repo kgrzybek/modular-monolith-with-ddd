@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Serialization;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
-using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions.Events;
 using Newtonsoft.Json;
 using SqlStreamStore;
 using SqlStreamStore.Streams;
@@ -12,27 +11,18 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
 {
     public class SqlStreamAggregateStore : IAggregateStore
     {
-        private readonly string _connectionString;
+        private readonly IStreamStore _streamStore;
 
-        private readonly IDictionary<string, Type> _domainEventMappings;
-
-        public SqlStreamAggregateStore(string connectionString)
+        public SqlStreamAggregateStore(IStreamStore streamStore)
         {
-            _connectionString = connectionString;
-
-            _domainEventMappings = new Dictionary<string, Type>();
-            _domainEventMappings.Add("SubscriptionPurchased", typeof(SubscriptionPurchasedDomainEvent));
-            _domainEventMappings.Add("SubscriptionRenewed", typeof(SubscriptionRenewedDomainEvent));
-            _domainEventMappings.Add("SubscriptionExpired", typeof(SubscriptionExpiredDomainEvent));
+            _streamStore = streamStore;
         }
 
         public async Task Save<T>(T aggregate) where T : AggregateRoot
         {
-            var streamStore = GetSqlServerStore();
-
             var streamMessages = CreateStreamMessages(aggregate);
             
-            await streamStore.AppendToStream(
+            await _streamStore.AppendToStream(
                 GetStreamId(aggregate), 
                 aggregate.Version,
                 streamMessages);
@@ -40,19 +30,17 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
 
         public async Task<T> Load<T>(AggregateId<T> aggregateId) where T : AggregateRoot
         {
-            var streamStore = GetSqlServerStore();
             var streamId = GetStreamId(aggregateId);
-            
-            
+
             IList<IDomainEvent> domainEvents = new List<IDomainEvent>();
             ReadStreamPage readStreamPage;
             do
             {
-                readStreamPage = await streamStore.ReadStreamForwards(streamId, StreamVersion.Start, maxCount: 100);
+                readStreamPage = await _streamStore.ReadStreamForwards(streamId, StreamVersion.Start, maxCount: 100);
                 var messages = readStreamPage.Messages;
                 foreach (var streamMessage in messages)
                 {
-                    Type type = GetDomainEventType(streamMessage.Type);
+                    Type type = DomainEventTypeMappings.Dictionary[streamMessage.Type];
                     var jsonData = await streamMessage.GetJsonData();
                     var domainEvent = JsonConvert.DeserializeObject(jsonData, type) as IDomainEvent;
 
@@ -65,11 +53,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
             aggregate.Load(domainEvents);
 
             return aggregate;
-        }
-
-        private Type GetDomainEventType(string type)
-        {
-            return _domainEventMappings[type];
         }
 
         private NewStreamMessage[] CreateStreamMessages<T>(
@@ -97,9 +80,9 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
 
         private string MapDomainEventToType(IDomainEvent domainEvent)
         {
-            foreach (var key in _domainEventMappings.Keys)
+            foreach (var key in DomainEventTypeMappings.Dictionary.Keys)
             {
-                if (_domainEventMappings[key] == domainEvent.GetType())
+                if (DomainEventTypeMappings.Dictionary[key] == domainEvent.GetType())
                 {
                     return key;
                 }
@@ -116,10 +99,5 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
         private static string GetStreamId<T>(AggregateId<T> aggregateId)
             where T : AggregateRoot
             => $"{typeof(T).Name}-{aggregateId.Value:N}";
-
-        private IStreamStore GetSqlServerStore()
-        {
-            return new MsSqlStreamStore(new MsSqlStreamStoreSettings(_connectionString));
-        }
     }
 }
