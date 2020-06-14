@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace CompanyName.MyMeetings.IntegrationTests.SeedWork
+namespace CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing
 {
     public interface IProbe
     {

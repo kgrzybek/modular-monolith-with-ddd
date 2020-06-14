@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CompanyName.MyMeetings.IntegrationTests.SeedWork
+namespace CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing
 {
     public class AssertErrorException : Exception
     {
