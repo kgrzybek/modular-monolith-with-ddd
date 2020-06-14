@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
+using CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration;
@@ -90,6 +91,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
 
                 return OutboxMessagesHelper.Deserialize<T>(messages.Last());
             }
+        }
+
+        protected static void AssertEventually(IProbe probe, int timeout)
+        {
+            new Poller(timeout).Check(probe);
         }
     }
 }
