@@ -970,3 +970,9 @@ CREATE TABLE payments.SubscriptionDetails
     [ExpirationDate] DATETIME NOT NULL,
     CONSTRAINT [PK_payments_SubscriptionDetails_Id] PRIMARY KEY CLUSTERED ([Id] ASC)
 )
+
+CREATE TABLE payments.SubscriptionCheckpoints
+(
+    [Code] VARCHAR(50) NOT NULL,
+    [Position] BIGINT NOT NULL
+)

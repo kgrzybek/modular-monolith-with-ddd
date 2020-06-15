@@ -39,6 +39,10 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.D
                 .As<IAggregateStore>()
                 .InstancePerLifetimeScope();
 
+            builder.RegisterType<SqlServerCheckpointStore>()
+                .As<ICheckpointStore>()
+                .InstancePerLifetimeScope();
+
             var applicationAssembly = typeof(IProjector).Assembly;
             builder.RegisterAssemblyTypes(applicationAssembly)
                 .Where(type => type.Name.EndsWith("Projector"))

@@ -25,28 +25,39 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
 
         public void Start()
         {
-            _streamStore.SubscribeToAll(null, StreamMessageReceived);
-        }
-
-        private async Task StreamMessageReceived(
-            IAllStreamSubscription subscription, StreamMessage streamMessage, CancellationToken cancellationToken)
-        {
-            Type type = DomainEventTypeMappings.Dictionary[streamMessage.Type];
-            var jsonData = await streamMessage.GetJsonData(cancellationToken);
-            var domainEvent = JsonConvert.DeserializeObject(jsonData, type) as IDomainEvent;
+            long? actualPosition;
 
             using (var scope = PaymentsCompositionRoot.BeginLifetimeScope())
             {
-                var projectors = scope.Resolve<IList<IProjector>>();
+                var checkpointStore = scope.Resolve<ICheckpointStore>();
 
-                var tasks = projectors
-                    .Select(async projector =>
-                    {
-                        await projector.Project(domainEvent);
-                    });
-
-                await Task.WhenAll(tasks);
+                actualPosition = checkpointStore.GetCheckpoint(SubscriptionCode.All);
             }
+
+            _streamStore.SubscribeToAll(actualPosition, StreamMessageReceived);
+        }
+
+        private static async Task StreamMessageReceived(
+            IAllStreamSubscription subscription, StreamMessage streamMessage, CancellationToken cancellationToken)
+        {
+            var type = DomainEventTypeMappings.Dictionary[streamMessage.Type];
+            var jsonData = await streamMessage.GetJsonData(cancellationToken);
+            var domainEvent = JsonConvert.DeserializeObject(jsonData, type) as IDomainEvent;
+
+            using var scope = PaymentsCompositionRoot.BeginLifetimeScope();
+
+            var projectors = scope.Resolve<IList<IProjector>>();
+
+            var tasks = projectors
+                .Select(async projector =>
+                {
+                    await projector.Project(domainEvent);
+                });
+
+            await Task.WhenAll(tasks);
+
+            var checkpointStore = scope.Resolve<ICheckpointStore>();
+            await checkpointStore.StoreCheckpoint(SubscriptionCode.All, streamMessage.Position);
         }
     }
 }

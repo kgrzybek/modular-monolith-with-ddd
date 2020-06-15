@@ -78,6 +78,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
                                "DELETE FROM dbo.Streams " +
                                "DBCC CHECKIDENT ('dbo.Streams', RESEED, 0); " +
                                "DELETE FROM payments.SubscriptionDetails " +
+                               "DELETE FROM [payments].[SubscriptionCheckpoints] " +
                                "DELETE FROM [payments].[Payers] ";
 
             await connection.ExecuteScalarAsync(sql);
