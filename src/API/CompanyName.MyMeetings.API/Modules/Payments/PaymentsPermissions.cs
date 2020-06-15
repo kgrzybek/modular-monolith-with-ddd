@@ -3,5 +3,9 @@
     public class PaymentsPermissions
     {
         public const string RegisterPayment = "RegisterPayment";
+
+        public const string BuySubscription = "BuySubscription";
+
+        public const string RenewSubscription = "RenewSubscription";
     }
 }

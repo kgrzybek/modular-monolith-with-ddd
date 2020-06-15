@@ -22,7 +22,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
             SystemClock.Set(new DateTime(2020, 6, 15));
 
             var subscriptionId = await PaymentsModule.ExecuteCommandAsync(
-                new BuySubscriptionCommand(Guid.NewGuid(),
+                new BuySubscriptionCommand(
                 "Month",
                 "PL"));
 

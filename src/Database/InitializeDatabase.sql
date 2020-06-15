@@ -857,6 +857,8 @@ INSERT INTO users.RolesToPermissions VALUES ('Member', 'JoinToGroup')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'LeaveMeetingGroup')
 
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'RegisterPayment')
+INSERT INTO users.RolesToPermissions VALUES ('Member', 'BuySubscription')
+INSERT INTO users.RolesToPermissions VALUES ('Member', 'RenewSubscription')
 
 INSERT INTO users.RolesToPermissions VALUES ('Administrator', 'AcceptMeetingGroupProposal')
 

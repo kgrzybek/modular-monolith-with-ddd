@@ -6,16 +6,12 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuyS
     public class BuySubscriptionCommand : CommandBase<Guid>
     {
         public BuySubscriptionCommand(
-            Guid payerId, 
             string subscriptionTypeCode, 
             string countryCode)
         {
-            PayerId = payerId;
             SubscriptionTypeCode = subscriptionTypeCode;
             CountryCode = countryCode;
         }
-
-        public Guid PayerId { get; }
 
         public string SubscriptionTypeCode { get; }
 

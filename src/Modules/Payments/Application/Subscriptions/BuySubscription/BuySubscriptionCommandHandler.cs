@@ -12,15 +12,20 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuyS
     {
         private readonly IAggregateStore _aggregateStore;
 
-        public BuySubscriptionCommandHandler(IAggregateStore aggregateStore)
+        private readonly IPayerContext _payerContext;
+
+        public BuySubscriptionCommandHandler(
+            IAggregateStore aggregateStore, 
+            IPayerContext payerContext)
         {
             _aggregateStore = aggregateStore;
+            _payerContext = payerContext;
         }
 
         public async Task<Guid> Handle(BuySubscriptionCommand command, CancellationToken cancellationToken)
         {
             var subscription = Subscription.Buy(
-                new PayerId(command.PayerId),
+                _payerContext.PayerId,
                 SubscriptionPeriod.Of(command.SubscriptionTypeCode),
                 command.CountryCode);
 
