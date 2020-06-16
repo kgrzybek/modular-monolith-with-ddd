@@ -1,13 +1,15 @@
 ﻿using System;
+using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Payers;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
+using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions.Events;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
 {
     public class Subscription : AggregateRoot
     {
-        private PayerId _payerId;
+        private SubscriberId _subscriberId;
 
         private SubscriptionPeriod _subscriptionPeriod;
 
@@ -31,7 +33,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
 
             var expirationDate = SubscriptionDateExpirationCalculator.CalculateForNew(period);
 
-            var subscriptionPurchasedDomainEvent = new SubscriptionPurchasedDomainEvent(
+            var subscriptionPurchasedDomainEvent = new SubscriptionCreatedDomainEvent(
                 Guid.NewGuid(),
                 payerId.Value,
                 period.Code,
@@ -68,10 +70,10 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
             this.AddDomainEvent(subscriptionExpiredDomainEvent);
         }
 
-        private void When(SubscriptionPurchasedDomainEvent @event)
+        private void When(SubscriptionCreatedDomainEvent @event)
         {
             this.Id = @event.SubscriptionId;
-            _payerId = new PayerId(@event.PayerId);
+            _subscriberId = new SubscriberId(@event.PayerId);
             _subscriptionPeriod = SubscriptionPeriod.Of(@event.SubscriptionPeriodCode);
             _countryCode = @event.CountryCode;
             _status = SubscriptionStatus.Of(@event.Status);
@@ -94,6 +96,27 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
         protected sealed override void Apply(IDomainEvent @event)
         {
             this.When((dynamic)@event);
+        }
+
+        public static Subscription Create(
+            SubscriptionPaymentSnapshot subscriptionPayment)
+        {
+            var subscription = new Subscription();
+
+            var expirationDate = SubscriptionDateExpirationCalculator.CalculateForNew(subscriptionPayment.SubscriptionPeriod);
+
+            var subscriptionCreatedDomainEvent = new SubscriptionCreatedDomainEvent(
+                Guid.NewGuid(),
+                subscriptionPayment.PayerId.Value,
+                subscriptionPayment.SubscriptionPeriod.Code,
+                subscriptionPayment.CountryCode,
+                expirationDate,
+                SubscriptionStatus.Active.Code);
+
+            subscription.Apply(subscriptionCreatedDomainEvent);
+            subscription.AddDomainEvent(subscriptionCreatedDomainEvent);
+
+            return subscription;
         }
     }
 }

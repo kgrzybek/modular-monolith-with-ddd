@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CompanyName.MyMeetings.BuildingBlocks.Domain;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork
 {
@@ -35,5 +36,13 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork
         }
 
         protected abstract void Apply(IDomainEvent @event);
+
+        protected static void CheckRule(IBusinessRule rule)
+        {
+            if (rule.IsBroken())
+            {
+                throw new BusinessRuleValidationException(rule);
+            }
+        }
     }
 }

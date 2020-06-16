@@ -24,7 +24,11 @@ namespace CompanyName.MyMeetings.API.Modules.Payments.Subscriptions
         public async Task<IActionResult> BuySubscription(BuySubscriptionRequest request)
         {
             await _meetingsModule.ExecuteCommandAsync(
-                new BuySubscriptionCommand(request.SubscriptionTypeCode, request.CountryCode));
+                new BuySubscriptionCommand(
+                    request.SubscriptionTypeCode, 
+                    request.CountryCode,
+                    request.Value,
+                    request.Currency));
 
             return Ok();
         }

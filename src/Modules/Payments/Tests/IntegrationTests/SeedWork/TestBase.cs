@@ -48,6 +48,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
             using (var sqlConnection = new SqlConnection(ConnectionString))
             {
                 await ClearDatabase(sqlConnection);
+                await SeedData(sqlConnection);
             }
 
             Logger = Substitute.For<ILogger>();
@@ -65,6 +66,25 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
             PaymentsModule = new PaymentsModule();
         }
 
+        private static async Task SeedData(IDbConnection connection)
+        {
+            await connection.ExecuteScalarAsync(
+                "INSERT INTO payments.PriceListItems " +
+                "VALUES ('d58f0876-efe3-4b4c-b196-a4c3d5fadd24', 'Month', 'PL', 60, 'PLN')");
+
+            await connection.ExecuteScalarAsync(
+                "INSERT INTO payments.PriceListItems " +
+                "VALUES ('d48e9951-2ae8-467e-a257-a1f492dbd36d', 'HalfYear', 'PL', 320, 'PLN')");
+
+            await connection.ExecuteScalarAsync(
+                "INSERT INTO payments.PriceListItems " +
+                "VALUES ('b7bbe846-c151-48b5-85ef-a5737108640c', 'Month', 'US', 15, 'USD')");
+
+            await connection.ExecuteScalarAsync(
+                "INSERT INTO payments.PriceListItems " +
+                "VALUES ('92666bf7-7e86-4784-9c69-e6f3b8bb0ea6', 'HalfYear', 'US', 80, 'USD')");
+        }
+
         private static async Task ClearDatabase(IDbConnection connection)
         {
             const string sql = "DELETE FROM [payments].[InboxMessages] " +
@@ -79,6 +99,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
                                "DBCC CHECKIDENT ('dbo.Streams', RESEED, 0); " +
                                "DELETE FROM payments.SubscriptionDetails " +
                                "DELETE FROM [payments].[SubscriptionCheckpoints] " +
+                               "DELETE FROM payments.PriceListItems " +
                                "DELETE FROM [payments].[Payers] ";
 
             await connection.ExecuteScalarAsync(sql);

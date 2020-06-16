@@ -3,8 +3,10 @@ using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuySubscription;
+using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.CreateSubscription;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.ExpireSubscription;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetSubscriptionDetails;
+using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.MarkSubscriptionPaymentAsPaid;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.RenewSubscription;
 using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions;
@@ -21,10 +23,18 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
         {
             SystemClock.Set(new DateTime(2020, 6, 15));
 
-            var subscriptionId = await PaymentsModule.ExecuteCommandAsync(
+            var subscriptionPaymentId = await PaymentsModule.ExecuteCommandAsync(
                 new BuySubscriptionCommand(
                 "Month",
-                "PL"));
+                "PL",
+                60,
+                "PLN"));
+
+            await PaymentsModule.ExecuteCommandAsync(
+                new MarkSubscriptionPaymentAsPaidCommand(subscriptionPaymentId));
+
+            var subscriptionId = await PaymentsModule.ExecuteCommandAsync(
+                new CreateSubscriptionCommand(subscriptionPaymentId));
 
             AssertEventually(
                 new GetSubscriptionDetailsProbe(

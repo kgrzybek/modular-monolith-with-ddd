@@ -3,9 +3,9 @@ using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions.Events
 {
-    public class SubscriptionPurchasedDomainEvent : DomainEventBase
+    public class SubscriptionCreatedDomainEvent : DomainEventBase
     {
-        public SubscriptionPurchasedDomainEvent(
+        public SubscriptionCreatedDomainEvent(
             Guid subscriptionId, 
             Guid payerId, 
             string subscriptionPeriodCode, 

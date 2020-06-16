@@ -978,3 +978,12 @@ CREATE TABLE payments.SubscriptionCheckpoints
     [Code] VARCHAR(50) NOT NULL,
     [Position] BIGINT NOT NULL
 )
+
+CREATE TABLE payments.PriceListItems
+(
+    [Id] UNIQUEIDENTIFIER NOT NULL,
+    [SubscriptionPeriodCode] VARCHAR(50) NOT NULL,
+    [CountryCode] VARCHAR(50) NOT NULL,
+    [MoneyValue] DECIMAL(18, 2) NOT NULL,
+    [MoneyCurrency] VARCHAR(50) NOT NULL
+)
