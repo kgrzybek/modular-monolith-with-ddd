@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Serialization;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 using Newtonsoft.Json;
@@ -13,9 +14,12 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
     {
         private readonly IStreamStore _streamStore;
 
+        private readonly List<IDomainEvent> _appendedChanges;
+
         public SqlStreamAggregateStore(IStreamStore streamStore)
         {
             _streamStore = streamStore;
+            _appendedChanges = new List<IDomainEvent>();
         }
 
         public async Task Save<T>(T aggregate) where T : AggregateRoot
@@ -55,6 +59,16 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
             return aggregate;
         }
 
+        public List<IDomainEvent> GetChanges()
+        {
+            return _appendedChanges;
+        }
+
+        public void ClearChanges()
+        {
+            _appendedChanges.Clear();
+        }
+
         private NewStreamMessage[] CreateStreamMessages<T>(
             T aggregate) where T : AggregateRoot
         {
@@ -73,6 +87,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
                     MapDomainEventToType(domainEvent),
                     jsonData);
                 newStreamMessages.Add(message);
+                _appendedChanges.Add(domainEvent);
             }
 
             return newStreamMessages.ToArray();

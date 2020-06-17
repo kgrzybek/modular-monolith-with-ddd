@@ -1,11 +1,11 @@
 ﻿using System;
+using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Payers;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments.Events;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments.Rules;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions;
-using IDomainEvent = CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork.IDomainEvent;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments
 {

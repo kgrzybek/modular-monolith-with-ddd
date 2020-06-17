@@ -1,4 +1,5 @@
 ﻿using System;
+using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Payers;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
@@ -22,29 +23,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
         private Subscription()
         {
 
-        }
-
-        public static Subscription Buy(
-            PayerId payerId,
-            SubscriptionPeriod period,
-            string countryCode)
-        {
-            var subscription = new Subscription();
-
-            var expirationDate = SubscriptionDateExpirationCalculator.CalculateForNew(period);
-
-            var subscriptionPurchasedDomainEvent = new SubscriptionCreatedDomainEvent(
-                Guid.NewGuid(),
-                payerId.Value,
-                period.Code,
-                countryCode,
-                expirationDate,
-                SubscriptionStatus.Active.Code);
-
-            subscription.Apply(subscriptionPurchasedDomainEvent);
-            subscription.AddDomainEvent(subscriptionPurchasedDomainEvent);
-
-            return subscription;
         }
 
         public void Renew(SubscriptionPeriod period)

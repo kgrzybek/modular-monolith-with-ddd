@@ -14,7 +14,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispa
             _meetingsContext = meetingsContext;
         }
 
-        public List<IDomainEvent> GetAllDomainEvents()
+        public IReadOnlyCollection<IDomainEvent> GetAllDomainEvents()
         {
             var domainEntities = this._meetingsContext.ChangeTracker
                 .Entries<Entity>()

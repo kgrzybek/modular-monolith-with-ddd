@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
+using CompanyName.MyMeetings.BuildingBlocks.Domain;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Projections
 {

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using CompanyName.MyMeetings.BuildingBlocks.Domain;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork
 {
@@ -8,5 +10,9 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork
         Task Save<T>(T aggregate) where T : AggregateRoot;
 
         Task<T> Load<T>(AggregateId<T> aggregateId) where T : AggregateRoot;
+
+        List<IDomainEvent> GetChanges();
+
+        void ClearChanges();
     }
 }
