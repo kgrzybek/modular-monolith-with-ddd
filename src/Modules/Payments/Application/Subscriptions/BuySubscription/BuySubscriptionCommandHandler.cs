@@ -41,8 +41,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuyS
                 command.CountryCode,
                 MoneyValue.Of(command.Value, command.Currency),
                 priceList);
-
-            await _aggregateStore.Save(subscription);
+            
+            _aggregateStore.AppendChanges(subscription);
 
             return subscription.Id;
         }

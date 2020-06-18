@@ -8,7 +8,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.MarkSubscriptionPaymentAsPaid
 {
-    public class MarkSubscriptionPaymentAsPaidCommandHandler : ICommandHandler<MarkSubscriptionPaymentAsPaidCommand>
+    public class MarkSubscriptionPaymentAsPaidCommandHandler : ICommandHandler<MarkSubscriptionPaymentAsPaidCommand, Unit>
     {
         private readonly IAggregateStore _aggregateStore;
 
@@ -24,7 +24,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Mark
 
             subscriptionPayment.MarkAsPaid();
 
-            await _aggregateStore.Save(subscriptionPayment);
+            _aggregateStore.AppendChanges(subscriptionPayment);
 
             return Unit.Value;
         }

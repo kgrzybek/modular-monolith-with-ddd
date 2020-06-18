@@ -1,4 +1,7 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Outbox;
 using Dapper;
 
@@ -8,26 +11,42 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
     {
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
+        private readonly List<OutboxMessage> _messages;
+
         public SqlOutboxAccessor(ISqlConnectionFactory sqlConnectionFactory)
         {
             _sqlConnectionFactory = sqlConnectionFactory;
+            _messages = new List<OutboxMessage>();
         }
 
         public void Add(OutboxMessage message)
         {
-            const string sql = "INSERT INTO [payments].[OutboxMessages] " +
-                               "([Id], [OccurredOn], [Type], [Data]) VALUES " +
-                               "(@Id, @OccurredOn, @Type, @Data)";
+            _messages.Add(message);
+        }
 
-            var connection = _sqlConnectionFactory.GetOpenConnection();
-
-            connection.ExecuteScalar(sql, new
+        public async Task Save()
+        {
+            if (_messages.Any())
             {
-                message.Id,
-                message.OccurredOn,
-                message.Type,
-                message.Data
-            });
+                var connection = _sqlConnectionFactory.CreateNewConnection();
+
+                const string sql = "INSERT INTO [payments].[OutboxMessages] " +
+                                   "([Id], [OccurredOn], [Type], [Data]) VALUES " +
+                                   "(@Id, @OccurredOn, @Type, @Data)";
+
+                foreach (var message in _messages)
+                {
+                    await connection.ExecuteScalarAsync(sql, new
+                    {
+                        message.Id,
+                        message.OccurredOn,
+                        message.Type,
+                        message.Data
+                    });
+                }
+
+                _messages.Clear();
+            }
         }
     }
 }

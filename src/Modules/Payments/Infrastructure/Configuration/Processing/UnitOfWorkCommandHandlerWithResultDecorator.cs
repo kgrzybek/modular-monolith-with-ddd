@@ -8,14 +8,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Processing
 {
-    internal class UnitOfWorkCommandHandlerWithResultDecorator<T, TResult> : ICommandHandler<T, TResult> where T:ICommand<TResult>
+    internal class UnitOfWorkCommandHandlerWithResultDecorator<T, TResult> : ICommandHandler<T, TResult> where T : ICommand<TResult>
     {
         private readonly ICommandHandler<T, TResult> _decorated;
+
         private readonly IUnitOfWork _unitOfWork;
+
         private readonly PaymentsContext _paymentsContext;
 
         public UnitOfWorkCommandHandlerWithResultDecorator(
-            ICommandHandler<T, TResult> decorated, 
+            ICommandHandler<T, TResult> decorated,
             IUnitOfWork unitOfWork,
             PaymentsContext paymentsContext)
         {
@@ -30,7 +32,9 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
 
             if (command is InternalCommandBase<TResult>)
             {
-                var internalCommand = await _paymentsContext.InternalCommands.FirstOrDefaultAsync(x => x.Id == command.Id, cancellationToken: cancellationToken);
+                var internalCommand =
+                    await _paymentsContext.InternalCommands.FirstOrDefaultAsync(x => x.Id == command.Id,
+                        cancellationToken);
 
                 if (internalCommand != null)
                 {
@@ -38,7 +42,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
                 }
             }
 
-            await this._unitOfWork.CommitAsync(cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
 
             return result;
         }

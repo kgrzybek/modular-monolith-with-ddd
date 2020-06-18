@@ -22,7 +22,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Expi
 
             subscription.Expire();
 
-            await _aggregateStore.Save(subscription);
+            _aggregateStore.AppendChanges(subscription);
 
             return Unit.Value;
         }

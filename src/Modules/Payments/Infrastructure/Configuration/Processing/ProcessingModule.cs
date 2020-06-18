@@ -23,7 +23,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
                 .As<IDomainEventsAccessor>()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<UnitOfWork>()
+            builder.RegisterType<PaymentsUnitOfWork>()
                 .As<IUnitOfWork>()
                 .InstancePerLifetimeScope();
 

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Serialization;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
@@ -16,20 +18,31 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
 
         private readonly List<IDomainEvent> _appendedChanges;
 
-        public SqlStreamAggregateStore(IStreamStore streamStore)
+        private readonly List<AggregateToSave> _aggregatesToSave;
+
+        public SqlStreamAggregateStore(
+            ISqlConnectionFactory sqlConnectionFactory)
         {
-            _streamStore = streamStore;
             _appendedChanges = new List<IDomainEvent>();
+
+            _streamStore =
+                new MsSqlStreamStore(
+                    new MsSqlStreamStoreSettings(sqlConnectionFactory.GetConnectionString()));
+
+            _aggregatesToSave = new List<AggregateToSave>();
         }
 
-        public async Task Save<T>(T aggregate) where T : AggregateRoot
+        public async Task Save()
         {
-            var streamMessages = CreateStreamMessages(aggregate);
-            
-            await _streamStore.AppendToStream(
-                GetStreamId(aggregate), 
-                aggregate.Version,
-                streamMessages);
+            foreach (var aggregateToSave in _aggregatesToSave)
+            {
+                await _streamStore.AppendToStream(
+                    GetStreamId(aggregateToSave.Aggregate),
+                    aggregateToSave.Aggregate.Version,
+                    aggregateToSave.Messages.ToArray());
+            }
+
+            _aggregatesToSave.Clear();
         }
 
         public async Task<T> Load<T>(AggregateId<T> aggregateId) where T : AggregateRoot
@@ -64,9 +77,27 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
             return _appendedChanges;
         }
 
+        public void AppendChanges<T>(T aggregate) where T : AggregateRoot
+        {
+            _aggregatesToSave.Add(new AggregateToSave(aggregate, CreateStreamMessages(aggregate).ToList()));
+        }
+
         public void ClearChanges()
         {
             _appendedChanges.Clear();
+        }
+
+        private class AggregateToSave
+        {
+            public AggregateToSave(AggregateRoot aggregate, List<NewStreamMessage> messages)
+            {
+                Aggregate = aggregate;
+                Messages = messages;
+            }
+
+            public AggregateRoot Aggregate { get; }
+
+            public List<NewStreamMessage> Messages { get; }
         }
 
         private NewStreamMessage[] CreateStreamMessages<T>(
@@ -108,7 +139,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
 
         private static string GetStreamId<T>(T aggregate) where T : AggregateRoot
         {
-            return $"{typeof(T).Name}-{aggregate.Id:N}";
+            return $"{aggregate.GetType().Name}-{aggregate.Id:N}";
         }
 
         private static string GetStreamId<T>(AggregateId<T> aggregateId)

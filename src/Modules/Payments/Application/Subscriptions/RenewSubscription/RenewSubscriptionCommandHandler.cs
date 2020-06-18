@@ -22,7 +22,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Rene
 
             subscription.Renew(SubscriptionPeriod.Of(command.SubscriptionTypeCode));
 
-            await _aggregateStore.Save(subscription);
+            _aggregateStore.AppendChanges(subscription);
 
             return Unit.Value;
         }

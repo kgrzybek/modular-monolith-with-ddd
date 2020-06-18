@@ -24,8 +24,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Crea
                 await _aggregateStore.Load(new SubscriptionPaymentId(command.SubscriptionPaymentId));
 
             var subscription = Subscription.Create(subscriptionPayment.GetSnapshot());
-
-            await _aggregateStore.Save(subscription);
+            
+            _aggregateStore.AppendChanges(subscription);
 
             return subscription.Id;
         }
