@@ -15,6 +15,13 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
             return new SubscriptionPeriod(code);
         }
 
+        public static string GetName(string code)
+        {
+            return code == Month.Code
+                ? "Month"
+                : "6 months";
+        }
+
         private SubscriptionPeriod(string code)
         {
             Code = code;

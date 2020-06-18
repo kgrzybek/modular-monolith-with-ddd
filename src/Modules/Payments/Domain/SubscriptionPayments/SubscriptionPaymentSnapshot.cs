@@ -5,11 +5,16 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments
 {
     public class SubscriptionPaymentSnapshot
     {
-        public SubscriptionPaymentSnapshot(PayerId payerId, SubscriptionPeriod subscriptionPeriod, string countryCode)
+        public SubscriptionPaymentSnapshot(
+            SubscriptionPaymentId id,
+            PayerId payerId, 
+            SubscriptionPeriod subscriptionPeriod, 
+            string countryCode)
         {
             PayerId = payerId;
             SubscriptionPeriod = subscriptionPeriod;
             CountryCode = countryCode;
+            Id = id;
         }
 
         public PayerId PayerId { get; }
@@ -17,5 +22,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments
         public SubscriptionPeriod SubscriptionPeriod { get; }
 
         public string CountryCode { get; }
+
+        public SubscriptionPaymentId Id { get; }
     }
 }

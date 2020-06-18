@@ -6,6 +6,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions.Events
     public class SubscriptionCreatedDomainEvent : DomainEventBase
     {
         public SubscriptionCreatedDomainEvent(
+            Guid subscriptionPaymentId,
             Guid subscriptionId, 
             Guid payerId, 
             string subscriptionPeriodCode, 
@@ -13,6 +14,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions.Events
             DateTime expirationDate,
             string status)
         {
+            SubscriptionPaymentId = subscriptionPaymentId;
             SubscriptionId = subscriptionId;
             SubscriptionPeriodCode = subscriptionPeriodCode;
             CountryCode = countryCode;
@@ -22,6 +24,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions.Events
         }
 
         public Guid PayerId { get; }
+
+        public Guid SubscriptionPaymentId { get; }
 
         public Guid SubscriptionId { get; }
 

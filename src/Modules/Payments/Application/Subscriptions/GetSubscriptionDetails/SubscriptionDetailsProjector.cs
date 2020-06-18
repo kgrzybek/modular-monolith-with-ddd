@@ -25,7 +25,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetS
 
         private async Task When(SubscriptionRenewedDomainEvent subscriptionRenewed)
         {
-            var period = GetPeriodName(subscriptionRenewed.SubscriptionPeriodCode);
+            var period = SubscriptionPeriod.GetName(subscriptionRenewed.SubscriptionPeriodCode);
             
             await _connection.ExecuteScalarAsync("UPDATE payments.SubscriptionDetails " +
                                                     "SET " +
@@ -57,7 +57,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetS
 
         private async Task When(SubscriptionCreatedDomainEvent subscriptionCreated)
         {
-            var period = GetPeriodName(subscriptionCreated.SubscriptionPeriodCode);
+            var period = SubscriptionPeriod.GetName(subscriptionCreated.SubscriptionPeriodCode);
             
             await _connection.ExecuteScalarAsync("INSERT INTO payments.SubscriptionDetails " +
                                            "([Id], [Period], [Status], [CountryCode], [ExpirationDate]) " +
@@ -70,13 +70,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetS
                     subscriptionCreated.CountryCode,
                     subscriptionCreated.ExpirationDate
                 });
-        }
-
-        private static string GetPeriodName(string subscriptionPeriodCode)
-        {
-            return subscriptionPeriodCode == SubscriptionPeriod.Month.Code
-                ? "Month"
-                : "6 months";
         }
     }
 }

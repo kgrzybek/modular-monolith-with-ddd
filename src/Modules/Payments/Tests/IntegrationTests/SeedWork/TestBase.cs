@@ -61,7 +61,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
                 ExecutionContext,
                 Logger,
                 EventsBus,
-                false);
+                true);
 
             PaymentsModule = new PaymentsModule();
         }
@@ -100,6 +100,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
                                "DELETE FROM payments.SubscriptionDetails " +
                                "DELETE FROM [payments].[SubscriptionCheckpoints] " +
                                "DELETE FROM payments.PriceListItems " +
+                               "DELETE FROM payments.SubscriptionPayments " +
                                "DELETE FROM [payments].[Payers] ";
 
             await connection.ExecuteScalarAsync(sql);
@@ -118,6 +119,13 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
         protected static void AssertEventually(IProbe probe, int timeout)
         {
             new Poller(timeout).Check(probe);
+        }
+
+        protected static async Task<T> GetEventually<T>(IProbe<T> probe, int timeout) where  T: class
+        {
+            var poller = new Poller(timeout);
+
+            return await poller.GetAsync(probe);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
         {
             if (_messages.Any())
             {
-                var connection = _sqlConnectionFactory.CreateNewConnection();
+                using var connection = _sqlConnectionFactory.CreateNewConnection();
 
                 const string sql = "INSERT INTO [payments].[OutboxMessages] " +
                                    "([Id], [OccurredOn], [Type], [Data]) VALUES " +

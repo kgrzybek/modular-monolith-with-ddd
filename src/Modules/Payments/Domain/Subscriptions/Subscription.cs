@@ -84,6 +84,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
             var expirationDate = SubscriptionDateExpirationCalculator.CalculateForNew(subscriptionPayment.SubscriptionPeriod);
 
             var subscriptionCreatedDomainEvent = new SubscriptionCreatedDomainEvent(
+                subscriptionPayment.Id.Value,
                 Guid.NewGuid(),
                 subscriptionPayment.PayerId.Value,
                 subscriptionPayment.SubscriptionPeriod.Code,

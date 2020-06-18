@@ -70,7 +70,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments
 
         public SubscriptionPaymentSnapshot GetSnapshot()
         {
-            return new SubscriptionPaymentSnapshot(_payerId, _subscriptionPeriod, _countryCode);
+            return new SubscriptionPaymentSnapshot(new SubscriptionPaymentId(this.Id),  _payerId, _subscriptionPeriod, _countryCode);
         }
 
         public void MarkAsPaid()

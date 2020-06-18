@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispatching;
@@ -19,9 +20,12 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure
             this._domainEventsDispatcher = domainEventsDispatcher;
         }
 
-        public async Task<int> CommitAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<int> CommitAsync(
+            CancellationToken cancellationToken = default,
+            Guid? internalCommandId = null)
         {
             await this._domainEventsDispatcher.DispatchEventsAsync();
+            
             return await _context.SaveChangesAsync(cancellationToken);
         }
     }

@@ -10,4 +10,13 @@ namespace CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing
 
         string DescribeFailureTo();
     }
+
+    public interface IProbe<T>
+    {
+        bool IsSatisfied(T sample);
+
+        Task<T> GetSampleAsync();
+
+        string DescribeFailureTo();
+    }
 }
