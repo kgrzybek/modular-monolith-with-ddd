@@ -178,15 +178,15 @@ GO
 DROP SCHEMA [users]
 GO
 
-DROP TABLE dbo.[Messages]
+DROP TABLE payments.[Messages]
 GO
 
 
-DROP TABLE dbo.Streams
+DROP TABLE payments.Streams
 GO
 
 
-DROP TYPE dbo.NewStreamMessages
+DROP TYPE payments.NewStreamMessages
 GO
 
 DROP TABLE payments.SubscriptionDetails

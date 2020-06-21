@@ -871,9 +871,9 @@ DECLARE @SQL varchar(1000);
 SET @SQL = 'ALTER DATABASE ['+@DBName+'] SET ALLOW_SNAPSHOT_ISOLATION ON; ALTER DATABASE ['+@DBName+'] SET READ_COMMITTED_SNAPSHOT ON;'; 
 exec(@sql)
 
-IF OBJECT_ID('dbo.Streams', 'U') IS NULL
+IF OBJECT_ID('payments.Streams', 'U') IS NULL
 BEGIN
-    CREATE TABLE dbo.Streams(
+    CREATE TABLE payments.Streams(
         Id                  CHAR(42)                                NOT NULL,
         IdOriginal          NVARCHAR(1000)                          NOT NULL,
         IdInternal          INT                 IDENTITY(1,1)       NOT NULL,
@@ -886,14 +886,14 @@ END
 IF NOT EXISTS(
     SELECT * 
     FROM sys.indexes
-    WHERE name='IX_Streams_Id' AND object_id = OBJECT_ID('dbo.Streams', 'U'))
+    WHERE name='IX_Streams_Id' AND object_id = OBJECT_ID('payments.Streams', 'U'))
 BEGIN
-    CREATE UNIQUE NONCLUSTERED INDEX IX_Streams_Id ON dbo.Streams (Id);
+    CREATE UNIQUE NONCLUSTERED INDEX IX_Streams_Id ON payments.Streams (Id);
 END
  
-IF object_id('dbo.Messages', 'U') IS NULL
+IF object_id('payments.Messages', 'U') IS NULL
 BEGIN
-    CREATE TABLE dbo.Messages(
+    CREATE TABLE payments.Messages(
         StreamIdInternal    INT                                     NOT NULL,
         StreamVersion       INT                                     NOT NULL,
         Position            BIGINT                 IDENTITY(0,1)    NOT NULL,
@@ -903,48 +903,48 @@ BEGIN
         JsonData            NVARCHAR(max)                           NOT NULL,
         JsonMetadata        NVARCHAR(max)                                   ,
         CONSTRAINT PK_Events PRIMARY KEY NONCLUSTERED (Position),
-        CONSTRAINT FK_Events_Streams FOREIGN KEY (StreamIdInternal) REFERENCES dbo.Streams(IdInternal)
+        CONSTRAINT FK_Events_Streams FOREIGN KEY (StreamIdInternal) REFERENCES payments.Streams(IdInternal)
     );
 END
 
 IF NOT EXISTS(
     SELECT * 
     FROM sys.indexes
-    WHERE name='IX_Messages_Position' AND object_id = OBJECT_ID('dbo.Messages'))
+    WHERE name='IX_Messages_Position' AND object_id = OBJECT_ID('payments.Messages'))
 BEGIN
-    CREATE UNIQUE NONCLUSTERED INDEX IX_Messages_Position ON dbo.Messages (Position);
+    CREATE UNIQUE NONCLUSTERED INDEX IX_Messages_Position ON payments.Messages (Position);
 END
 
 IF NOT EXISTS(
     SELECT * 
     FROM sys.indexes
-    WHERE name='IX_Messages_StreamIdInternal_Id' AND object_id = OBJECT_ID('dbo.Messages'))
+    WHERE name='IX_Messages_StreamIdInternal_Id' AND object_id = OBJECT_ID('payments.Messages'))
 BEGIN
-    CREATE UNIQUE NONCLUSTERED INDEX IX_Messages_StreamIdInternal_Id ON dbo.Messages (StreamIdInternal, Id);
+    CREATE UNIQUE NONCLUSTERED INDEX IX_Messages_StreamIdInternal_Id ON payments.Messages (StreamIdInternal, Id);
 END
 
 IF NOT EXISTS(
     SELECT * 
     FROM sys.indexes
-    WHERE name='IX_Messages_StreamIdInternal_Revision' AND object_id = OBJECT_ID('dbo.Messages'))
+    WHERE name='IX_Messages_StreamIdInternal_Revision' AND object_id = OBJECT_ID('payments.Messages'))
 BEGIN
-    CREATE UNIQUE NONCLUSTERED INDEX IX_Messages_StreamIdInternal_Revision ON dbo.Messages (StreamIdInternal, StreamVersion);
+    CREATE UNIQUE NONCLUSTERED INDEX IX_Messages_StreamIdInternal_Revision ON payments.Messages (StreamIdInternal, StreamVersion);
 END
 
 IF NOT EXISTS(
     SELECT * 
     FROM sys.indexes
-    WHERE name='IX_Messages_StreamIdInternal_Created' AND object_id = OBJECT_ID('dbo.Messages'))
+    WHERE name='IX_Messages_StreamIdInternal_Created' AND object_id = OBJECT_ID('payments.Messages'))
 BEGIN
-    CREATE NONCLUSTERED INDEX IX_Messages_StreamIdInternal_Created ON dbo.Messages (StreamIdInternal, Created);
+    CREATE NONCLUSTERED INDEX IX_Messages_StreamIdInternal_Created ON payments.Messages (StreamIdInternal, Created);
 END
 
 IF NOT EXISTS(
     SELECT * 
     FROM sys.table_types tt JOIN sys.schemas s ON tt.schema_id = s.schema_id
-    WHERE s.name + '.' + tt.name='dbo.NewStreamMessages')
+    WHERE s.name + '.' + tt.name='payments.NewStreamMessages')
 BEGIN
-    CREATE TYPE dbo.NewStreamMessages AS TABLE (
+    CREATE TYPE payments.NewStreamMessages AS TABLE (
         StreamVersion       INT IDENTITY(0,1)                       NOT NULL,
         Id                  UNIQUEIDENTIFIER                        NOT NULL,
         Created             DATETIME          DEFAULT(GETUTCDATE()) NOT NULL,
@@ -955,11 +955,11 @@ BEGIN
 END
 
 BEGIN
-    IF NOT EXISTS (SELECT NULL FROM SYS.EXTENDED_PROPERTIES WHERE [major_id] = OBJECT_ID('dbo.Streams') AND [name] = N'version' AND [minor_id] = 0)
+    IF NOT EXISTS (SELECT NULL FROM SYS.EXTENDED_PROPERTIES WHERE [major_id] = OBJECT_ID('payments.Streams') AND [name] = N'version' AND [minor_id] = 0)
     EXEC sys.sp_addextendedproperty   
     @name = N'version',
     @value = N'2',
-    @level0type = N'SCHEMA', @level0name = 'dbo',
+    @level0type = N'SCHEMA', @level0name = 'payments',
     @level1type = N'TABLE',  @level1name = 'Streams';
 END
 

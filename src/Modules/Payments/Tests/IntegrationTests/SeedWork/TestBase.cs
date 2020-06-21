@@ -93,14 +93,14 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
                                "DELETE FROM [payments].[MeetingPayments] " +
                                "DELETE FROM [payments].[MeetingGroupPayments] " +
                                "DELETE FROM [payments].[MeetingGroupPaymentRegisters] " +
-                               "DELETE FROM dbo.Messages " +
-                               "DBCC CHECKIDENT ('dbo.Messages', RESEED, 0); " +
-                               "DELETE FROM dbo.Streams " +
-                               "DBCC CHECKIDENT ('dbo.Streams', RESEED, 0); " +
+                               "DELETE FROM payments.Messages " +
+                               "DBCC CHECKIDENT ('payments.Messages', RESEED, 0); " +
+                               "DELETE FROM payments.Streams " +
+                               "DBCC CHECKIDENT ('payments.Streams', RESEED, 0); " +
                                "DELETE FROM payments.SubscriptionDetails " +
                                "DELETE FROM [payments].[SubscriptionCheckpoints] " +
-                               "DELETE FROM payments.PriceListItems " +
-                               "DELETE FROM payments.SubscriptionPayments " +
+                               "DELETE FROM [payments].PriceListItems " +
+                               "DELETE FROM [payments].SubscriptionPayments " +
                                "DELETE FROM [payments].[Payers] ";
 
             await connection.ExecuteScalarAsync(sql);

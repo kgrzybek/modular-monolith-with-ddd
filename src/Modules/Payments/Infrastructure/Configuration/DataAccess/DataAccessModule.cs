@@ -31,7 +31,10 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.D
                 .WithParameter("connectionString", _databaseConnectionString)
                 .InstancePerLifetimeScope();
 
-            IStreamStore streamStore = new MsSqlStreamStore(new MsSqlStreamStoreSettings(_databaseConnectionString));
+            IStreamStore streamStore = new MsSqlStreamStore(new MsSqlStreamStoreSettings(_databaseConnectionString)
+            {
+                Schema = DatabaseSchema.Name
+            });
 
             builder.RegisterInstance(streamStore);
 
