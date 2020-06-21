@@ -23,7 +23,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.UnitTests.Meeting
                 "meetingName", "meetingDescription", location, proposalUserId, proposalDate);
 
             var meetingGroupProposalVerificationRequested = AssertPublishedDomainEvent<MeetingGroupProposalVerificationRequestedDomainEvent>(meetingGroupProposal);
-            Assert.That(meetingGroupProposalVerificationRequested.Id, Is.EqualTo(new MeetingGroupProposalId(meetingGroupProposalId)));
+            Assert.That(meetingGroupProposalVerificationRequested.MeetingGroupProposalId, Is.EqualTo(new MeetingGroupProposalId(meetingGroupProposalId)));
         }
 
         [Test]

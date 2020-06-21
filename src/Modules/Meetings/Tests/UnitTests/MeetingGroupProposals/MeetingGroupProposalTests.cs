@@ -24,7 +24,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroupP
 
             var meetingGroupProposed = AssertPublishedDomainEvent<MeetingGroupProposedDomainEvent>(meetingProposal);
 
-            Assert.That(meetingGroupProposed.Id, Is.EqualTo(meetingProposal.Id));
+            Assert.That(meetingGroupProposed.MeetingGroupProposalId, Is.EqualTo(meetingProposal.Id));
         }
 
         [Test]

@@ -93,7 +93,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
             var meetingGroup = CreateMeetingGroup();
             DateTime dateTo = DateTime.UtcNow;
 
-            meetingGroup.UpdatePaymentInfo(dateTo);
+            meetingGroup.SetExpirationDate(dateTo);
 
             var meetingGroupPaymentInfoUpdated = AssertPublishedDomainEvent<MeetingGroupPaymentInfoUpdatedDomainEvent>(meetingGroup);
 
@@ -130,7 +130,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
         {
             var definedProposalMemberId = new MemberId(Guid.NewGuid());
             var meetingGroup = CreateMeetingGroup(definedProposalMemberId);
-            meetingGroup.UpdatePaymentInfo(DateTime.UtcNow.AddDays(1));
+            meetingGroup.SetExpirationDate(DateTime.UtcNow.AddDays(1));
 
             var meeting = meetingGroup.CreateMeeting("title",
                 MeetingTerm.CreateNewBetweenDates(
@@ -153,7 +153,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
         {
             var definedProposalMemberId = new MemberId(Guid.NewGuid());
             var meetingGroup = CreateMeetingGroup(definedProposalMemberId);
-            meetingGroup.UpdatePaymentInfo(DateTime.UtcNow.AddDays(1));
+            meetingGroup.SetExpirationDate(DateTime.UtcNow.AddDays(1));
             var hostOne = new MemberId(Guid.NewGuid());
             var hostTwo = new MemberId(Guid.NewGuid());
             List<MemberId> hosts = new List<MemberId>();
@@ -188,7 +188,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
         {
             var definedProposalMemberId = new MemberId(Guid.NewGuid());
             var meetingGroup = CreateMeetingGroup(definedProposalMemberId);
-            meetingGroup.UpdatePaymentInfo(DateTime.UtcNow.AddDays(1));
+            meetingGroup.SetExpirationDate(DateTime.UtcNow.AddDays(1));
             var hostOne = new MemberId(Guid.NewGuid());
             var hostTwo = new MemberId(Guid.NewGuid());
             List<MemberId> hosts = new List<MemberId>();
@@ -218,7 +218,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
             var definedProposalMemberId = new MemberId(Guid.NewGuid());
             var creatorId = new MemberId(Guid.NewGuid());
             var meetingGroup = CreateMeetingGroup(definedProposalMemberId);
-            meetingGroup.UpdatePaymentInfo(DateTime.UtcNow.AddDays(1));
+            meetingGroup.SetExpirationDate(DateTime.UtcNow.AddDays(1));
 
             AssertBrokenRule<MeetingHostMustBeAMeetingGroupMemberRule>(() =>
             {

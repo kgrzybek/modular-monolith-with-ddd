@@ -13,5 +13,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups
         {
             this.Value = value;
         }
+
+        public static MeetingGroupMemberRole Of(string roleCode)
+        {
+            return new MeetingGroupMemberRole(roleCode);
+        }
     }
 }

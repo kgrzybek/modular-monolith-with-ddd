@@ -6,20 +6,20 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.UpdatePaymentInfo
 {
-    internal class UpdateMeetingGroupPaymentInfoCommandHandler : ICommandHandler<UpdateMeetingGroupPaymentInfoCommand>
+    internal class SetMeetingGroupExpirationDateCommandHandler : ICommandHandler<SetMeetingGroupExpirationDateCommand>
     {
         private readonly IMeetingGroupRepository _meetingGroupRepository;
 
-        internal UpdateMeetingGroupPaymentInfoCommandHandler(IMeetingGroupRepository meetingGroupRepository)
+        internal SetMeetingGroupExpirationDateCommandHandler(IMeetingGroupRepository meetingGroupRepository)
         {
             _meetingGroupRepository = meetingGroupRepository;
         }
 
-        public async Task<Unit> Handle(UpdateMeetingGroupPaymentInfoCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(SetMeetingGroupExpirationDateCommand request, CancellationToken cancellationToken)
         {
             var meetingGroup = await _meetingGroupRepository.GetByIdAsync(new MeetingGroupId(request.MeetingGroupId));
 
-            meetingGroup.UpdatePaymentInfo(request.DateTo);
+            meetingGroup.SetExpirationDate(request.DateTo);
 
             return Unit.Value;
         }

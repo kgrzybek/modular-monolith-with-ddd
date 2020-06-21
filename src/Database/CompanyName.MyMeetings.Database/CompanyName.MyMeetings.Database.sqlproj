@@ -118,6 +118,8 @@
     <Build Include="administration\Views\v_Members.sql" />
     <Build Include="administration\Views\v_MeetingGroupProposals.sql" />
     <Build Include="meetings\Views\v_MeetingGroupProposals.sql" />
+    <Build Include="meetings\Tables\MemberSubscriptions.sql" />
+    <Build Include="meetings\Views\v_MeetingGroupMembers.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="administration\Tables\MeetingGroupProposals.sql" />

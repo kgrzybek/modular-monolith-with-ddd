@@ -85,7 +85,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups
             member.Leave();
         }
 
-        public void UpdatePaymentInfo(DateTime dateTo)
+        public void SetExpirationDate(DateTime dateTo)
         {
             _paymentDateTo = dateTo;
 

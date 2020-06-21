@@ -1000,3 +1000,34 @@ CREATE TABLE payments.SubscriptionPayments
     [MoneyValue] DECIMAL(18, 2) NOT NULL,
     [MoneyCurrency] VARCHAR(50) NOT NULL
 )
+
+CREATE TABLE [meetings].[MemberSubscriptions]
+(
+    [Id] UNIQUEIDENTIFIER NOT NULL,
+    [ExpirationDate] DATETIME NOT NULL,
+    CONSTRAINT [PK_meetings_MemberSubscriptions_Id] PRIMARY KEY ([Id] ASC)
+)
+GO
+
+INSERT INTO payments.PriceListItems
+VALUES ('d58f0876-efe3-4b4c-b196-a4c3d5fadd24', 'Month', 'PL', 60, 'PLN')
+
+INSERT INTO payments.PriceListItems
+VALUES ('d48e9951-2ae8-467e-a257-a1f492dbd36d', 'HalfYear', 'PL', 320, 'PLN')
+
+INSERT INTO payments.PriceListItems
+VALUES ('b7bbe846-c151-48b5-85ef-a5737108640c', 'Month', 'US', 15, 'USD')
+
+INSERT INTO payments.PriceListItems
+VALUES ('92666bf7-7e86-4784-9c69-e6f3b8bb0ea6', 'HalfYear', 'US', 80, 'USD')
+GO
+
+CREATE VIEW [meetings].[v_MeetingGroupMembers]
+AS
+SELECT
+    [MeetingGroupMember].MeetingGroupId,
+    [MeetingGroupMember].MemberId,
+    [MeetingGroupMember].RoleCode
+FROM meetings.MeetingGroupMembers AS [MeetingGroupMember]
+GO
+

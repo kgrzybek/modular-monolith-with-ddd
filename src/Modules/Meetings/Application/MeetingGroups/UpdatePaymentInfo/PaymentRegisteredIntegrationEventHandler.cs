@@ -18,7 +18,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.Upda
 
         public Task Handle(PaymentRegisteredIntegrationEvent notification, CancellationToken cancellationToken)
         {
-            _commandsScheduler.EnqueueAsync(new UpdateMeetingGroupPaymentInfoCommand(
+            _commandsScheduler.EnqueueAsync(new SetMeetingGroupExpirationDateCommand(
                 Guid.NewGuid(),
                 notification.MeetingGroupPaymentRegisterId,
                 notification.DateTo));
