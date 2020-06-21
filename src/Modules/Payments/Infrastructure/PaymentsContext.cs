@@ -1,9 +1,7 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Outbox;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.InternalCommands;
-using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingGroupPaymentRegisters;
 using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Payers;
-using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Domain.MeetingGroupPaymentRegisters;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Domain.MeetingPayments;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Domain.Payers;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.InternalCommands;
@@ -16,7 +14,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure
     public class PaymentsContext : DbContext
     {
         private readonly ILoggerFactory _loggerFactory;
-        internal DbSet<MeetingGroupPaymentRegister> MeetingGroupPaymentRegisters { get; set; }
         internal DbSet<MeetingPayment> MeetingPayments { get; set; }
 
         internal DbSet<OutboxMessage> OutboxMessages { get; set; }
@@ -33,7 +30,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure
         {
             modelBuilder.ApplyConfiguration(new OutboxMessageEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new InternalCommandEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new MeetingGroupPaymentRegisterEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PayerEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new MeetingPaymentEntityTypeConfiguration());
         }

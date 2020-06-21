@@ -2,7 +2,7 @@
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands;
 using Newtonsoft.Json;
 
-namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.UpdatePaymentInfo
+namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.SetMeetingGroupExpirationDate
 {
     internal class SetMeetingGroupExpirationDateCommand : InternalCommandBase
     {
