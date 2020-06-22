@@ -56,7 +56,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuyS
                                                           $"[PriceListItem].[SubscriptionPeriodCode] AS [{nameof(PriceListItemDto.SubscriptionPeriodCode)}], " +
                                                           $"[PriceListItem].[MoneyValue] AS [{nameof(PriceListItemDto.MoneyValue)}], " +
                                                           $"[PriceListItem].[MoneyCurrency] AS [{nameof(PriceListItemDto.MoneyCurrency)}] " +
-                                                          "FROM [payments].[PriceListItems] AS [PriceListItem] ");
+                                                          "FROM [payments].[PriceListItems] AS [PriceListItem] " +
+                                                          "WHERE [PriceListItem].[IsActive] = 1");
 
             var priceListItemList = priceListItems.AsList();
 

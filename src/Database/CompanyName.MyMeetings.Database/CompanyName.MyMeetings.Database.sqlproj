@@ -124,6 +124,7 @@
     <Build Include="payments\Tables\Streams.sql" />
     <Build Include="payments\Tables\Messages.sql" />
     <Build Include="payments\Types\NewStreamMessages.sql" />
+    <Build Include="payments\Tables\PriceListItems.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="administration\Tables\MeetingGroupProposals.sql" />

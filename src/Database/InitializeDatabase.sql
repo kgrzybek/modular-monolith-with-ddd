@@ -985,7 +985,8 @@ CREATE TABLE payments.PriceListItems
     [SubscriptionPeriodCode] VARCHAR(50) NOT NULL,
     [CountryCode] VARCHAR(50) NOT NULL,
     [MoneyValue] DECIMAL(18, 2) NOT NULL,
-    [MoneyCurrency] VARCHAR(50) NOT NULL
+    [MoneyCurrency] VARCHAR(50) NOT NULL,
+    [IsActive] BIT NOT NULL
 )
 
 CREATE TABLE payments.SubscriptionPayments
@@ -1010,16 +1011,16 @@ CREATE TABLE [meetings].[MemberSubscriptions]
 GO
 
 INSERT INTO payments.PriceListItems
-VALUES ('d58f0876-efe3-4b4c-b196-a4c3d5fadd24', 'Month', 'PL', 60, 'PLN')
+VALUES ('d58f0876-efe3-4b4c-b196-a4c3d5fadd24', 'Month', 'PL', 60, 'PLN', 1)
 
 INSERT INTO payments.PriceListItems
-VALUES ('d48e9951-2ae8-467e-a257-a1f492dbd36d', 'HalfYear', 'PL', 320, 'PLN')
+VALUES ('d48e9951-2ae8-467e-a257-a1f492dbd36d', 'HalfYear', 'PL', 320, 'PLN', 1)
 
 INSERT INTO payments.PriceListItems
-VALUES ('b7bbe846-c151-48b5-85ef-a5737108640c', 'Month', 'US', 15, 'USD')
+VALUES ('b7bbe846-c151-48b5-85ef-a5737108640c', 'Month', 'US', 15, 'USD', 1)
 
 INSERT INTO payments.PriceListItems
-VALUES ('92666bf7-7e86-4784-9c69-e6f3b8bb0ea6', 'HalfYear', 'US', 80, 'USD')
+VALUES ('92666bf7-7e86-4784-9c69-e6f3b8bb0ea6', 'HalfYear', 'US', 80, 'USD', 1)
 GO
 
 CREATE VIEW [meetings].[v_MeetingGroupMembers]
