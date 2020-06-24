@@ -1,10 +1,12 @@
 ﻿using Autofac;
+
 using CompanyName.MyMeetings.BuildingBlocks.Application.Events;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispatching;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing.InternalCommands;
+
 using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing
@@ -29,39 +31,30 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
                 .As<ICommandsScheduler>()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterGenericDecorator(
-                typeof(UnitOfWorkCommandHandlerDecorator<>),
-                typeof(ICommandHandler<>));
-
+            // Decorate only command handlers, remove the lambdas to decorate query handlers as well.
             builder.RegisterGenericDecorator(
                 typeof(UnitOfWorkCommandHandlerWithResultDecorator<,>),
-                typeof(ICommandHandler<,>));
-
-            builder.RegisterGenericDecorator(
-                typeof(ValidationCommandHandlerDecorator<>),
-                typeof(ICommandHandler<>)); 
+                typeof(IRequestHandler<,>),
+                x => x.ImplementationType.IsClosedTypeOf(typeof(ICommandHandler<>)) || x.ImplementationType.IsClosedTypeOf(typeof(ICommandHandler<,>)));
 
             builder.RegisterGenericDecorator(
                 typeof(ValidationCommandHandlerWithResultDecorator<,>),
-                typeof(ICommandHandler<,>));
-
-
-            builder.RegisterGenericDecorator(
-                typeof(LoggingCommandHandlerDecorator<>),
-                typeof(ICommandHandler<>));  
+                typeof(IRequestHandler<,>),
+                x => x.ImplementationType.IsClosedTypeOf(typeof(ICommandHandler<>)) || x.ImplementationType.IsClosedTypeOf(typeof(ICommandHandler<,>)));
 
             builder.RegisterGenericDecorator(
                 typeof(LoggingCommandHandlerWithResultDecorator<,>),
-                typeof(ICommandHandler<,>));
+                typeof(IRequestHandler<,>),
+                x => x.ImplementationType.IsClosedTypeOf(typeof(ICommandHandler<>)) || x.ImplementationType.IsClosedTypeOf(typeof(ICommandHandler<,>)));
 
             builder.RegisterGenericDecorator(
-                typeof(DomainEventsDispatcherNotificationHandlerDecorator<>), 
+                typeof(DomainEventsDispatcherNotificationHandlerDecorator<>),
                 typeof(INotificationHandler<>));
 
             builder.RegisterAssemblyTypes(Assemblies.Application)
                 .AsClosedTypesOf(typeof(IDomainEventNotification<>))
                 .InstancePerDependency()
-                .FindConstructorsWith(new AllConstructorFinder());  
+                .FindConstructorsWith(new AllConstructorFinder());
         }
     }
 }
