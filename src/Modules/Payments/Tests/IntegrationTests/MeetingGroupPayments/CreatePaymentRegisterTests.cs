@@ -50,8 +50,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.MeetingGroupP
 
             var paymentRegisteredNotification = await GetLastOutboxMessage<PaymentRegisteredNotification>();
 
-            Assert.That(paymentRegisteredNotification.DateTo, Is.EqualTo(endDate));
-            Assert.That(paymentRegisteredNotification.MeetingGroupPaymentRegisterId.Value, Is.EqualTo(registerId));
+            Assert.That(paymentRegisteredNotification.DomainEvent.DateTo, Is.EqualTo(endDate));
+            Assert.That(paymentRegisteredNotification.DomainEvent.MeetingGroupPaymentRegisterId.Value, Is.EqualTo(registerId));
         }
 
         [Test]

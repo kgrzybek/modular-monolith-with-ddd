@@ -20,8 +20,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingGroupPaymen
             _eventsBus.Publish(new PaymentRegisteredIntegrationEvent(
                 notification.Id,
                 notification.DomainEvent.OccurredOn,
-                notification.MeetingGroupPaymentRegisterId.Value,
-                notification.DateTo));
+                notification.DomainEvent.MeetingGroupPaymentRegisterId.Value,
+                notification.DomainEvent.DateTo));
 
             return Task.CompletedTask;
         }
