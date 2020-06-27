@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
+using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetSubscriptionDetails;
 using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Payers;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
@@ -22,10 +23,13 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuyS
 
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
+        private readonly IMediator _mediator;
+
         public BuySubscriptionRenewalCommandHandler(
             IAggregateStore aggregateStore,
             IPayerContext payerContext,
-            ISqlConnectionFactory sqlConnectionFactory)
+            ISqlConnectionFactory sqlConnectionFactory,
+            IMediator mediator)
         {
             _aggregateStore = aggregateStore;
             _payerContext = payerContext;
@@ -36,9 +40,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuyS
         {
             PriceList priceList = await GetPriceList();
 
+            var subscription = await _aggregateStore.Load(new SubscriptionId(command.SubscriptionId));
+
             var subscriptionRenewalPayment = SubscriptionRenewalPayment.Buy(
                 _payerContext.PayerId,
-                new SubscriptionId(command.SubscriptionId),
+                subscription,
                 SubscriptionPeriod.Of(command.SubscriptionTypeCode),
                 command.CountryCode,
                 MoneyValue.Of(command.Value, command.Currency),
