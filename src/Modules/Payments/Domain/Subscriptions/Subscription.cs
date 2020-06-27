@@ -32,7 +32,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
             
             SubscriptionRenewedDomainEvent subscriptionRenewedDomainEvent = new SubscriptionRenewedDomainEvent(
                 this.Id,
-                expirationDate, 
+                expirationDate,
+                subscriptionRenewalPayment.PayerId.Value,
                 subscriptionRenewalPayment.SubscriptionPeriod.Code,
                 SubscriptionStatus.Active.Code
                 );
