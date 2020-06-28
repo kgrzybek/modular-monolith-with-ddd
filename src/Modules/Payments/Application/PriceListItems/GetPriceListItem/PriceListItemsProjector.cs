@@ -26,12 +26,13 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.Get
         {
             await _connection.ExecuteScalarAsync(
                 "INSERT INTO payments.PriceListItems " +
-                "([Id], [SubscriptionPeriodCode], [CountryCode], [MoneyValue], [MoneyCurrency], [IsActive])" +
-                "VALUES (@PriceListItemId, @SubscriptionPeriodCode, @CountryCode, @Price, @Currency, @IsActive)",
+                "([Id], [SubscriptionPeriodCode], [CategoryCode], [CountryCode], [MoneyValue], [MoneyCurrency], [IsActive])" +
+                "VALUES (@PriceListItemId, @SubscriptionPeriodCode, @CategoryCode, @CountryCode, @Price, @Currency, @IsActive)",
                 new
                 {
                     @event.PriceListItemId,
                     @event.SubscriptionPeriodCode,
+                    @event.CategoryCode,
                     @event.CountryCode,
                     @event.Price,
                     @event.Currency,
