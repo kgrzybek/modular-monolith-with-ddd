@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Payers.Events;
+using CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems.Events;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments.Events;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions.Events;
 
@@ -21,6 +22,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
             Dictionary.Add("SubscriptionExpired", typeof(SubscriptionExpiredDomainEvent));
 
             Dictionary.Add("PayerCreated", typeof(PayerCreatedDomainEvent));
+            
+            Dictionary.Add("PriceListItemCreated", typeof(PriceListItemCreatedDomainEvent));
         }
     }
 }
