@@ -17,11 +17,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.Cre
         public string PriceCurrency { get; }
 
         [JsonConstructor]
-        public CreatePriceListItemCommand(Guid id, string countryCode, string subscriptionPeriodCode, string categoryCode, decimal priceValue, string priceCurrency) : base(id)
+        public CreatePriceListItemCommand(Guid id, string subscriptionPeriodCode, string categoryCode, string countryCode, decimal priceValue, string priceCurrency) : base(id)
         {
-            CountryCode = countryCode;
             SubscriptionPeriodCode = subscriptionPeriodCode;
             CategoryCode = categoryCode;
+            CountryCode = countryCode;
             PriceValue = priceValue;
             PriceCurrency = priceCurrency;
         }
