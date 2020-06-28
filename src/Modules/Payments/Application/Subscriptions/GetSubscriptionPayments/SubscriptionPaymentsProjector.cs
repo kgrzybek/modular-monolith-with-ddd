@@ -70,5 +70,17 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetS
                     subscriptionCreated.SubscriptionPaymentId
                 });
         }
+
+        private async Task When(SubscriptionPaymentExpiredDomainEvent subscriptionPaymentExpired)
+        {
+            await _connection.ExecuteScalarAsync(
+                "UPDATE payments.SubscriptionPayments SET Status = @Status " +
+                "WHERE PaymentId = @SubscriptionPaymentId ",
+                new
+                {
+                    subscriptionPaymentExpired.SubscriptionPaymentId,
+                    subscriptionPaymentExpired.Status
+                });
+        }
     }
 }

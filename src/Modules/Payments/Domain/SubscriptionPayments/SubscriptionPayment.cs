@@ -68,6 +68,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments
             _subscriptionPaymentStatus = SubscriptionPaymentStatus.Of(@event.Status);
         }
 
+        private void When(SubscriptionPaymentExpiredDomainEvent @event)
+        {
+            _subscriptionPaymentStatus = SubscriptionPaymentStatus.Of(@event.Status);
+        }
+
         public SubscriptionPaymentSnapshot GetSnapshot()
         {
             return new SubscriptionPaymentSnapshot(new SubscriptionPaymentId(this.Id),  _payerId, _subscriptionPeriod, _countryCode);
@@ -78,6 +83,16 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments
             SubscriptionPaymentPaidDomainEvent @event = 
                 new SubscriptionPaymentPaidDomainEvent(this.Id,
                 SubscriptionPaymentStatus.Paid.Code);
+
+            this.Apply(@event);
+            this.AddDomainEvent(@event);
+        }
+
+        public void Expire()
+        {
+            SubscriptionPaymentExpiredDomainEvent @event =
+                new SubscriptionPaymentExpiredDomainEvent(this.Id,
+                    SubscriptionPaymentStatus.Expired.Code);
 
             this.Apply(@event);
             this.AddDomainEvent(@event);

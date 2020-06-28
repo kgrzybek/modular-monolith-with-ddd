@@ -41,11 +41,14 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
 
         public void Expire()
         {
-            SubscriptionExpiredDomainEvent subscriptionExpiredDomainEvent =
-                new SubscriptionExpiredDomainEvent(this.Id, SubscriptionStatus.Expired.Code);
+            if (_expirationDate < SystemClock.Now)
+            {
+                SubscriptionExpiredDomainEvent subscriptionExpiredDomainEvent =
+                    new SubscriptionExpiredDomainEvent(this.Id, SubscriptionStatus.Expired.Code);
 
-            this.When(subscriptionExpiredDomainEvent);
-            this.AddDomainEvent(subscriptionExpiredDomainEvent);
+                this.When(subscriptionExpiredDomainEvent);
+                this.AddDomainEvent(subscriptionExpiredDomainEvent);
+            }
         }
 
         private void When(SubscriptionCreatedDomainEvent @event)

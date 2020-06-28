@@ -7,6 +7,7 @@ using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuySubscription;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.CreateSubscription;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.ExpireSubscription;
+using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.ExpireSubscriptions;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetSubscriptionDetails;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetSubscriptionPayments;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.MarkSubscriptionPaymentAsPaid;
@@ -58,14 +59,16 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
 
             var subscriptionId = subscriptionPayments[0].SubscriptionId.Value;
 
-            //AssertEventually(
-            //    new GetSubscriptionDetailsProbe(
-            //        PaymentsModule, 
-            //        subscriptionId,
-            //        x => x.SubscriptionId == subscriptionId &&
-            //             x.Status == SubscriptionStatus.Active.Code && 
-            //             x.Period == SubscriptionPeriod.Month.Code && 
-            //            x.ExpirationDate == new DateTime(2020, 7, 15)), 5000);
+            SystemClock.Set(new DateTime(2020, 7, 16));
+
+            await PaymentsModule.ExecuteCommandAsync(new ExpireSubscriptionsCommand());
+
+            AssertEventually(
+                new GetSubscriptionDetailsProbe(
+                    PaymentsModule,
+                    subscriptionId,
+                    x => x.SubscriptionId == subscriptionId &&
+                         x.Status == SubscriptionStatus.Expired.Code), 10000);
 
             //await PaymentsModule.ExecuteCommandAsync(
             //    new RenewSubscriptionCommand(subscriptionId,
