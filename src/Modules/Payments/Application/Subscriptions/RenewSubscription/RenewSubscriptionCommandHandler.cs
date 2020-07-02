@@ -17,14 +17,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Rene
     public class RenewSubscriptionCommandHandler : ICommandHandler<RenewSubscriptionCommand>
     {
         private readonly IAggregateStore _aggregateStore;
-        private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
         public RenewSubscriptionCommandHandler(
-            IAggregateStore aggregateStore,
-            ISqlConnectionFactory sqlConnectionFactory)
+            IAggregateStore aggregateStore)
         {
             _aggregateStore = aggregateStore;
-            _sqlConnectionFactory = sqlConnectionFactory;
         }
 
         public async Task<Unit> Handle(RenewSubscriptionCommand command, CancellationToken cancellationToken)
