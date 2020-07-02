@@ -38,7 +38,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems
                 category.Code,
                 price.Value,
                 price.Currency,
-                isActive: false);
+                isActive: true);
             
             priceListItem.Apply(priceListItemCreatedEvent);
             priceListItem.AddDomainEvent(priceListItemCreatedEvent);
