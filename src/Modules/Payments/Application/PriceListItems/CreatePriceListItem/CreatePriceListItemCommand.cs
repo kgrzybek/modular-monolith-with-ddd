@@ -1,10 +1,9 @@
 ﻿using System;
-using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
-using Newtonsoft.Json;
+using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.CreatePriceListItem
 {
-    public class CreatePriceListItemCommand : InternalCommandBase<Guid>
+    public class CreatePriceListItemCommand : CommandBase<Guid>
     {
         public string CountryCode { get; }
 
@@ -15,8 +14,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.Cre
         public decimal PriceValue { get; }
 
         public string PriceCurrency { get; }
-
-        [JsonConstructor]
+        
         public CreatePriceListItemCommand(Guid id, string subscriptionPeriodCode, string categoryCode, string countryCode, decimal priceValue, string priceCurrency) : base(id)
         {
             SubscriptionPeriodCode = subscriptionPeriodCode;
