@@ -23,13 +23,10 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuyS
 
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
-        private readonly IMediator _mediator;
-
         public BuySubscriptionRenewalCommandHandler(
             IAggregateStore aggregateStore,
             IPayerContext payerContext,
-            ISqlConnectionFactory sqlConnectionFactory,
-            IMediator mediator)
+            ISqlConnectionFactory sqlConnectionFactory)
         {
             _aggregateStore = aggregateStore;
             _payerContext = payerContext;
