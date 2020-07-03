@@ -1,17 +1,17 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
-using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetSubscriptionDetails;
 using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Payers;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionRenewalPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions;
 using Dapper;
-using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuySubscriptionRenewal
 {
@@ -37,11 +37,18 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuyS
         {
             PriceList priceList = await GetPriceList();
 
+            var subscriptionId = new SubscriptionId(command.SubscriptionId);
+
             var subscription = await _aggregateStore.Load(new SubscriptionId(command.SubscriptionId));
+
+            if (subscription == null)
+            {
+                throw new InvalidCommandException(new List<string> { "Subscription for renewal must exist." });
+            }
 
             var subscriptionRenewalPayment = SubscriptionRenewalPayment.Buy(
                 _payerContext.PayerId,
-                subscription,
+                subscriptionId,
                 SubscriptionPeriod.Of(command.SubscriptionTypeCode),
                 command.CountryCode,
                 MoneyValue.Of(command.Value, command.Currency),

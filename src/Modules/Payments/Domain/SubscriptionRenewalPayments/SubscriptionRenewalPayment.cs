@@ -30,14 +30,12 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionRenewalPaym
         
         public static SubscriptionRenewalPayment Buy(
             PayerId payerId,
-            Subscription subscription,
+            SubscriptionId subscriptionId,
             SubscriptionPeriod period,
             string countryCode,
             MoneyValue priceOffer,
             PriceList priceList)
         {
-            CheckRule(new SubscriptionForRenewalMustExist(subscription.Id));
-            
             var priceInPriceList = priceList.GetPrice(countryCode, period);
             CheckRule(new PriceOfferMustMatchPriceInPriceListRule(priceOffer, priceInPriceList));
 
@@ -46,7 +44,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionRenewalPaym
             var subscriptionRenewalPaymentCreated = new SubscriptionRenewalPaymentCreatedDomainEvent(
                 Guid.NewGuid(),
                 payerId.Value,
-                subscription.Id,
+                subscriptionId.Value,
                 period.Code,
                 countryCode,
                 SubscriptionRenewalPaymentStatus.WaitingForPayment.Code,
