@@ -101,6 +101,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
                                "DELETE FROM [payments].[SubscriptionCheckpoints] " +
                                "DELETE FROM [payments].PriceListItems " +
                                "DELETE FROM [payments].SubscriptionPayments " +
+                               "DELETE FROM [payments].MeetingFees " +
                                "DELETE FROM [payments].[Payers] ";
 
             await connection.ExecuteScalarAsync(sql);

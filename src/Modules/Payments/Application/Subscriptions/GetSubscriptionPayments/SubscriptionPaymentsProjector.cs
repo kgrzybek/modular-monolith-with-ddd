@@ -59,15 +59,15 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetS
                 });
         }
 
-        private async Task When(SubscriptionCreatedDomainEvent subscriptionCreated)
+        private async Task When(SubscriptionPurchasedDomainEvent subscriptionPurchased)
         {
             await _connection.ExecuteScalarAsync(
                 "UPDATE payments.SubscriptionPayments SET SubscriptionId = @SubscriptionId " +
                 "WHERE PaymentId = @SubscriptionPaymentId ",
                 new
                 {
-                    subscriptionCreated.SubscriptionId,
-                    subscriptionCreated.SubscriptionPaymentId
+                    subscriptionPurchased.SubscriptionId,
+                    subscriptionPurchased.SubscriptionPaymentId
                 });
         }
 

@@ -55,20 +55,20 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetS
                 });
         }
 
-        private async Task When(SubscriptionCreatedDomainEvent subscriptionCreated)
+        private async Task When(SubscriptionPurchasedDomainEvent subscriptionPurchased)
         {
-            var period = SubscriptionPeriod.GetName(subscriptionCreated.SubscriptionPeriodCode);
+            var period = SubscriptionPeriod.GetName(subscriptionPurchased.SubscriptionPeriodCode);
             
             await _connection.ExecuteScalarAsync("INSERT INTO payments.SubscriptionDetails " +
                                            "([Id], [Period], [Status], [CountryCode], [ExpirationDate]) " +
                                            "VALUES (@SubscriptionId, @Period, @Status, @CountryCode, @ExpirationDate)",
                 new
                 {
-                    subscriptionCreated.SubscriptionId,
+                    subscriptionPurchased.SubscriptionId,
                     period,
-                    subscriptionCreated.Status,
-                    subscriptionCreated.CountryCode,
-                    subscriptionCreated.ExpirationDate
+                    subscriptionPurchased.Status,
+                    subscriptionPurchased.CountryCode,
+                    subscriptionPurchased.ExpirationDate
                 });
         }
     }

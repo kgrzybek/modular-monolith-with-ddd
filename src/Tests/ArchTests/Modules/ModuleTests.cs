@@ -9,6 +9,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
+using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFees;
 using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
@@ -85,7 +86,7 @@ namespace CompanyName.MyMeetings.ArchTests.Modules
             List<Assembly> paymentsAssemblies = new List<Assembly>
             {
                 typeof(PaymentsModule).Assembly,
-                typeof(MeetingPayment).Assembly,
+                typeof(MeetingFee).Assembly,
                 typeof(PaymentsContext).Assembly
             };
 

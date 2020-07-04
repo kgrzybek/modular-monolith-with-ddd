@@ -51,7 +51,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
             }
         }
 
-        private void When(SubscriptionCreatedDomainEvent @event)
+        private void When(SubscriptionPurchasedDomainEvent @event)
         {
             this.Id = @event.SubscriptionId;
             _subscriberId = new SubscriberId(@event.PayerId);
@@ -86,7 +86,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
 
             var expirationDate = SubscriptionDateExpirationCalculator.CalculateForNew(subscriptionPayment.SubscriptionPeriod);
 
-            var subscriptionCreatedDomainEvent = new SubscriptionCreatedDomainEvent(
+            var subscriptionCreatedDomainEvent = new SubscriptionPurchasedDomainEvent(
                 subscriptionPayment.Id.Value,
                 Guid.NewGuid(),
                 subscriptionPayment.PayerId.Value,
