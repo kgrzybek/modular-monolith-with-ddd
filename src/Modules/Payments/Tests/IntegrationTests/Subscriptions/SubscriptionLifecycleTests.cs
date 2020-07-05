@@ -19,18 +19,20 @@ using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionRenewalPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions;
+using CompanyName.MyMeetings.Modules.Payments.IntegrationTests.PriceList;
 using CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork;
 using NUnit.Framework;
 
 namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
 {
+    [NonParallelizable]
     [TestFixture]
     public class SubscriptionLifecycleTests : TestBase
     {
         [Test]
         public async Task Subscription_Buy_ThenRenew_ThenExpire_Test()
         {
-            await AddPriceListItems();
+            await PriceListHelper.AddPriceListItems(PaymentsModule);
 
             DateTime referenceDate = new DateTime(2020, 6, 15);
             SystemClock.Set(referenceDate);
@@ -97,7 +99,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
 
             subscriptionPayments = await GetEventually(
                 new GetSubscriptionPaymentsProbe(PaymentsModule, ExecutionContext.UserId,
-                    x => true),
+                    x => x.Any(y => y.PaymentId == subscriptionRenewalPaymentId)),
                 10000);
 
             renewalPayment = subscriptionPayments
@@ -131,45 +133,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
 
         }
 
-        private async Task AddPriceListItems()
-        {
-            await PaymentsModule.ExecuteCommandAsync(new CreatePriceListItemCommand(
-                SubscriptionPeriod.Month.Code,
-                PriceListItemCategory.New.Code,
-                "PL",
-                60,
-                "PLN"));
-
-            await PaymentsModule.ExecuteCommandAsync(new CreatePriceListItemCommand(
-                SubscriptionPeriod.HalfYear.Code,
-                PriceListItemCategory.New.Code,
-                "PL",
-                320,
-                "PLN"));
-
-            await PaymentsModule.ExecuteCommandAsync(new CreatePriceListItemCommand(
-                SubscriptionPeriod.Month.Code,
-                PriceListItemCategory.New.Code,
-                "US",
-                15,
-                "USD"));
-
-            await PaymentsModule.ExecuteCommandAsync(new CreatePriceListItemCommand(
-                SubscriptionPeriod.HalfYear.Code,
-                PriceListItemCategory.New.Code,
-                "US",
-                80,
-                "USD"));
-
-            await PaymentsModule.ExecuteCommandAsync(new CreatePriceListItemCommand(
-                SubscriptionPeriod.HalfYear.Code,
-                PriceListItemCategory.Renewal.Code,
-                "PL",
-                320,
-                "PLN"));
-
-            await GetEventually(new GetPriceListProbe(PaymentsModule, x => x.Count == 5), 5000);
-        }
+        
 
         private class GetSubscriptionPaymentsProbe : IProbe<List<SubscriptionPaymentDto>>
         {
@@ -205,35 +169,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
             }
         }
 
-        private class GetPriceListProbe : IProbe<List<PriceListItemDto>>
-        {
-            private readonly IPaymentsModule _paymentsModule;
-
-            private readonly Func<List<PriceListItemDto>, bool> _condition;
-
-            public GetPriceListProbe(
-                IPaymentsModule paymentsModule,
-                Func<List<PriceListItemDto>, bool> condition)
-            {
-                _paymentsModule = paymentsModule;
-                _condition = condition;
-            }
-
-            public bool IsSatisfied(List<PriceListItemDto> sample)
-            {
-                return sample != null && _condition(sample);
-            }
-
-            public async Task<List<PriceListItemDto>> GetSampleAsync()
-            {
-                return await _paymentsModule.ExecuteQueryAsync(new GetPriceListItemsQuery());
-            }
-
-            public string DescribeFailureTo()
-            {
-                return "Cannot get price list for specified condition";
-            }
-        }
+        
 
         private class GetSubscriptionDetailsProbe : IProbe<SubscriptionDetailsDto>
         {

@@ -1,7 +1,7 @@
 ﻿using System;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 
-namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments
+namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFees
 {
     public class MeetingId : TypedIdValueBase
     {

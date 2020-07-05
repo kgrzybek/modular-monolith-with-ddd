@@ -5,6 +5,7 @@ using System.Reflection;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure;
+using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration;
 using NetArchTest.Rules;
 using NUnit.Framework;
 
@@ -14,7 +15,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.ArchTests.SeedWork
     {
         protected static Assembly ApplicationAssembly = typeof(CommandBase).Assembly;
         protected static Assembly DomainAssembly = typeof(Subscription).Assembly;
-        protected static Assembly InfrastructureAssembly = typeof(PaymentsContext).Assembly;
+        protected static Assembly InfrastructureAssembly = typeof(PaymentsStartup).Assembly;
 
         protected static void AssertAreImmutable(IEnumerable<Type> types)
         {

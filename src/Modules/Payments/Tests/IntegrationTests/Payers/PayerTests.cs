@@ -9,6 +9,7 @@ using NUnit.Framework;
 
 namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Payers
 {
+    [NonParallelizable]
     [TestFixture]
     public class PayerTests : TestBase
     {

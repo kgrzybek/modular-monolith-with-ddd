@@ -69,7 +69,6 @@
     <Folder Include="meetings\Views" />
     <Folder Include="users\Views" />
     <Folder Include="Scripts" />
-    <Folder Include="payments\Views" />
     <Folder Include="administration\Views" />
     <Folder Include="payments\Types" />
   </ItemGroup>
@@ -101,8 +100,6 @@
     <Build Include="payments\Tables\InboxMessages.sql" />
     <Build Include="payments\Tables\InternalCommands.sql" />
     <Build Include="payments\Tables\OutboxMessages.sql" />
-    <Build Include="payments\Tables\MeetingGroupPaymentRegisters.sql" />
-    <Build Include="payments\Tables\MeetingGroupPayments.sql" />
     <Build Include="users\Tables\Permissions.sql" />
     <Build Include="users\Tables\RolesToPermissions.sql" />
     <Build Include="users\Views\v_UserPermissions.sql" />
@@ -110,12 +107,7 @@
     <Build Include="meetings\Views\v_Meetings.sql" />
     <Build Include="payments\Tables\Payers.sql" />
     <Build Include="administration\Tables\Members.sql" />
-    <Build Include="payments\Tables\MeetingPayments.sql" />
     <Build Include="users\Views\v_UserRegistrations.sql" />
-    <Build Include="payments\Views\v_Payers.sql" />
-    <Build Include="payments\Views\v_MeetingGroupPaymentRegisters.sql" />
-    <Build Include="payments\Views\v_MeetingGroupPayments.sql" />
-    <Build Include="payments\Views\v_MeetingPayments.sql" />
     <Build Include="administration\Views\v_Members.sql" />
     <Build Include="administration\Views\v_MeetingGroupProposals.sql" />
     <Build Include="meetings\Views\v_MeetingGroupProposals.sql" />
@@ -126,6 +118,9 @@
     <Build Include="payments\Types\NewStreamMessages.sql" />
     <Build Include="payments\Tables\PriceListItems.sql" />
     <Build Include="payments\Tables\MeetingFees.sql" />
+    <Build Include="payments\Tables\SubscriptionPayments.sql" />
+    <Build Include="payments\Tables\SubscriptionCheckpoints.sql" />
+    <Build Include="payments\Tables\SubscriptionDetails.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="administration\Tables\MeetingGroupProposals.sql" />

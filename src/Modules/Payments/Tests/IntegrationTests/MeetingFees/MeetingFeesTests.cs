@@ -8,7 +8,6 @@ using CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.CreateMeet
 using CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.CreateMeetingFeePayment;
 using CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.GetMeetingFees;
 using CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.MarkMeetingFeePaymentAsPaid;
-using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetSubscriptionPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFeePayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFees;
 using CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork;
@@ -16,6 +15,7 @@ using NUnit.Framework;
 
 namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.MeetingFees
 {
+    [NonParallelizable]
     [TestFixture]
     public class MeetingFeesTests : TestBase
     {

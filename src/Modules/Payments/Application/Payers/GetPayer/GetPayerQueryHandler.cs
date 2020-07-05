@@ -27,7 +27,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Payers.GetPayer
                                "[Payer].[FirstName], " +
                                "[Payer].[LastName], " +
                                "[Payer].[Name] " +
-                               "FROM [payments].[v_Payers] AS [Payer] " +
+                               "FROM [payments].[Payers] AS [Payer] " +
                                "WHERE [Payer].[Id] = @PayerId";
 
             return await connection.QuerySingleAsync<PayerDto>(sql, new

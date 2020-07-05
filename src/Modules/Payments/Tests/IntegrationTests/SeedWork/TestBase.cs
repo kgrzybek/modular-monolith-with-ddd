@@ -48,7 +48,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
             using (var sqlConnection = new SqlConnection(ConnectionString))
             {
                 await ClearDatabase(sqlConnection);
-             //   await SeedData(sqlConnection);
             }
 
             Logger = Substitute.For<ILogger>();
@@ -66,33 +65,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
             PaymentsModule = new PaymentsModule();
         }
 
-        private static async Task SeedData(IDbConnection connection)
-        {
-            await connection.ExecuteScalarAsync(
-                "INSERT INTO payments.PriceListItems " +
-                "VALUES ('d58f0876-efe3-4b4c-b196-a4c3d5fadd24', 'Month', 'PL', 60, 'PLN', 1)");
-
-            await connection.ExecuteScalarAsync(
-                "INSERT INTO payments.PriceListItems " +
-                "VALUES ('d48e9951-2ae8-467e-a257-a1f492dbd36d', 'HalfYear', 'PL', 320, 'PLN', 1)");
-
-            await connection.ExecuteScalarAsync(
-                "INSERT INTO payments.PriceListItems " +
-                "VALUES ('b7bbe846-c151-48b5-85ef-a5737108640c', 'Month', 'US', 15, 'USD', 1)");
-
-            await connection.ExecuteScalarAsync(
-                "INSERT INTO payments.PriceListItems " +
-                "VALUES ('92666bf7-7e86-4784-9c69-e6f3b8bb0ea6', 'HalfYear', 'US', 80, 'USD', 1)");
-        }
-
         private static async Task ClearDatabase(IDbConnection connection)
         {
             const string sql = "DELETE FROM [payments].[InboxMessages] " +
                                "DELETE FROM [payments].[InternalCommands] " +
                                "DELETE FROM [payments].[OutboxMessages] " +
-                               "DELETE FROM [payments].[MeetingPayments] " +
-                               "DELETE FROM [payments].[MeetingGroupPayments] " +
-                               "DELETE FROM [payments].[MeetingGroupPaymentRegisters] " +
                                "DELETE FROM payments.Messages " +
                                "DBCC CHECKIDENT ('payments.Messages', RESEED, 0); " +
                                "DELETE FROM payments.Streams " +
@@ -122,7 +99,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
             new Poller(timeout).Check(probe);
         }
 
-        protected static async Task<T> GetEventually<T>(IProbe<T> probe, int timeout) where  T: class
+        public static async Task<T> GetEventually<T>(IProbe<T> probe, int timeout) where  T: class
         {
             var poller = new Poller(timeout);
 

@@ -64,9 +64,6 @@ GO
 DROP TABLE [meetings].[MeetingGroups]
 GO
 
-DROP TABLE [meetings].[MeetingGroupPayments]
-GO
-
 DROP TABLE [meetings].[Meetings]
 GO
 

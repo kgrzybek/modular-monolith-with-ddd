@@ -2,9 +2,8 @@
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems;
-using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments;
+using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions;
 using Dapper;
 

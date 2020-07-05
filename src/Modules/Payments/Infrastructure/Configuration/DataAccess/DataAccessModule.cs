@@ -57,22 +57,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.D
                 .As<SubscriptionsManager>()
                 .SingleInstance();
 
-            builder
-                .Register(c =>
-                {
-                    var dbContextOptionsBuilder = new DbContextOptionsBuilder<PaymentsContext>();
-                    dbContextOptionsBuilder.UseSqlServer(_databaseConnectionString);
 
-                    dbContextOptionsBuilder
-                        .ReplaceService<IValueConverterSelector, StronglyTypedIdValueConverterSelector>();
-
-                    return new PaymentsContext(dbContextOptionsBuilder.Options, _loggerFactory);
-                })
-                .AsSelf()
-                .As<DbContext>()
-                .InstancePerLifetimeScope();
-
-            var infrastructureAssembly = typeof(PaymentsContext).Assembly;
+            var infrastructureAssembly = ThisAssembly;
 
             builder.RegisterAssemblyTypes(infrastructureAssembly)
                 .Where(type => type.Name.EndsWith("Repository"))

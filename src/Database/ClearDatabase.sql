@@ -64,9 +64,6 @@ GO
 DROP TABLE [meetings].[MeetingGroups]
 GO
 
-DROP TABLE [payments].[MeetingGroupPayments]
-GO
-
 DROP TABLE [meetings].[Meetings]
 GO
 
@@ -111,39 +108,17 @@ DROP TABLE payments.InboxMessages
 DROP TABLE payments.InternalCommands
 GO
 
-DROP TABLE payments.MeetingGroupPaymentRegisters
-GO
-
-
-DROP TABLE payments.MeetingPayments
-GO
-
 DROP TABLE payments.OutboxMessages
 GO
 
 DROP TABLE payments.Payers
 GO
 
-DROP VIEW payments.v_MeetingGroupPaymentRegisters
-GO
-
-DROP VIEW payments.v_MeetingGroupPayments
-GO
-
-DROP VIEW payments.v_MeetingPayments
-GO
-
-DROP VIEW payments.v_Payers
-GO
-
-
-
 DROP TABLE users.InboxMessages
 GO
 
 DROP TABLE users.InternalCommands
 GO
-
 
 DROP TABLE users.OutboxMessages
 GO

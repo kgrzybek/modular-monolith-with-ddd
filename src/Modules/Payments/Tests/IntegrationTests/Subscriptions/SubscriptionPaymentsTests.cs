@@ -9,11 +9,13 @@ using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.ExpireSu
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetSubscriptionPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments;
+using CompanyName.MyMeetings.Modules.Payments.IntegrationTests.PriceList;
 using CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork;
 using NUnit.Framework;
 
 namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
 {
+    [NonParallelizable]
     [TestFixture]
     public class SubscriptionPaymentsTests : TestBase
     {
@@ -21,6 +23,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
         public async Task SubscriptionPayment_Expiration_Test()
         {
             SystemClock.Set(new DateTime(2020, 6, 15, 10, 0, 0));
+
+            await PriceListHelper.AddPriceListItems(PaymentsModule);
 
             await PaymentsModule.ExecuteCommandAsync(
                 new BuySubscriptionCommand(

@@ -1,5 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using CompanyName.MyMeetings.API.Configuration.Authorization;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.CreatePriceListItem;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +18,8 @@ namespace CompanyName.MyMeetings.API.Modules.Payments.PriceListItems
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreatePriceListItemRequest request)
+        [HasPermission(PaymentsPermissions.CreatePriceListItem)]
+        public async Task<IActionResult> CreatePriceListItem([FromBody] CreatePriceListItemRequest request)
         {
             await _paymentsModule.ExecuteCommandAsync(new CreatePriceListItemCommand(
                 request.SubscriptionPeriodCode,

@@ -321,22 +321,7 @@ CREATE TABLE [meetings].[InboxMessages] (
 
 
 GO
-PRINT N'Creating [payments].[MeetingPayments]...';
 
-
-GO
-CREATE TABLE [payments].[MeetingPayments] (
-    [PayerId]     UNIQUEIDENTIFIER NOT NULL,
-    [MeetingId]   UNIQUEIDENTIFIER NOT NULL,
-    [CreateDate]  DATETIME2 (7)    NOT NULL,
-    [PaymentDate] DATETIME2 (7)    NULL,
-    [FeeValue]    DECIMAL (5)      NOT NULL,
-    [FeeCurrency] VARCHAR (3)      NOT NULL,
-    CONSTRAINT [PK_meetings_Meetings_Id] PRIMARY KEY CLUSTERED ([PayerId] ASC, [MeetingId] ASC)
-);
-
-
-GO
 PRINT N'Creating [payments].[Payers]...';
 
 
@@ -350,35 +335,9 @@ CREATE TABLE [payments].[Payers] (
     [Name]      NVARCHAR (255)   NOT NULL,
     CONSTRAINT [PK_payments_Payers_Id] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
-
-
 GO
-PRINT N'Creating [payments].[MeetingGroupPayments]...';
 
 
-GO
-CREATE TABLE [payments].[MeetingGroupPayments] (
-    [Id]                            UNIQUEIDENTIFIER NOT NULL,
-    [MeetingGroupPaymentRegisterId] UNIQUEIDENTIFIER NOT NULL,
-    [Date]                          DATETIME         NOT NULL,
-    [PaymentTermStartDate]          DATE             NOT NULL,
-    [PaymentTermEndDate]            DATE             NOT NULL,
-    [PayerId]                       UNIQUEIDENTIFIER NOT NULL
-);
-
-
-GO
-PRINT N'Creating [payments].[MeetingGroupPaymentRegisters]...';
-
-
-GO
-CREATE TABLE [payments].[MeetingGroupPaymentRegisters] (
-    [Id]         UNIQUEIDENTIFIER NOT NULL,
-    [CreateDate] DATETIME         NOT NULL
-);
-
-
-GO
 PRINT N'Creating [payments].[OutboxMessages]...';
 
 
@@ -649,50 +608,6 @@ SELECT
 FROM [users].[UserRegistrations] AS [UserRegistration]
 GO
 
-CREATE VIEW [payments].[v_Payers]
-AS
-SELECT
-    [Payer].[Id],
-    [Payer].[Login],
-    [Payer].[Email],
-    [Payer].[FirstName],
-    [Payer].[LastName],
-    [Payer].[Name]
-FROM [payments].[Payers] AS [Payer]
-GO
-
-CREATE VIEW [payments].[v_MeetingGroupPaymentRegisters]
-AS
-SELECT
-    [MeetingGroupPaymentRegister].[Id],
-    [MeetingGroupPaymentRegister].[CreateDate]
-FROM [payments].[MeetingGroupPaymentRegisters] AS [MeetingGroupPaymentRegister]
-GO
-
-CREATE VIEW [payments].[v_MeetingGroupPayments]
-AS
-SELECT
-    [MeetingGroupPayment].[Id],
-    [MeetingGroupPayment].[MeetingGroupPaymentRegisterId],
-    [MeetingGroupPayment].[Date],
-    [MeetingGroupPayment].[PaymentTermStartDate],
-    [MeetingGroupPayment].[PaymentTermEndDate],
-    [MeetingGroupPayment].[PayerId]
-FROM [payments].[MeetingGroupPayments] AS [MeetingGroupPayment]
-GO
-
-CREATE VIEW [payments].[v_MeetingPayments]
-AS
-SELECT
-    [MeetingPayment].[PayerId],
-    [MeetingPayment].[MeetingId],
-    [MeetingPayment].[CreateDate],
-    [MeetingPayment].[PaymentDate],
-    [MeetingPayment].[FeeValue],
-    [MeetingPayment].[FeeCurrency]
-FROM [payments].[MeetingPayments] AS [MeetingPayment]
-GO
-
 CREATE VIEW [administration].[v_Members]
 AS
 SELECT
@@ -859,6 +774,7 @@ INSERT INTO users.RolesToPermissions VALUES ('Member', 'LeaveMeetingGroup')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'RegisterPayment')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'BuySubscription')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'RenewSubscription')
+INSERT INTO users.RolesToPermissions VALUES ('Administrator', 'AcceptMeetingGroupProposal')
 
 INSERT INTO users.RolesToPermissions VALUES ('Administrator', 'AcceptMeetingGroupProposal')
 
@@ -1012,16 +928,29 @@ CREATE TABLE [meetings].[MemberSubscriptions]
 GO
 
 INSERT INTO payments.PriceListItems
-VALUES ('d58f0876-efe3-4b4c-b196-a4c3d5fadd24', 'Month', 'PL', 60, 'PLN', 1)
+VALUES ('d58f0876-efe3-4b4c-b196-a4c3d5fadd24', 'Month', 'New', 'PL', 60, 'PLN', 1)
 
 INSERT INTO payments.PriceListItems
-VALUES ('d48e9951-2ae8-467e-a257-a1f492dbd36d', 'HalfYear', 'PL', 320, 'PLN', 1)
+VALUES ('d48e9951-2ae8-467e-a257-a1f492dbd36d', 'HalfYear', 'New', 'PL', 320, 'PLN', 1)
 
 INSERT INTO payments.PriceListItems
-VALUES ('b7bbe846-c151-48b5-85ef-a5737108640c', 'Month', 'US', 15, 'USD', 1)
+VALUES ('b7bbe846-c151-48b5-85ef-a5737108640c', 'Month', 'New', 'US', 15, 'USD', 1)
 
 INSERT INTO payments.PriceListItems
-VALUES ('92666bf7-7e86-4784-9c69-e6f3b8bb0ea6', 'HalfYear', 'US', 80, 'USD', 1)
+VALUES ('92666bf7-7e86-4784-9c69-e6f3b8bb0ea6', 'HalfYear', 'New', 'US', 80, 'USD', 1)
+GO
+
+INSERT INTO payments.PriceListItems
+VALUES ('d58f0876-efe3-4b4c-b196-a4c3d5fadd24', 'Month', 'Renewal', 'PL', 60, 'PLN', 1)
+
+INSERT INTO payments.PriceListItems
+VALUES ('d48e9951-2ae8-467e-a257-a1f492dbd36d', 'HalfYear', 'Renewal', 'PL', 320, 'PLN', 1)
+
+INSERT INTO payments.PriceListItems
+VALUES ('b7bbe846-c151-48b5-85ef-a5737108640c', 'Month', 'Renewal', 'US', 15, 'USD', 1)
+
+INSERT INTO payments.PriceListItems
+VALUES ('92666bf7-7e86-4784-9c69-e6f3b8bb0ea6', 'HalfYear', 'Renewal', 'US', 80, 'USD', 1)
 GO
 
 CREATE VIEW [meetings].[v_MeetingGroupMembers]
