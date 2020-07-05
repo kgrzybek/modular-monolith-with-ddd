@@ -21,7 +21,6 @@ namespace CompanyName.MyMeetings.API.Modules.Payments.PriceListItems
         public async Task<IActionResult> Create([FromBody] CreatePriceListItemRequest request)
         {
             await _paymentsModule.ExecuteCommandAsync(new CreatePriceListItemCommand(
-                Guid.NewGuid(),
                 request.SubscriptionPeriodCode,
                 request.CategoryCode,
                 request.CountryCode,

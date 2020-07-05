@@ -15,7 +15,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.Cre
 
         public string PriceCurrency { get; }
         
-        public CreatePriceListItemCommand(Guid id, string subscriptionPeriodCode, string categoryCode, string countryCode, decimal priceValue, string priceCurrency) : base(id)
+        public CreatePriceListItemCommand(string subscriptionPeriodCode, string categoryCode, string countryCode, decimal priceValue, string priceCurrency)
         {
             SubscriptionPeriodCode = subscriptionPeriodCode;
             CategoryCode = categoryCode;

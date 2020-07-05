@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
+using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems;
+using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.CreatePriceListItem;
+using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.GetPriceListItems;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuySubscription;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuySubscriptionRenewal;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.ExpireSubscriptions;
@@ -11,6 +14,7 @@ using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetSubsc
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetSubscriptionPayments;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.MarkSubscriptionPaymentAsPaid;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.MarkSubscriptionRenewalPaymentAsPaid;
+using CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionRenewalPayments;
@@ -26,6 +30,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
         [Test]
         public async Task Subscription_Buy_ThenRenew_ThenExpire_Test()
         {
+            await AddPriceListItems();
+
             DateTime referenceDate = new DateTime(2020, 6, 15);
             SystemClock.Set(referenceDate);
 
@@ -38,7 +44,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
 
             var subscriptionPayments = await GetEventually(
                 new GetSubscriptionPaymentsProbe(PaymentsModule, ExecutionContext.UserId,
-                    x => true), 
+                    x => true),
                 10000);
 
             var subscriptionPayment = subscriptionPayments.Single(x => x.PaymentId == subscriptionPaymentId);
@@ -52,17 +58,17 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
                 new GetSubscriptionPaymentsProbe(PaymentsModule, ExecutionContext.UserId,
                     x => x.TrueForAll(payment => payment.SubscriptionId != null)),
                 10000);
-            
+
             subscriptionPayment = subscriptionPayments.Single(x => x.PaymentId == subscriptionPaymentId);
-            
+
             var subscriptionId = subscriptionPayment.SubscriptionId.GetValueOrDefault();
-            
+
             var subscription = await GetEventually(
                 new GetSubscriptionDetailsProbe(
-                    PaymentsModule, 
+                    PaymentsModule,
                     subscriptionId,
                     x => x.SubscriptionId == subscriptionId &&
-                         x.Status == SubscriptionStatus.Active.Code && 
+                         x.Status == SubscriptionStatus.Active.Code &&
                          x.Period == SubscriptionPeriod.Month.Code), 5000);
 
             Assert.That(subscriptionPayments[0].Status, Is.EqualTo(SubscriptionPaymentStatus.Paid.Code));
@@ -78,7 +84,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
 
             subscriptionPayments = await GetEventually(
                 new GetSubscriptionPaymentsProbe(PaymentsModule, ExecutionContext.UserId,
-                    x => true), 
+                    x => true),
                 10000);
 
             var renewalPayment = subscriptionPayments
@@ -91,21 +97,21 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
 
             subscriptionPayments = await GetEventually(
                 new GetSubscriptionPaymentsProbe(PaymentsModule, ExecutionContext.UserId,
-                    x => true), 
+                    x => true),
                 10000);
-            
+
             renewalPayment = subscriptionPayments
                 .Single(x => x.PaymentId == subscriptionRenewalPaymentId);
 
             subscription = await GetEventually(
                 new GetSubscriptionDetailsProbe(
-                    PaymentsModule, 
+                    PaymentsModule,
                     subscriptionId,
                     x => x.SubscriptionId == subscriptionId &&
                          x.Period == SubscriptionPeriod.GetName(SubscriptionPeriod.HalfYear.Code) &&
                          x.Status == SubscriptionStatus.Active.Code
                     ), 5000);
-            
+
             Assert.That(renewalPayment.Status, Is.EqualTo(SubscriptionRenewalPaymentStatus.Paid.Code));
             Assert.That(subscription.ExpirationDate, Is.EqualTo(referenceDate.AddMonths(7)));
 
@@ -117,33 +123,52 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
                 new GetSubscriptionDetailsProbe(
                     PaymentsModule,
                     subscriptionId,
-                    x => x.SubscriptionId == subscriptionId),
+                    x => x.SubscriptionId == subscriptionId &&
+                         x.Status == SubscriptionStatus.Expired.Code),
                 10000);
 
-            Assert.That(subscription.Status, Is.EqualTo(SubscriptionStatus.Expired));
+            Assert.That(subscription, Is.Not.Null);
 
-            //await PaymentsModule.ExecuteCommandAsync(
-            //    new RenewSubscriptionCommand(subscriptionId,
-            //        "Month"));
+        }
 
-            //AssertEventually(
-            //    new GetSubscriptionDetailsProbe(
-            //        PaymentsModule,
-            //        subscriptionId,
-            //        x => x.SubscriptionId == subscriptionId &&
-            //             x.Status == SubscriptionStatus.Active.Code &&
-            //             x.Period == SubscriptionPeriod.Month.Code &&
-            //             x.ExpirationDate == new DateTime(2020, 8, 15)), 5000);
+        private async Task AddPriceListItems()
+        {
+            await PaymentsModule.ExecuteCommandAsync(new CreatePriceListItemCommand(
+                SubscriptionPeriod.Month.Code,
+                PriceListItemCategory.New.Code,
+                "PL",
+                60,
+                "PLN"));
 
-            //await PaymentsModule.ExecuteCommandAsync(
-            //    new ExpireSubscriptionCommand(subscriptionId));
+            await PaymentsModule.ExecuteCommandAsync(new CreatePriceListItemCommand(
+                SubscriptionPeriod.HalfYear.Code,
+                PriceListItemCategory.New.Code,
+                "PL",
+                320,
+                "PLN"));
 
-            //AssertEventually(
-            //    new GetSubscriptionDetailsProbe(
-            //        PaymentsModule,
-            //        subscriptionId,
-            //        x => x.SubscriptionId == subscriptionId &&
-            //             x.Status == SubscriptionStatus.Expired.Code), 5000);
+            await PaymentsModule.ExecuteCommandAsync(new CreatePriceListItemCommand(
+                SubscriptionPeriod.Month.Code,
+                PriceListItemCategory.New.Code,
+                "US",
+                15,
+                "USD"));
+
+            await PaymentsModule.ExecuteCommandAsync(new CreatePriceListItemCommand(
+                SubscriptionPeriod.HalfYear.Code,
+                PriceListItemCategory.New.Code,
+                "US",
+                80,
+                "USD"));
+
+            await PaymentsModule.ExecuteCommandAsync(new CreatePriceListItemCommand(
+                SubscriptionPeriod.HalfYear.Code,
+                PriceListItemCategory.Renewal.Code,
+                "PL",
+                320,
+                "PLN"));
+
+            await GetEventually(new GetPriceListProbe(PaymentsModule, x => x.Count == 5), 5000);
         }
 
         private class GetSubscriptionPaymentsProbe : IProbe<List<SubscriptionPaymentDto>>
@@ -155,7 +180,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
             private readonly Func<List<SubscriptionPaymentDto>, bool> _condition;
 
             public GetSubscriptionPaymentsProbe(
-                IPaymentsModule paymentsModule, 
+                IPaymentsModule paymentsModule,
                 Guid payerId, Func<List<SubscriptionPaymentDto>, bool> condition)
             {
                 _paymentsModule = paymentsModule;
@@ -180,6 +205,36 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
             }
         }
 
+        private class GetPriceListProbe : IProbe<List<PriceListItemDto>>
+        {
+            private readonly IPaymentsModule _paymentsModule;
+
+            private readonly Func<List<PriceListItemDto>, bool> _condition;
+
+            public GetPriceListProbe(
+                IPaymentsModule paymentsModule,
+                Func<List<PriceListItemDto>, bool> condition)
+            {
+                _paymentsModule = paymentsModule;
+                _condition = condition;
+            }
+
+            public bool IsSatisfied(List<PriceListItemDto> sample)
+            {
+                return sample != null && _condition(sample);
+            }
+
+            public async Task<List<PriceListItemDto>> GetSampleAsync()
+            {
+                return await _paymentsModule.ExecuteQueryAsync(new GetPriceListItemsQuery());
+            }
+
+            public string DescribeFailureTo()
+            {
+                return "Cannot get price list for specified condition";
+            }
+        }
+
         private class GetSubscriptionDetailsProbe : IProbe<SubscriptionDetailsDto>
         {
             private readonly IPaymentsModule _paymentsModule;
@@ -189,15 +244,15 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
             private readonly Func<SubscriptionDetailsDto, bool> _condition;
 
             public GetSubscriptionDetailsProbe(
-                IPaymentsModule paymentsModule, 
-                Guid subscriptionId, 
+                IPaymentsModule paymentsModule,
+                Guid subscriptionId,
                 Func<SubscriptionDetailsDto, bool> condition)
             {
                 _paymentsModule = paymentsModule;
                 _subscriptionId = subscriptionId;
                 _condition = condition;
             }
-            
+
             public bool IsSatisfied(SubscriptionDetailsDto sample)
             {
                 return sample != null && _condition(sample);

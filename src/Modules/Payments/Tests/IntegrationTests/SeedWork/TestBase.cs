@@ -48,7 +48,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
             using (var sqlConnection = new SqlConnection(ConnectionString))
             {
                 await ClearDatabase(sqlConnection);
-                await SeedData(sqlConnection);
+             //   await SeedData(sqlConnection);
             }
 
             Logger = Substitute.For<ILogger>();

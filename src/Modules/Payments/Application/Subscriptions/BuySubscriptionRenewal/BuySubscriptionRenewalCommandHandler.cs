@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
+using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems;
 using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Payers;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
+using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionRenewalPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions;
 using Dapper;
@@ -35,7 +37,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuyS
         
         public async Task<Guid> Handle(BuySubscriptionRenewalCommand command, CancellationToken cancellationToken)
         {
-            PriceList priceList = await GetPriceList();
+            var priceList = await PriceListProvider.GetPriceList(_sqlConnectionFactory.GetOpenConnection());
 
             var subscriptionId = new SubscriptionId(command.SubscriptionId);
 
@@ -57,40 +59,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuyS
             _aggregateStore.AppendChanges(subscriptionRenewalPayment);
 
             return subscriptionRenewalPayment.Id;
-        }
-
-        private async Task<PriceList> GetPriceList()
-        {
-            var connection = _sqlConnectionFactory.GetOpenConnection();
-
-            var priceListItems = await connection.QueryAsync<PriceListItemDto>("SELECT " +
-                                                          $"[PriceListItem].[CountryCode] AS [{nameof(PriceListItemDto.CountryCode)}], " +
-                                                          $"[PriceListItem].[SubscriptionPeriodCode] AS [{nameof(PriceListItemDto.SubscriptionPeriodCode)}], " +
-                                                          $"[PriceListItem].[MoneyValue] AS [{nameof(PriceListItemDto.MoneyValue)}], " +
-                                                          $"[PriceListItem].[MoneyCurrency] AS [{nameof(PriceListItemDto.MoneyCurrency)}] " +
-                                                          "FROM [payments].[PriceListItems] AS [PriceListItem] ");
-
-            var priceListItemList = priceListItems.AsList();
-
-            return new PriceList(
-                priceListItemList
-                    .Select(x => 
-                        new PriceListItem(
-                            x.CountryCode, 
-                            SubscriptionPeriod.Of(x.SubscriptionPeriodCode),
-                            MoneyValue.Of(x.MoneyValue, x.MoneyCurrency)))
-                    .ToList());
-        }
-
-        private class PriceListItemDto
-        {
-            public string CountryCode { get; set; }
-
-            public string SubscriptionPeriodCode { get; set; }
-
-            public decimal MoneyValue { get; set; }
-
-            public string MoneyCurrency { get; set; }
         }
     }
 }

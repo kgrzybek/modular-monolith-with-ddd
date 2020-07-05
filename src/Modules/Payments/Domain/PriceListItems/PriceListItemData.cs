@@ -1,15 +1,19 @@
 ﻿using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions;
 
-namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments
+namespace CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems
 {
-    public class PriceListItem
+    public class PriceListItemData
     {
-        public PriceListItem(
-            string countryCode, SubscriptionPeriod subscriptionPeriod, MoneyValue value)
+        public PriceListItemData(
+            string countryCode, 
+            SubscriptionPeriod subscriptionPeriod, 
+            MoneyValue value, 
+            PriceListItemCategory category)
         {
             CountryCode = countryCode;
             Value = value;
+            Category = category;
             SubscriptionPeriod = subscriptionPeriod;
         }
 
@@ -18,5 +22,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments
         public SubscriptionPeriod SubscriptionPeriod { get; }
 
         public MoneyValue Value { get; }
+
+        public PriceListItemCategory Category { get; }
     }
 }

@@ -2,6 +2,7 @@
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Payers;
+using CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments.Events;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments.Rules;
@@ -33,7 +34,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments
             MoneyValue priceOffer,
             PriceList priceList)
         {
-            var priceInPriceList = priceList.GetPrice(countryCode, period);
+            var priceInPriceList = priceList.GetPrice(countryCode, period, PriceListItemCategory.New);
             CheckRule(new PriceOfferMustMatchPriceInPriceListRule(priceOffer, priceInPriceList));
 
             var subscriptionPayment = new SubscriptionPayment();
