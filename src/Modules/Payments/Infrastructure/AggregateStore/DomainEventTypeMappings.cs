@@ -25,7 +25,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
             Dictionary.Add("SubscriptionRenewalPaymentCreated", typeof(SubscriptionRenewalPaymentCreatedDomainEvent));
             Dictionary.Add("SubscriptionRenewalPaymentPaid", typeof(SubscriptionRenewalPaymentPaidDomainEvent));
 
-            Dictionary.Add("SubscriptionCreated", typeof(SubscriptionPurchasedDomainEvent));
+            Dictionary.Add("SubscriptionCreated", typeof(SubscriptionCreatedDomainEvent));
             Dictionary.Add("SubscriptionRenewed", typeof(SubscriptionRenewedDomainEvent));
             Dictionary.Add("SubscriptionExpired", typeof(SubscriptionExpiredDomainEvent));
 

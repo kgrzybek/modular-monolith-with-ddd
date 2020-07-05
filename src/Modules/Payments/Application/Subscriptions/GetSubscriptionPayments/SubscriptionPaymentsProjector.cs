@@ -103,8 +103,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetS
                 "WHERE PaymentId = @SubscriptionPaymentId ",
                 new
                 {
-                    subscriptionPurchased.SubscriptionId,
-                    subscriptionPurchased.SubscriptionPaymentId
+                    subscriptionCreated.SubscriptionId,
+                    subscriptionCreated.SubscriptionPaymentId
                 });
         }
 

@@ -5,10 +5,10 @@ using Newtonsoft.Json;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.CreateSubscription
 {
-    public class SubscriptionCreatedNotification : DomainNotificationBase<SubscriptionPurchasedDomainEvent>
+    public class SubscriptionCreatedNotification : DomainNotificationBase<SubscriptionCreatedDomainEvent>
     {
         [JsonConstructor]
-        protected SubscriptionCreatedNotification(SubscriptionPurchasedDomainEvent domainEvent, Guid id)
+        protected SubscriptionCreatedNotification(SubscriptionCreatedDomainEvent domainEvent, Guid id)
             : base(domainEvent, id)
         {
         }
