@@ -1,20 +1,20 @@
-﻿using System;
-using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
+﻿
+using System;
+using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.RenewSubscription
 {
-    public class RenewSubscriptionCommand : CommandBase
+    public class RenewSubscriptionCommand : InternalCommandBase
     {
         public Guid SubscriptionId { get; }
 
-        public string SubscriptionTypeCode { get; }
+        public Guid SubscriptionRenewalPaymentId { get; }
 
         public RenewSubscriptionCommand(
-            Guid subscriptionId, 
-            string subscriptionTypeCode)
+            Guid id, Guid subscriptionId, Guid subscriptionRenewalPaymentId) : base(id)
         {
-            SubscriptionTypeCode = subscriptionTypeCode;
             SubscriptionId = subscriptionId;
+            SubscriptionRenewalPaymentId = subscriptionRenewalPaymentId;
         }
     }
 }

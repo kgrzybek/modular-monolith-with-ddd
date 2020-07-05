@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using CompanyName.MyMeetings.API.Configuration.Authorization;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuySubscription;
-using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.RenewSubscription;
+using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuySubscriptionRenewal;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyName.MyMeetings.API.Modules.Payments.Subscriptions
@@ -40,9 +40,14 @@ namespace CompanyName.MyMeetings.API.Modules.Payments.Subscriptions
             RenewSubscriptionRequest request)
         {
             await _meetingsModule.ExecuteCommandAsync(
-                new RenewSubscriptionCommand(subscriptionId, request.SubscriptionTypeCode));
+                new BuySubscriptionRenewalCommand(
+                    subscriptionId,
+                    request.SubscriptionTypeCode,
+                    request.CountryCode,
+                    request.Value,
+                    request.Currency));
 
-            return Ok();
+            return Accepted();
         }
     }
 }

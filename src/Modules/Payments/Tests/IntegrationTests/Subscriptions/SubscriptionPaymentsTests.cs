@@ -5,17 +5,10 @@ using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuySubscription;
-using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.CreateSubscription;
-using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.ExpireSubscription;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.ExpireSubscriptionPayments;
-using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.ExpireSubscriptions;
-using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetSubscriptionDetails;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetSubscriptionPayments;
-using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.MarkSubscriptionPaymentAsPaid;
-using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.RenewSubscription;
-using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments;
+using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments;
-using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions;
 using CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork;
 using NUnit.Framework;
 

@@ -1,9 +1,9 @@
 ﻿using System;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments;
-using CompanyName.MyMeetings.Modules.Payments.Domain.Payers;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments;
+using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionRenewalPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions.Events;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
@@ -25,13 +25,17 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
 
         }
 
-        public void Renew(SubscriptionPeriod period)
+        public void Renew(
+            SubscriptionRenewalPaymentSnapshot subscriptionRenewalPayment)
         {
-            var expirationDate = SubscriptionDateExpirationCalculator.CalculateForRenewal(_expirationDate, period);
+            var expirationDate = SubscriptionDateExpirationCalculator.CalculateForRenewal(
+                _expirationDate, subscriptionRenewalPayment.SubscriptionPeriod);
+            
             SubscriptionRenewedDomainEvent subscriptionRenewedDomainEvent = new SubscriptionRenewedDomainEvent(
                 this.Id,
-                expirationDate, 
-                period.Code,
+                expirationDate,
+                subscriptionRenewalPayment.PayerId.Value,
+                subscriptionRenewalPayment.SubscriptionPeriod.Code,
                 SubscriptionStatus.Active.Code
                 );
 
@@ -51,7 +55,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
             }
         }
 
-        private void When(SubscriptionPurchasedDomainEvent @event)
+        private void When(SubscriptionCreatedDomainEvent @event)
         {
             this.Id = @event.SubscriptionId;
             _subscriberId = new SubscriberId(@event.PayerId);
@@ -86,7 +90,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
 
             var expirationDate = SubscriptionDateExpirationCalculator.CalculateForNew(subscriptionPayment.SubscriptionPeriod);
 
-            var subscriptionCreatedDomainEvent = new SubscriptionPurchasedDomainEvent(
+            var subscriptionCreatedDomainEvent = new SubscriptionCreatedDomainEvent(
                 subscriptionPayment.Id.Value,
                 Guid.NewGuid(),
                 subscriptionPayment.PayerId.Value,

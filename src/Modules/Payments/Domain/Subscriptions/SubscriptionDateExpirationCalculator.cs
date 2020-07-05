@@ -1,5 +1,5 @@
 ﻿using System;
-using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments;
+using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
 {
