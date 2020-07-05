@@ -5,6 +5,8 @@ using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFees.Events;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Payers.Events;
 using CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems.Events;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments.Events;
+using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionRenewalPayments;
+using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionRenewalPayments.Events;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions.Events;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
@@ -19,6 +21,9 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
             Dictionary.Add("SubscriptionPaymentCreated", typeof(SubscriptionPaymentCreatedDomainEvent));
             Dictionary.Add("SubscriptionPaymentPaid", typeof(SubscriptionPaymentPaidDomainEvent));
             Dictionary.Add("SubscriptionPaymentExpired", typeof(SubscriptionPaymentExpiredDomainEvent));
+            
+            Dictionary.Add("SubscriptionRenewalPaymentCreated", typeof(SubscriptionRenewalPaymentCreatedDomainEvent));
+            Dictionary.Add("SubscriptionRenewalPaymentPaid", typeof(SubscriptionRenewalPaymentPaidDomainEvent));
 
             Dictionary.Add("SubscriptionCreated", typeof(SubscriptionPurchasedDomainEvent));
             Dictionary.Add("SubscriptionRenewed", typeof(SubscriptionRenewedDomainEvent));
