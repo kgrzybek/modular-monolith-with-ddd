@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments
+namespace CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork
 {
     public static class SystemClock
     {

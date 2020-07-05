@@ -11,7 +11,7 @@ using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetSubsc
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetSubscriptionPayments;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.MarkSubscriptionPaymentAsPaid;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.MarkSubscriptionRenewalPaymentAsPaid;
-using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments;
+using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionRenewalPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions;
@@ -113,12 +113,14 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
 
             await PaymentsModule.ExecuteCommandAsync(new ExpireSubscriptionsCommand());
 
-            AssertEventually(
+            subscription = await GetEventually(
                 new GetSubscriptionDetailsProbe(
                     PaymentsModule,
                     subscriptionId,
-                    x => x.SubscriptionId == subscriptionId &&
-                         x.Status == SubscriptionStatus.Expired.Code), 10000);
+                    x => x.SubscriptionId == subscriptionId),
+                10000);
+
+            Assert.That(subscription.Status, Is.EqualTo(SubscriptionStatus.Expired));
 
             //await PaymentsModule.ExecuteCommandAsync(
             //    new RenewSubscriptionCommand(subscriptionId,
