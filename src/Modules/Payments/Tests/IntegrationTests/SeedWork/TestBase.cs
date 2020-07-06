@@ -8,6 +8,7 @@ using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
 using CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
+using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration;
 using Dapper;
@@ -104,6 +105,13 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
             var poller = new Poller(timeout);
 
             return await poller.GetAsync(probe);
+        }
+
+        [TearDown]
+        public void AfterEachTest()
+        {
+            PaymentsStartup.Stop();
+            SystemClock.Reset();
         }
     }
 }

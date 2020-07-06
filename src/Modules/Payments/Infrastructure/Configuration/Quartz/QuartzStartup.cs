@@ -12,6 +12,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Q
 {
     internal static class QuartzStartup
     {
+        private static IScheduler _scheduler;
+
         internal static void Initialize(ILogger logger)
         {
             logger.Information("Quartz starting...");
@@ -20,21 +22,21 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Q
             schedulerConfiguration.Add("quartz.scheduler.instanceName", "Meetings");
             
             ISchedulerFactory schedulerFactory = new StdSchedulerFactory(schedulerConfiguration);
-            IScheduler scheduler = schedulerFactory.GetScheduler().GetAwaiter().GetResult();
+            _scheduler = schedulerFactory.GetScheduler().GetAwaiter().GetResult();
 
             LogProvider.SetCurrentLogProvider(new SerilogLogProvider(logger));
 
-            scheduler.Start().GetAwaiter().GetResult();
+            _scheduler.Start().GetAwaiter().GetResult();
 
-            ScheduleProcessOutboxJob(scheduler);
+            ScheduleProcessOutboxJob(_scheduler);
 
-            ScheduleProcessInboxJob(scheduler);
+            ScheduleProcessInboxJob(_scheduler);
 
-            ScheduleProcessInternalCommandsJob(scheduler);
+            ScheduleProcessInternalCommandsJob(_scheduler);
 
-            ScheduleExpireSubscriptionsJob(scheduler);
+            ScheduleExpireSubscriptionsJob(_scheduler);
 
-            ScheduleExpireSubscriptionPaymentsJob(scheduler);
+            ScheduleExpireSubscriptionPaymentsJob(_scheduler);
 
             logger.Information("Quartz started.");
         }
@@ -105,6 +107,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Q
             scheduler
                 .ScheduleJob(processOutboxJob, trigger)
                 .GetAwaiter().GetResult();
+        }
+
+        public static void StopQuartz()
+        {
+            _scheduler.Shutdown();
         }
     }
 }

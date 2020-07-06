@@ -19,6 +19,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration
     {
         private static IContainer _container;
 
+        private static SubscriptionsManager _subscriptionsManager;
+
         public static void Initialize(
             string connectionString,
             IExecutionContextAccessor executionContextAccessor,
@@ -74,9 +76,15 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration
 
         private static void RunEventsProjectors()
         {
-            var subscriptionsManager =_container.Resolve<SubscriptionsManager>();
+            _subscriptionsManager = _container.Resolve<SubscriptionsManager>();
 
-            subscriptionsManager.Start();
+            _subscriptionsManager.Start();
+        }
+
+        public static void Stop()
+        {
+            _subscriptionsManager.Stop();
+            QuartzStartup.StopQuartz();
         }
     }
 }

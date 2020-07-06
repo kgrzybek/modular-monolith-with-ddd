@@ -38,6 +38,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
             _streamStore.SubscribeToAll(actualPosition, StreamMessageReceived);
         }
 
+        public void Stop()
+        {
+            _streamStore.Dispose();
+        }
+
         private static async Task StreamMessageReceived(
             IAllStreamSubscription subscription, StreamMessage streamMessage, CancellationToken cancellationToken)
         {

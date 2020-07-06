@@ -58,7 +58,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
 
             subscriptionPayments = await GetEventually(
                 new GetSubscriptionPaymentsProbe(PaymentsModule, ExecutionContext.UserId,
-                    x => x.TrueForAll(payment => payment.SubscriptionId != null)),
+                    x => x.Any(y => y.Status == SubscriptionPaymentStatus.Paid.Code &&
+                                    y.SubscriptionId.HasValue)),
                 10000);
 
             subscriptionPayment = subscriptionPayments.Single(x => x.PaymentId == subscriptionPaymentId);
@@ -130,7 +131,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
                 10000);
 
             Assert.That(subscription, Is.Not.Null);
-
         }
 
         
