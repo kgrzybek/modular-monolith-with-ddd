@@ -22,6 +22,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.E
             SubscribeToIntegrationEvent<MeetingGroupProposalAcceptedIntegrationEvent>(eventBus, logger);
             SubscribeToIntegrationEvent<SubscriptionExpirationDateChangedIntegrationEvent>(eventBus, logger);
             SubscribeToIntegrationEvent<NewUserRegisteredIntegrationEvent>(eventBus, logger);
+            SubscribeToIntegrationEvent<MeetingFeePaidIntegrationEvent>(eventBus, logger);
         }
 
         private static void SubscribeToIntegrationEvent<T>(IEventsBus eventBus, ILogger logger) where T:  IntegrationEvent

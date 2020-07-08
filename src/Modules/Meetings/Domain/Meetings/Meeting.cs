@@ -320,5 +320,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
                 _rsvpTerm = rsvpTerm;
             }
         }
+
+        public void MarkAttendeeFeeAsPayed(MemberId memberId)
+        {
+            var attendee = GetActiveAttendee(memberId);
+
+            attendee.MarkFeeAsPayed();
+        }
     }
 }

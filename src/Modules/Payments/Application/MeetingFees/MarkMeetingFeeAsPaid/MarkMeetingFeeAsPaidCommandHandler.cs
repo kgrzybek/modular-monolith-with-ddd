@@ -7,7 +7,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.MarkMeetingFeeAsPaid
 {
-    public class MarkMeetingFeeAsPaidCommandHandler : ICommandHandler<MarkMeetingFeeAsPaidCommand>
+    public class MarkMeetingFeeAsPaidCommandHandler : ICommandHandler<MarkMeetingFeeAsPaidCommand, Unit>
     {
         private readonly IAggregateStore _aggregateStore;
 

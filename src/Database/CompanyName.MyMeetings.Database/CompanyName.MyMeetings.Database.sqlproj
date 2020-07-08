@@ -121,6 +121,8 @@
     <Build Include="payments\Tables\SubscriptionPayments.sql" />
     <Build Include="payments\Tables\SubscriptionCheckpoints.sql" />
     <Build Include="payments\Tables\SubscriptionDetails.sql" />
+    <None Include="Scripts\CreateStructure.sql" />
+    <None Include="Scripts\SeedDatabase.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="administration\Tables\MeetingGroupProposals.sql" />

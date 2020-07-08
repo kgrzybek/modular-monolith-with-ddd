@@ -182,5 +182,7 @@ GO
 DROP SCHEMA [payments]
 GO
 
+DROP VIEW meetings.v_MeetingGroupMembers
+
 DROP SCHEMA [meetings]
 GO

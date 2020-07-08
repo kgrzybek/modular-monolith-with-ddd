@@ -40,10 +40,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.Meetings.IntegrationEvents", "Modules\Meetings\IntegrationEvents\CompanyName.MyMeetings.Modules.Meetings.IntegrationEvents.csproj", "{3ED61776-83A0-426C-9B3A-3AB755DA01EF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{C733D087-7051-4E35-BCDB-081252A108E5}"
-	ProjectSection(SolutionItems) = preProject
-		Database\ClearDatabase.sql = Database\ClearDatabase.sql
-		Database\InitializeDatabase.sql = Database\InitializeDatabase.sql
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.Administration.IntegrationEvents", "Modules\Administration\IntegrationEvents\CompanyName.MyMeetings.Modules.Administration.IntegrationEvents.csproj", "{396817BD-94A7-4559-A7F1-2FAB8009BCF8}"
 EndProject

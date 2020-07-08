@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CompanyName.MyMeetings.API.Modules.Payments.PriceListItems
 {
     [ApiController]
-    [Route("payments/priceListItems")]
+    [Route("api/payments/priceListItems")]
     public class PriceListItemsController : ControllerBase
     {
         private readonly IPaymentsModule _paymentsModule;
