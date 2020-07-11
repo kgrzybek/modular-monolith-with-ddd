@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
@@ -9,8 +8,6 @@ using CompanyName.MyMeetings.Modules.Payments.Domain.Payers;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions;
-using Dapper;
-
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuySubscription
 {
     public class BuySubscriptionCommandHandler : ICommandHandler<BuySubscriptionCommand, Guid>
@@ -46,7 +43,5 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuyS
 
             return subscription.Id;
         }
-
-
     }
 }

@@ -146,6 +146,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
         public void MarkFeeAsPayed()
         {
             _isFeePaid = true;
+
+            this.AddDomainEvent(new MeetingAttendeeFeePaidDomainEvent(this.MeetingId, this.AttendeeId));
         }
     }
 }
