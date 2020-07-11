@@ -60,7 +60,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.PriceListItem
             priceListItem.Activate();
             
             // Assert
-            AssertNotPublishedDomainEvent<PriceListItemActivatedDomainEvent>(priceListItem);
+            AssertDomainEventNotPublished<PriceListItemActivatedDomainEvent>(priceListItem);
         }
         
         [Test]

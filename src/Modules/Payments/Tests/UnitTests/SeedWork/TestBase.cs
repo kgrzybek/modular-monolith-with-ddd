@@ -33,14 +33,10 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SeedWork
             return domainEvent;
         }
         
-        public static void AssertNotPublishedDomainEvent<T>(AggregateRoot aggregate) where T : IDomainEvent
+        public static void AssertDomainEventNotPublished<T>(AggregateRoot aggregate) where T : IDomainEvent
         {
             var domainEvent = aggregate.GetDomainEvents().OfType<T>().SingleOrDefault();
-
-            if (domainEvent != null)
-            {
-                throw new Exception($"{typeof(T).Name} event was published");
-            }
+            Assert.Null(domainEvent);
         }
 
         public static List<T> AssertPublishedDomainEvents<T>(Entity aggregate) where T : IDomainEvent
