@@ -101,5 +101,28 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.PriceListItem
             
             Assert.That(priceListItemActivatedEvents.Count, Is.EqualTo(1));
         }
+        
+        [Test]
+        public void ChangePriceListItem_IsSuccessful()
+        {
+            // Arrange
+            var priceListItem = PriceListItem.Create(
+                "BRA",
+                SubscriptionPeriod.Month,
+                PriceListItemCategory.New,
+                MoneyValue.Of(50, "BRL"));
+            
+            // Act
+            priceListItem.ChangeAttributes(
+                "ARG",
+                SubscriptionPeriod.HalfYear,
+                PriceListItemCategory.Renewal,
+                MoneyValue.Of(25, "ARS"));
+            
+            // Assert
+            var priceListItemAttributesChangedEvent = AssertPublishedDomainEvent<PriceListItemAttributesChangedDomainEvent>(priceListItem);
+            
+            Assert.That(priceListItemAttributesChangedEvent.PriceListItemId, Is.EqualTo(priceListItem.Id));
+        }
     }
 }

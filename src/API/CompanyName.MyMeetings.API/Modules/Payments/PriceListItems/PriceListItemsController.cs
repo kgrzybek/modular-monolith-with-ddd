@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.API.Configuration.Authorization;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
+using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems;
 using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.ActivatePriceListItem;
 using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.CreatePriceListItem;
 using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.DeactivatePriceListItem;
@@ -48,6 +49,21 @@ namespace CompanyName.MyMeetings.API.Modules.Payments.PriceListItems
         public async Task<IActionResult> DeactivatePriceListItem([FromRoute] Guid priceListItemId)
         {
             await _paymentsModule.ExecuteCommandAsync(new DeactivatePriceListItemCommand(priceListItemId));
+
+            return Ok();
+        }
+
+        [HttpPut]
+        [HasPermission(PaymentsPermissions.ChangePriceListItemAttributes)]
+        public async Task<IActionResult> ChangePriceListItemAttributes([FromBody] ChangePriceListItemAttributesRequest request)
+        {
+            await _paymentsModule.ExecuteCommandAsync(new ChangePriceListItemAttributesCommand(
+                request.PriceListItemId,
+                request.CountryCode,
+                request.SubscriptionPeriodCode,
+                request.CategoryCode,
+                request.PriceValue,
+                request.PriceCurrency));
 
             return Ok();
         }

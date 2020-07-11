@@ -67,6 +67,14 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems
             this._isActive = false;
         }
 
+        private void When(PriceListItemAttributesChangedDomainEvent @event)
+        {
+            this._countryCode = @event.CountryCode;
+            this._subscriptionPeriod = SubscriptionPeriod.Of(@event.SubscriptionPeriodCode);
+            this._category = PriceListItemCategory.Of(@event.CategoryCode);
+            this._price = MoneyValue.Of(@event.Price, @event.Currency);
+        }
+
         public void Activate()
         {
             if (!_isActive)
@@ -88,6 +96,17 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems
                 this.AddDomainEvent(priceListItemDeactivatedEvent);
             }
         }
-        
+
+        public void ChangeAttributes(
+            string countryCode,
+            SubscriptionPeriod subscriptionPeriod,
+            PriceListItemCategory category,
+            MoneyValue price)
+        {
+            var priceListItemChangedDomainEvent = new PriceListItemAttributesChangedDomainEvent(this.Id, countryCode, subscriptionPeriod.Code, category.Code, price.Value, price.Currency);
+
+            this.Apply(priceListItemChangedDomainEvent);
+            this.AddDomainEvent(priceListItemChangedDomainEvent);
+        }
     }
 }
