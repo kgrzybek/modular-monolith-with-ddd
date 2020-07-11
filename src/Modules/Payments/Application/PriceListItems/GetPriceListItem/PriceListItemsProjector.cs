@@ -39,5 +39,29 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.Get
                     @event.IsActive
                 });
         }
+
+        private async Task When(PriceListItemActivatedDomainEvent @event)
+        {
+            await _connection.ExecuteScalarAsync(
+                "UPDATE payments.PriceListItems " +
+                "SET [IsActive] = 'true' " +
+                "WHERE [Id] = @PriceListItemId",
+                new
+                {
+                    @event.PriceListItemId
+                });
+        }
+        
+        private async Task When(PriceListItemDeactivatedDomainEvent @event)
+        {
+            await _connection.ExecuteScalarAsync(
+                "UPDATE payments.PriceListItems " +
+                "SET [IsActive] = 'false' " +
+                "WHERE [Id] = @PriceListItemId",
+                new
+                {
+                    @event.PriceListItemId
+                });
+        }
     }
 }

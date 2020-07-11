@@ -56,5 +56,38 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems
             _price = MoneyValue.Of(@event.Price, @event.Currency);
             _isActive = true;
         }
+
+        private void When(PriceListItemActivatedDomainEvent @event)
+        {
+            this._isActive = true;
+        }
+
+        private void When(PriceListItemDeactivatedDomainEvent @event)
+        {
+            this._isActive = false;
+        }
+
+        public void Activate()
+        {
+            if (!_isActive)
+            {
+                var priceListItemActivatedEvent = new PriceListItemActivatedDomainEvent(this.Id);
+
+                this.Apply(priceListItemActivatedEvent);
+                this.AddDomainEvent(priceListItemActivatedEvent);
+            }
+        }
+
+        public void Deactivate()
+        {
+            if (_isActive)
+            {
+                var priceListItemDeactivatedEvent = new PriceListItemDeactivatedDomainEvent(this.Id);
+
+                this.Apply(priceListItemDeactivatedEvent);
+                this.AddDomainEvent(priceListItemDeactivatedEvent);
+            }
+        }
+        
     }
 }

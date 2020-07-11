@@ -33,6 +33,9 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
             
             
             Dictionary.Add("PriceListItemCreated", typeof(PriceListItemCreatedDomainEvent));
+            Dictionary.Add("PriceListItemActivated", typeof(PriceListItemActivatedDomainEvent));
+            Dictionary.Add("PriceListItemDeactivated", typeof(PriceListItemDeactivatedDomainEvent));
+            
             Dictionary.Add("MeetingFeeCanceled", typeof(MeetingFeeCanceledDomainEvent));
             Dictionary.Add("MeetingFeeCreated", typeof(MeetingFeeCreatedDomainEvent));
             Dictionary.Add("MeetingFeeExpired", typeof(MeetingFeeExpiredDomainEvent));
