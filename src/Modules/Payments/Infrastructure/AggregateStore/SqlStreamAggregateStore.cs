@@ -69,6 +69,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
                 }
             } while (!readStreamPage.IsEnd);
 
+            if (!domainEvents.Any())
+            {
+                return null;
+            }
+
             var aggregate = (T)Activator.CreateInstance(typeof(T), true);
 
             aggregate.Load(domainEvents);

@@ -1630,6 +1630,17 @@ internal class SubscriptionDetailsProjector : ProjectorBase, IProjector
 }
 
 ```
+#### Sample view of Event Store
+
+Sample *Event Store* view after execution of SubscriptionLifecycleTests Integration Test which includes following steps:
+1. Creating Price List
+2. Buying Subscription
+3. Renewing Subscription
+4. Expiring Subscription
+
+looks like this (*SQL Stream Store* table - *payments.Messages*):
+
+![](docs/Images/ES_event_store_db_sample.png)
 
 ## 4. Technology
 
