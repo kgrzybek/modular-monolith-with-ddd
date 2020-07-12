@@ -56,5 +56,57 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems
             _price = MoneyValue.Of(@event.Price, @event.Currency);
             _isActive = true;
         }
+
+        private void When(PriceListItemActivatedDomainEvent @event)
+        {
+            this._isActive = true;
+        }
+
+        private void When(PriceListItemDeactivatedDomainEvent @event)
+        {
+            this._isActive = false;
+        }
+
+        private void When(PriceListItemAttributesChangedDomainEvent @event)
+        {
+            this._countryCode = @event.CountryCode;
+            this._subscriptionPeriod = SubscriptionPeriod.Of(@event.SubscriptionPeriodCode);
+            this._category = PriceListItemCategory.Of(@event.CategoryCode);
+            this._price = MoneyValue.Of(@event.Price, @event.Currency);
+        }
+
+        public void Activate()
+        {
+            if (!_isActive)
+            {
+                var priceListItemActivatedEvent = new PriceListItemActivatedDomainEvent(this.Id);
+
+                this.Apply(priceListItemActivatedEvent);
+                this.AddDomainEvent(priceListItemActivatedEvent);
+            }
+        }
+
+        public void Deactivate()
+        {
+            if (_isActive)
+            {
+                var priceListItemDeactivatedEvent = new PriceListItemDeactivatedDomainEvent(this.Id);
+
+                this.Apply(priceListItemDeactivatedEvent);
+                this.AddDomainEvent(priceListItemDeactivatedEvent);
+            }
+        }
+
+        public void ChangeAttributes(
+            string countryCode,
+            SubscriptionPeriod subscriptionPeriod,
+            PriceListItemCategory category,
+            MoneyValue price)
+        {
+            var priceListItemChangedDomainEvent = new PriceListItemAttributesChangedDomainEvent(this.Id, countryCode, subscriptionPeriod.Code, category.Code, price.Value, price.Currency);
+
+            this.Apply(priceListItemChangedDomainEvent);
+            this.AddDomainEvent(priceListItemChangedDomainEvent);
+        }
     }
 }

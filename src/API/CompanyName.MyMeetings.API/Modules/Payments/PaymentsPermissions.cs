@@ -9,5 +9,11 @@
         public const string RenewSubscription = "RenewSubscription";
 
         public const string CreatePriceListItem = "CreatePriceListItem";
+        
+        public const string ActivatePriceListItem = "ActivatePriceListItem";
+        
+        public const string DeactivatePriceListItem = "DeactivatePriceListItem";
+        
+        public const string ChangePriceListItemAttributes = "ChangePriceListItemAttributes";
     }
 }

@@ -1,7 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using CompanyName.MyMeetings.API.Configuration.Authorization;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
+using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems;
+using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.ActivatePriceListItem;
 using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.CreatePriceListItem;
+using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.DeactivatePriceListItem;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyName.MyMeetings.API.Modules.Payments.PriceListItems
@@ -25,6 +29,39 @@ namespace CompanyName.MyMeetings.API.Modules.Payments.PriceListItems
                 request.SubscriptionPeriodCode,
                 request.CategoryCode,
                 request.CountryCode,
+                request.PriceValue,
+                request.PriceCurrency));
+
+            return Ok();
+        }
+
+        [HttpPatch("{priceListItemId}/activate")]
+        [HasPermission(PaymentsPermissions.ActivatePriceListItem)]
+        public async Task<IActionResult> ActivatePriceListItem([FromRoute] Guid priceListItemId)
+        {
+            await _paymentsModule.ExecuteCommandAsync(new ActivatePriceListItemCommand(priceListItemId));
+
+            return Ok();
+        }
+
+        [HttpPatch("{priceListItemId}/deactivate")]
+        [HasPermission(PaymentsPermissions.DeactivatePriceListItem)]
+        public async Task<IActionResult> DeactivatePriceListItem([FromRoute] Guid priceListItemId)
+        {
+            await _paymentsModule.ExecuteCommandAsync(new DeactivatePriceListItemCommand(priceListItemId));
+
+            return Ok();
+        }
+
+        [HttpPut]
+        [HasPermission(PaymentsPermissions.ChangePriceListItemAttributes)]
+        public async Task<IActionResult> ChangePriceListItemAttributes([FromBody] ChangePriceListItemAttributesRequest request)
+        {
+            await _paymentsModule.ExecuteCommandAsync(new ChangePriceListItemAttributesCommand(
+                request.PriceListItemId,
+                request.CountryCode,
+                request.SubscriptionPeriodCode,
+                request.CategoryCode,
                 request.PriceValue,
                 request.PriceCurrency));
 
