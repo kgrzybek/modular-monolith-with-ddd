@@ -90,6 +90,8 @@ This is a list of the main goals of this repository:
 - Presentation of some **architectural** considerations, decisions, approaches
 - Presentation of the implementation using **Domain-Driven Design** approach (**tactical** patterns)
 - Presentation of the implementation of **Unit Tests** for Domain Model (Testable Design in mind)
+- Presentation of the implementation of **Integration Tests**
+- Presentation of the implementation of **Event Sourcing**
 
 ### 1.2 Out of Scope
 
@@ -1234,14 +1236,14 @@ public class Poller
 
 #### Theory
 
-During the implementation of the Payment module, Event Sourcing was used. Event Sourcing is a way of preserving the state of our system by recording a sequence of events. No less, no more. 
+During the implementation of the Payment module, *Event Sourcing* was used. *Event Sourcing* is a way of preserving the state of our system by recording a sequence of events. No less, no more. 
 
 It is important here to really restore the state of our application from events. If we collect events only for auditing purposes, it is an [Audit Log/Trail](https://en.wikipedia.org/wiki/Audit_trail) - not the *Event Sourcing*.
 
 The main elements of *Event Sourcing* are as follows:
 - Events Stream
 - Objects that are restored based on events. There are 2 types of such objects depending on the purpose:
--- Objects responsible for the change of state. In DDD they will be *Aggregates*.
+-- Objects responsible for the change of state. In Domain-Driven Design they will be *Aggregates*.
 -- *Projections*: read models prepared for a specific purpose
 - *Subscriptions* : a way to receive information about new events
 - *Snapshots*: from time to time, objects saved in the traditional way for performance purposes. Mainly used if there are many events to restore the object from the entire event history. (Note: there is currently no snapshot implementation in the project)
@@ -1257,6 +1259,11 @@ In order not to reinvent the wheel, the *SQL Stream Store* library was used. As 
 Like every library, it has its limitations and assumptions (I recommend the linked documentation chapter "Things you need to know before adopting"). For me, the most important 2 points from this chapter are:
 1. *"Subscriptions (and thus projections) are **eventually consistent** and always will be."* This means that there will always be an inconsistency time from saving the event to the stream and processing the event by the projector(s).
 2. *"No support for ambient System.Transaction scopes enforcing the concept of the stream as the consistency and transactional boundary."* This means that if we save the event to a events stream and want to save something **in the same transaction**, we must use [TransactionScope](https://docs.microsoft.com/en-us/dotnet/api/system.transactions.transactionscope?view=netcore-3.1). If we cannot use *TransactionScope* for some reason, we must accept the Eventual Consistency also in this case.
+
+Other popular tools:
+
+- [EventStore](https://eventstore.com/) *"An industrial-strength database solution built from the ground up for event sourcing."*
+- [Marten](https://martendb.io/) *".NET Transactional Document DB and Event Store on PostgreSQL"*
 
 #### Implementation
 
@@ -1737,6 +1744,8 @@ The project is under [MIT license](https://opensource.org/licenses/MIT).
 ## 10. Inspirations and Recommendations
 
 ### Modular Monolith
+- ["Modular Monolith: A Primer"](https://www.kamilgrzybek.com/design/modular-monolith-primer/) Modular Monolith architecture article series, Kamil Grzybek
+- ["Modular Monolith Architecture: One to rule them all"](https://www.youtube.com/watch?v=njDSXUWeik0) presentation, Kamil Grzybek
 - ["Modular Monoliths"](https://www.youtube.com/watch?v=5OjqD-ow8GE) presentation, Simon Brown
 - ["Majestic Modular Monoliths"](https://www.youtube.com/watch?v=BOvxJaklcr0) presentation, Axel Fontaine
 - ["Building Better Monoliths – Modulithic Applications with Spring Boot"](https://speakerdeck.com/olivergierke/building-better-monoliths-modulithic-applications-with-spring-boot-cd16e6ec-d334-497d-b9f6-3f92d5db035a) slides, Oliver Drotbohm
@@ -1803,3 +1812,10 @@ The project is under [MIT license](https://opensource.org/licenses/MIT).
 ### Event Storming
 - ["Introducing EventStorming"](https://leanpub.com/introducing_eventstorming) book, Alberto Brandolini
 - ["Awesome EventStorming"](https://github.com/mariuszgil/awesome-eventstorming) GH repository, Mariusz Gil
+
+### Event Sourcing
+
+- ["Hands-On Domain-Driven Design with .NET Core: Tackling complexity in the heart of software by putting DDD principles into practice"](https://www.amazon.com/Hands-Domain-Driven-Design-NET-ebook/dp/B07C5WSR9B) book, Alexey Zimarev
+- ["Versioning in an Event Sourced System"](https://leanpub.com/esversioning) book, Greg Young
+- [Hands-On-Domain-Driven-Design-with-.NET-Core](https://github.com/PacktPublishing/Hands-On-Domain-Driven-Design-with-.NET-Core) GH repository, Alexey Zimarev
+- [EventSourcing.NetCore](https://github.com/oskardudycz/EventSourcing.NetCore) GH repository, Oskar Dudycz
