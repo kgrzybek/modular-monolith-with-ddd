@@ -1,4 +1,5 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Domain;
+using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork.Rules;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork
 {
@@ -16,6 +17,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork
 
         public static MoneyValue Of(decimal value, string currency)
         {
+            CheckRule(new ValueOfMoneyMustNotBeNegative(value));
+            
             return new MoneyValue(value, currency);
         }
 
