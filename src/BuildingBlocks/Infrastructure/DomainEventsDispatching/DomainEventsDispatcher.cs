@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Core;
@@ -13,29 +12,31 @@ using Newtonsoft.Json;
 
 namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispatching
 {
-public class DomainEventsDispatcher : IDomainEventsDispatcher
+    public class DomainEventsDispatcher : IDomainEventsDispatcher
     {
         private readonly IMediator _mediator;
+
         private readonly ILifetimeScope _scope;
+
         private readonly IOutbox _outbox;
+
         private readonly IDomainEventsAccessor _domainEventsProvider;
 
         public DomainEventsDispatcher(
-            IMediator mediator, 
-            ILifetimeScope scope, 
+            IMediator mediator,
+            ILifetimeScope scope,
             IOutbox outbox,
             IDomainEventsAccessor domainEventsProvider)
         {
-            this._mediator = mediator;
-            this._scope = scope;
-            this._outbox = outbox;
+            _mediator = mediator;
+            _scope = scope;
+            _outbox = outbox;
             _domainEventsProvider = domainEventsProvider;
         }
 
         public async Task DispatchEventsAsync()
         {
             var domainEvents = _domainEventsProvider.GetAllDomainEvents();
-
 
             var domainEventNotifications = new List<IDomainEventNotification<IDomainEvent>>();
             foreach (var domainEvent in domainEvents)
@@ -45,7 +46,7 @@ public class DomainEventsDispatcher : IDomainEventsDispatcher
                 var domainNotification = _scope.ResolveOptional(domainNotificationWithGenericType, new List<Parameter>
                 {
                     new NamedParameter("domainEvent", domainEvent),
-                    new NamedParameter("id", Guid.NewGuid())
+                    new NamedParameter("id", domainEvent.Id)
                 });
 
                 if (domainNotification != null)
@@ -56,13 +57,10 @@ public class DomainEventsDispatcher : IDomainEventsDispatcher
 
             _domainEventsProvider.ClearAllDomainEvents();
 
-            var tasks = domainEvents
-                .Select(async (domainEvent) =>
-                {
-                    await _mediator.Publish(domainEvent);
-                });
-
-            await Task.WhenAll(tasks);
+            foreach (var domainEvent in domainEvents)
+            {
+                await _mediator.Publish(domainEvent);
+            }
 
             foreach (var domainEventNotification in domainEventNotifications)
             {
@@ -71,11 +69,13 @@ public class DomainEventsDispatcher : IDomainEventsDispatcher
                 {
                     ContractResolver = new AllPropertiesContractResolver()
                 });
-                OutboxMessage outboxMessage = new OutboxMessage(
+                
+                var outboxMessage = new OutboxMessage(
                     domainEventNotification.Id,
                     domainEventNotification.DomainEvent.OccurredOn,
                     type,
                     data);
+
                 _outbox.Add(outboxMessage);
             }
         }

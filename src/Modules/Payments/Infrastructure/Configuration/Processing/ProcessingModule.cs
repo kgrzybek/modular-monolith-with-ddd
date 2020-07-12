@@ -4,6 +4,7 @@ using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispatching;
 using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
+using CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Processing.InternalCommands;
 using MediatR;
 using ICommandsScheduler = CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands.ICommandsScheduler;
@@ -18,11 +19,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
                 .As<IDomainEventsDispatcher>()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<DomainEventsAccessor>()
+            builder.RegisterType<AggregateStoreDomainEventsAccessor>()
                 .As<IDomainEventsAccessor>()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<UnitOfWork>()
+            builder.RegisterType<PaymentsUnitOfWork>()
                 .As<IUnitOfWork>()
                 .InstancePerLifetimeScope();
 

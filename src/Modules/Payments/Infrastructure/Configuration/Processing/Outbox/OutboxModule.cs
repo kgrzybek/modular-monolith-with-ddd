@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Outbox;
-using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Outbox;
-using Module = Autofac.Module;
+using CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Processing.Outbox
 {
@@ -9,9 +8,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
     {
         protected override void Load(ContainerBuilder builder)
         {
-
-
-            builder.RegisterType<OutboxAccessor>()
+            builder.RegisterType<SqlOutboxAccessor>()
                 .As<IOutbox>()
                 .FindConstructorsWith(new AllConstructorFinder())
                 .InstancePerLifetimeScope();

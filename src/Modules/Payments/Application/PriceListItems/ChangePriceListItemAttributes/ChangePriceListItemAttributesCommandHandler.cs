@@ -1,0 +1,34 @@
+﻿using System.Threading;
+using System.Threading.Tasks;
+using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
+using CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems;
+using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
+using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions;
+using MediatR;
+
+namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.ChangePriceListItemAttributes
+{
+    public class ChangePriceListItemAttributesCommandHandler : ICommandHandler<ChangePriceListItemAttributesCommand>
+    {
+        private readonly IAggregateStore _aggregateStore;
+
+        public ChangePriceListItemAttributesCommandHandler(IAggregateStore aggregateStore)
+        {
+            _aggregateStore = aggregateStore;
+        }
+
+        public async Task<Unit> Handle(ChangePriceListItemAttributesCommand command, CancellationToken cancellationToken)
+        {
+            var priceListItem = await _aggregateStore.Load(new PriceListItemId(command.PriceListItemId));
+            
+            priceListItem.ChangeAttributes(
+                command.CountryCode,
+                SubscriptionPeriod.Of(command.SubscriptionPeriodCode),
+                PriceListItemCategory.Of(command.CategoryCode),
+                MoneyValue.Of(command.PriceValue, command.PriceCurrency));
+           
+            _aggregateStore.AppendChanges(priceListItem);
+            return Unit.Value;
+        }
+    }
+}

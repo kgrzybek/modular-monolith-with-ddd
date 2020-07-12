@@ -22,8 +22,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SendMeeti
                 notification.DomainEvent.OccurredOn,
                 notification.DomainEvent.MeetingId.Value, 
                 notification.DomainEvent.AttendeeId.Value, 
-                notification.DomainEvent.Fee.Value,
-                notification.DomainEvent.Fee.Currency));
+                notification.DomainEvent.FeeValue,
+                notification.DomainEvent.FeeCurrency));
 
             return Task.CompletedTask;
         }

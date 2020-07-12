@@ -1,80 +1,73 @@
-﻿DELETE FROM [administration].[MeetingGroupProposals]
-GO
-
-DELETE FROM [administration].[OutboxMessages]
-GO
-
-DELETE FROM [administration].[InboxMessages]
-GO
+﻿DELETE FROM [administration].[InboxMessages]
 
 DELETE FROM [administration].[InternalCommands]
-GO
+
+DELETE FROM [administration].[OutboxMessages]
+
+DELETE FROM [administration].[MeetingGroupProposals]
+
+DELETE FROM [administration].[Members]
 
 DELETE FROM [meetings].[InboxMessages]
-GO
-
-DELETE FROM [meetings].[OutboxMessages]
-GO
 
 DELETE FROM [meetings].[InternalCommands]
-GO
 
-DELETE FROM [meetings].[MeetingGroupProposals]
-GO
-
-DELETE FROM [meetings].[MeetingGroupMembers]
-GO
+DELETE FROM [meetings].[OutboxMessages]
 
 DELETE FROM [meetings].[MeetingAttendees]
-GO
+
+DELETE FROM [meetings].[MeetingGroupMembers]
+
+DELETE FROM [meetings].[MeetingGroupProposals]
 
 DELETE FROM [meetings].[MeetingGroups]
-GO
 
-DROP TABLE [administration].[MeetingGroupProposals]
-GO
+DELETE FROM [meetings].[MeetingNotAttendees]
 
-DROP TABLE [administration].[OutboxMessages]
-GO
+DELETE FROM [meetings].[Meetings]
 
-DROP TABLE [administration].[InboxMessages]
-GO
+DELETE FROM [meetings].[MeetingWaitlistMembers]
 
-DROP TABLE [administration].[InternalCommands]
-GO
+DELETE FROM [meetings].[Members]
 
-DROP TABLE [meetings].[InboxMessages]
-GO
+DELETE FROM [payments].[InboxMessages]
 
-DROP TABLE [meetings].[OutboxMessages]
-GO
+DELETE FROM [payments].[InternalCommands]
 
-DROP TABLE [meetings].[InternalCommands]
-GO
+DELETE FROM [payments].[OutboxMessages]
 
-DROP TABLE [meetings].[MeetingGroupProposals]
-GO
+DELETE FROM payments.[Messages]
 
-DROP TABLE [meetings].[MeetingGroupMembers]
-GO
+DBCC CHECKIDENT ('payments.Messages', RESEED, 0);
 
-DROP TABLE [meetings].[MeetingAttendees]
-GO
+DELETE FROM payments.Streams
 
-DROP TABLE [meetings].[MeetingGroups]
-GO
+DBCC CHECKIDENT ('payments.Streams', RESEED, 0);
 
-DROP TABLE [meetings].[MeetingGroupPayments]
-GO
+DELETE FROM payments.SubscriptionDetails
 
-DROP TABLE [meetings].[Meetings]
-GO
+DELETE FROM [payments].[SubscriptionCheckpoints]
 
-DROP VIEW [meetings].[v_MeetingGroups]
-GO
+DELETE FROM [payments].PriceListItems
 
-DROP SCHEMA [administration]
-GO
+DELETE FROM [payments].SubscriptionPayments
 
-DROP SCHEMA [meetings]
-GO
+DELETE FROM [payments].MeetingFees
+
+DELETE FROM [payments].[Payers]
+
+DELETE FROM [users].[InboxMessages]
+
+DELETE FROM [users].[InternalCommands]
+
+DELETE FROM [users].[OutboxMessages]
+
+DELETE FROM [users].[UserRegistrations]
+
+DELETE FROM [users].[Users]
+
+DELETE FROM [users].[RolesToPermissions]
+
+DELETE FROM [users].[UserRoles]
+
+DELETE FROM [users].[Permissions]

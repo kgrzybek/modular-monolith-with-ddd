@@ -40,10 +40,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.Meetings.IntegrationEvents", "Modules\Meetings\IntegrationEvents\CompanyName.MyMeetings.Modules.Meetings.IntegrationEvents.csproj", "{3ED61776-83A0-426C-9B3A-3AB755DA01EF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{C733D087-7051-4E35-BCDB-081252A108E5}"
-	ProjectSection(SolutionItems) = preProject
-		Database\ClearDatabase.sql = Database\ClearDatabase.sql
-		Database\InitializeDatabase.sql = Database\InitializeDatabase.sql
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.Administration.IntegrationEvents", "Modules\Administration\IntegrationEvents\CompanyName.MyMeetings.Modules.Administration.IntegrationEvents.csproj", "{396817BD-94A7-4559-A7F1-2FAB8009BCF8}"
 EndProject
@@ -108,6 +104,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B1D398A1-7005-4792-8D7F-CD9E5F3C29B7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.BuildingBlocks.Application.UnitTests", "BuildingBlocks\Tests\Application.UnitTests\CompanyName.MyMeetings.BuildingBlocks.Application.UnitTests.csproj", "{32915CF6-62D9-4121-8650-6279D5154B4B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.BuildingBlocks.IntegrationTests", "BuildingBlocks\Tests\IntegrationTests\CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.csproj", "{8CCB9013-92CE-4A26-B649-0997F5444161}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -265,6 +263,10 @@ Global
 		{32915CF6-62D9-4121-8650-6279D5154B4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32915CF6-62D9-4121-8650-6279D5154B4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32915CF6-62D9-4121-8650-6279D5154B4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CCB9013-92CE-4A26-B649-0997F5444161}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CCB9013-92CE-4A26-B649-0997F5444161}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CCB9013-92CE-4A26-B649-0997F5444161}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CCB9013-92CE-4A26-B649-0997F5444161}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -316,6 +318,7 @@ Global
 		{785E93F2-3415-4215-BD85-1CED429CF260} = {237A249C-B589-49B8-9B84-CA504DE5D137}
 		{B1D398A1-7005-4792-8D7F-CD9E5F3C29B7} = {E91D4BE3-61FE-441C-A227-29850D414216}
 		{32915CF6-62D9-4121-8650-6279D5154B4B} = {B1D398A1-7005-4792-8D7F-CD9E5F3C29B7}
+		{8CCB9013-92CE-4A26-B649-0997F5444161} = {B1D398A1-7005-4792-8D7F-CD9E5F3C29B7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B94C21A-AA6D-4D82-963E-C69C0353B938}

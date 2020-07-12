@@ -156,21 +156,26 @@ PRINT N'Creating [meetings].[MeetingAttendees]...';
 
 
 GO
-CREATE TABLE [meetings].[MeetingAttendees] (
-    [MeetingId]             UNIQUEIDENTIFIER NOT NULL,
-    [AttendeeId]            UNIQUEIDENTIFIER NOT NULL,
-    [DecisionDate]          DATETIME2 (7)    NOT NULL,
-    [RoleCode]              VARCHAR (50)     NULL,
-    [GuestsNumber]          INT              NULL,
-    [DecisionChanged]       BIT              NOT NULL,
-    [DecisionChangeDate]    DATETIME2 (7)    NULL,
-    [IsRemoved]             BIT              NOT NULL,
-    [RemovingMemberId]      UNIQUEIDENTIFIER NULL,
-    [RemovingReason]        NVARCHAR (500)   NULL,
-    [RemovedDate]           DATETIME2 (7)    NULL,
-    [BecameNotAttendeeDate] DATETIME2 (7)    NULL,
-    CONSTRAINT [PK_meetings_MeetingAttendees_Id] PRIMARY KEY CLUSTERED ([MeetingId] ASC, [AttendeeId] ASC, [DecisionDate] ASC)
-);
+CREATE TABLE meetings.MeetingAttendees
+(
+	[MeetingId] UNIQUEIDENTIFIER NOT NULL,
+	[AttendeeId] UNIQUEIDENTIFIER NOT NULL,
+	[DecisionDate] DATETIME2 NOT NULL,
+	[RoleCode] VARCHAR(50) NULL,   
+    [GuestsNumber] INT NULL,
+    [DecisionChanged] BIT NOT NULL,
+    [DecisionChangeDate] DATETIME2 NULL,
+	[IsRemoved] BIT NOT NULL,
+	[RemovingMemberId] UNIQUEIDENTIFIER NULL,
+	[RemovingReason] NVARCHAR(500) NULL,
+	[RemovedDate] DATETIME2 NULL,
+	[BecameNotAttendeeDate] DATETIME2 NULL,
+	[FeeValue] DECIMAL(5, 0) NULL,
+    [FeeCurrency] VARCHAR(3) NULL,
+	[IsFeePaid] BIT NOT NULL,
+	CONSTRAINT [PK_meetings_MeetingAttendees_Id] PRIMARY KEY ([MeetingId] ASC, [AttendeeId] ASC, [DecisionDate] ASC)
+)
+GO
 
 
 GO
@@ -321,22 +326,7 @@ CREATE TABLE [meetings].[InboxMessages] (
 
 
 GO
-PRINT N'Creating [payments].[MeetingPayments]...';
 
-
-GO
-CREATE TABLE [payments].[MeetingPayments] (
-    [PayerId]     UNIQUEIDENTIFIER NOT NULL,
-    [MeetingId]   UNIQUEIDENTIFIER NOT NULL,
-    [CreateDate]  DATETIME2 (7)    NOT NULL,
-    [PaymentDate] DATETIME2 (7)    NULL,
-    [FeeValue]    DECIMAL (5)      NOT NULL,
-    [FeeCurrency] VARCHAR (3)      NOT NULL,
-    CONSTRAINT [PK_meetings_Meetings_Id] PRIMARY KEY CLUSTERED ([PayerId] ASC, [MeetingId] ASC)
-);
-
-
-GO
 PRINT N'Creating [payments].[Payers]...';
 
 
@@ -350,35 +340,9 @@ CREATE TABLE [payments].[Payers] (
     [Name]      NVARCHAR (255)   NOT NULL,
     CONSTRAINT [PK_payments_Payers_Id] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
-
-
 GO
-PRINT N'Creating [payments].[MeetingGroupPayments]...';
 
 
-GO
-CREATE TABLE [payments].[MeetingGroupPayments] (
-    [Id]                            UNIQUEIDENTIFIER NOT NULL,
-    [MeetingGroupPaymentRegisterId] UNIQUEIDENTIFIER NOT NULL,
-    [Date]                          DATETIME         NOT NULL,
-    [PaymentTermStartDate]          DATE             NOT NULL,
-    [PaymentTermEndDate]            DATE             NOT NULL,
-    [PayerId]                       UNIQUEIDENTIFIER NOT NULL
-);
-
-
-GO
-PRINT N'Creating [payments].[MeetingGroupPaymentRegisters]...';
-
-
-GO
-CREATE TABLE [payments].[MeetingGroupPaymentRegisters] (
-    [Id]         UNIQUEIDENTIFIER NOT NULL,
-    [CreateDate] DATETIME         NOT NULL
-);
-
-
-GO
 PRINT N'Creating [payments].[OutboxMessages]...';
 
 
@@ -649,50 +613,6 @@ SELECT
 FROM [users].[UserRegistrations] AS [UserRegistration]
 GO
 
-CREATE VIEW [payments].[v_Payers]
-AS
-SELECT
-    [Payer].[Id],
-    [Payer].[Login],
-    [Payer].[Email],
-    [Payer].[FirstName],
-    [Payer].[LastName],
-    [Payer].[Name]
-FROM [payments].[Payers] AS [Payer]
-GO
-
-CREATE VIEW [payments].[v_MeetingGroupPaymentRegisters]
-AS
-SELECT
-    [MeetingGroupPaymentRegister].[Id],
-    [MeetingGroupPaymentRegister].[CreateDate]
-FROM [payments].[MeetingGroupPaymentRegisters] AS [MeetingGroupPaymentRegister]
-GO
-
-CREATE VIEW [payments].[v_MeetingGroupPayments]
-AS
-SELECT
-    [MeetingGroupPayment].[Id],
-    [MeetingGroupPayment].[MeetingGroupPaymentRegisterId],
-    [MeetingGroupPayment].[Date],
-    [MeetingGroupPayment].[PaymentTermStartDate],
-    [MeetingGroupPayment].[PaymentTermEndDate],
-    [MeetingGroupPayment].[PayerId]
-FROM [payments].[MeetingGroupPayments] AS [MeetingGroupPayment]
-GO
-
-CREATE VIEW [payments].[v_MeetingPayments]
-AS
-SELECT
-    [MeetingPayment].[PayerId],
-    [MeetingPayment].[MeetingId],
-    [MeetingPayment].[CreateDate],
-    [MeetingPayment].[PaymentDate],
-    [MeetingPayment].[FeeValue],
-    [MeetingPayment].[FeeCurrency]
-FROM [payments].[MeetingPayments] AS [MeetingPayment]
-GO
-
 CREATE VIEW [administration].[v_Members]
 AS
 SELECT
@@ -739,123 +659,198 @@ GO
 
 -- Initialize some data
 
--- Add Test Member
-INSERT INTO users.UserRegistrations VALUES 
+
+/* SQL Server 2012+*/
+
+DECLARE @DBName sysname;
+SET @DBName = (SELECT db_name());
+DECLARE @SQL varchar(1000);
+SET @SQL = 'ALTER DATABASE ['+@DBName+'] SET ALLOW_SNAPSHOT_ISOLATION ON; ALTER DATABASE ['+@DBName+'] SET READ_COMMITTED_SNAPSHOT ON;'; 
+exec(@sql)
+
+IF OBJECT_ID('payments.Streams', 'U') IS NULL
+BEGIN
+    CREATE TABLE payments.Streams(
+        Id                  CHAR(42)                                NOT NULL,
+        IdOriginal          NVARCHAR(1000)                          NOT NULL,
+        IdInternal          INT                 IDENTITY(1,1)       NOT NULL,
+        [Version]           INT                 DEFAULT(-1)         NOT NULL,
+        Position            BIGINT              DEFAULT(-1)         NOT NULL,
+        CONSTRAINT PK_Streams PRIMARY KEY CLUSTERED (IdInternal)
+    );
+END
+
+IF NOT EXISTS(
+    SELECT * 
+    FROM sys.indexes
+    WHERE name='IX_Streams_Id' AND object_id = OBJECT_ID('payments.Streams', 'U'))
+BEGIN
+    CREATE UNIQUE NONCLUSTERED INDEX IX_Streams_Id ON payments.Streams (Id);
+END
+ 
+IF object_id('payments.Messages', 'U') IS NULL
+BEGIN
+    CREATE TABLE payments.Messages(
+        StreamIdInternal    INT                                     NOT NULL,
+        StreamVersion       INT                                     NOT NULL,
+        Position            BIGINT                 IDENTITY(0,1)    NOT NULL,
+        Id                  UNIQUEIDENTIFIER                        NOT NULL,
+        Created             DATETIME                                NOT NULL,
+        [Type]              NVARCHAR(128)                           NOT NULL,
+        JsonData            NVARCHAR(max)                           NOT NULL,
+        JsonMetadata        NVARCHAR(max)                                   ,
+        CONSTRAINT PK_Events PRIMARY KEY NONCLUSTERED (Position),
+        CONSTRAINT FK_Events_Streams FOREIGN KEY (StreamIdInternal) REFERENCES payments.Streams(IdInternal)
+    );
+END
+
+IF NOT EXISTS(
+    SELECT * 
+    FROM sys.indexes
+    WHERE name='IX_Messages_Position' AND object_id = OBJECT_ID('payments.Messages'))
+BEGIN
+    CREATE UNIQUE NONCLUSTERED INDEX IX_Messages_Position ON payments.Messages (Position);
+END
+
+IF NOT EXISTS(
+    SELECT * 
+    FROM sys.indexes
+    WHERE name='IX_Messages_StreamIdInternal_Id' AND object_id = OBJECT_ID('payments.Messages'))
+BEGIN
+    CREATE UNIQUE NONCLUSTERED INDEX IX_Messages_StreamIdInternal_Id ON payments.Messages (StreamIdInternal, Id);
+END
+
+IF NOT EXISTS(
+    SELECT * 
+    FROM sys.indexes
+    WHERE name='IX_Messages_StreamIdInternal_Revision' AND object_id = OBJECT_ID('payments.Messages'))
+BEGIN
+    CREATE UNIQUE NONCLUSTERED INDEX IX_Messages_StreamIdInternal_Revision ON payments.Messages (StreamIdInternal, StreamVersion);
+END
+
+IF NOT EXISTS(
+    SELECT * 
+    FROM sys.indexes
+    WHERE name='IX_Messages_StreamIdInternal_Created' AND object_id = OBJECT_ID('payments.Messages'))
+BEGIN
+    CREATE NONCLUSTERED INDEX IX_Messages_StreamIdInternal_Created ON payments.Messages (StreamIdInternal, Created);
+END
+
+IF NOT EXISTS(
+    SELECT * 
+    FROM sys.table_types tt JOIN sys.schemas s ON tt.schema_id = s.schema_id
+    WHERE s.name + '.' + tt.name='payments.NewStreamMessages')
+BEGIN
+    CREATE TYPE payments.NewStreamMessages AS TABLE (
+        StreamVersion       INT IDENTITY(0,1)                       NOT NULL,
+        Id                  UNIQUEIDENTIFIER                        NOT NULL,
+        Created             DATETIME          DEFAULT(GETUTCDATE()) NOT NULL,
+        [Type]              NVARCHAR(128)                           NOT NULL,
+        JsonData            NVARCHAR(max)                           NULL,
+        JsonMetadata        NVARCHAR(max)                           NULL
+    );
+END
+
+BEGIN
+    IF NOT EXISTS (SELECT NULL FROM SYS.EXTENDED_PROPERTIES WHERE [major_id] = OBJECT_ID('payments.Streams') AND [name] = N'version' AND [minor_id] = 0)
+    EXEC sys.sp_addextendedproperty   
+    @name = N'version',
+    @value = N'2',
+    @level0type = N'SCHEMA', @level0name = 'payments',
+    @level1type = N'TABLE',  @level1name = 'Streams';
+END
+
+CREATE TABLE payments.SubscriptionDetails
 (
-	'2EBFECFC-ED13-43B8-B516-6AC89D51C510',
-	'testMember@mail.com',
-	'testMember@mail.com',
-	'ANO7TKjxh/Dom6LG0dyoQfJciLca+e1itHQ6BZMQYs+aMbKL9MjCv6bq4gy4+MRY0w==', -- testMemberPass
-	'John',
-	'Doe',
-	'John Doe',
-	'Confirmed',
-	GETDATE(),
-	GETDATE()
+    [Id] UNIQUEIDENTIFIER NOT NULL,
+    [Period] VARCHAR(50) NOT NULL,
+    [Status] VARCHAR(50) NOT NULL,
+    [CountryCode] VARCHAR(50) NOT NULL,
+    [ExpirationDate] DATETIME NOT NULL,
+    CONSTRAINT [PK_payments_SubscriptionDetails_Id] PRIMARY KEY CLUSTERED ([Id] ASC)
 )
 
-INSERT INTO users.Users VALUES
+CREATE TABLE payments.SubscriptionCheckpoints
 (
-	'2EBFECFC-ED13-43B8-B516-6AC89D51C510',
-	'testMember@mail.com',
-	'testMember@mail.com',
-	'ANO7TKjxh/Dom6LG0dyoQfJciLca+e1itHQ6BZMQYs+aMbKL9MjCv6bq4gy4+MRY0w==', -- testMemberPass
-	1,
-	'John',
-	'Doe',
-	'John Doe'
+    [Code] VARCHAR(50) NOT NULL,
+    [Position] BIGINT NOT NULL
 )
 
-INSERT INTO meetings.Members VALUES
+CREATE TABLE payments.PriceListItems
 (
-	'2EBFECFC-ED13-43B8-B516-6AC89D51C510',
-	'testMember@mail.com',
-	'testMember@mail.com',
-	'John',
-	'Doe',
-	'John Doe'
+    [Id] UNIQUEIDENTIFIER NOT NULL,
+    [SubscriptionPeriodCode] VARCHAR(50) NOT NULL,
+    [CategoryCode] VARCHAR(50) NOT NULL,
+    [CountryCode] VARCHAR(50) NOT NULL,
+    [MoneyValue] DECIMAL(18, 2) NOT NULL,
+    [MoneyCurrency] VARCHAR(50) NOT NULL,
+    [IsActive] BIT NOT NULL
 )
 
-INSERT INTO users.UserRoles VALUES
-('2EBFECFC-ED13-43B8-B516-6AC89D51C510', 'Member')
-
--- Add Test Administrator
-INSERT INTO users.UserRegistrations VALUES 
+CREATE TABLE payments.SubscriptionPayments
 (
-	'4065630E-4A4C-4F01-9142-0BACF6B8C64D',
-	'testAdmin@mail.com',
-	'testAdmin@mail.com',
-	'AK0qplH5peUHwnCVuzW9zy0JGZTTG6/Ji88twX+nw9JdTUwqa3Wol1K4m5aCG9pE2A==', -- testAdminPass
-	'Jane',
-	'Doe',
-	'Jane Doe',
-	'Confirmed',
-	GETDATE(),
-	GETDATE()
+    [PaymentId] UNIQUEIDENTIFIER NOT NULL,
+    [PayerId] UNIQUEIDENTIFIER NOT NULL,
+    [Type] VARCHAR(50) NOT NULL,
+    [Status] VARCHAR(50) NOT NULL,
+    [Period] VARCHAR(50) NOT NULL,
+    [Date] DATETIME NOT NULL,
+    [SubscriptionId] UNIQUEIDENTIFIER NULL,
+    [MoneyValue] DECIMAL(18, 2) NOT NULL,
+    [MoneyCurrency] VARCHAR(50) NOT NULL
 )
 
-INSERT INTO users.Users VALUES
+CREATE TABLE [meetings].[MemberSubscriptions]
 (
-	'4065630E-4A4C-4F01-9142-0BACF6B8C64D',
-	'testAdmin@mail.com',
-	'testAdmin@mail.com',
-	'AK0qplH5peUHwnCVuzW9zy0JGZTTG6/Ji88twX+nw9JdTUwqa3Wol1K4m5aCG9pE2A==', -- testAdminPass
-	1,
-	'Jane',
-	'Doe',
-	'Jane Doe'
+    [Id] UNIQUEIDENTIFIER NOT NULL,
+    [ExpirationDate] DATETIME NOT NULL,
+    CONSTRAINT [PK_meetings_MemberSubscriptions_Id] PRIMARY KEY ([Id] ASC)
 )
+GO
 
-INSERT INTO users.UserRoles VALUES
-('4065630E-4A4C-4F01-9142-0BACF6B8C64D', 'Administrator')
+INSERT INTO payments.PriceListItems
+VALUES ('d58f0876-efe3-4b4c-b196-a4c3d5fadd24', 'Month', 'New', 'PL', 60, 'PLN', 1)
 
--- Roles to Permissions
+INSERT INTO payments.PriceListItems
+VALUES ('d48e9951-2ae8-467e-a257-a1f492dbd36d', 'HalfYear', 'New', 'PL', 320, 'PLN', 1)
 
-INSERT INTO users.[Permissions] (Code, Name) VALUES
-	-- Meetings
-	('GetMeetingGroupProposals', 'GetMeetingGroupProposals'),
-	('ProposeMeetingGroup', 'ProposeMeetingGroup'),
-	('CreateNewMeeting','CreateNewMeeting'),
-	('EditMeeting','EditMeeting'),
-	('AddMeetingAttendee','AddMeetingAttendee'),
-	('RemoveMeetingAttendee','RemoveMeetingAttendee'),
-	('AddNotAttendee','AddNotAttendee'),
-	('ChangeNotAttendeeDecision','ChangeNotAttendeeDecision'),
-	('SignUpMemberToWaitlist','SignUpMemberToWaitlist'),
-	('SignOffMemberFromWaitlist','SignOffMemberFromWaitlist'),
-	('SetMeetingHostRole','SetMeetingHostRole'),
-	('SetMeetingAttendeeRole','SetMeetingAttendeeRole'),
-	('CancelMeeting','CancelMeeting'),
-	('GetAllMeetingGroups','GetAllMeetingGroups'),
-	('EditMeetingGroupGeneralAttributes','EditMeetingGroupGeneralAttributes'),
-	('JoinToGroup','JoinToGroup'),
-	('LeaveMeetingGroup','LeaveMeetingGroup'),
+INSERT INTO payments.PriceListItems
+VALUES ('b7bbe846-c151-48b5-85ef-a5737108640c', 'Month', 'New', 'US', 15, 'USD', 1)
 
-	-- Administration
-	('AcceptMeetingGroupProposal','AcceptMeetingGroupProposal'),
+INSERT INTO payments.PriceListItems
+VALUES ('92666bf7-7e86-4784-9c69-e6f3b8bb0ea6', 'HalfYear', 'New', 'US', 80, 'USD', 1)
+GO
 
-	-- Payments
-	('RegisterPayment','RegisterPayment')
+INSERT INTO payments.PriceListItems
+VALUES ('d58f0876-efe3-4b4c-b196-a4c3d5fadd24', 'Month', 'Renewal', 'PL', 60, 'PLN', 1)
 
+INSERT INTO payments.PriceListItems
+VALUES ('d48e9951-2ae8-467e-a257-a1f492dbd36d', 'HalfYear', 'Renewal', 'PL', 320, 'PLN', 1)
 
-INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetMeetingGroupProposals')
-INSERT INTO users.RolesToPermissions VALUES ('Member', 'ProposeMeetingGroup')
-INSERT INTO users.RolesToPermissions VALUES ('Member', 'CreateNewMeeting')
-INSERT INTO users.RolesToPermissions VALUES ('Member', 'EditMeeting')
-INSERT INTO users.RolesToPermissions VALUES ('Member', 'AddMeetingAttendee')
-INSERT INTO users.RolesToPermissions VALUES ('Member', 'RemoveMeetingAttendee')
-INSERT INTO users.RolesToPermissions VALUES ('Member', 'AddNotAttendee')
-INSERT INTO users.RolesToPermissions VALUES ('Member', 'ChangeNotAttendeeDecision')
-INSERT INTO users.RolesToPermissions VALUES ('Member', 'SignUpMemberToWaitlist')
-INSERT INTO users.RolesToPermissions VALUES ('Member', 'SignOffMemberFromWaitlist')
-INSERT INTO users.RolesToPermissions VALUES ('Member', 'SetMeetingHostRole')
-INSERT INTO users.RolesToPermissions VALUES ('Member', 'SetMeetingAttendeeRole')
-INSERT INTO users.RolesToPermissions VALUES ('Member', 'CancelMeeting')
-INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetAllMeetingGroups')
-INSERT INTO users.RolesToPermissions VALUES ('Member', 'EditMeetingGroupGeneralAttributes')
-INSERT INTO users.RolesToPermissions VALUES ('Member', 'JoinToGroup')
-INSERT INTO users.RolesToPermissions VALUES ('Member', 'LeaveMeetingGroup')
+INSERT INTO payments.PriceListItems
+VALUES ('b7bbe846-c151-48b5-85ef-a5737108640c', 'Month', 'Renewal', 'US', 15, 'USD', 1)
 
-INSERT INTO users.RolesToPermissions VALUES ('Member', 'RegisterPayment')
+INSERT INTO payments.PriceListItems
+VALUES ('92666bf7-7e86-4784-9c69-e6f3b8bb0ea6', 'HalfYear', 'Renewal', 'US', 80, 'USD', 1)
+GO
 
-INSERT INTO users.RolesToPermissions VALUES ('Administrator', 'AcceptMeetingGroupProposal')
+CREATE VIEW [meetings].[v_MeetingGroupMembers]
+AS
+SELECT
+    [MeetingGroupMember].MeetingGroupId,
+    [MeetingGroupMember].MemberId,
+    [MeetingGroupMember].RoleCode
+FROM meetings.MeetingGroupMembers AS [MeetingGroupMember]
+GO
+
+CREATE TABLE [payments].[MeetingFees]
+(
+    [MeetingFeeId] UNIQUEIDENTIFIER NOT NULL,
+    [PayerId] UNIQUEIDENTIFIER NOT NULL,
+    [MeetingId] UNIQUEIDENTIFIER NOT NULL,
+    [FeeValue] DECIMAL(18, 2) NOT NULL,
+    [FeeCurrency] VARCHAR(50) NOT NULL,
+    [Status] VARCHAR(50) NOT NULL,
+    CONSTRAINT [PK_payments_MeetingFees_MeetingFeeId] PRIMARY KEY ([MeetingFeeId] ASC)
+)
+GO

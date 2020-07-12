@@ -5,7 +5,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispa
 {
     public interface IDomainEventsAccessor
     {
-        List<IDomainEvent> GetAllDomainEvents();
+        IReadOnlyCollection<IDomainEvent> GetAllDomainEvents();
 
         void ClearAllDomainEvents();
     }

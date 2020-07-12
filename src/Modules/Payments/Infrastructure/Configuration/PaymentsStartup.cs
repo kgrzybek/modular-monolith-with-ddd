@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
+using CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Authentication;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.DataAccess;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.EventsBus;
@@ -17,6 +18,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration
     public class PaymentsStartup
     {
         private static IContainer _container;
+
+        private static SubscriptionsManager _subscriptionsManager;
 
         public static void Initialize(
             string connectionString,
@@ -61,13 +64,27 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration
             {
                 containerBuilder.RegisterModule(new QuartzModule());
             }
-            
 
             containerBuilder.RegisterInstance(executionContextAccessor);
 
             _container = containerBuilder.Build();
 
             PaymentsCompositionRoot.SetContainer(_container);
+
+            RunEventsProjectors();
+        }
+
+        private static void RunEventsProjectors()
+        {
+            _subscriptionsManager = _container.Resolve<SubscriptionsManager>();
+
+            _subscriptionsManager.Start();
+        }
+
+        public static void Stop()
+        {
+            _subscriptionsManager.Stop();
+            QuartzStartup.StopQuartz();
         }
     }
 }

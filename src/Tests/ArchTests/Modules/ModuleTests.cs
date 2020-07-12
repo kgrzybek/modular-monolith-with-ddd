@@ -1,17 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using CompanyName.MyMeetings.ArchTests.SeedWork;
-using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupProposals;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure;
-using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Domain;
-using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure;
-using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
-using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments;
+using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFees;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
+using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration;
 using CompanyName.MyMeetings.Modules.UserAccess.Domain.Users;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure;
 using MediatR;
@@ -85,8 +81,8 @@ namespace CompanyName.MyMeetings.ArchTests.Modules
             List<Assembly> paymentsAssemblies = new List<Assembly>
             {
                 typeof(PaymentsModule).Assembly,
-                typeof(MeetingPayment).Assembly,
-                typeof(PaymentsContext).Assembly
+                typeof(MeetingFee).Assembly,
+                typeof(PaymentsStartup).Assembly
             };
 
             var result = Types.InAssemblies(paymentsAssemblies)

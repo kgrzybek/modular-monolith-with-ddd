@@ -58,6 +58,8 @@ Full Modular Monolith .NET application with Domain-Driven Design approach.
 
 &nbsp;&nbsp;[3.14 System Integration Testing](#314-system-integration-testing)
 
+&nbsp;&nbsp;[3.15 Event Sourcing](#315-event-sourcing)
+
 [4. Technology](#4-technology)
 
 [5. How to Run](#5-how-to-run)
@@ -88,6 +90,8 @@ This is a list of the main goals of this repository:
 - Presentation of some **architectural** considerations, decisions, approaches
 - Presentation of the implementation using **Domain-Driven Design** approach (**tactical** patterns)
 - Presentation of the implementation of **Unit Tests** for Domain Model (Testable Design in mind)
+- Presentation of the implementation of **Integration Tests**
+- Presentation of the implementation of **Event Sourcing**
 
 ### 1.2 Out of Scope
 
@@ -173,15 +177,19 @@ A `Meeting Attendee` can bring guests to the `Meeting`. The number of guests all
 
 A `Meeting Attendee` can have one of two roles: `Attendee` or `Host`. A `Meeting` must have at least one `Host`. The `Host` is a special role which grants permission to edit `Meeting` information or change the attendees list.
 
+Each `Meeting Group` must have an organizer with active `Subscription`. One organizer can cover 3 `Meeting Groups` by his `Subscription`.
+
+Additionally, Meeting organizer can set an `Event Fee`. Each `Meeting Attendee` is obliged to pay the fee. All guests should be paid by `Meeting Attendee` too.
+
 **Administration**
 
 To create a new `Meeting Group`, a `Member` needs to propose the group. A `Meeting Group Proposal` is sent to `Administrators`. An `Administrator` can accept or reject a `Meeting Group Proposal`. If a `Meeting Group Proposal` is accepted, a `Meeting Group` is created.
 
 **Payments**
 
-To be able to organize `Meetings`, the `Meeting Group` must be paid for. The `Meeting Group` `Organizer` who is the `Payer`, must pay some fee according to a payment plan.
+Each `Member` who is the `Payer` can buy the `Subscription`. He needs to pay the `Subscription Payment`. `Subscription` can expire so `Subscription Renewal` is required (by `Subscription Renewal Payment` payment to keep `Subscription` active).
 
-Additionally, Meeting organizer can set an `Event Fee`. Each `Meeting Attendee` is obliged to pay the fee. All guests should be paid by `Meeting Attendee` too.
+When the `Meeting` fee is required, the `Payer` needs to pay `Meeting Fee` (through `Meeting Fee Payment`).
 
 **Users**
 
@@ -227,6 +235,12 @@ Note: Event Storming is a light, live workshop. One of the possible outputs of t
 ![](docs/Images/Meeting_Organization.jpg)
 
 ------
+
+**Payments**
+![](docs/Images/Payments_EventStorming_Design.jpg)
+
+------
+
 
 ## 3. Architecture
 
@@ -1218,6 +1232,416 @@ public class Poller
 }
 ```
 
+### 3.15 Event Sourcing
+
+#### Theory
+
+During the implementation of the Payment module, *Event Sourcing* was used. *Event Sourcing* is a way of preserving the state of our system by recording a sequence of events. No less, no more. 
+
+It is important here to really restore the state of our application from events. If we collect events only for auditing purposes, it is an [Audit Log/Trail](https://en.wikipedia.org/wiki/Audit_trail) - not the *Event Sourcing*.
+
+The main elements of *Event Sourcing* are as follows:
+- Events Stream
+- Objects that are restored based on events. There are 2 types of such objects depending on the purpose:
+-- Objects responsible for the change of state. In Domain-Driven Design they will be *Aggregates*.
+-- *Projections*: read models prepared for a specific purpose
+- *Subscriptions* : a way to receive information about new events
+- *Snapshots*: from time to time, objects saved in the traditional way for performance purposes. Mainly used if there are many events to restore the object from the entire event history. (Note: there is currently no snapshot implementation in the project)
+
+![](docs/Images/ES_elements.jpg)
+
+#### Tool
+
+In order not to reinvent the wheel, the *SQL Stream Store* library was used. As the [documentation](https://sqlstreamstore.readthedocs.io/en/latest/) says:
+
+*SQL Stream Store is a .NET library to assist with developing applications that use event sourcing or wish to use stream based patterns over a relational database and existing operational infrastructure.*
+
+Like every library, it has its limitations and assumptions (I recommend the linked documentation chapter "Things you need to know before adopting"). For me, the most important 2 points from this chapter are:
+1. *"Subscriptions (and thus projections) are **eventually consistent** and always will be."* This means that there will always be an inconsistency time from saving the event to the stream and processing the event by the projector(s).
+2. *"No support for ambient System.Transaction scopes enforcing the concept of the stream as the consistency and transactional boundary."* This means that if we save the event to a events stream and want to save something **in the same transaction**, we must use [TransactionScope](https://docs.microsoft.com/en-us/dotnet/api/system.transactions.transactionscope?view=netcore-3.1). If we cannot use *TransactionScope* for some reason, we must accept the Eventual Consistency also in this case.
+
+Other popular tools:
+
+- [EventStore](https://eventstore.com/) *"An industrial-strength database solution built from the ground up for event sourcing."*
+- [Marten](https://martendb.io/) *".NET Transactional Document DB and Event Store on PostgreSQL"*
+
+#### Implementation
+
+There are 2 main "flows" to handle:
+- Command handling: change of state - adding new events to stream (writing)
+- Projection of events to create read models
+
+##### Command Handling
+
+The whole process looks like this:
+
+![](docs/Images/ES_command_handling.png)
+
+1. We create / update an aggregate by creating an event
+2. We add changes to the Aggregate Store. This is the class responsible for writing / loading our aggregates. We are not saving changes yet.
+3. As part of Unit Of Work  a) Aggregate Store adds events to the stream b) messages are added to the Outbox
+
+
+Command Handler:
+
+```csharp
+public class BuySubscriptionCommandHandler : ICommandHandler<BuySubscriptionCommand, Guid>
+{
+    private readonly IAggregateStore _aggregateStore;
+
+    private readonly IPayerContext _payerContext;
+
+    private readonly ISqlConnectionFactory _sqlConnectionFactory;
+
+    public BuySubscriptionCommandHandler(
+        IAggregateStore aggregateStore, 
+        IPayerContext payerContext, 
+        ISqlConnectionFactory sqlConnectionFactory)
+    {
+        _aggregateStore = aggregateStore;
+        _payerContext = payerContext;
+        _sqlConnectionFactory = sqlConnectionFactory;
+    }
+
+    public async Task<Guid> Handle(BuySubscriptionCommand command, CancellationToken cancellationToken)
+    {
+        var priceList = await PriceListProvider.GetPriceList(_sqlConnectionFactory.GetOpenConnection());
+
+        var subscriptionPayment = SubscriptionPayment.Buy(
+            _payerContext.PayerId,
+            SubscriptionPeriod.Of(command.SubscriptionTypeCode),
+            command.CountryCode,
+            MoneyValue.Of(command.Value, command.Currency),
+            priceList);
+        
+        _aggregateStore.AppendChanges(subscriptionPayment);
+
+        return subscriptionPayment.Id;
+    }
+}
+```
+
+`SubscriptionPayment` Aggregate:
+
+```csharp
+public class SubscriptionPayment : AggregateRoot
+{
+    private PayerId _payerId;
+
+    private SubscriptionPeriod _subscriptionPeriod;
+
+    private string _countryCode;
+
+    private SubscriptionPaymentStatus _subscriptionPaymentStatus;
+
+    private MoneyValue _value;
+
+    protected override void Apply(IDomainEvent @event)
+    {
+        this.When((dynamic)@event);
+    }
+
+    public static SubscriptionPayment Buy(
+        PayerId payerId,
+        SubscriptionPeriod period,
+        string countryCode,
+        MoneyValue priceOffer,
+        PriceList priceList)
+    {
+        var priceInPriceList = priceList.GetPrice(countryCode, period, PriceListItemCategory.New);
+        CheckRule(new PriceOfferMustMatchPriceInPriceListRule(priceOffer, priceInPriceList));
+
+        var subscriptionPayment = new SubscriptionPayment();
+
+        var subscriptionPaymentCreated = new SubscriptionPaymentCreatedDomainEvent(
+            Guid.NewGuid(),
+            payerId.Value,
+            period.Code,
+            countryCode,
+            SubscriptionPaymentStatus.WaitingForPayment.Code,
+            priceOffer.Value,
+            priceOffer.Currency);
+
+        subscriptionPayment.Apply(subscriptionPaymentCreated);
+        subscriptionPayment.AddDomainEvent(subscriptionPaymentCreated);
+
+        return subscriptionPayment;
+    }
+
+    private void When(SubscriptionPaymentCreatedDomainEvent @event)
+    {
+        this.Id = @event.SubscriptionPaymentId;
+        _payerId = new PayerId(@event.PayerId);
+        _subscriptionPeriod = SubscriptionPeriod.Of(@event.SubscriptionPeriodCode);
+        _countryCode = @event.CountryCode;
+        _subscriptionPaymentStatus = SubscriptionPaymentStatus.Of(@event.Status);
+        _value = MoneyValue.Of(@event.Value, @event.Currency);
+    }
+```
+
+`AggregateRoot` base class:
+
+```csharp
+public abstract class AggregateRoot
+{
+    public Guid Id { get; protected set; }
+
+    public int Version { get; private set; }
+
+    private readonly List<IDomainEvent> _domainEvents;
+
+    protected AggregateRoot()
+    {
+        _domainEvents = new List<IDomainEvent>();
+
+        Version = -1;
+    }
+
+    protected void AddDomainEvent(IDomainEvent @event)
+    {
+        _domainEvents.Add(@event);
+    }
+
+    public IReadOnlyCollection<IDomainEvent> GetDomainEvents() => _domainEvents.AsReadOnly();
+
+    public void Load(IEnumerable<IDomainEvent> history)
+    {
+        foreach (var e in history)
+        {
+            Apply(e);
+            Version++;
+        }
+    }
+
+    protected abstract void Apply(IDomainEvent @event);
+
+    protected static void CheckRule(IBusinessRule rule)
+    {
+        if (rule.IsBroken())
+        {
+            throw new BusinessRuleValidationException(rule);
+        }
+    }
+}
+
+```
+Aggregate Store implementation with SQL Stream Store library usage:
+
+```csharp
+public class SqlStreamAggregateStore : IAggregateStore
+{
+    private readonly IStreamStore _streamStore;
+
+    private readonly List<IDomainEvent> _appendedChanges;
+
+    private readonly List<AggregateToSave> _aggregatesToSave;
+
+    public SqlStreamAggregateStore(
+        ISqlConnectionFactory sqlConnectionFactory)
+    {
+        _appendedChanges = new List<IDomainEvent>();
+
+        _streamStore =
+            new MsSqlStreamStore(
+                new MsSqlStreamStoreSettings(sqlConnectionFactory.GetConnectionString())
+                    {
+                        Schema = DatabaseSchema.Name
+                });
+
+        _aggregatesToSave = new List<AggregateToSave>();
+    }
+
+    public async Task Save()
+    {
+        foreach (var aggregateToSave in _aggregatesToSave)
+        {
+            await _streamStore.AppendToStream(
+                GetStreamId(aggregateToSave.Aggregate),
+                aggregateToSave.Aggregate.Version,
+                aggregateToSave.Messages.ToArray());
+        }
+
+        _aggregatesToSave.Clear();
+    }
+
+    public async Task<T> Load<T>(AggregateId<T> aggregateId) where T : AggregateRoot
+    {
+        var streamId = GetStreamId(aggregateId);
+
+        IList<IDomainEvent> domainEvents = new List<IDomainEvent>();
+        ReadStreamPage readStreamPage;
+        do
+        {
+            readStreamPage = await _streamStore.ReadStreamForwards(streamId, StreamVersion.Start, maxCount: 100);
+            var messages = readStreamPage.Messages;
+            foreach (var streamMessage in messages)
+            {
+                Type type = DomainEventTypeMappings.Dictionary[streamMessage.Type];
+                var jsonData = await streamMessage.GetJsonData();
+                var domainEvent = JsonConvert.DeserializeObject(jsonData, type) as IDomainEvent;
+
+                domainEvents.Add(domainEvent);
+            }
+        } while (!readStreamPage.IsEnd);
+
+        var aggregate = (T)Activator.CreateInstance(typeof(T), true);
+
+        aggregate.Load(domainEvents);
+
+        return aggregate;
+    }
+
+```
+
+##### Events Projection
+
+The whole process looks like this:
+
+![](docs/Images/ES_events_projection.png)
+
+1. Special class `Subscriptions Manager` subscribes to Events Store (using SQL Store Stream library)
+2. Events Store raises `StreamMessageRecievedEvent`
+3. `Subscriptions Manager` invokes all projectors
+4. If projector know how to handle given event, it updates particular read model. In current implementation it updates special table in SQL database.
+
+`SubscriptionsManager` class implementation:
+
+```csharp
+public class SubscriptionsManager
+{
+    private readonly IStreamStore _streamStore;
+
+    public SubscriptionsManager(
+        IStreamStore streamStore)
+    {
+        _streamStore = streamStore;
+    }
+
+    public void Start()
+    {
+        long? actualPosition;
+
+        using (var scope = PaymentsCompositionRoot.BeginLifetimeScope())
+        {
+            var checkpointStore = scope.Resolve<ICheckpointStore>();
+
+            actualPosition = checkpointStore.GetCheckpoint(SubscriptionCode.All);
+        }
+
+        _streamStore.SubscribeToAll(actualPosition, StreamMessageReceived);
+    }
+
+    public void Stop()
+    {
+        _streamStore.Dispose();
+    }
+
+    private static async Task StreamMessageReceived(
+        IAllStreamSubscription subscription, StreamMessage streamMessage, CancellationToken cancellationToken)
+    {
+        var type = DomainEventTypeMappings.Dictionary[streamMessage.Type];
+        var jsonData = await streamMessage.GetJsonData(cancellationToken);
+        var domainEvent = JsonConvert.DeserializeObject(jsonData, type) as IDomainEvent;
+
+        using var scope = PaymentsCompositionRoot.BeginLifetimeScope();
+
+        var projectors = scope.Resolve<IList<IProjector>>();
+
+        var tasks = projectors
+            .Select(async projector =>
+            {
+                await projector.Project(domainEvent);
+            });
+
+        await Task.WhenAll(tasks);
+
+        var checkpointStore = scope.Resolve<ICheckpointStore>();
+        await checkpointStore.StoreCheckpoint(SubscriptionCode.All, streamMessage.Position);
+    }
+}
+
+```
+
+Example projector:
+
+```csharp
+internal class SubscriptionDetailsProjector : ProjectorBase, IProjector
+{
+    private readonly IDbConnection _connection;
+
+    public SubscriptionDetailsProjector(ISqlConnectionFactory sqlConnectionFactory)
+    {
+        _connection = sqlConnectionFactory.GetOpenConnection();
+    }
+
+    public async Task Project(IDomainEvent @event)
+    {
+        await When((dynamic) @event);
+    }
+
+    private async Task When(SubscriptionRenewedDomainEvent subscriptionRenewed)
+    {
+        var period = SubscriptionPeriod.GetName(subscriptionRenewed.SubscriptionPeriodCode);
+        
+        await _connection.ExecuteScalarAsync("UPDATE payments.SubscriptionDetails " +
+                                                "SET " +
+                                                    "[Status] = @Status, " +
+                                                    "[ExpirationDate] = @ExpirationDate, " +
+                                                    "[Period] = @Period " +
+                                                "WHERE [Id] = @SubscriptionId",
+            new
+            {
+                subscriptionRenewed.SubscriptionId,
+                subscriptionRenewed.Status,
+                subscriptionRenewed.ExpirationDate,
+                period
+            });
+    }
+
+    private async Task When(SubscriptionExpiredDomainEvent subscriptionExpired)
+    {
+        await _connection.ExecuteScalarAsync("UPDATE payments.SubscriptionDetails " +
+                                             "SET " +
+                                             "[Status] = @Status " +
+                                             "WHERE [Id] = @SubscriptionId",
+            new
+            {
+                subscriptionExpired.SubscriptionId,
+                subscriptionExpired.Status
+            });
+    }
+
+    private async Task When(SubscriptionCreatedDomainEvent subscriptionCreated)
+    {
+        var period = SubscriptionPeriod.GetName(subscriptionCreated.SubscriptionPeriodCode);
+        
+        await _connection.ExecuteScalarAsync("INSERT INTO payments.SubscriptionDetails " +
+                                       "([Id], [Period], [Status], [CountryCode], [ExpirationDate]) " +
+                                       "VALUES (@SubscriptionId, @Period, @Status, @CountryCode, @ExpirationDate)",
+            new
+            {
+                subscriptionCreated.SubscriptionId,
+                period,
+                subscriptionCreated.Status,
+                subscriptionCreated.CountryCode,
+                subscriptionCreated.ExpirationDate
+            });
+    }
+}
+
+```
+#### Sample view of Event Store
+
+Sample *Event Store* view after execution of SubscriptionLifecycleTests Integration Test which includes following steps:
+1. Creating Price List
+2. Buying Subscription
+3. Renewing Subscription
+4. Expiring Subscription
+
+looks like this (*SQL Stream Store* table - *payments.Messages*):
+
+![](docs/Images/ES_event_store_db_sample.png)
+
 ## 4. Technology
 
 List of technologies, frameworks and libraries used for implementation:
@@ -1241,6 +1665,7 @@ List of technologies, frameworks and libraries used for implementation:
 - [Visual Paradigm Community Edition](https://www.visual-paradigm.com/download/community.jsp) (CASE tool for modeling and documentation)
 - [NetArchTest](https://github.com/BenMorris/NetArchTest) (Architecture Unit Tests library)
 - [Polly](https://github.com/App-vNext/Polly) (Resilience and transient-fault-handling library)
+- [SQL Stream Store](https://github.com/SQLStreamStore) (Library to assist with Event Sourcing)
 
 ## 5. How to Run
 
@@ -1293,19 +1718,21 @@ This project is still under analysis and development. I assume its maintenance f
 
 List of features/tasks/approaches to add:
 
-| Name                     | Priority | Status | Release date |
-| ------------------------ | -------- | -------- | -------- |
-| Domain Model Unit Tests | High     | Completed | 2019-09-10 |
-| Architecture Decision Log update | High     | Completed | 2019-11-09 |
-| Integration automated tests      | Normal   | Completed | 2020-02-24 |
-| Migration to .NET Core 3.1 | Low   | Completed   |  2020-03-04  |
-| System Integration Testing | Normal   | Completed   |  2020-03-28  |
-| API automated tests      | Normal   |    |    |
-| FrontEnd SPA application | Normal   |    |    |
-| Meeting comments feature | Low   |    |    |
-| Notifications feature | Low   |    |    |
-| Messages feature | Low   |    |    |
-| More advanced Payments module | Low   |    |    |
+| Name                     | Status | Release date |
+| ------------------------ | -------- | -------- |
+| Domain Model Unit Tests |Completed | 2019-09-10 |
+| Architecture Decision Log update |  Completed | 2019-11-09 |
+| Integration automated tests      | Completed | 2020-02-24 |
+| Migration to .NET Core 3.1 |Completed  |  2020-03-04  |
+| System Integration Testing | Completed  |  2020-03-28  |
+| More advanced Payments module | Completed  |  2020-07-11  |
+| Event Sourcing implementation | Completed  |  2020-07-11  |
+| API automated tests      |     |    |
+| FrontEnd SPA application |      |    |
+| Meeting comments feature |    |    |
+| Notifications feature |     |    |
+| Messages feature |     |    |
+
 
 NOTE: Please don't hesitate to suggest something else or a change to the existing code. All proposals will be considered.
 
@@ -1328,6 +1755,8 @@ The project is under [MIT license](https://opensource.org/licenses/MIT).
 ## 10. Inspirations and Recommendations
 
 ### Modular Monolith
+- ["Modular Monolith: A Primer"](https://www.kamilgrzybek.com/design/modular-monolith-primer/) Modular Monolith architecture article series, Kamil Grzybek
+- ["Modular Monolith Architecture: One to rule them all"](https://www.youtube.com/watch?v=njDSXUWeik0) presentation, Kamil Grzybek
 - ["Modular Monoliths"](https://www.youtube.com/watch?v=5OjqD-ow8GE) presentation, Simon Brown
 - ["Majestic Modular Monoliths"](https://www.youtube.com/watch?v=BOvxJaklcr0) presentation, Axel Fontaine
 - ["Building Better Monoliths – Modulithic Applications with Spring Boot"](https://speakerdeck.com/olivergierke/building-better-monoliths-modulithic-applications-with-spring-boot-cd16e6ec-d334-497d-b9f6-3f92d5db035a) slides, Oliver Drotbohm
@@ -1394,3 +1823,10 @@ The project is under [MIT license](https://opensource.org/licenses/MIT).
 ### Event Storming
 - ["Introducing EventStorming"](https://leanpub.com/introducing_eventstorming) book, Alberto Brandolini
 - ["Awesome EventStorming"](https://github.com/mariuszgil/awesome-eventstorming) GH repository, Mariusz Gil
+
+### Event Sourcing
+
+- ["Hands-On Domain-Driven Design with .NET Core: Tackling complexity in the heart of software by putting DDD principles into practice"](https://www.amazon.com/Hands-Domain-Driven-Design-NET-ebook/dp/B07C5WSR9B) book, Alexey Zimarev
+- ["Versioning in an Event Sourced System"](https://leanpub.com/esversioning) book, Greg Young
+- [Hands-On-Domain-Driven-Design-with-.NET-Core](https://github.com/PacktPublishing/Hands-On-Domain-Driven-Design-with-.NET-Core) GH repository, Alexey Zimarev
+- [EventSourcing.NetCore](https://github.com/oskardudycz/EventSourcing.NetCore) GH repository, Oskar Dudycz

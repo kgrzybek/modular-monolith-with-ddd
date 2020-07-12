@@ -18,7 +18,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.Payers
 
             var payerCreated = AssertPublishedDomainEvent<PayerCreatedDomainEvent>(payer);
 
-            Assert.That(payerCreated.PayerId, Is.EqualTo(new PayerId(payerId)));
+            Assert.That(payerCreated.PayerId, Is.EqualTo(payerId));
         }
     }
 }

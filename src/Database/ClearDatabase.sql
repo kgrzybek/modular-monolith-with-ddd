@@ -64,9 +64,6 @@ GO
 DROP TABLE [meetings].[MeetingGroups]
 GO
 
-DROP TABLE [payments].[MeetingGroupPayments]
-GO
-
 DROP TABLE [meetings].[Meetings]
 GO
 
@@ -101,19 +98,14 @@ GO
 DROP VIEW [meetings].[v_Members]
 GO
 
-DROP SCHEMA [meetings]
+DROP VIEW [meetings].[v_MeetingGroupProposals]
 GO
+
+
 
 DROP TABLE payments.InboxMessages
 
 DROP TABLE payments.InternalCommands
-GO
-
-DROP TABLE payments.MeetingGroupPaymentRegisters
-GO
-
-
-DROP TABLE payments.MeetingPayments
 GO
 
 DROP TABLE payments.OutboxMessages
@@ -122,27 +114,11 @@ GO
 DROP TABLE payments.Payers
 GO
 
-DROP VIEW payments.v_MeetingGroupPaymentRegisters
-GO
-
-DROP VIEW payments.v_MeetingGroupPayments
-GO
-
-DROP VIEW payments.v_MeetingPayments
-GO
-
-DROP VIEW payments.v_Payers
-GO
-
-DROP SCHEMA [payments]
-GO
-
 DROP TABLE users.InboxMessages
 GO
 
 DROP TABLE users.InternalCommands
 GO
-
 
 DROP TABLE users.OutboxMessages
 GO
@@ -175,4 +151,38 @@ DROP VIEW users.[v_Users]
 GO
 
 DROP SCHEMA [users]
+GO
+
+DROP TABLE payments.[Messages]
+GO
+
+
+DROP TABLE payments.Streams
+GO
+
+
+DROP TYPE payments.NewStreamMessages
+GO
+
+DROP TABLE payments.SubscriptionDetails
+GO
+
+DROP TABLE payments.SubscriptionCheckpoints
+GO
+
+DROP TABLE payments.PriceListItems
+GO
+
+DROP TABLE payments.SubscriptionPayments
+GO
+
+DROP TABLE [meetings].[MemberSubscriptions]
+GO
+
+DROP SCHEMA [payments]
+GO
+
+DROP VIEW meetings.v_MeetingGroupMembers
+
+DROP SCHEMA [meetings]
 GO

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
 using System.Threading.Tasks;
-using CompanyName.MyMeetings.Modules.Payments.Application.MeetingGroupPaymentRegisters.RegisterPayment;
+using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.CreateSubscription;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Processing.Outbox;
 using Dapper;
 using MediatR;
@@ -28,7 +28,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
 
         public static T Deserialize<T>(OutboxMessageDto message) where T : class, INotification
         {
-            Type type = Assembly.GetAssembly(typeof(PaymentRegisteredNotification)).GetType(message.Type);
+            Type type = Assembly.GetAssembly(typeof(SubscriptionCreatedNotification)).GetType(message.Type);
             return JsonConvert.DeserializeObject(message.Data, type) as T;
         }
     }

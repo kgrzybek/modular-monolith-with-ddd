@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
-using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingPayments;
+using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 using NUnit.Framework;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SeedWork
@@ -21,6 +21,24 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SeedWork
             return domainEvent;
         }
 
+        public static T AssertPublishedDomainEvent<T>(AggregateRoot aggregate) where T : IDomainEvent
+        {
+            var domainEvent = aggregate.GetDomainEvents().OfType<T>().SingleOrDefault();
+
+            if (domainEvent == null)
+            {
+                throw new Exception($"{typeof(T).Name} event not published");
+            }
+
+            return domainEvent;
+        }
+        
+        public static void AssertDomainEventNotPublished<T>(AggregateRoot aggregate) where T : IDomainEvent
+        {
+            var domainEvent = aggregate.GetDomainEvents().OfType<T>().SingleOrDefault();
+            Assert.Null(domainEvent);
+        }
+
         public static List<T> AssertPublishedDomainEvents<T>(Entity aggregate) where T : IDomainEvent
         {
             var domainEvents = DomainEventsTestHelper.GetAllDomainEvents(aggregate).OfType<T>().ToList();
@@ -28,6 +46,18 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SeedWork
             if (!domainEvents.Any())
             {
                 throw new Exception($"{typeof(T).Name} event not published");
+            }
+
+            return domainEvents;
+        }
+        
+        public static List<T> AssertPublishedDomainEvents<T>(AggregateRoot aggregate) where T : IDomainEvent
+        {
+            var domainEvents = aggregate.GetDomainEvents().OfType<T>().ToList();
+
+            if (!domainEvents.Any())
+            {
+                throw new Exception($"{typeof(T).Name} event was not published");
             }
 
             return domainEvents;

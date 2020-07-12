@@ -12,14 +12,16 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Events
             DateTime rsvpDate, 
             MeetingAttendeeRole role, 
             int guestsNumber,
-            MoneyValue fee)
+            decimal? feeValue,
+            string feeCurrency)
         {
             MeetingId = meetingId;
             AttendeeId = attendeeId;
             RSVPDate = rsvpDate;
             Role = role;
             GuestsNumber = guestsNumber;
-            Fee = fee;
+            FeeValue = feeValue;
+            FeeCurrency = feeCurrency;
         }
 
         public MeetingId MeetingId { get; }
@@ -31,6 +33,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Events
 
         public int GuestsNumber { get; }
 
-        public MoneyValue Fee { get; }
+        public decimal? FeeValue { get; }
+
+        public string FeeCurrency { get; }
     }
 }

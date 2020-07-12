@@ -7,6 +7,7 @@ using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.BuildingBlocks.EventBus;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
+using CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing;
 using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration;
