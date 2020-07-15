@@ -57,7 +57,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration
 
             containerBuilder.RegisterModule(new ProcessingModule());
             containerBuilder.RegisterModule(new EventsBusModule(eventsBus));
-                 containerBuilder.RegisterModule(new MediatorModule());
+            containerBuilder.RegisterModule(new MediatorModule());
             containerBuilder.RegisterModule(new AuthenticationModule());
             containerBuilder.RegisterModule(new OutboxModule());
             containerBuilder.RegisterModule(new EmailModule(emailsConfiguration));
