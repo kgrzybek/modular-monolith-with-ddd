@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Commands;
 using MediatR;
 
@@ -9,7 +8,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistration
 {
     internal class SendUserRegistrationConfirmationEmailCommandHandler : ICommandHandler<SendUserRegistrationConfirmationEmailCommand>
     {
-        private IEmailSender _emailSender;
+        private readonly IEmailSender _emailSender;
 
         public SendUserRegistrationConfirmationEmailCommandHandler(IEmailSender emailSender)
         {
