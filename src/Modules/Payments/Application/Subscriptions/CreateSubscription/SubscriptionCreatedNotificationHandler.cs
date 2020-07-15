@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
 using CompanyName.MyMeetings.Modules.Payments.IntegrationEvents;
@@ -17,7 +16,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Crea
         }
 
         public Task Handle(SubscriptionCreatedNotification notification, CancellationToken cancellationToken)
-        { 
+        {
             _eventsBus.Publish(new SubscriptionExpirationDateChangedIntegrationEvent(notification.Id,
                 notification.DomainEvent.OccurredOn,
                 notification.DomainEvent.PayerId,
