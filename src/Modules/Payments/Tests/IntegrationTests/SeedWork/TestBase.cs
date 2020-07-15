@@ -29,6 +29,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
 
         protected IEmailSender EmailSender;
 
+        protected EmailsConfiguration EmailsConfiguration;
+
         protected EventsBusMock EventsBus;
 
         protected ExecutionContextMock ExecutionContext;
@@ -53,6 +55,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
 
             Logger = Substitute.For<ILogger>();
             EmailSender = Substitute.For<IEmailSender>();
+            EmailsConfiguration = new EmailsConfiguration("from@email.com");
             EventsBus = new EventsBusMock();
             ExecutionContext = new ExecutionContextMock(Guid.NewGuid());
             
@@ -60,6 +63,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
                 ConnectionString,
                 ExecutionContext,
                 Logger,
+                EmailsConfiguration,
                 EventsBus,
                 true);
 
