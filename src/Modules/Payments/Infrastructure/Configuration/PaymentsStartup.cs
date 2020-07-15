@@ -1,9 +1,11 @@
 ﻿using Autofac;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
+using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Authentication;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.DataAccess;
+using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Email;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.EventsBus;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Logging;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Mediation;
@@ -25,12 +27,13 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration
             string connectionString,
             IExecutionContextAccessor executionContextAccessor,
             ILogger logger,
+            EmailsConfiguration emailsConfiguration,
             IEventsBus eventsBus,
             bool runQuartz = true)
         {
             var moduleLogger = logger.ForContext("Module", "Payments");
 
-            ConfigureCompositionRoot(connectionString, executionContextAccessor, moduleLogger, eventsBus, runQuartz);
+            ConfigureCompositionRoot(connectionString, executionContextAccessor, moduleLogger, emailsConfiguration, eventsBus, runQuartz);
 
             if (runQuartz)
             {
@@ -44,6 +47,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration
             string connectionString,
             IExecutionContextAccessor executionContextAccessor,
             ILogger logger,
+            EmailsConfiguration emailsConfiguration,
             IEventsBus eventsBus,
             bool runQuartz = true)
         {
@@ -55,6 +59,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration
             containerBuilder.RegisterModule(new DataAccessModule(connectionString, loggerFactory));
 
             containerBuilder.RegisterModule(new ProcessingModule());
+            containerBuilder.RegisterModule(new EmailModule(emailsConfiguration));
             containerBuilder.RegisterModule(new EventsBusModule(eventsBus));
             containerBuilder.RegisterModule(new MediatorModule());
             containerBuilder.RegisterModule(new AuthenticationModule());
