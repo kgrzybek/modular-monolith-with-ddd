@@ -27,14 +27,14 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Rene
         
         public async Task Handle(SubscriptionRenewedNotification notification, CancellationToken cancellationToken)
         {
-            PayerEmailProvider.Init(_sqlConnectionFactory);
-            
-            var payer = await PayerEmailProvider.GetPayerDetails(notification.DomainEvent.PayerId);
+            var payerEmail = await PayerEmailProvider.GetPayerEmail(
+                notification.DomainEvent.PayerId,
+                _sqlConnectionFactory);
             
             await _commandsScheduler.EnqueueAsync(new SendSubscriptionRenewalConfirmationEmailCommand(
                 Guid.NewGuid(),
                 new SubscriptionId(notification.DomainEvent.SubscriptionId),
-                payer.Email));
+                payerEmail));
         }
     }
 }
