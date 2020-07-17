@@ -12,7 +12,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Payers.GetPayerEma
             var connection = sqlConnectionFactory.GetOpenConnection();
 
             const string sql = "SELECT " +
-                               "[Payer].[Email], " +
+                               "[Payer].[Email] " +
                                "FROM [payments].[Payers] AS [Payer] " +
                                "WHERE [Payer].[Id] = @PayerId";
 
