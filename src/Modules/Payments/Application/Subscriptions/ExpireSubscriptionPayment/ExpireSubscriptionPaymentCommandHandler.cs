@@ -7,7 +7,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.ExpireSubscriptionPayment
 {
-    public class ExpireSubscriptionPaymentCommandHandler : ICommandHandler<ExpireSubscriptionPaymentCommand>
+    internal class ExpireSubscriptionPaymentCommandHandler : ICommandHandler<ExpireSubscriptionPaymentCommand>
     {
         private readonly IAggregateStore _aggregateStore;
 

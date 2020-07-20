@@ -10,7 +10,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.ChangePriceListItemAttributes
 {
-    public class ChangePriceListItemAttributesCommandHandler : ICommandHandler<ChangePriceListItemAttributesCommand>
+    internal class ChangePriceListItemAttributesCommandHandler : ICommandHandler<ChangePriceListItemAttributesCommand>
     {
         private readonly IAggregateStore _aggregateStore;
 

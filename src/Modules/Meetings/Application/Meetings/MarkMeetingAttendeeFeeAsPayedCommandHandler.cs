@@ -7,7 +7,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings
 {
-    public class MarkMeetingAttendeeFeeAsPayedCommandHandler : ICommandHandler<MarkMeetingAttendeeFeeAsPayedCommand>
+    internal class MarkMeetingAttendeeFeeAsPayedCommandHandler : ICommandHandler<MarkMeetingAttendeeFeeAsPayedCommand>
     {
         private readonly IMeetingRepository _meetingRepository;
 

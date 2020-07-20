@@ -6,7 +6,7 @@ using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Queries;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.GetPriceListItems
 {
-    public class GetPriceListItemsQueryHandler : IQueryHandler<GetPriceListItemsQuery, List<PriceListItemDto>>
+    internal class GetPriceListItemsQueryHandler : IQueryHandler<GetPriceListItemsQuery, List<PriceListItemDto>>
     {
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 

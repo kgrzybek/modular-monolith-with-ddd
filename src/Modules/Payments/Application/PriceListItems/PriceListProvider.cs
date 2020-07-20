@@ -15,7 +15,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems
         {
             var priceListItemList = await GetPriceListItems(connection);
 
-            return new PriceList(
+            return PriceList.CreateFromItems(
                 priceListItemList
                     .Select(x =>
                         new PriceListItemData(

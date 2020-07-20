@@ -10,7 +10,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.ExpireSubscriptions
 {
-    public class ExpireSubscriptionsCommandHandler : ICommandHandler<ExpireSubscriptionsCommand>
+    internal class ExpireSubscriptionsCommandHandler : ICommandHandler<ExpireSubscriptionsCommand>
     {
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 

@@ -7,7 +7,7 @@ using Dapper;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetSubscriptionPayments
 {
-    public class GetSubscriptionPaymentsQueryHandler : IQueryHandler<GetSubscriptionPaymentsQuery, List<SubscriptionPaymentDto>>
+    internal class GetSubscriptionPaymentsQueryHandler : IQueryHandler<GetSubscriptionPaymentsQuery, List<SubscriptionPaymentDto>>
     {
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
