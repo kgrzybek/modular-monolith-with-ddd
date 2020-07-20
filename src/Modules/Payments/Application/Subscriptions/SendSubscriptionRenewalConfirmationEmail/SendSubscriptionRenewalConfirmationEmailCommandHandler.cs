@@ -6,7 +6,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.SendSubscriptionRenewalConfirmationEmail
 {
-    public class SendSubscriptionRenewalConfirmationEmailCommandHandler : ICommandHandler<SendSubscriptionRenewalConfirmationEmailCommand>
+    internal class SendSubscriptionRenewalConfirmationEmailCommandHandler : ICommandHandler<SendSubscriptionRenewalConfirmationEmailCommand>
     {
         private readonly IEmailSender _emailSender;
 

@@ -8,7 +8,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.RenewSubscription
 {
-    public class RenewSubscriptionCommandHandler : ICommandHandler<RenewSubscriptionCommand>
+    internal class RenewSubscriptionCommandHandler : ICommandHandler<RenewSubscriptionCommand>
     {
         private readonly IAggregateStore _aggregateStore;
 

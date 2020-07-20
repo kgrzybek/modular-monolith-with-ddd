@@ -26,3 +26,6 @@ jobs:
     - name: Run Unit Tests
       run: dotnet test --configuration Release --no-restore --verbosity minimal --filter UnitTests
       working-directory: ./src
+    - name: Run Architecture Tests
+      run: dotnet test --configuration Release --no-restore --verbosity minimal --filter ArchTests
+      working-directory: ./src

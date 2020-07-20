@@ -9,7 +9,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations
         public static UserRegistrationStatus Expired => new UserRegistrationStatus(nameof(Expired));
         public string Value { get; }
 
-        public UserRegistrationStatus(string value)
+        private UserRegistrationStatus(string value)
         {
             Value = value;
         }

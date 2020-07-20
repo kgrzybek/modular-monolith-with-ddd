@@ -11,9 +11,14 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems
     {
         private readonly List<PriceListItemData> _items;
 
-        public PriceList(List<PriceListItemData> items)
+        private PriceList(List<PriceListItemData> items)
         {
             _items = items;
+        }
+
+        public static PriceList CreateFromItems(List<PriceListItemData> items)
+        {
+            return new PriceList(items);
         }
 
         public MoneyValue GetPrice(

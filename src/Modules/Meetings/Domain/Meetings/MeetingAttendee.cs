@@ -143,7 +143,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
             this.AddDomainEvent(new MeetingAttendeeRemovedDomainEvent(this.AttendeeId, this.MeetingId, reason));
         }
 
-        public void MarkFeeAsPayed()
+        internal void MarkFeeAsPayed()
         {
             _isFeePaid = true;
 

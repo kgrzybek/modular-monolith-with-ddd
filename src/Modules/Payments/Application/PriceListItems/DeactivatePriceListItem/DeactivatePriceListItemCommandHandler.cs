@@ -9,7 +9,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.DeactivatePriceListItem
 {
-    public class DeactivatePriceListItemCommandHandler : ICommandHandler<DeactivatePriceListItemCommand>
+    internal class DeactivatePriceListItemCommandHandler : ICommandHandler<DeactivatePriceListItemCommand>
     {
         private readonly IAggregateStore _aggregateStore;
 

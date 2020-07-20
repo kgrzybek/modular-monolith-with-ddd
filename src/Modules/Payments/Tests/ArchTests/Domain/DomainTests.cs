@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Payments.ArchTests.SeedWork;
+using CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems;
 using NetArchTest.Rules;
 using NUnit.Framework;
 
@@ -167,9 +168,17 @@ namespace CompanyName.MyMeetings.Modules.Payments.ArchTests.Domain
         [Test]
         public void ValueObject_Should_Have_Private_Constructor_With_Parameters_For_His_State()
         {
+            List<Type> excludedFromCheck = new List<Type>
+            {
+                typeof(PriceList)
+            };
+
             var valueObjects = Types.InAssembly(DomainAssembly)
                 .That()
-                .Inherit(typeof(ValueObject)).GetTypes();
+                .Inherit(typeof(ValueObject))
+                .GetTypes()
+                .Where(x => !excludedFromCheck.Contains(x))
+                .ToList();
 
             var failingTypes = new List<Type>();
             foreach (var entityType in valueObjects)
@@ -185,7 +194,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.ArchTests.Domain
                 var constructors = entityType.GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance);
                 foreach (var constructorInfo in constructors)
                 {
-                    var parameters = constructorInfo.GetParameters().Select( x => x.Name.ToLower()).ToList();
+                    var parameters = constructorInfo.GetParameters().Select(x => x.Name.ToLower()).ToList();
 
                     if (names.Intersect(parameters).Count() == names.Count)
                     {
