@@ -187,7 +187,8 @@ namespace CompanyName.MyMeetings.API
             PaymentsStartup.Initialize(
                 this._configuration[MeetingsConnectionString], 
                 executionContextAccessor, 
-                _logger, 
+                _logger,
+                emailsConfiguration,
                 null);
 
             return new AutofacServiceProvider(container);
