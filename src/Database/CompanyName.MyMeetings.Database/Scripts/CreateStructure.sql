@@ -347,6 +347,23 @@ CREATE TABLE [meetings].[MeetingAttendees] (
     CONSTRAINT [PK_meetings_MeetingAttendees_Id] PRIMARY KEY CLUSTERED ([MeetingId] ASC, [AttendeeId] ASC, [DecisionDate] ASC)
 );
 
+GO
+PRINT N'Creating [meetings].[MeetingComments]...';
+
+
+GO
+CREATE TABLE meetings.MeetingComments
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL,
+    [MeetingId] UNIQUEIDENTIFIER NOT NULL,
+    [AuthorId] UNIQUEIDENTIFIER NOT NULL,
+    [InReplyToCommentId] UNIQUEIDENTIFIER NULL,
+    [Comment] VARCHAR(300) NULL,
+    [CreateDate] DATETIME NOT NULL,
+	[EditDate] DATE NULL,
+	[LikeCount] INT NOT NULL,
+	CONSTRAINT [PK_meetings_MeetingComments_Id] PRIMARY KEY ([Id] ASC)
+)
 
 GO
 PRINT N'Creating [payments].[Payers]...';
