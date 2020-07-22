@@ -49,7 +49,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SubscriptionR
                 PriceListItemCategory.Renewal
             );
             
-            var priceList = new PriceList(new List<PriceListItemData>{ priceListItem });
+            var priceList = PriceList.CreateFromItems(new List<PriceListItemData>{ priceListItem });
 
             return priceList;
         }
