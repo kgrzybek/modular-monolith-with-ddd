@@ -22,7 +22,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments
             _memberContext = memberContext;
             _meetingCommentRepository = meetingCommentRepository;
         }
-
+        
         public async Task<Guid> Handle(AddMeetingCommentCommand command, CancellationToken cancellationToken)
         {
             var meeting = await _meetingRepository.GetByIdAsync(new MeetingId(command.MeetingId));

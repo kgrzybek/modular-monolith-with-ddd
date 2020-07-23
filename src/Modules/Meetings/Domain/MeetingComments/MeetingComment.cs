@@ -2,6 +2,7 @@
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Comments;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Comments.Events;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments.Rules;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
@@ -24,10 +25,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
 
         private DateTime? _editDate;
 
-        private int _likeCount;
-
         private MeetingComment(MeetingId meetingId, MemberId authorId, string comment, MeetingCommentId? inReplyToCommentId)
         {
+            this.CheckRule(new CommentTextMustBeProvidedRule(comment));
+            
             this.Id = new MeetingCommentId(Guid.NewGuid());
             _meetingId = meetingId;
             _authorId = authorId;
@@ -37,12 +38,16 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
 
             _createDate = SystemClock.Now;
             _editDate = null;
-            _likeCount = 0;
             
             this.AddDomainEvent(new MeetingCommentCreatedDomainEvent(Id));
         }
+        
+        private MeetingComment()
+        {
+            // Only for EF.
+        }
 
-        internal static MeetingComment Create(MeetingId meetingId, MemberId authorId, string comment)
+        public static MeetingComment Create(MeetingId meetingId, MemberId authorId, string comment)
             => new MeetingComment(meetingId, authorId, comment, inReplyToCommentId: null);
     }
 }

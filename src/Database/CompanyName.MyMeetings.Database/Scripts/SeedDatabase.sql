@@ -89,6 +89,7 @@ INSERT INTO users.[Permissions] ([Code], [Name]) VALUES
 	('EditMeetingGroupGeneralAttributes','EditMeetingGroupGeneralAttributes'),
 	('JoinToGroup','JoinToGroup'),
 	('LeaveMeetingGroup','LeaveMeetingGroup'),
+	('AddMeetingComment','AddMeetingComment'),
 
 	-- Administration
 	('AcceptMeetingGroupProposal','AcceptMeetingGroupProposal'),
@@ -117,6 +118,7 @@ INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetAllMeetingGroups')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'EditMeetingGroupGeneralAttributes')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'JoinToGroup')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'LeaveMeetingGroup')
+INSERT INTO users.RolesToPermissions VALUES ('Member', 'AddMeetingComment')
 
 -- Administration
 INSERT INTO users.RolesToPermissions VALUES ('Administrator', 'AcceptMeetingGroupProposal')

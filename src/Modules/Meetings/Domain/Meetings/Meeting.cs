@@ -297,9 +297,13 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
 
             attendee.MarkFeeAsPayed();
         }
-        
+
         public MeetingComment AddComment(MemberId authorId, string comment)
-            => MeetingComment.Create(this.Id, authorId, comment);
+        {
+            this.CheckRule(new CommentCanBeAddedOnlyByAttendeeRule(authorId, _attendees));
+                
+            return MeetingComment.Create(this.Id, authorId, comment);
+        }
 
         private MeetingWaitlistMember GetActiveMemberOnWaitlist(MemberId memberId)
         {

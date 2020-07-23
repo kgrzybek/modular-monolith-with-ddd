@@ -19,5 +19,6 @@
         public const string EditMeetingGroupGeneralAttributes = "EditMeetingGroupGeneralAttributes";
         public const string JoinToGroup = "JoinToGroup";
         public const string LeaveMeetingGroup = "LeaveMeetingGroup";
+        public const string AddMeetingComment = "AddMeetingComment";
     }
 }
