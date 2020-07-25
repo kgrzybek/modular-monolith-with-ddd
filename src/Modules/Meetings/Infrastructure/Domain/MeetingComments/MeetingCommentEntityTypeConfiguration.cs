@@ -22,7 +22,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.MeetingC
             builder.Property<MeetingCommentId>("_inReplyToCommentId").HasColumnName("InReplyToCommentId");
             builder.Property<DateTime>("_createDate").HasColumnName("CreateDate");
             builder.Property<DateTime?>("_editDate").HasColumnName("EditDate");
-            builder.Property<int>("_likeCount").HasColumnName("LikeCount");
         }
     }
 }
