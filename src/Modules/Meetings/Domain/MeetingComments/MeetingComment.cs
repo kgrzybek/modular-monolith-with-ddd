@@ -47,7 +47,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
             // Only for EF.
         }
 
-        public static MeetingComment Create(MeetingId meetingId, MemberId authorId, string comment)
+        internal static MeetingComment Create(MeetingId meetingId, MemberId authorId, string comment)
             => new MeetingComment(meetingId, authorId, comment, inReplyToCommentId: null);
     }
 }

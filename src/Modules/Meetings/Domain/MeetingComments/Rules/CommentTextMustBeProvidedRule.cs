@@ -11,8 +11,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments.Rules
             _comment = comment;
         }
 
-        public bool IsBroken() => _comment == null;
+        public bool IsBroken() => string.IsNullOrEmpty(_comment);
 
-        public string Message => "Comment text must br provided.";
+        public string Message => "Comment text must be provided.";
     }
 }
