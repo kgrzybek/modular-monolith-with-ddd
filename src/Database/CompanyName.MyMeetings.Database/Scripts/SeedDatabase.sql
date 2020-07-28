@@ -89,6 +89,7 @@ INSERT INTO users.[Permissions] ([Code], [Name]) VALUES
 	('EditMeetingGroupGeneralAttributes','EditMeetingGroupGeneralAttributes'),
 	('JoinToGroup','JoinToGroup'),
 	('LeaveMeetingGroup','LeaveMeetingGroup'),
+	('AddMeetingComment','AddMeetingComment'),
 
 	-- Administration
 	('AcceptMeetingGroupProposal','AcceptMeetingGroupProposal'),
@@ -97,7 +98,10 @@ INSERT INTO users.[Permissions] ([Code], [Name]) VALUES
 	('RegisterPayment','RegisterPayment'),
 	('BuySubscription','BuySubscription'),
 	('RenewSubscription','RenewSubscription'),
-	('CreatePriceListItem','CreatePriceListItem')
+	('CreatePriceListItem','CreatePriceListItem'),
+	('ActivatePriceListItem','ActivatePriceListItem'),
+	('DeactivatePriceListItem','DeactivatePriceListItem'),
+	('ChangePriceListItemAttributes','ChangePriceListItemAttributes')
 
 -- Meetings
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetMeetingGroupProposals')
@@ -117,6 +121,7 @@ INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetAllMeetingGroups')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'EditMeetingGroupGeneralAttributes')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'JoinToGroup')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'LeaveMeetingGroup')
+INSERT INTO users.RolesToPermissions VALUES ('Member', 'AddMeetingComment')
 
 -- Administration
 INSERT INTO users.RolesToPermissions VALUES ('Administrator', 'AcceptMeetingGroupProposal')
@@ -126,3 +131,6 @@ INSERT INTO users.RolesToPermissions VALUES ('Member', 'RegisterPayment')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'BuySubscription')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'RenewSubscription')
 INSERT INTO users.RolesToPermissions VALUES ('Administrator', 'CreatePriceListItem')
+INSERT INTO users.RolesToPermissions VALUES ('Administrator', 'ActivatePriceListItem')
+INSERT INTO users.RolesToPermissions VALUES ('Administrator', 'DeactivatePriceListItem')
+INSERT INTO users.RolesToPermissions VALUES ('Administrator', 'ChangePriceListItemAttributes')

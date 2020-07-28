@@ -1,5 +1,6 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Outbox;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.InternalCommands;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
@@ -30,6 +31,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure
         public DbSet<Member> Members { get; set; }
 
         public DbSet<MemberSubscription> MemberSubscriptions { get; set; }
+        
+        public DbSet<MeetingComment> MeetingComments { get; set; }
 
         private readonly ILoggerFactory _loggerFactory;
 
@@ -44,14 +47,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.ApplyConfiguration(new MeetingGroupsEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new MeetingEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new OutboxMessageEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new InternalCommandEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new MeetingGroupProposalEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new MemberEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new MemberSubscriptionEntityTypeConfiguration());
-        }
+            => modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
     }
 }

@@ -88,6 +88,7 @@
     <Build Include="meetings\Tables\MeetingAttendees.sql" />
     <Build Include="meetings\Tables\MeetingNotAttendees.sql" />
     <Build Include="meetings\Tables\MeetingWaitlistMembers.sql" />
+    <Build Include="meetings\Tables\MeetingComments.sql" />
     <Build Include="meetings\Views\v_MeetingGroups.sql" />
     <Build Include="users\Tables\Users.sql" />
     <Build Include="users\Tables\UserRegistrations.sql" />
