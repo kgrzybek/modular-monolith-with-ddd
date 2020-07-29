@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Events;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
+using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispatching;
 using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
 using Dapper;
 using MediatR;
@@ -17,14 +17,18 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
     internal class ProcessOutboxCommandHandler : ICommandHandler<ProcessOutboxCommand>
     {
         private readonly IMediator _mediator;
+
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
+
+        private readonly IDomainNotificationsMapper _domainNotificationsMapper;
 
         public ProcessOutboxCommandHandler(
             IMediator mediator, 
-            ISqlConnectionFactory sqlConnectionFactory)
+            ISqlConnectionFactory sqlConnectionFactory, IDomainNotificationsMapper domainNotificationsMapper)
         {
             _mediator = mediator;
             _sqlConnectionFactory = sqlConnectionFactory;
+            _domainNotificationsMapper = domainNotificationsMapper;
         }
 
         public async Task<Unit> Handle(ProcessOutboxCommand command, CancellationToken cancellationToken)
@@ -47,13 +51,12 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
             {
                 foreach (var message in messagesList)
                 {
-                    Type type = Assemblies.Application
-                        .GetType(message.Type);
-                    var request = JsonConvert.DeserializeObject(message.Data, type) as IDomainEventNotification;
+                    var type = _domainNotificationsMapper.GetType(message.Type);
+                    var @event = JsonConvert.DeserializeObject(message.Data, type) as IDomainEventNotification;
 
-                    using (LogContext.Push(new OutboxMessageContextEnricher(request)))
+                    using (LogContext.Push(new OutboxMessageContextEnricher(@event)))
                     {
-                        await this._mediator.Publish(request, cancellationToken);
+                        await this._mediator.Publish(@event, cancellationToken);
 
                         await connection.ExecuteAsync(sqlUpdateProcessedDate, new
                         {

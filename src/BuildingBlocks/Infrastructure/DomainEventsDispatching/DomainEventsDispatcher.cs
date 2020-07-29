@@ -22,16 +22,20 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispa
 
         private readonly IDomainEventsAccessor _domainEventsProvider;
 
+        private readonly IDomainNotificationsMapper _domainNotificationsMapper;
+
         public DomainEventsDispatcher(
             IMediator mediator,
             ILifetimeScope scope,
             IOutbox outbox,
-            IDomainEventsAccessor domainEventsProvider)
+            IDomainEventsAccessor domainEventsProvider, 
+            IDomainNotificationsMapper domainNotificationsMapper)
         {
             _mediator = mediator;
             _scope = scope;
             _outbox = outbox;
             _domainEventsProvider = domainEventsProvider;
+            _domainNotificationsMapper = domainNotificationsMapper;
         }
 
         public async Task DispatchEventsAsync()
@@ -64,7 +68,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispa
 
             foreach (var domainEventNotification in domainEventNotifications)
             {
-                string type = domainEventNotification.GetType().FullName;
+                var type = _domainNotificationsMapper.GetName(domainEventNotification.GetType());
                 var data = JsonConvert.SerializeObject(domainEventNotification, new JsonSerializerSettings
                 {
                     ContractResolver = new AllPropertiesContractResolver()

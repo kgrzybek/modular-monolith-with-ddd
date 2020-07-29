@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups
 {
-    internal class MeetingGroupCreatedNotification : DomainNotificationBase<MeetingGroupCreatedDomainEvent>
+    public class MeetingGroupCreatedNotification : DomainNotificationBase<MeetingGroupCreatedDomainEvent>
     {
         [JsonConstructor]
         internal MeetingGroupCreatedNotification(MeetingGroupCreatedDomainEvent domainEvent, Guid id) : base(domainEvent, id)
