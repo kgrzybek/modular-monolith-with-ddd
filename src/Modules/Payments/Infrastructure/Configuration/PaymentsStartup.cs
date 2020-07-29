@@ -1,7 +1,15 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
+using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
+using CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.MarkMeetingFeeAsPaid;
+using CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.MarkMeetingFeePaymentAsPaid;
+using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.CreateSubscription;
+using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.MarkSubscriptionPaymentAsPaid;
+using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.MarkSubscriptionRenewalPaymentAsPaid;
+using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.RenewSubscription;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Authentication;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.DataAccess;
@@ -63,7 +71,17 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration
             containerBuilder.RegisterModule(new EventsBusModule(eventsBus));
             containerBuilder.RegisterModule(new MediatorModule());
             containerBuilder.RegisterModule(new AuthenticationModule());
-            containerBuilder.RegisterModule(new OutboxModule());
+
+
+            BiDictionary<string, Type> domainNotificationsMap = new BiDictionary<string, Type>();
+            domainNotificationsMap.Add("MeetingFeePaidNotification", typeof(MeetingFeePaidNotification));
+            domainNotificationsMap.Add("MeetingFeePaymentPaidNotification", typeof(MeetingFeePaymentPaidNotification));
+            domainNotificationsMap.Add("SubscriptionCreatedNotification", typeof(SubscriptionCreatedNotification));
+            domainNotificationsMap.Add("SubscriptionPaymentPaidNotification", typeof(SubscriptionPaymentPaidNotification));
+            domainNotificationsMap.Add("SubscriptionRenewalPaymentPaidNotification", typeof(SubscriptionRenewalPaymentPaidNotification));
+            domainNotificationsMap.Add("SubscriptionRenewedNotification", typeof(SubscriptionRenewedNotification));
+
+            containerBuilder.RegisterModule(new OutboxModule(domainNotificationsMap));
             
             if (runQuartz)
             {

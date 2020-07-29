@@ -1,6 +1,9 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
+using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
+using CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.AcceptMeetingGroupProposal;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Authentication;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.DataAccess;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.EventsBus;
@@ -49,7 +52,11 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             containerBuilder.RegisterModule(new EventsBusModule(eventsBus));
             containerBuilder.RegisterModule(new MediatorModule());
             containerBuilder.RegisterModule(new AuthenticationModule());
-            containerBuilder.RegisterModule(new OutboxModule());
+
+            var domainNotificationsMap = new BiDictionary<string, Type>();
+            domainNotificationsMap.Add("MeetingGroupProposalAcceptedNotification", typeof(MeetingGroupProposalAcceptedNotification));
+            containerBuilder.RegisterModule(new OutboxModule(domainNotificationsMap));
+            
             containerBuilder.RegisterModule(new QuartzModule()); 
 
             containerBuilder.RegisterInstance(executionContextAccessor);

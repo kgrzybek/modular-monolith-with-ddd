@@ -1,7 +1,15 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
+using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
+using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals;
+using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals.AcceptMeetingGroupProposal;
+using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups;
+using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SendMeetingAttendeeAddedEmail;
+using CompanyName.MyMeetings.Modules.Meetings.Application.Members.CreateMember;
+using CompanyName.MyMeetings.Modules.Meetings.Application.MemberSubscriptions;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Authentication;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.DataAccess;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Email;
@@ -59,7 +67,16 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration
             containerBuilder.RegisterModule(new EventsBusModule(eventsBus));
             containerBuilder.RegisterModule(new MediatorModule());
             containerBuilder.RegisterModule(new AuthenticationModule());
-            containerBuilder.RegisterModule(new OutboxModule());
+
+            var domainNotificationsMap = new BiDictionary<string, Type>();
+            domainNotificationsMap.Add("MeetingGroupProposalAcceptedNotification", typeof(MeetingGroupProposalAcceptedNotification));
+            domainNotificationsMap.Add("MeetingGroupProposedNotification", typeof(MeetingGroupProposedNotification));
+            domainNotificationsMap.Add("MeetingGroupCreatedNotification", typeof(MeetingGroupCreatedNotification));
+            domainNotificationsMap.Add("MeetingAttendeeAddedNotification", typeof(MeetingAttendeeAddedNotification));
+            domainNotificationsMap.Add("MemberCreatedNotification", typeof(MemberCreatedNotification));
+            domainNotificationsMap.Add("MemberSubscriptionExpirationDateChangedNotification", typeof(MemberSubscriptionExpirationDateChangedNotification));
+            containerBuilder.RegisterModule(new OutboxModule(domainNotificationsMap));
+
             containerBuilder.RegisterModule(new EmailModule(emailsConfiguration));
             containerBuilder.RegisterModule(new QuartzModule());
 

@@ -5,6 +5,7 @@ using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispatching;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing.InternalCommands;
+using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing.Outbox;
 using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing
@@ -15,6 +16,10 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
         {
             builder.RegisterType<DomainEventsDispatcher>()
                 .As<IDomainEventsDispatcher>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<DomainNotificationsMapper>()
+                .As<IDomainNotificationsMapper>()
                 .InstancePerLifetimeScope();
 
             builder.RegisterType<DomainEventsAccessor>()

@@ -1,7 +1,11 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
+using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
+using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.RegisterNewUser;
+using CompanyName.MyMeetings.Modules.UserAccess.Application.Users.CreateUser;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.DataAccess;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Domain;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Email;
@@ -60,7 +64,12 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
             containerBuilder.RegisterModule(new ProcessingModule());
             containerBuilder.RegisterModule(new EventsBusModule());
             containerBuilder.RegisterModule(new MediatorModule());
-            containerBuilder.RegisterModule(new OutboxModule());
+            
+            var domainNotificationsMap = new BiDictionary<string, Type>();
+            domainNotificationsMap.Add("NewUserRegisteredNotification", typeof(NewUserRegisteredNotification));
+            domainNotificationsMap.Add("UserRegistrationConfirmedNotification", typeof(UserRegistrationConfirmedNotification));
+            containerBuilder.RegisterModule(new OutboxModule(domainNotificationsMap));
+            
             containerBuilder.RegisterModule(new QuartzModule()); 
             containerBuilder.RegisterModule(new EmailModule(emailsConfiguration, emailSender)); 
             containerBuilder.RegisterModule(new SecurityModule(textEncryptionKey)); 
