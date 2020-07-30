@@ -1,5 +1,4 @@
 ﻿using System;
-using Newtonsoft.Json;
 
 namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingComments
 {
