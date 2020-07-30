@@ -22,14 +22,14 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroup
         {
             await _commandsScheduler.EnqueueAsync(
                 new RequestMeetingGroupProposalVerificationCommand(
-                    Guid.NewGuid(),
-                notification.MeetingGroupProposalId,
-                notification.Name, 
-                notification.Description, 
-                notification.LocationCity,
-                notification.LocationCountryCode, 
-                notification.ProposalUserId,
-                notification.ProposalDate));
+            Guid.NewGuid(),
+            notification.MeetingGroupProposalId,
+            notification.Name,
+            notification.Description,
+            notification.LocationCity,
+            notification.LocationCountryCode,
+            notification.ProposalUserId,
+            notification.ProposalDate));
         }
     }
 }

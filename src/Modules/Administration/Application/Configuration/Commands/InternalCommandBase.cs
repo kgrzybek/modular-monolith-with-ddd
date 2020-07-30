@@ -5,18 +5,16 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.Configuratio
 {
     public abstract class InternalCommandBase : ICommand
     {
-        public Guid Id { get; }
-
         protected InternalCommandBase(Guid id)
         {
             this.Id = id;
         }
+
+        public Guid Id { get; }
     }
 
     public abstract class InternalCommandBase<TResult> : ICommand<TResult>
     {
-        public Guid Id { get; }
-
         protected InternalCommandBase()
         {
             this.Id = Guid.NewGuid();
@@ -26,5 +24,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.Configuratio
         {
             this.Id = id;
         }
+
+        public Guid Id { get; }
     }
 }

@@ -35,7 +35,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroup
                          "FROM [administration].[v_MeetingGroupProposals] AS [MeetingGroupProposal] " +
                          "WHERE [MeetingGroupProposal].[Id] = @MeetingGroupProposalId";
 
-            return await connection.QuerySingleAsync<MeetingGroupProposalDto>(sql, new { query.MeetingGroupProposalId});
+            return await connection.QuerySingleAsync<MeetingGroupProposalDto>(sql, new { query.MeetingGroupProposalId });
         }
     }
 }

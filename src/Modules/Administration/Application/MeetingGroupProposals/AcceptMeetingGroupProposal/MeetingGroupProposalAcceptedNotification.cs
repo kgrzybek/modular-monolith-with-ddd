@@ -9,7 +9,8 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroup
     public class MeetingGroupProposalAcceptedNotification : DomainNotificationBase<MeetingGroupProposalAcceptedDomainEvent>
     {
         [JsonConstructor]
-        public MeetingGroupProposalAcceptedNotification(MeetingGroupProposalAcceptedDomainEvent domainEvent, Guid id) : base(domainEvent, id)
+        public MeetingGroupProposalAcceptedNotification(MeetingGroupProposalAcceptedDomainEvent domainEvent, Guid id)
+            : base(domainEvent, id)
         {
         }
     }

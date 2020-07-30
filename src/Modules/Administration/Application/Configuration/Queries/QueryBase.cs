@@ -5,8 +5,6 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.Configuratio
 {
     public abstract class QueryBase
     {
-        public Guid Id { get; }
-
         protected QueryBase()
         {
             this.Id = Guid.NewGuid();
@@ -16,12 +14,12 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.Configuratio
         {
             this.Id = id;
         }
+
+        public Guid Id { get; }
     }
 
     public abstract class QueryBase<TResult> : IQuery<TResult>
     {
-        public Guid Id { get; }
-
         protected QueryBase()
         {
             this.Id = Guid.NewGuid();
@@ -31,5 +29,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.Configuratio
         {
             this.Id = id;
         }
+
+        public Guid Id { get; }
     }
 }

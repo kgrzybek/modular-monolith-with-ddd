@@ -6,11 +6,11 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroup
 {
     public class AcceptMeetingGroupProposalCommand : CommandBase<Unit>
     {
-        internal Guid MeetingGroupProposalId { get; }
-
         public AcceptMeetingGroupProposalCommand(Guid meetingGroupProposalId)
         {
             MeetingGroupProposalId = meetingGroupProposalId;
         }
+
+        internal Guid MeetingGroupProposalId { get; }
     }
 }
