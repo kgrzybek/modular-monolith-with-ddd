@@ -8,8 +8,6 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupPropo
 {
     public class MeetingGroupProposal : Entity, IAggregateRoot
     {
-        public MeetingGroupProposalId Id { get; private set; }
-
         private string _name;
 
         private string _description;
@@ -23,13 +21,6 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupPropo
         private MeetingGroupProposalStatus _status;
 
         private MeetingGroupProposalDecision _decision;
-
-        private MeetingGroupProposal()
-        {
-            // Only for EF.
-
-            _decision = MeetingGroupProposalDecision.NoDecision;
-        }
 
         private MeetingGroupProposal(
             MeetingGroupProposalId id,
@@ -51,6 +42,13 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupPropo
 
             this.AddDomainEvent(new MeetingGroupProposalVerificationRequestedDomainEvent(this.Id));
         }
+
+        private MeetingGroupProposal()
+        {
+            _decision = MeetingGroupProposalDecision.NoDecision;
+        }
+
+        public MeetingGroupProposalId Id { get; private set; }
 
         public void Accept(UserId userId)
         {

@@ -4,11 +4,11 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupPropo
 {
     public class MeetingGroupProposalAcceptedDomainEvent : DomainEventBase
     {
-        public MeetingGroupProposalId MeetingGroupProposalId { get; }
-
         public MeetingGroupProposalAcceptedDomainEvent(MeetingGroupProposalId meetingGroupProposalId)
         {
             MeetingGroupProposalId = meetingGroupProposalId;
         }
+
+        public MeetingGroupProposalId MeetingGroupProposalId { get; }
     }
 }

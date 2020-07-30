@@ -25,11 +25,6 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.Members
             // Only for EF.
         }
 
-        public static Member Create(Guid id, string login, string email, string firstName, string lastName, string name)
-        {
-            return new Member(id, login, email, firstName, lastName, name);
-        }
-
         private Member(Guid id, string login, string email, string firstName, string lastName, string name)
         {
             this.Id = new MemberId(id);
@@ -41,6 +36,11 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.Members
             _createDate = DateTime.UtcNow;
 
             this.AddDomainEvent(new MemberCreatedDomainEvent(this.Id));
+        }
+
+        public static Member Create(Guid id, string login, string email, string firstName, string lastName, string name)
+        {
+            return new Member(id, login, email, firstName, lastName, name);
         }
     }
 }

@@ -11,8 +11,8 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupPropo
             _reason = reason;
         }
 
-        public bool IsBroken() => string.IsNullOrEmpty(_reason);
-
         public string Message => "Meeting group proposal rejection must have a reason";
+
+        public bool IsBroken() => string.IsNullOrEmpty(_reason);
     }
 }

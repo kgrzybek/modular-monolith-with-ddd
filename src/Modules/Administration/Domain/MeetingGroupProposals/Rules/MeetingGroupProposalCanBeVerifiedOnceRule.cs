@@ -5,13 +5,14 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupPropo
     public class MeetingGroupProposalCanBeVerifiedOnceRule : IBusinessRule
     {
         private readonly MeetingGroupProposalDecision _actualDecision;
+
         internal MeetingGroupProposalCanBeVerifiedOnceRule(MeetingGroupProposalDecision actualDecision)
         {
             _actualDecision = actualDecision;
         }
 
-        public bool IsBroken() => _actualDecision != MeetingGroupProposalDecision.NoDecision;
-
         public string Message => "Meeting group proposal can be verified only once";
+
+        public bool IsBroken() => _actualDecision != MeetingGroupProposalDecision.NoDecision;
     }
 }

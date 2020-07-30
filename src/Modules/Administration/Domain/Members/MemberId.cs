@@ -5,7 +5,8 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.Members
 {
     public class MemberId : TypedIdValueBase
     {
-        public MemberId(Guid value) : base(value)
+        public MemberId(Guid value)
+            : base(value)
         {
         }
     }
