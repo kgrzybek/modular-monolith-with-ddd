@@ -22,7 +22,8 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingGroupProposals
         [HasPermission(MeetingsPermissions.GetMeetingGroupProposals)]
         public async Task<IActionResult> GetMeetingGroupProposals(int? page, int? perPage)
         {
-            var meetingGroupProposals = await _meetingsModule.ExecuteQueryAsync(new GetMeetingGroupProposalsQuery(page, perPage));
+            var meetingGroupProposals = await _meetingsModule.ExecuteQueryAsync(
+                new GetMeetingGroupProposalsQuery(page, perPage));
 
             return Ok(meetingGroupProposals);
         }
