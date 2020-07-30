@@ -52,7 +52,7 @@ namespace CompanyName.MyMeetings.API
             AuthorizationChecker.CheckAllEndpoints();
         }
 
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
 
@@ -79,8 +79,14 @@ namespace CompanyName.MyMeetings.API
             });
 
             services.AddScoped<IAuthorizationHandler, HasPermissionAuthorizationHandler>();
+        }
 
-            return CreateAutofacServiceProvider(services);
+        public void ConfigureContainer(ContainerBuilder containerBuilder)
+        {
+            containerBuilder.RegisterModule(new MeetingsAutofacModule());
+            containerBuilder.RegisterModule(new AdministrationAutofacModule());
+            containerBuilder.RegisterModule(new UserAccessAutofacModule());
+            containerBuilder.RegisterModule(new PaymentsAutofacModule());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
