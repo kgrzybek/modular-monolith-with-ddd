@@ -20,9 +20,14 @@ namespace CompanyName.MyMeetings.API.Configuration.Authorization
             _userAccessModule = userAccessModule;
         }
 
-        protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, HasPermissionAuthorizationRequirement requirement, IEnumerable<HasPermissionAttribute> attributes)
+        protected override async Task HandleRequirementAsync(
+            AuthorizationHandlerContext context,
+            HasPermissionAuthorizationRequirement requirement,
+            IEnumerable<HasPermissionAttribute> attributes)
         {
-            var permissions = await _userAccessModule.ExecuteQueryAsync(new GetUserPermissionsQuery(_executionContextAccessor.UserId));
+            var permissions = await _userAccessModule.ExecuteQueryAsync(
+                new GetUserPermissionsQuery(_executionContextAccessor.UserId));
+
             foreach (var permissionAttribute in attributes)
             {
                 if (!await AuthorizeAsync(permissionAttribute.Name, permissions))
@@ -40,13 +45,7 @@ namespace CompanyName.MyMeetings.API.Configuration.Authorization
 #if !DEBUG
             return Task.FromResult(true);
 #endif
-
-            if (permissions.Any(x => x.Code == permission))
-            {
-                return Task.FromResult(true);
-            }
-
-            return Task.FromResult(false);
+            return Task.FromResult(permissions.Any(x => x.Code == permission));
         }
     }
 }
