@@ -52,8 +52,8 @@ namespace CompanyName.MyMeetings.API.Configuration.Extensions
                         new List<string>()
                     }
                 });
-
             });
+
             return services;
         }
 
@@ -65,6 +65,7 @@ namespace CompanyName.MyMeetings.API.Configuration.Extensions
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyMeetings API");
             });
+
             return app;
         }
     }
