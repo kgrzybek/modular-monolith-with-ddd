@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace CompanyName.MyMeetings.API
+namespace CompanyName.MyMeetings.API.Configuration.Extensions
 {
     internal static class SwaggerExtensions
     {

@@ -3,7 +3,7 @@ using System.Linq;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
 using Microsoft.AspNetCore.Http;
 
-namespace CompanyName.MyMeetings.API
+namespace CompanyName.MyMeetings.API.Configuration.ExecutionContext
 {
     public class ExecutionContextAccessor : IExecutionContextAccessor
     {

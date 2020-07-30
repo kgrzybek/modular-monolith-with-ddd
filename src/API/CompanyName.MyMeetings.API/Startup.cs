@@ -22,6 +22,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Formatting.Compact;
 using System;
+using CompanyName.MyMeetings.API.Configuration.ExecutionContext;
+using CompanyName.MyMeetings.API.Configuration.Extensions;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration;

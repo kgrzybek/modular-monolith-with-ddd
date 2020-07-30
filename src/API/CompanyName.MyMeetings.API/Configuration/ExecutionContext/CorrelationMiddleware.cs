@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace CompanyName.MyMeetings.API
+namespace CompanyName.MyMeetings.API.Configuration.ExecutionContext
 {
     internal class CorrelationMiddleware
     {
