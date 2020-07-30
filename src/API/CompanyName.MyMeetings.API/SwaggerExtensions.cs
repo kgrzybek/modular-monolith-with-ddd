@@ -22,7 +22,7 @@ namespace CompanyName.MyMeetings.API
                 });
 
                 var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                var commentsFileName = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
+                var commentsFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var commentsFile = Path.Combine(baseDirectory, commentsFileName);
                 options.IncludeXmlComments(commentsFile);
 
@@ -56,6 +56,7 @@ namespace CompanyName.MyMeetings.API
             });
             return services;
         }
+
         internal static IApplicationBuilder UseSwaggerDocumentation(this IApplicationBuilder app)
         {
             app.UseSwagger();
