@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore;
+﻿using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 
 namespace CompanyName.MyMeetings.API
 {
@@ -11,13 +11,13 @@ namespace CompanyName.MyMeetings.API
             CreateWebHostBuilder(args).Build().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-
-                .UseStartup<Startup>()
-                .ConfigureAppConfiguration(builder =>
-                {
-                    builder.AddJsonFile("appsettings.json");
-                });
+        public static IHostBuilder CreateWebHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                .ConfigureWebHostDefaults(
+                    webBuilder =>
+                    {
+                        webBuilder.UseStartup<Startup>();
+                    });
     }
 }
