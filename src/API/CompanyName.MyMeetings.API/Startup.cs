@@ -90,8 +90,6 @@ namespace CompanyName.MyMeetings.API
 
             app.UseSwaggerDocumentation();
 
-
-
             app.UseIdentityServer();
 
             if (env.IsDevelopment())
