@@ -5,7 +5,6 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
 {
     public class CreateMeetingRequest
     {
-
         public Guid MeetingGroupId { get; set; }
 
         public string Title { get; set; }
