@@ -46,6 +46,8 @@ namespace CompanyName.MyMeetings.API
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json")
                 .AddUserSecrets<Startup>()
                 .Build();
+
+            AuthorizationChecker.CheckAllEndpoints();
         }
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
