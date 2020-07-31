@@ -36,15 +36,16 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             EventsBusStartup.Initialize(moduleLogger);
         }
 
-        private static void ConfigureContainer(string connectionString, 
+        private static void ConfigureContainer(
+            string connectionString,
             IExecutionContextAccessor executionContextAccessor,
             ILogger logger,
             IEventsBus eventsBus)
         {
             var containerBuilder = new ContainerBuilder();
-          
+
             containerBuilder.RegisterModule(new LoggingModule(logger));
-            
+
             var loggerFactory = new SerilogLoggerFactory(logger);
             containerBuilder.RegisterModule(new DataAccessModule(connectionString, loggerFactory));
 
@@ -56,8 +57,8 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             var domainNotificationsMap = new BiDictionary<string, Type>();
             domainNotificationsMap.Add("MeetingGroupProposalAcceptedNotification", typeof(MeetingGroupProposalAcceptedNotification));
             containerBuilder.RegisterModule(new OutboxModule(domainNotificationsMap));
-            
-            containerBuilder.RegisterModule(new QuartzModule()); 
+
+            containerBuilder.RegisterModule(new QuartzModule());
 
             containerBuilder.RegisterInstance(executionContextAccessor);
 

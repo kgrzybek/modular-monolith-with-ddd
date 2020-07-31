@@ -26,3 +26,6 @@ dotnet_diagnostic.SA1201.severity = none
 
 # SA1204: Static elements should appear before instance elements
 dotnet_diagnostic.SA1204.severity = none
+
+# SA1413: Use trailing comma in multi-line initializers
+dotnet_diagnostic.SA1413.severity = none

@@ -9,7 +9,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Outbox
         public void Configure(EntityTypeBuilder<OutboxMessage> builder)
         {
             builder.ToTable("OutboxMessages", "administration");
-            
+
             builder.HasKey(b => b.Id);
             builder.Property(b => b.Id).ValueGeneratedNever();
         }

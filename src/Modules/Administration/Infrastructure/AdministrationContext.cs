@@ -14,15 +14,17 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure
     public class AdministrationContext : DbContext
     {
         private readonly ILoggerFactory _loggerFactory;
+
+        public DbSet<InternalCommand> InternalCommands { get; set; }
+
         internal DbSet<MeetingGroupProposal> MeetingGroupProposals { get; set; }
 
         internal DbSet<OutboxMessage> OutboxMessages { get; set; }
 
-        public DbSet<InternalCommand> InternalCommands { get; set; }
-
         internal DbSet<Member> Members { get; set; }
 
-        public AdministrationContext(DbContextOptions options, ILoggerFactory loggerFactory) : base(options)
+        public AdministrationContext(DbContextOptions options, ILoggerFactory loggerFactory)
+            : base(options)
         {
             _loggerFactory = loggerFactory;
         }

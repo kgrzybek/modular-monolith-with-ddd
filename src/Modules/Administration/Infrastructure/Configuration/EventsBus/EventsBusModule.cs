@@ -18,7 +18,6 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             if (_eventsBus != null)
             {
                 builder.RegisterInstance(_eventsBus).SingleInstance();
-
             }
             else
             {
@@ -26,7 +25,6 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
                     .As<IEventsBus>()
                     .SingleInstance();
             }
-
         }
     }
 }

@@ -24,8 +24,8 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
         private readonly IDomainNotificationsMapper _domainNotificationsMapper;
 
         public ProcessOutboxCommandHandler(
-            IMediator mediator, 
-            ISqlConnectionFactory sqlConnectionFactory, 
+            IMediator mediator,
+            ISqlConnectionFactory sqlConnectionFactory,
             IDomainNotificationsMapper domainNotificationsMapper)
         {
             _mediator = mediator;
@@ -66,7 +66,6 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
                             message.Id
                         });
                     }
-
                 }
             }
 
@@ -81,6 +80,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             {
                 _notification = notification;
             }
+
             public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
             {
                 logEvent.AddOrUpdateProperty(new LogEventProperty("Context", new ScalarValue($"OutboxMessage:{_notification.Id.ToString()}")));

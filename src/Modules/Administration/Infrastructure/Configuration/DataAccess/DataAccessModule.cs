@@ -47,7 +47,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
                 .Where(type => type.Name.EndsWith("Repository"))
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope()
-                .FindConstructorsWith(new AllConstructorFinder());;
+                .FindConstructorsWith(new AllConstructorFinder());
         }
     }
 }
