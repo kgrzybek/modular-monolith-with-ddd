@@ -47,6 +47,17 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
             // Only for EF.
         }
 
+        public void Edit(MemberId editorId, string editedComment)
+        {
+            this.CheckRule(new CommentTextMustBeProvidedRule(editedComment));
+            this.CheckRule(new MeetingCommentCanBeEditedOnlyByAuthor(this._authorId, editorId));
+
+            _comment = editedComment;
+            _editDate = SystemClock.Now;
+            
+            this.AddDomainEvent(new MeetingCommentEditedDomainEvent(this.Id, editedComment));
+        }
+        
         internal static MeetingComment Create(MeetingId meetingId, MemberId authorId, string comment)
             => new MeetingComment(meetingId, authorId, comment, inReplyToCommentId: null);
     }

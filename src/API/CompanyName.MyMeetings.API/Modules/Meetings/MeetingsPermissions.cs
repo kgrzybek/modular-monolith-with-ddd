@@ -20,5 +20,6 @@
         public const string JoinToGroup = "JoinToGroup";
         public const string LeaveMeetingGroup = "LeaveMeetingGroup";
         public const string AddMeetingComment = "AddMeetingComment";
+        public const string EditMeetingComment = "EditMeetingComment";
     }
 }
