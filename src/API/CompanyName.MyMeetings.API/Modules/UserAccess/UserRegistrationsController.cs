@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using CompanyName.MyMeetings.API.Configuration.Authorization;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.ConfirmUserRegistration;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.RegisterNewUser;
@@ -19,6 +20,7 @@ namespace CompanyName.MyMeetings.API.Modules.UserAccess
             _userAccessModule = userAccessModule;
         }
 
+        [NoPermissionRequired]
         [AllowAnonymous]
         [HttpPost("")]
         public async Task<IActionResult> RegisterNewUser(RegisterNewUserRequest request)
@@ -29,6 +31,7 @@ namespace CompanyName.MyMeetings.API.Modules.UserAccess
             return Ok();
         }
 
+        [NoPermissionRequired]
         [AllowAnonymous]
         [HttpPatch("{userRegistrationId}/confirm")]
         public async Task<IActionResult> ConfirmRegistration(Guid userRegistrationId)
