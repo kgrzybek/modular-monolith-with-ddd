@@ -29,8 +29,8 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.Members.GetM
                       $"[Member].[Name] AS [{nameof(MemberDto.Name)}] " +
                       "FROM [administration].[v_Members] AS [Member] " +
                       "WHERE [Member].[Id] = @MemberId";
-            
-            return await connection.QuerySingleAsync<MemberDto>(sql, new {query.MemberId});
+
+            return await connection.QuerySingleAsync<MemberDto>(sql, new { query.MemberId });
         }
     }
 }

@@ -8,7 +8,8 @@ namespace CompanyName.MyMeetings.Modules.Administration.IntegrationEvents.Meetin
         public MeetingGroupProposalAcceptedIntegrationEvent(
             Guid id,
             DateTime occurredOn,
-            Guid meetingGroupProposalId) :base(id, occurredOn)
+            Guid meetingGroupProposalId)
+            : base(id, occurredOn)
         {
             MeetingGroupProposalId = meetingGroupProposalId;
         }

@@ -49,7 +49,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
 
                 try
                 {
-                    await _mediator.Publish((INotification) request, cancellationToken);
+                    await _mediator.Publish((INotification)request, cancellationToken);
                 }
                 catch (Exception e)
                 {

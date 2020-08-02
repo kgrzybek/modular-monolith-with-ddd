@@ -4,11 +4,11 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupPropo
 {
     internal class MeetingGroupProposalRejectedDomainEvent : DomainEventBase
     {
-        internal MeetingGroupProposalId MeetingGroupProposalId { get; }
-
         internal MeetingGroupProposalRejectedDomainEvent(MeetingGroupProposalId meetingGroupProposalId)
         {
             MeetingGroupProposalId = meetingGroupProposalId;
         }
+
+        internal MeetingGroupProposalId MeetingGroupProposalId { get; }
     }
 }

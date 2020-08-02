@@ -49,10 +49,13 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
 
                 if (result.Outcome == OutcomeType.Failure)
                 {
-                    await connection.ExecuteScalarAsync("UPDATE [administration].[InternalCommands] " +
-                                                        "SET ProcessedDate = @NowDate, " +
-                                                        "Error = @Error " +
-                                                        "WHERE [Id] = @Id",
+                    const string updateOnErrorSql = "UPDATE [administration].[InternalCommands] " +
+                                                    "SET ProcessedDate = @NowDate, " +
+                                                    "Error = @Error " +
+                                                    "WHERE [Id] = @Id";
+
+                    await connection.ExecuteScalarAsync(
+                        updateOnErrorSql,
                         new
                         {
                             NowDate = DateTime.UtcNow,

@@ -8,6 +8,27 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroup
 {
     public class RequestMeetingGroupProposalVerificationCommand : InternalCommandBase<Guid>
     {
+        [JsonConstructor]
+        public RequestMeetingGroupProposalVerificationCommand(
+            Guid id,
+            Guid meetingGroupProposalId,
+            string name,
+            string description,
+            string locationCity,
+            string locationCountryCode,
+            Guid proposalUserId,
+            DateTime proposalDate)
+            : base(id)
+        {
+            this.MeetingGroupProposalId = meetingGroupProposalId;
+            this.Name = name;
+            this.Description = description;
+            this.LocationCity = locationCity;
+            this.LocationCountryCode = locationCountryCode;
+            this.ProposalUserId = proposalUserId;
+            this.ProposalDate = proposalDate;
+        }
+
         public Guid MeetingGroupProposalId { get;  }
 
         public string Name { get; }
@@ -21,25 +42,5 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroup
         public Guid ProposalUserId { get; }
 
         public DateTime ProposalDate { get; }
-
-        [JsonConstructor]
-        public RequestMeetingGroupProposalVerificationCommand(
-            Guid id,
-            Guid meetingGroupProposalId,
-            string name,
-            string description,
-            string locationCity,
-            string locationCountryCode,
-            Guid proposalUserId,
-            DateTime proposalDate) : base(id)
-        {
-            this.MeetingGroupProposalId = meetingGroupProposalId;
-            this.Name = name;
-            this.Description = description;
-            this.LocationCity = locationCity;
-            this.LocationCountryCode = locationCountryCode;
-            this.ProposalUserId = proposalUserId;
-            this.ProposalDate = proposalDate;
-        }
     }
 }

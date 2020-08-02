@@ -11,6 +11,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
         {
             this._executionContextAccessor = executionContextAccessor;
         }
+
         public UserId UserId => new UserId(_executionContextAccessor.UserId);
     }
 }

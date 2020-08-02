@@ -31,10 +31,6 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
                 .InstancePerLifetimeScope();
 
             builder.RegisterGenericDecorator(
-                typeof(UnitOfWorkCommandHandlerDecorator<>),
-                typeof(ICommandHandler<>));
-
-            builder.RegisterGenericDecorator(
                 typeof(UnitOfWorkCommandHandlerWithResultDecorator<,>),
                 typeof(ICommandHandler<,>));
 
@@ -54,15 +50,14 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
                 typeof(LoggingCommandHandlerWithResultDecorator<,>),
                 typeof(ICommandHandler<,>));
 
-
             builder.RegisterGenericDecorator(
-                typeof(DomainEventsDispatcherNotificationHandlerDecorator<>), 
+                typeof(DomainEventsDispatcherNotificationHandlerDecorator<>),
                 typeof(INotificationHandler<>));
 
             builder.RegisterAssemblyTypes(Assemblies.Application)
                 .AsClosedTypesOf(typeof(IDomainEventNotification<>))
                 .InstancePerDependency()
-                .FindConstructorsWith(new AllConstructorFinder());  
+                .FindConstructorsWith(new AllConstructorFinder());
         }
     }
 }

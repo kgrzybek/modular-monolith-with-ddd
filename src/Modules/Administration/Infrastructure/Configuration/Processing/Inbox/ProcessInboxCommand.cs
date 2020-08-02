@@ -5,6 +5,5 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
 {
     public class ProcessInboxCommand : CommandBase<Unit>, IRecurringCommand
     {
-        
     }
 }

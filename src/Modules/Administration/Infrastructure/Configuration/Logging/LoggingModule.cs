@@ -16,7 +16,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
         {
             builder.RegisterInstance(_logger)
                 .As<ILogger>()
-                .SingleInstance();      
+                .SingleInstance();
         }
     }
 }

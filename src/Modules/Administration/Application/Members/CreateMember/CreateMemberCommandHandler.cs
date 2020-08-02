@@ -19,8 +19,13 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.Members
 
         public async Task<Guid> Handle(CreateMemberCommand request, CancellationToken cancellationToken)
         {
-            var member = Member.Create(request.MemberId, request.Login, request.Email, request.FirstName,
-                request.LastName, request.Name);
+            var member = Member.Create(
+                request.MemberId,
+                request.Login,
+                request.Email,
+                request.FirstName,
+                request.LastName,
+                request.Name);
 
             await _memberRepository.AddAsync(member);
 

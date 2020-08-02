@@ -5,7 +5,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupPropo
     public class MeetingGroupProposalVerificationRequestedDomainEvent : DomainEventBase
     {
         internal MeetingGroupProposalVerificationRequestedDomainEvent(MeetingGroupProposalId meetingGroupProposalId)
-        {   
+        {
             MeetingGroupProposalId = meetingGroupProposalId;
         }
 

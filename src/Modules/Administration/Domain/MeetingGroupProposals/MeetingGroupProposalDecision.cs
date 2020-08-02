@@ -6,8 +6,14 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupPropo
 {
     public class MeetingGroupProposalDecision : ValueObject
     {
-        internal static MeetingGroupProposalDecision NoDecision => 
-            new MeetingGroupProposalDecision(null, null, null, null);
+        private MeetingGroupProposalDecision(DateTime? date, UserId userId, string code, string rejectReason)
+        {
+            this.Date = date;
+            this.UserId = userId;
+            this.Code = code;
+            this.RejectReason = rejectReason;
+        }
+
         public DateTime? Date { get; }
 
         public UserId UserId { get; }
@@ -16,13 +22,12 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupPropo
 
         public string RejectReason { get; }
 
-        private MeetingGroupProposalDecision(DateTime? date, UserId userId, string code, string rejectReason)
-        {
-            this.Date = date;
-            this.UserId = userId;
-            this.Code = code;
-            this.RejectReason = rejectReason;
-        }
+        internal static MeetingGroupProposalDecision NoDecision =>
+            new MeetingGroupProposalDecision(null, null, null, null);
+
+        private bool IsAccepted => this.Code == "Accept";
+
+        private bool IsRejected => this.Code == "Reject";
 
         internal static MeetingGroupProposalDecision AcceptDecision(DateTime date, UserId userId)
         {
@@ -48,9 +53,5 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupPropo
 
             return MeetingGroupProposalStatus.ToVerify;
         }
-
-        private bool IsAccepted => this.Code == "Accept";
-
-        private bool IsRejected => this.Code == "Reject";
     }
 }
