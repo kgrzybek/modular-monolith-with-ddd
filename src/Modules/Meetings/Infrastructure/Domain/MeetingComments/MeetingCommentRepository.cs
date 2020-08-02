@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.Comments;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.MeetingComments
@@ -15,6 +16,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.MeetingC
         public async Task AddAsync(MeetingComment meetingComment)
         {
             await _meetingsContext.MeetingComments.AddAsync(meetingComment);
+        }
+
+        public async Task<MeetingComment> GetById(MeetingCommentId meetingCommentId)
+        {
+            return await _meetingsContext.MeetingComments.FindAsync(meetingCommentId).AsTask();
         }
     }
 }

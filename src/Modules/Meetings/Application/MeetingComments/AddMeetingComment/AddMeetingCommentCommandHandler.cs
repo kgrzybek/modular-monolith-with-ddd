@@ -8,7 +8,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 
-namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments
+namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddMeetingComment
 {
     internal class AddMeetingCommentCommandHandler : ICommandHandler<AddMeetingCommentCommand, Guid>
     {
