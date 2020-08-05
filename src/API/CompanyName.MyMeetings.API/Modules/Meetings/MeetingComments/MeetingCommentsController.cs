@@ -4,6 +4,8 @@ using CompanyName.MyMeetings.API.Configuration.Authorization;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddMeetingComment;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.EditMeetingComment;
+using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.RemoveMeetingComment;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.Comments;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,6 +38,16 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingComments
         public async Task<IActionResult> EditComment([FromRoute] Guid meetingCommentId, [FromBody] EditMeetingCommentRequest request)
         {
             await _meetingModule.ExecuteCommandAsync(new EditMeetingCommentCommand(meetingCommentId, request.EditedComment));
+
+            return Ok();
+        }
+        
+        [HttpDelete("{meetingCommentId}")]
+        [HasPermission(MeetingsPermissions.DeleteMeetingComment)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> DeleteComment([FromRoute] Guid meetingCommentId, [FromQuery] string reason)
+        {
+            await _meetingModule.ExecuteCommandAsync(new RemoveMeetingCommentCommand(new MeetingCommentId(meetingCommentId), reason));
 
             return Ok();
         }

@@ -20,6 +20,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.MeetingC
             builder.Property<MeetingId>("_meetingId").HasColumnName("MeetingId");
             builder.Property<MemberId>("_authorId").HasColumnName("AuthorId");
             builder.Property<MeetingCommentId>("_inReplyToCommentId").HasColumnName("InReplyToCommentId");
+            builder.Property<bool>("_isRemoved").HasColumnName("IsRemoved");
+            builder.Property<string>("_removedByReason").HasColumnName("RemovedByReason");
             builder.Property<DateTime>("_createDate").HasColumnName("CreateDate");
             builder.Property<DateTime?>("_editDate").HasColumnName("EditDate");
         }

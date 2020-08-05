@@ -7,6 +7,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
     {
         Task AddAsync(MeetingComment meetingComment);
 
-        Task<MeetingComment> GetById(MeetingCommentId meetingCommentId);
+        Task<MeetingComment> GetByIdAsync(MeetingCommentId meetingCommentId);
     }
 }
