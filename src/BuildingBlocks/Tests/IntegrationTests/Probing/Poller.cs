@@ -30,7 +30,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing
             }
         }
 
-        public async Task<T> GetAsync<T>(IProbe<T> probe) where T: class
+        public async Task<T> GetAsync<T>(IProbe<T> probe) where T : class
         {
             var timeout = new Timeout(_timeoutMillis);
             T sample = null;

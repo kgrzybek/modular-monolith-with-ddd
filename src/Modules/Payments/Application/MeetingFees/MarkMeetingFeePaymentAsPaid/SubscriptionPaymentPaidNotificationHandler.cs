@@ -15,7 +15,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.MarkMe
         private readonly IAggregateStore _aggregateStore;
 
         public MeetingFeePaymentPaidNotificationHandler(
-            ICommandsScheduler commandsScheduler, 
+            ICommandsScheduler commandsScheduler,
             IAggregateStore aggregateStore)
         {
             _commandsScheduler = commandsScheduler;

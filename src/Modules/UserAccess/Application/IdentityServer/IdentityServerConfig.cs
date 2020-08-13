@@ -38,13 +38,13 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.IdentityServer
                 {
                     ClientId = "ro.client",
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                    
+
 
                     ClientSecrets =
                     {
                         new Secret("secret".Sha256())
                     },
-                    AllowedScopes = { 
+                    AllowedScopes = {
                         "myMeetingsAPI",
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile

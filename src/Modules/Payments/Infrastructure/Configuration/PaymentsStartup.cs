@@ -82,7 +82,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration
             domainNotificationsMap.Add("SubscriptionRenewedNotification", typeof(SubscriptionRenewedNotification));
 
             containerBuilder.RegisterModule(new OutboxModule(domainNotificationsMap));
-            
+
             if (runQuartz)
             {
                 containerBuilder.RegisterModule(new QuartzModule());

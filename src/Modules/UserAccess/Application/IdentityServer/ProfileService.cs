@@ -9,7 +9,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.IdentityServer
 {
     public class ProfileService : IProfileService
     {
-        public  Task GetProfileDataAsync(ProfileDataRequestContext context)
+        public Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
             context.IssuedClaims.AddRange(context.Subject.Claims.Where(x => x.Type == CustomClaimTypes.Roles).ToList());
             context.IssuedClaims.Add(context.Subject.Claims.Single(x => x.Type == CustomClaimTypes.Name));

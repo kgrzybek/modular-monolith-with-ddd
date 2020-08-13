@@ -25,7 +25,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Authorization.Ge
                                "[UserPermission].[PermissionCode] AS [Code] " +
                                "FROM [users].[v_UserPermissions] AS [UserPermission] " +
                                "WHERE [UserPermission].UserId = @UserId";
-            var permissions = await connection.QueryAsync<UserPermissionDto>(sql, new {request.UserId});
+            var permissions = await connection.QueryAsync<UserPermissionDto>(sql, new { request.UserId });
 
 
             return permissions.AsList();

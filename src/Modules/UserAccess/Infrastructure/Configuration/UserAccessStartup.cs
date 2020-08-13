@@ -25,7 +25,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
     {
         private static IContainer _container;
 
-        public static void Initialize(string connectionString, 
+        public static void Initialize(string connectionString,
             IExecutionContextAccessor executionContextAccessor,
             ILogger logger,
             EmailsConfiguration emailsConfiguration,
@@ -40,39 +40,39 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
                 emailsConfiguration,
                 textEncryptionKey,
                 emailSender);
-            
+
             QuartzStartup.Initialize(moduleLogger);
 
             EventsBusStartup.Initialize(moduleLogger);
         }
 
         private static void ConfigureCompositionRoot(
-            string connectionString, 
-            IExecutionContextAccessor executionContextAccessor, 
+            string connectionString,
+            IExecutionContextAccessor executionContextAccessor,
             ILogger logger,
             EmailsConfiguration emailsConfiguration,
             string textEncryptionKey,
             IEmailSender emailSender)
         {
             var containerBuilder = new ContainerBuilder();
-          
+
             containerBuilder.RegisterModule(new LoggingModule(logger.ForContext("Module", "UserAccess")));
-            
+
             var loggerFactory = new SerilogLoggerFactory(logger);
             containerBuilder.RegisterModule(new DataAccessModule(connectionString, loggerFactory));
             containerBuilder.RegisterModule(new DomainModule());
             containerBuilder.RegisterModule(new ProcessingModule());
             containerBuilder.RegisterModule(new EventsBusModule());
             containerBuilder.RegisterModule(new MediatorModule());
-            
+
             var domainNotificationsMap = new BiDictionary<string, Type>();
             domainNotificationsMap.Add("NewUserRegisteredNotification", typeof(NewUserRegisteredNotification));
             domainNotificationsMap.Add("UserRegistrationConfirmedNotification", typeof(UserRegistrationConfirmedNotification));
             containerBuilder.RegisterModule(new OutboxModule(domainNotificationsMap));
-            
-            containerBuilder.RegisterModule(new QuartzModule()); 
-            containerBuilder.RegisterModule(new EmailModule(emailsConfiguration, emailSender)); 
-            containerBuilder.RegisterModule(new SecurityModule(textEncryptionKey)); 
+
+            containerBuilder.RegisterModule(new QuartzModule());
+            containerBuilder.RegisterModule(new EmailModule(emailsConfiguration, emailSender));
+            containerBuilder.RegisterModule(new SecurityModule(textEncryptionKey));
 
             containerBuilder.RegisterInstance(executionContextAccessor);
 

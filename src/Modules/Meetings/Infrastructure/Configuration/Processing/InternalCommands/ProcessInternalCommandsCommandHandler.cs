@@ -52,7 +52,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.P
 
                 if (result.Outcome == OutcomeType.Failure)
                 {
-                    await connection.ExecuteScalarAsync("UPDATE [meetings].[InternalCommands] " +
+                    await connection.ExecuteScalarAsync(
+                        "UPDATE [meetings].[InternalCommands] " +
                                                         "SET ProcessedDate = @NowDate, " +
                                                         "Error = @Error " +
                                                         "WHERE [Id] = @Id",

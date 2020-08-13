@@ -22,13 +22,13 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems
         }
 
         public MoneyValue GetPrice(
-            string countryCode, 
+            string countryCode,
             SubscriptionPeriod subscriptionPeriod,
             PriceListItemCategory category)
         {
             CheckRule(new PriceForSubscriptionMustBeDefined(countryCode, subscriptionPeriod, _items, category));
-            
-            var priceListItem = _items.Single(x => 
+
+            var priceListItem = _items.Single(x =>
                 x.CountryCode == countryCode && x.SubscriptionPeriod == subscriptionPeriod &&
                 x.Category == category);
 

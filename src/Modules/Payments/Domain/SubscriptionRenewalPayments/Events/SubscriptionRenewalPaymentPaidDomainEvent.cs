@@ -14,7 +14,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionRenewalPaym
         }
 
         public Guid SubscriptionRenewalPaymentId { get; }
-        
+
         public Guid SubscriptionId { get; }
 
         public string Status { get; }

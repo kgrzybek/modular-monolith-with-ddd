@@ -15,8 +15,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SetMeetin
         private readonly IMeetingGroupRepository _meetingGroupRepository;
 
         internal SetMeetingAttendeeRoleCommandHandler(
-            IMemberContext memberContext, 
-            IMeetingRepository meetingRepository, 
+            IMemberContext memberContext,
+            IMeetingRepository meetingRepository,
             IMeetingGroupRepository meetingGroupRepository)
         {
             _memberContext = memberContext;
@@ -29,7 +29,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SetMeetin
             var meeting = await _meetingRepository.GetByIdAsync(new MeetingId(request.MeetingId));
 
             var meetingGroup = await _meetingGroupRepository.GetByIdAsync(meeting.GetMeetingGroupId());
-            
+
             meeting.SetAttendeeRole(meetingGroup, _memberContext.MemberId, new MemberId(request.MemberId));
 
             return Unit.Value;

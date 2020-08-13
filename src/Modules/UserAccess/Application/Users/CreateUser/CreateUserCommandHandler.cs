@@ -14,7 +14,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Users.CreateUser
         private readonly IUserRepository _userRepository;
 
         public CreateUserCommandHandler(
-            IUserRegistrationRepository userRegistrationRepository, 
+            IUserRegistrationRepository userRegistrationRepository,
             IUserRepository userRepository)
         {
             _userRegistrationRepository = userRegistrationRepository;

@@ -8,7 +8,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals
 {
-    public class MeetingGroupProposalAcceptedIntegrationEventHandler : 
+    public class MeetingGroupProposalAcceptedIntegrationEventHandler :
         INotificationHandler<MeetingGroupProposalAcceptedIntegrationEvent>
     {
         private readonly ICommandsScheduler _commandsScheduler;
@@ -21,7 +21,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupPropos
         public async Task Handle(MeetingGroupProposalAcceptedIntegrationEvent notification, CancellationToken cancellationToken)
         {
             await _commandsScheduler.EnqueueAsync(new AcceptMeetingGroupProposalCommand(
-                Guid.NewGuid(), 
+                Guid.NewGuid(),
                 notification.MeetingGroupProposalId));
         }
     }

@@ -11,8 +11,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
         private readonly int _guestsNumber;
 
         internal MeetingAttendeesNumberIsAboveLimitRule(
-            int? attendeesLimit, 
-            int allActiveAttendeesWithGuestsNumber, int guestsNumber)
+            int? attendeesLimit,
+            int allActiveAttendeesWithGuestsNumber,
+            int guestsNumber)
         {
             _attendeesLimit = attendeesLimit;
             _allActiveAttendeesWithGuestsNumber = allActiveAttendeesWithGuestsNumber;

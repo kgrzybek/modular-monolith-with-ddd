@@ -16,7 +16,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.L
         {
             builder.RegisterInstance(_logger)
                 .As<ILogger>()
-                .SingleInstance();    
+                .SingleInstance();
         }
     }
 }

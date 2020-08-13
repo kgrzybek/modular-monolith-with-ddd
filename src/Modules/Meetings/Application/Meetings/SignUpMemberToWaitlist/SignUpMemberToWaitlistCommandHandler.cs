@@ -15,8 +15,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SignUpMem
         private readonly IMeetingGroupRepository _meetingGroupRepository;
 
         public SignUpMemberToWaitlistCommandHandler(
-            IMemberContext memberContext, 
-            IMeetingRepository meetingRepository, 
+            IMemberContext memberContext,
+            IMeetingRepository meetingRepository,
             IMeetingGroupRepository meetingGroupRepository)
         {
             _memberContext = memberContext;

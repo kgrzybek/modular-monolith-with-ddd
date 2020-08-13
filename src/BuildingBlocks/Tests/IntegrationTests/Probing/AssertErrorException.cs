@@ -6,7 +6,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing
     {
         public AssertErrorException(string message) : base(message)
         {
-            
+
         }
     }
 }

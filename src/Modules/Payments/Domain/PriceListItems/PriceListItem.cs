@@ -9,7 +9,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems
     public class PriceListItem : AggregateRoot
     {
         private string _countryCode;
-        
+
         private SubscriptionPeriod _subscriptionPeriod;
 
         private PriceListItemCategory _category;
@@ -29,22 +29,22 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems
             MoneyValue price)
         {
             var priceListItem = new PriceListItem();
-            
+
             var priceListItemCreatedEvent = new PriceListItemCreatedDomainEvent(
-                Guid.NewGuid(), 
+                Guid.NewGuid(),
                 countryCode,
                 subscriptionPeriod.Code,
                 category.Code,
                 price.Value,
                 price.Currency,
                 isActive: true);
-            
+
             priceListItem.Apply(priceListItemCreatedEvent);
             priceListItem.AddDomainEvent(priceListItemCreatedEvent);
 
             return priceListItem;
         }
-        
+
         protected override void Apply(IDomainEvent @event) => When((dynamic)@event);
 
         private void When(PriceListItemCreatedDomainEvent @event)

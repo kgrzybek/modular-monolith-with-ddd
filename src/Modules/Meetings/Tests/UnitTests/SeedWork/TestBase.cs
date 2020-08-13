@@ -40,7 +40,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.SeedWork
             if (businessRuleValidationException != null)
             {
                 Assert.That(businessRuleValidationException.BrokenRule, Is.TypeOf<TRule>(), message);
-            }          
+            }
         }
 
         [TearDown]

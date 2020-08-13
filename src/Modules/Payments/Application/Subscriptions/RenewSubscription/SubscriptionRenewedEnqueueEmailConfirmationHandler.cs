@@ -24,13 +24,13 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Rene
             _commandsScheduler = commandsScheduler;
             _sqlConnectionFactory = sqlConnectionFactory;
         }
-        
+
         public async Task Handle(SubscriptionRenewedNotification notification, CancellationToken cancellationToken)
         {
             var payerEmail = await PayerEmailProvider.GetPayerEmail(
                 notification.DomainEvent.PayerId,
                 _sqlConnectionFactory);
-            
+
             await _commandsScheduler.EnqueueAsync(new SendSubscriptionRenewalConfirmationEmailCommand(
                 Guid.NewGuid(),
                 new SubscriptionId(notification.DomainEvent.SubscriptionId),

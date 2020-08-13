@@ -7,13 +7,15 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Members.CreateMemb
     internal class CreateMemberCommand : InternalCommandBase
     {
         [JsonConstructor]
-        internal CreateMemberCommand(Guid id,
+        internal CreateMemberCommand(
+            Guid id,
             Guid memberId,
             string login,
             string email,
             string firstName,
             string lastName,
-            string name) : base(id)
+            string name)
+            : base(id)
         {
             Login = login;
             MemberId = memberId;
@@ -22,7 +24,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Members.CreateMemb
             LastName = lastName;
             Name = name;
         }
+
         internal Guid MemberId { get; }
+
         internal string Login { get; }
 
         internal string Email { get; }

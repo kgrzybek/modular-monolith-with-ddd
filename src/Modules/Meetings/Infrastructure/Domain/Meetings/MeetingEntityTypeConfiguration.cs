@@ -25,7 +25,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.Meetings
             builder.Property<DateTime?>("_cancelDate").HasColumnName("CancelDate");
             builder.Property<bool>("_isCanceled").HasColumnName("IsCanceled");
             builder.Property<MemberId>("_cancelMemberId").HasColumnName("CancelMemberId");
-            
 
             builder.OwnsOne<MeetingTerm>("_term", b =>
             {
@@ -89,7 +88,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.Meetings
                 y.Property<MemberId>("MemberId");
                 y.Property<MeetingId>("MeetingId");
                 y.Property<DateTime>("_decisionDate").HasColumnName("DecisionDate");
-                y.HasKey("MemberId", "MeetingId", "_decisionDate");              
+                y.HasKey("MemberId", "MeetingId", "_decisionDate");
                 y.Property<bool>("_decisionChanged").HasColumnName("DecisionChanged");
                 y.Property<DateTime?>("_decisionChangeDate").HasColumnName("DecisionChangeDate");
             });
@@ -101,7 +100,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.Meetings
                 y.Property<MemberId>("MemberId");
                 y.Property<MeetingId>("MeetingId");
                 y.Property<DateTime>("SignUpDate").HasColumnName("SignUpDate");
-                y.HasKey("MemberId", "MeetingId", "SignUpDate");              
+                y.HasKey("MemberId", "MeetingId", "SignUpDate");
                 y.Property<bool>("_isSignedOff").HasColumnName("IsSignedOff");
                 y.Property<DateTime?>("_signOffDate").HasColumnName("SignOffDate");
 

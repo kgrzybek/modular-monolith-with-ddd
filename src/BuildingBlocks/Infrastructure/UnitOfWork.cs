@@ -13,7 +13,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure
         private readonly IDomainEventsDispatcher _domainEventsDispatcher;
 
         public UnitOfWork(
-            DbContext context, 
+            DbContext context,
             IDomainEventsDispatcher domainEventsDispatcher)
         {
             this._context = context;
@@ -25,7 +25,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure
             Guid? internalCommandId = null)
         {
             await this._domainEventsDispatcher.DispatchEventsAsync();
-            
+
             return await _context.SaveChangesAsync(cancellationToken);
         }
     }

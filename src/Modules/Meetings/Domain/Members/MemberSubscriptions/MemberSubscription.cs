@@ -19,7 +19,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Members.MemberSubscript
         {
             this.Id = new MemberSubscriptionId(memberId.Value);
             _expirationDate = expirationDate;
-            
+
             this.AddDomainEvent(new MemberSubscriptionExpirationDateChangedDomainEvent(memberId, _expirationDate));
         }
 
@@ -31,9 +31,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Members.MemberSubscript
         public void ChangeExpirationDate(DateTime expirationDate)
         {
             _expirationDate = expirationDate;
-            
+
             this.AddDomainEvent(new MemberSubscriptionExpirationDateChangedDomainEvent(
-                new MemberId(this.Id.Value), 
+                new MemberId(this.Id.Value),
                 _expirationDate));
         }
     }

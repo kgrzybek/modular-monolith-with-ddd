@@ -39,7 +39,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.UnitTests.SeedWor
             if (businessRuleValidationException != null)
             {
                 Assert.That(businessRuleValidationException.BrokenRule, Is.TypeOf<TRule>(), message);
-            }          
+            }
         }
     }
 }

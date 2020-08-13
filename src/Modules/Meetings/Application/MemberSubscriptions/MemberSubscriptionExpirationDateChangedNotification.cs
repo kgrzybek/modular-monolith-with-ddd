@@ -8,7 +8,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MemberSubscription
     public class MemberSubscriptionExpirationDateChangedNotification : DomainNotificationBase<MemberSubscriptionExpirationDateChangedDomainEvent>
     {
         [JsonConstructor]
-        public MemberSubscriptionExpirationDateChangedNotification(MemberSubscriptionExpirationDateChangedDomainEvent domainEvent, Guid id) : base(domainEvent, id)
+        public MemberSubscriptionExpirationDateChangedNotification(MemberSubscriptionExpirationDateChangedDomainEvent domainEvent, Guid id)
+            : base(domainEvent, id)
         {
         }
     }

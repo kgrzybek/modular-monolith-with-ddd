@@ -12,6 +12,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.GetA
 
         public string LocationCountryCode { get; set; }
 
-        public string LocationCity {get; set; }
+        public string LocationCity { get; set; }
     }
 }

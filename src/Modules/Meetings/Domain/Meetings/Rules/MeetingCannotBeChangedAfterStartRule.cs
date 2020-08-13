@@ -5,6 +5,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
     public class MeetingCannotBeChangedAfterStartRule : IBusinessRule
     {
         private readonly MeetingTerm _meetingTerm;
+
         public MeetingCannotBeChangedAfterStartRule(MeetingTerm meetingTerm)
         {
             _meetingTerm = meetingTerm;

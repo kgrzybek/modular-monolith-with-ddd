@@ -18,9 +18,9 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SubscriptionR
                 PayerId = payerId;
                 SubscriptionId = subscriptionId;
             }
-            
+
             internal PriceList PriceList { get; }
-            
+
             internal PayerId PayerId { get; }
 
             internal SubscriptionId SubscriptionId { get; }
@@ -31,7 +31,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SubscriptionR
             var payerId = new PayerId(Guid.NewGuid());
             var subscriptionId = new SubscriptionId(Guid.NewGuid());
             var priceList = CreatePriceList();
-            
+
             var subscriptionRenewalPaymentTestData = new SubscriptionRenewalPaymentTestData(
                 priceList,
                 payerId,
@@ -39,17 +39,17 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SubscriptionR
 
             return subscriptionRenewalPaymentTestData;
         }
-        
+
         private PriceList CreatePriceList()
         {
             var priceListItem = new PriceListItemData(
                 "PL",
-                SubscriptionPeriod.Month, 
+                SubscriptionPeriod.Month,
                 MoneyValue.Of(60, "PLN"),
                 PriceListItemCategory.Renewal
             );
-            
-            var priceList = PriceList.CreateFromItems(new List<PriceListItemData>{ priceListItem });
+
+            var priceList = PriceList.CreateFromItems(new List<PriceListItemData> { priceListItem });
 
             return priceList;
         }

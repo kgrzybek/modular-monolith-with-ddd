@@ -20,7 +20,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SendMeeti
             await _commandsScheduler.EnqueueAsync(
                 new SendMeetingAttendeeAddedEmailCommand(
                     Guid.NewGuid(),
-                    notification.DomainEvent.AttendeeId, 
+                    notification.DomainEvent.AttendeeId,
                     notification.DomainEvent.MeetingId));
         }
     }

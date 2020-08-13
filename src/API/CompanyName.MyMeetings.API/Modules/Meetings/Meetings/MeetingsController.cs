@@ -52,9 +52,9 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
                 mainAttributesRequest.TermEndDate, mainAttributesRequest.Description, mainAttributesRequest.MeetingLocationName, mainAttributesRequest.MeetingLocationAddress,
                 mainAttributesRequest.MeetingLocationPostalCode, mainAttributesRequest.MeetingLocationCity, mainAttributesRequest.AttendeesLimit,
                 mainAttributesRequest.GuestsLimit,
-                mainAttributesRequest.RSVPTermStartDate, 
+                mainAttributesRequest.RSVPTermStartDate,
                 mainAttributesRequest.RSVPTermEndDate,
-                mainAttributesRequest.EventFeeValue, 
+                mainAttributesRequest.EventFeeValue,
                 mainAttributesRequest.EventFeeCurrency
                 ));
 

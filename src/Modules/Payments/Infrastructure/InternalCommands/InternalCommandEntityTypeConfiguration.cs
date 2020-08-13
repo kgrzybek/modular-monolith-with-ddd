@@ -9,7 +9,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.InternalCommand
         public void Configure(EntityTypeBuilder<InternalCommand> builder)
         {
             builder.ToTable("InternalCommands", "payments");
-            
+
             builder.HasKey(b => b.Id);
             builder.Property(b => b.Id).ValueGeneratedNever();
         }

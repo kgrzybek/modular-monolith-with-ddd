@@ -19,13 +19,13 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SubscriptionR
             // Act
             var subscriptionRenewalPayment = SubscriptionRenewalPayment.Buy(
                 subscriptionRenewalPaymentTestData.PayerId,
-                subscriptionRenewalPaymentTestData.SubscriptionId, 
+                subscriptionRenewalPaymentTestData.SubscriptionId,
                 SubscriptionPeriod.Month,
                 "PL",
                 MoneyValue.Of(60, "PLN"),
                 subscriptionRenewalPaymentTestData.PriceList
             );
-            
+
             // Assert
             AssertPublishedDomainEvent<SubscriptionRenewalPaymentCreatedDomainEvent>(subscriptionRenewalPayment);
         }
@@ -41,7 +41,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SubscriptionR
             {
                 SubscriptionRenewalPayment.Buy(
                     subscriptionRenewalPaymentTestData.PayerId,
-                    subscriptionRenewalPaymentTestData.SubscriptionId, 
+                    subscriptionRenewalPaymentTestData.SubscriptionId,
                     SubscriptionPeriod.Month,
                     "PL",
                     MoneyValue.Of(50, "PLN"),
@@ -58,16 +58,16 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SubscriptionR
 
             var subscriptionRenewalPayment = SubscriptionRenewalPayment.Buy(
                 subscriptionRenewalPaymentTestData.PayerId,
-                subscriptionRenewalPaymentTestData.SubscriptionId, 
+                subscriptionRenewalPaymentTestData.SubscriptionId,
                 SubscriptionPeriod.Month,
                 "PL",
                 MoneyValue.Of(60, "PLN"),
                 subscriptionRenewalPaymentTestData.PriceList
             );
-            
+
             // Act
             subscriptionRenewalPayment.MarkRenewalAsPaid();
-            
+
             // Assert
             AssertPublishedDomainEvent<SubscriptionRenewalPaymentPaidDomainEvent>(subscriptionRenewalPayment);
         }

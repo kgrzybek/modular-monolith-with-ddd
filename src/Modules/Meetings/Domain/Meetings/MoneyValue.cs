@@ -21,8 +21,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
             this.Currency = currency;
         }
 
-        public static MoneyValue operator * (int left, MoneyValue right) {
-            
+        public static MoneyValue operator *(int left, MoneyValue right)
+        {
             return new MoneyValue(right.Value * left, right.Currency);
         }
     }

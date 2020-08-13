@@ -23,7 +23,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Members.CreateMemb
                     Guid.NewGuid(),
                     notification.UserId,
                     notification.Login,
-                notification.Email,
+                    notification.Email,
                     notification.FirstName,
                     notification.LastName,
                     notification.Name));

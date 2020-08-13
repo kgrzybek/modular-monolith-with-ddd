@@ -8,7 +8,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups.Events
 
         public string NewDescription { get; }
 
-        public MeetingGroupLocation NewLocation {get;}
+        public MeetingGroupLocation NewLocation { get; }
+
         public MeetingGroupGeneralAttributesEditedDomainEvent(string newName, string newDescription, MeetingGroupLocation newLocation)
         {
             this.NewName = newName;

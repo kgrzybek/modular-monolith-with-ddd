@@ -9,6 +9,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
         private readonly MeetingGroup _meetingGroup;
 
         private readonly MemberId _attendeeId;
+
         internal MeetingAttendeeMustBeAMemberOfGroupRule(MemberId attendeeId, MeetingGroup meetingGroup)
         {
             _attendeeId = attendeeId;

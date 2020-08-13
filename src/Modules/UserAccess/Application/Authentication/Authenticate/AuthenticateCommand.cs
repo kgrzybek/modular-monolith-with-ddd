@@ -2,7 +2,7 @@
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Authentication.Authenticate
 {
-    public class AuthenticateCommand  : CommandBase<AuthenticationResult>
+    public class AuthenticateCommand : CommandBase<AuthenticationResult>
     {
         public AuthenticateCommand(string login, string password)
         {

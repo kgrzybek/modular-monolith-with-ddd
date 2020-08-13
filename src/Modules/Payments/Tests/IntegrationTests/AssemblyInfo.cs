@@ -7,6 +7,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests
 {
     public class AssemblyInfo
     {
-        
+
     }
 }

@@ -15,14 +15,14 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.Edit
             LocationCountry = locationCountry;
         }
 
-        internal Guid MeetingGroupId { get;}
+        public string LocationCountry { get; }
 
-        internal string Name { get;  }
+        internal Guid MeetingGroupId { get; }
+
+        internal string Name { get; }
 
         internal string Description { get; }
 
         internal string LocationCity { get; }
-
-        public string LocationCountry { get; }
     }
 }

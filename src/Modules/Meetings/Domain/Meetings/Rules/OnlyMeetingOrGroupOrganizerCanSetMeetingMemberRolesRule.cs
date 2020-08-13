@@ -11,6 +11,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
         private readonly MemberId _settingMemberId;
         private readonly MeetingGroup _meetingGroup;
         private readonly List<MeetingAttendee> _attendees;
+
         public OnlyMeetingOrGroupOrganizerCanSetMeetingMemberRolesRule(MemberId settingMemberId, MeetingGroup meetingGroup, List<MeetingAttendee> attendees)
         {
             _settingMemberId = settingMemberId;

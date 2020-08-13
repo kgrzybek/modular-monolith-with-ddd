@@ -9,7 +9,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.InternalComma
         public void Configure(EntityTypeBuilder<InternalCommand> builder)
         {
             builder.ToTable("InternalCommands", "users");
-            
+
             builder.HasKey(b => b.Id);
             builder.Property(b => b.Id).ValueGeneratedNever();
         }

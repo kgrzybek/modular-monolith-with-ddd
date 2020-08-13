@@ -5,7 +5,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.IntegrationEvents
 {
     public class NewUserRegisteredIntegrationEvent : IntegrationEvent
     {
-        public Guid UserId {get; }
+        public Guid UserId { get; }
         public string Login { get; }
 
         public string Email { get; }

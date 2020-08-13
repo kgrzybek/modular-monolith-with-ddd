@@ -36,7 +36,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MemberSubscription
 
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
-            var meetingGroupMembers = await connection.QueryAsync<MeetingGroupMemberResponse>(sql,
+            var meetingGroupMembers = await connection.QueryAsync<MeetingGroupMemberResponse>(
+                sql,
                 new
                 {
                     MemberId = notification.DomainEvent.MemberId.Value
@@ -45,18 +46,20 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MemberSubscription
             var meetingGroupList = meetingGroupMembers.AsList();
 
             List<MeetingGroupMemberData> meetingGroups = meetingGroupList
-                .Select(x => 
-                    new MeetingGroupMemberData(new MeetingGroupId(x.MeetingGroupId), 
+                .Select(x =>
+                    new MeetingGroupMemberData(
+                        new MeetingGroupId(x.MeetingGroupId),
                         MeetingGroupMemberRole.Of(x.RoleCode)))
                 .ToList();
-            
-            var meetingGroupsCoveredByMemberSubscription = 
+
+            var meetingGroupsCoveredByMemberSubscription =
                 MeetingGroupExpirationDatePolicy.GetMeetingGroupsCoveredByMemberSubscription(meetingGroups);
-            
+
             foreach (var meetingGroup in meetingGroupsCoveredByMemberSubscription)
             {
-                await _commandsScheduler.EnqueueAsync(new SetMeetingGroupExpirationDateCommand(Guid.NewGuid(),
-                    meetingGroup.Value, 
+                await _commandsScheduler.EnqueueAsync(new SetMeetingGroupExpirationDateCommand(
+                    Guid.NewGuid(),
+                    meetingGroup.Value,
                     notification.DomainEvent.ExpirationDate));
             }
         }

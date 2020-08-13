@@ -18,24 +18,24 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork
         public static MoneyValue Of(decimal value, string currency)
         {
             CheckRule(new ValueOfMoneyMustNotBeNegative(value));
-            
+
             return new MoneyValue(value, currency);
         }
 
-        public static bool operator > (decimal left, MoneyValue right) => left > right.Value;
+        public static bool operator >(decimal left, MoneyValue right) => left > right.Value;
 
-        public static bool operator < (decimal left, MoneyValue right) => left < right.Value;
+        public static bool operator <(decimal left, MoneyValue right) => left < right.Value;
 
-        public static bool operator >= (decimal left, MoneyValue right) => left >= right.Value;
+        public static bool operator >=(decimal left, MoneyValue right) => left >= right.Value;
 
-        public static bool operator <= (decimal left, MoneyValue right) => left <= right.Value;
+        public static bool operator <=(decimal left, MoneyValue right) => left <= right.Value;
 
-        public static bool operator > (MoneyValue left, decimal right) => left.Value > right;
+        public static bool operator >(MoneyValue left, decimal right) => left.Value > right;
 
-        public static bool operator < (MoneyValue left, decimal right) => left.Value < right;
+        public static bool operator <(MoneyValue left, decimal right) => left.Value < right;
 
-        public static bool operator >= (MoneyValue left, decimal right) => left.Value >= right;
+        public static bool operator >=(MoneyValue left, decimal right) => left.Value >= right;
 
-        public static bool operator <= (MoneyValue left, decimal right) => left.Value <= right;
+        public static bool operator <=(MoneyValue left, decimal right) => left.Value <= right;
     }
 }

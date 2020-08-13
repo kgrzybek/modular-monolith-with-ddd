@@ -16,7 +16,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Payers.Events
         public string Name { get; }
 
         public string Email { get; }
-        
+
         public PayerCreatedDomainEvent(
             Guid payerId,
             string login,

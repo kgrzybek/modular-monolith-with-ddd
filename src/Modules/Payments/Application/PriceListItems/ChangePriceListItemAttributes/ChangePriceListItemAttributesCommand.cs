@@ -16,13 +16,13 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems
         }
 
         public Guid PriceListItemId { get; }
-        
+
         public string CountryCode { get; }
 
         public string SubscriptionPeriodCode { get; }
-        
+
         public string CategoryCode { get; }
-        
+
         public decimal PriceValue { get; }
 
         public string PriceCurrency { get; }

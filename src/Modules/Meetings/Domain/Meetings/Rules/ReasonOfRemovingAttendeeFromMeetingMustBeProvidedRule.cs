@@ -5,6 +5,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
     public class ReasonOfRemovingAttendeeFromMeetingMustBeProvidedRule : IBusinessRule
     {
         private readonly string _reason;
+
         internal ReasonOfRemovingAttendeeFromMeetingMustBeProvidedRule(string reason)
         {
             _reason = reason;

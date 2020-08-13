@@ -13,7 +13,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SendMeeti
         internal MeetingId MeetingId { get; }
 
         [JsonConstructor]
-        internal SendMeetingAttendeeAddedEmailCommand(Guid id, MemberId attendeeId, MeetingId meetingId) : base(id)
+        internal SendMeetingAttendeeAddedEmailCommand(Guid id, MemberId attendeeId, MeetingId meetingId)
+            : base(id)
         {
             AttendeeId = attendeeId;
             MeetingId = meetingId;

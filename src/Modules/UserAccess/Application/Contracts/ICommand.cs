@@ -8,7 +8,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts
         Guid Id { get; }
     }
 
-    public interface ICommand: IRequest
+    public interface ICommand : IRequest
     {
         Guid Id { get; }
     }

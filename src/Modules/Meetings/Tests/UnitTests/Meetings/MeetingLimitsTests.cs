@@ -22,7 +22,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             AssertBrokenRule<MeetingAttendeesLimitMustBeGreaterThanGuestsLimitRule>(() =>
             {
                 MeetingLimits.Create(5, 8);
-            }); 
+            });
         }
 
         [Test]
@@ -40,7 +40,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             AssertBrokenRule<MeetingAttendeesLimitCannotBeNegativeRule>(() =>
             {
                 MeetingLimits.Create(-2, 8);
-            }); 
+            });
         }
 
         [Test]
@@ -49,7 +49,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             AssertBrokenRule<MeetingGuestsLimitCannotBeNegativeRule>(() =>
             {
                 MeetingLimits.Create(20, -9);
-            }); 
+            });
         }
     }
 }

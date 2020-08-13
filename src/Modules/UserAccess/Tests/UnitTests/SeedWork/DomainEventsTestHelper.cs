@@ -17,7 +17,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.SeedWork
                 domainEvents.AddRange(aggregate.DomainEvents);
             }
 
-            var fields = aggregate.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public).Concat(aggregate.GetType().BaseType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance| BindingFlags.Public)).ToArray();
+            var fields = aggregate.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public).Concat(aggregate.GetType().BaseType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public)).ToArray();
 
             foreach (var field in fields)
             {

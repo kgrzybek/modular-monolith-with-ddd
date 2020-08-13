@@ -24,7 +24,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.E
                 builder.RegisterType<InMemoryEventBusClient>()
                 .As<IEventsBus>()
                 .SingleInstance();
-
             }
         }
     }

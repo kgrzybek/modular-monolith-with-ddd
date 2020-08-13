@@ -15,10 +15,10 @@ namespace CompanyName.MyMeetings.Modules.Administration.IntegrationTests.Members
         {
             var memberId = await AdministrationModule.ExecuteCommandAsync(new CreateMemberCommand(
                 Guid.NewGuid(),
-                MemberSampleData.MemberId, 
+                MemberSampleData.MemberId,
                 MemberSampleData.Login,
-                MemberSampleData.Email, 
-                MemberSampleData.FirstName, 
+                MemberSampleData.Email,
+                MemberSampleData.FirstName,
                 MemberSampleData.LastName,
                 MemberSampleData.Name));
 

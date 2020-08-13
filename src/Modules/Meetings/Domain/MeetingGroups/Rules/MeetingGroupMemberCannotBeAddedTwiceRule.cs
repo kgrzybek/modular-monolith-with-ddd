@@ -7,12 +7,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups.Rules
 {
     public class MeetingGroupMemberCannotBeAddedTwiceRule : IBusinessRule
     {
-        private  readonly List<MeetingGroupMember> _members;
+        private readonly List<MeetingGroupMember> _members;
 
         private readonly MemberId _memberId;
-        public MeetingGroupMemberCannotBeAddedTwiceRule(
-            List<MeetingGroupMember> members, 
-            MemberId memberId) : base()
+
+        public MeetingGroupMemberCannotBeAddedTwiceRule(List<MeetingGroupMember> members, MemberId memberId)
+            : base()
         {
             _members = members;
             _memberId = memberId;

@@ -29,13 +29,13 @@ namespace CompanyName.MyMeetings.BuildingBlocks.EventBus
             var eventType = @event.GetType();
 
             var integrationEventHandlers = _handlers.Where(x => x.EventName == eventType.FullName).ToList();
-         
+
             foreach (var integrationEventHandler in integrationEventHandlers)
             {
                 if (integrationEventHandler.Handler is IIntegrationEventHandler<T> handler)
                 {
                     handler.Handle(@event);
-                }               
+                }
             }
         }
 
@@ -47,7 +47,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.EventBus
                 EventName = eventName;
             }
 
-            public IIntegrationEventHandler Handler { get;  }
+            public IIntegrationEventHandler Handler { get; }
 
             public string EventName { get; }
         }

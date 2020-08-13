@@ -11,15 +11,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Processing
 {
-    internal class UnitOfWorkCommandHandlerDecorator<T> : ICommandHandler<T> where T:ICommand
+    internal class UnitOfWorkCommandHandlerDecorator<T> : ICommandHandler<T>
+        where T : ICommand
     {
         private readonly ICommandHandler<T> _decorated;
         private readonly IUnitOfWork _unitOfWork;
         private readonly MeetingsContext _meetingContext;
 
         public UnitOfWorkCommandHandlerDecorator(
-            ICommandHandler<T> decorated, 
-            IUnitOfWork unitOfWork, 
+            ICommandHandler<T> decorated,
+            IUnitOfWork unitOfWork,
             MeetingsContext meetingContext)
         {
             _decorated = decorated;
@@ -34,7 +35,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.P
             if (command is InternalCommandBase)
             {
                 var internalCommand =
-                    await _meetingContext.InternalCommands.FirstOrDefaultAsync(x => x.Id == command.Id,
+                    await _meetingContext.InternalCommands.FirstOrDefaultAsync(
+                        x => x.Id == command.Id,
                         cancellationToken: cancellationToken);
 
                 if (internalCommand != null)

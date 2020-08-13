@@ -17,7 +17,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
 
             var schedulerConfiguration = new NameValueCollection();
             schedulerConfiguration.Add("quartz.scheduler.instanceName", "Meetings");
-            
+
             ISchedulerFactory schedulerFactory = new StdSchedulerFactory(schedulerConfiguration);
             IScheduler scheduler = schedulerFactory.GetScheduler().GetAwaiter().GetResult();
 

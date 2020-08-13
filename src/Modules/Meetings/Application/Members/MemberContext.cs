@@ -11,6 +11,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Members
         {
             this._executionContextAccessor = executionContextAccessor;
         }
+
         public MemberId MemberId => new MemberId(_executionContextAccessor.UserId);
     }
 }

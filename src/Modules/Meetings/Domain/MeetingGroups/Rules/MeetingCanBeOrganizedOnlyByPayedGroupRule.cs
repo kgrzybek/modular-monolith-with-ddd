@@ -7,6 +7,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups.Rules
     public class MeetingCanBeOrganizedOnlyByPayedGroupRule : IBusinessRule
     {
         private readonly DateTime? _paymentDateTo;
+
         internal MeetingCanBeOrganizedOnlyByPayedGroupRule(DateTime? paymentDateTo)
         {
             _paymentDateTo = paymentDateTo;

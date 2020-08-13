@@ -7,7 +7,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure
     public class TypedIdValueConverter<TTypedIdValue> : ValueConverter<TTypedIdValue, Guid>
         where TTypedIdValue : TypedIdValueBase
     {
-        public TypedIdValueConverter(ConverterMappingHints mappingHints = null) 
+        public TypedIdValueConverter(ConverterMappingHints mappingHints = null)
             : base(id => id.Value, value => Create(value), mappingHints)
         {
         }

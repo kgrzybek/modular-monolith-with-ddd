@@ -29,7 +29,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration
         private static IContainer _container;
 
         public static void Initialize(
-            string connectionString, 
+            string connectionString,
             IExecutionContextAccessor executionContextAccessor,
             ILogger logger,
             EmailsConfiguration emailsConfiguration,
@@ -38,9 +38,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration
             var moduleLogger = logger.ForContext("Module", "Meetings");
 
             ConfigureCompositionRoot(
-                connectionString, 
-                executionContextAccessor, 
-                moduleLogger, 
+                connectionString,
+                executionContextAccessor,
+                moduleLogger,
                 emailsConfiguration,
                 eventsBus);
 
@@ -50,8 +50,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration
         }
 
         private static void ConfigureCompositionRoot(
-            string connectionString, 
-            IExecutionContextAccessor executionContextAccessor, 
+            string connectionString,
+            IExecutionContextAccessor executionContextAccessor,
             ILogger logger,
             EmailsConfiguration emailsConfiguration,
             IEventsBus eventsBus)
@@ -86,5 +86,5 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration
 
             MeetingsCompositionRoot.SetContainer(_container);
         }
-    } 
+    }
 }

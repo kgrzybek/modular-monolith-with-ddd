@@ -6,7 +6,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.MarkMe
 {
     public class MeetingFeePaidNotification : DomainNotificationBase<MeetingFeePaidDomainEvent>
     {
-        public MeetingFeePaidNotification(MeetingFeePaidDomainEvent domainEvent, Guid id) 
+        public MeetingFeePaidNotification(MeetingFeePaidDomainEvent domainEvent, Guid id)
             : base(domainEvent, id)
         {
         }

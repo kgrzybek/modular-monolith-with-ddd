@@ -21,7 +21,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Mark
         {
             await _commandsScheduler.EnqueueAsync(
                 new RenewSubscriptionCommand(
-                    Guid.NewGuid(), 
+                    Guid.NewGuid(),
                     notification.DomainEvent.SubscriptionId,
                     notification.DomainEvent.SubscriptionRenewalPaymentId
                     ));

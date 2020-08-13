@@ -51,7 +51,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.Get
                     @event.PriceListItemId
                 });
         }
-        
+
         private async Task When(PriceListItemDeactivatedDomainEvent @event)
         {
             await _connection.ExecuteScalarAsync(

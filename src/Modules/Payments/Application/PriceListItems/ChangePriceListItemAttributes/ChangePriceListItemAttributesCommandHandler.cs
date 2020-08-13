@@ -22,18 +22,18 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.Cha
         public async Task<Unit> Handle(ChangePriceListItemAttributesCommand command, CancellationToken cancellationToken)
         {
             var priceListItem = await _aggregateStore.Load(new PriceListItemId(command.PriceListItemId));
-            
+
             if (priceListItem == null)
             {
-                throw new InvalidCommandException(new List<string> {"Pricelist item for changing must exist."});
+                throw new InvalidCommandException(new List<string> { "Pricelist item for changing must exist." });
             }
-            
+
             priceListItem.ChangeAttributes(
                 command.CountryCode,
                 SubscriptionPeriod.Of(command.SubscriptionPeriodCode),
                 PriceListItemCategory.Of(command.CategoryCode),
                 MoneyValue.Of(command.PriceValue, command.PriceCurrency));
-           
+
             _aggregateStore.AppendChanges(priceListItem);
             return Unit.Value;
         }

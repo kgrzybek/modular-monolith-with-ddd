@@ -10,7 +10,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings
     {
         public static async Task<MeetingDto> GetMeeting(MeetingId meetingId, IDbConnection connection)
         {
-            return await connection.QuerySingleAsync<MeetingDto>("SELECT " +
+            return await connection.QuerySingleAsync<MeetingDto>(
+                "SELECT " +
                                                                 "[Meeting].Id, " +
                                                                 "[Meeting].Title, " +
                                                                 "[Meeting].Description, " +
@@ -21,9 +22,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings
                                                                 "[Meeting].TermEndDate " +
                                                                 "FROM [meetings].[v_Meetings] AS [Meeting] " +
                                                                 "WHERE [Meeting].[Id] = @Id", new
-            {
-                Id = meetingId.Value
-            });
+                                                                {
+                                                                    Id = meetingId.Value
+                                                                });
         }
     }
 }

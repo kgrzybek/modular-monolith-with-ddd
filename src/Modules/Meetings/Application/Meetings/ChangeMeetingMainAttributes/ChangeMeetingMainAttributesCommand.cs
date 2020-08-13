@@ -7,19 +7,19 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.ChangeMee
     {
         public ChangeMeetingMainAttributesCommand(
             Guid meetingId,
-            string title, 
-            DateTime termStartDate, 
-            DateTime termEndDate, 
-            string description, 
-            string meetingLocationName, 
-            string meetingLocationAddress, 
-            string meetingLocationPostalCode, 
-            string meetingLocationCity, 
-            int? attendeesLimit, 
-            int guestsLimit, 
-            DateTime? rsvpTermStartDate, 
-            DateTime? rsvpTermEndDate, 
-            decimal? eventFeeValue, 
+            string title,
+            DateTime termStartDate,
+            DateTime termEndDate,
+            string description,
+            string meetingLocationName,
+            string meetingLocationAddress,
+            string meetingLocationPostalCode,
+            string meetingLocationCity,
+            int? attendeesLimit,
+            int guestsLimit,
+            DateTime? rsvpTermStartDate,
+            DateTime? rsvpTermEndDate,
+            decimal? eventFeeValue,
             string eventFeeCurrency)
         {
             MeetingId = meetingId;
@@ -44,13 +44,17 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.ChangeMee
         public string Title { get; }
 
         public DateTime TermStartDate { get; }
+
         public DateTime TermEndDate { get; }
 
         public string Description { get; }
 
         public string MeetingLocationName { get; }
+
         public string MeetingLocationAddress { get; }
+
         public string MeetingLocationPostalCode { get; }
+
         public string MeetingLocationCity { get; }
 
         public int? AttendeesLimit { get; }
@@ -62,6 +66,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.ChangeMee
         public DateTime? RSVPTermEndDate { get; }
 
         public decimal? EventFeeValue { get; }
+
         public string EventFeeCurrency { get; }
     }
 }

@@ -24,7 +24,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.Cre
                 SubscriptionPeriod.Of(command.SubscriptionPeriodCode),
                 PriceListItemCategory.Of(command.CategoryCode),
                 MoneyValue.Of(command.PriceValue, command.PriceCurrency));
-            
+
             _aggregateStore.AppendChanges(priceListItem);
 
             return Task.FromResult(priceListItem.Id);

@@ -6,7 +6,7 @@ using Serilog;
 
 namespace CompanyName.MyMeetings.BuildingBlocks.EventBus
 {
-    public class InMemoryEventBusClient  : IEventsBus
+    public class InMemoryEventBusClient : IEventsBus
     {
         private readonly ILogger _logger;
 
@@ -17,7 +17,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.EventBus
 
         public void Dispose()
         {
-            
+
         }
 
         public void Publish<T>(T @event) where T : IntegrationEvent

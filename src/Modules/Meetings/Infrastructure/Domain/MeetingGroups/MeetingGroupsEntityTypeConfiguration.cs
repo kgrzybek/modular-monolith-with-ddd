@@ -34,9 +34,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.MeetingG
                 y.Property<MeetingGroupId>("MeetingGroupId");
                 y.Property<DateTime>("JoinedDate").HasColumnName("JoinedDate");
                 y.HasKey("MemberId", "MeetingGroupId", "JoinedDate");
-                
+
                 y.Property<DateTime?>("_leaveDate").HasColumnName("LeaveDate");
-                
+
                 y.Property<bool>("_isActive").HasColumnName("IsActive");
 
                 y.OwnsOne<MeetingGroupMemberRole>("_role", b =>

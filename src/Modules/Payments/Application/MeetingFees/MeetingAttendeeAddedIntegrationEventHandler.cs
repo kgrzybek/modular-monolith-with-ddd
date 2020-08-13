@@ -25,7 +25,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees
                     Guid.NewGuid(),
                     notification.AttendeeId,
                     notification.MeetingId,
-                    notification.FeeValue.Value, 
+                    notification.FeeValue.Value,
                     notification.FeeCurrency));
             }
         }

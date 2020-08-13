@@ -10,7 +10,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments.Ru
         private readonly MoneyValue _priceInPriceList;
 
         public PriceOfferMustMatchPriceInPriceListRule(
-            MoneyValue priceOffer, 
+            MoneyValue priceOffer,
             MoneyValue priceInPriceList)
         {
             _priceOffer = priceOffer;

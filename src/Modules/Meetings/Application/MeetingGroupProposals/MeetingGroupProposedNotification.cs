@@ -8,9 +8,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupPropos
     public class MeetingGroupProposedNotification : DomainNotificationBase<MeetingGroupProposedDomainEvent>
     {
         [JsonConstructor]
-        public MeetingGroupProposedNotification(MeetingGroupProposedDomainEvent domainEvent, Guid id) : base(domainEvent, id)
+        public MeetingGroupProposedNotification(MeetingGroupProposedDomainEvent domainEvent, Guid id)
+            : base(domainEvent, id)
         {
-
         }
     }
 }

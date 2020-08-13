@@ -9,7 +9,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionRenewalPaym
         public SubscriptionRenewalPaymentSnapshot(
             SubscriptionRenewalPaymentId id,
             PayerId payerId,
-            SubscriptionPeriod subscriptionPeriod, 
+            SubscriptionPeriod subscriptionPeriod,
             string countryCode)
         {
             PayerId = payerId;

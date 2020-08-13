@@ -10,6 +10,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
         private readonly MemberId _attendeeId;
 
         private readonly List<MeetingAttendee> _attendees;
+
         public MemberCannotBeAnAttendeeOfMeetingMoreThanOnceRule(MemberId attendeeId, List<MeetingAttendee> attendees)
         {
             this._attendeeId = attendeeId;

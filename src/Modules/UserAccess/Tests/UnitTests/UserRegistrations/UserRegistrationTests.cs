@@ -20,7 +20,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.UserRegistr
             // Act
             var userRegistration =
                 UserRegistration.RegisterNewUser(
-                    "login", "password", "test@email", 
+                    "login", "password", "test@email",
                     "firstName", "lastName", usersCounter);
 
             // Assert
@@ -71,7 +71,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.UserRegistr
                 "firstName", "lastName", usersCounter);
 
             registration.Confirm();
-            
+
             AssertBrokenRule<UserRegistrationCannotBeConfirmedMoreThanOnceRule>(() =>
             {
                 registration.Confirm();
@@ -88,7 +88,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.UserRegistr
                 "firstName", "lastName", usersCounter);
 
             registration.Expire();
-            
+
             AssertBrokenRule<UserRegistrationCannotBeConfirmedAfterExpirationRule>(() =>
             {
                 registration.Confirm();
@@ -108,7 +108,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.UserRegistr
 
             var userRegistrationExpired = AssertPublishedDomainEvent<UserRegistrationExpiredDomainEvent>(registration);
 
-            Assert.That(userRegistrationExpired.UserRegistrationId, Is.EqualTo(registration.Id));          
+            Assert.That(userRegistrationExpired.UserRegistrationId, Is.EqualTo(registration.Id));
         }
 
         [Test]
@@ -125,7 +125,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.UserRegistr
             AssertBrokenRule<UserRegistrationCannotBeExpiredMoreThanOnceRule>(() =>
             {
                 registration.Expire();
-            });       
+            });
         }
 
         [Test]
@@ -159,7 +159,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.UserRegistr
             AssertBrokenRule<UserCannotBeCreatedWhenRegistrationIsNotConfirmedRule>(
                 () =>
                 {
-                    registration.CreateUser(); 
+                    registration.CreateUser();
                 });
         }
     }

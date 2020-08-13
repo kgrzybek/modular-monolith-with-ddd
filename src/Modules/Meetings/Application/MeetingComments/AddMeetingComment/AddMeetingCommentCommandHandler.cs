@@ -22,18 +22,18 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ad
             _memberContext = memberContext;
             _meetingCommentRepository = meetingCommentRepository;
         }
-        
+
         public async Task<Guid> Handle(AddMeetingCommentCommand command, CancellationToken cancellationToken)
         {
             var meeting = await _meetingRepository.GetByIdAsync(new MeetingId(command.MeetingId));
             if (meeting == null)
             {
-                throw new InvalidCommandException(new List<string>{"Meeting for adding comment must exist."});
+                throw new InvalidCommandException(new List<string> { "Meeting for adding comment must exist." });
             }
 
             var meetingComment = meeting.AddComment(_memberContext.MemberId, command.Comment);
             await _meetingCommentRepository.AddAsync(meetingComment);
-            
+
             return meetingComment.Id.Value;
         }
     }

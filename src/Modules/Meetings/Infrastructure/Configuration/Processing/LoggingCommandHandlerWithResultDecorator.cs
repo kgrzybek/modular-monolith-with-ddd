@@ -11,7 +11,8 @@ using Serilog.Events;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Processing
 {
-    internal class LoggingCommandHandlerWithResultDecorator<T, TResult> : ICommandHandler<T, TResult> where T : ICommand<TResult>
+    internal class LoggingCommandHandlerWithResultDecorator<T, TResult> : ICommandHandler<T, TResult>
+        where T : ICommand<TResult>
     {
         private readonly ILogger _logger;
         private readonly IExecutionContextAccessor _executionContextAccessor;
@@ -26,6 +27,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.P
             _executionContextAccessor = executionContextAccessor;
             _decorated = decorated;
         }
+
         public async Task<TResult> Handle(T command, CancellationToken cancellationToken)
         {
             using (
@@ -61,6 +63,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.P
             {
                 _command = command;
             }
+
             public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
             {
                 logEvent.AddOrUpdateProperty(new LogEventProperty("Context", new ScalarValue($"Command:{_command.Id.ToString()}")));
@@ -70,10 +73,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.P
         private class RequestLogEnricher : ILogEventEnricher
         {
             private readonly IExecutionContextAccessor _executionContextAccessor;
+
             public RequestLogEnricher(IExecutionContextAccessor executionContextAccessor)
             {
                 _executionContextAccessor = executionContextAccessor;
             }
+
             public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
             {
                 if (_executionContextAccessor.IsAvailable)

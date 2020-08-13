@@ -32,7 +32,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SeedWork
 
             return domainEvent;
         }
-        
+
         public static void AssertDomainEventNotPublished<T>(AggregateRoot aggregate) where T : IDomainEvent
         {
             var domainEvent = aggregate.GetDomainEvents().OfType<T>().SingleOrDefault();
@@ -50,7 +50,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SeedWork
 
             return domainEvents;
         }
-        
+
         public static List<T> AssertPublishedDomainEvents<T>(AggregateRoot aggregate) where T : IDomainEvent
         {
             var domainEvents = aggregate.GetDomainEvents().OfType<T>().ToList();
@@ -70,7 +70,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SeedWork
             if (businessRuleValidationException != null)
             {
                 Assert.That(businessRuleValidationException.BrokenRule, Is.TypeOf<TRule>(), message);
-            }          
+            }
         }
 
         [TearDown]
