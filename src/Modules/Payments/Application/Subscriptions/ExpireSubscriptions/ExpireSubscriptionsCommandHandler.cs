@@ -44,7 +44,9 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Expi
             foreach (var subscriptionId in expiredSubscriptionsIdsList)
             {
                 await _commandsScheduler.EnqueueAsync(
-                    new ExpireSubscriptionCommand(subscriptionId));
+                    new ExpireSubscriptionCommand(
+                        Guid.NewGuid(),
+                        subscriptionId));
             }
 
             return Unit.Value;
