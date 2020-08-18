@@ -7,10 +7,10 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions.Events
     {
         public SubscriptionCreatedDomainEvent(
             Guid subscriptionPaymentId,
-            Guid subscriptionId, 
-            Guid payerId, 
-            string subscriptionPeriodCode, 
-            string countryCode, 
+            Guid subscriptionId,
+            Guid payerId,
+            string subscriptionPeriodCode,
+            string countryCode,
             DateTime expirationDate,
             string status)
         {

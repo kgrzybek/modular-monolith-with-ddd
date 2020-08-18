@@ -19,7 +19,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Expi
         private readonly ICommandsScheduler _commandsScheduler;
 
         public ExpireSubscriptionPaymentsCommandHandler(
-            ISqlConnectionFactory sqlConnectionFactory, 
+            ISqlConnectionFactory sqlConnectionFactory,
             ICommandsScheduler commandsScheduler)
         {
             _sqlConnectionFactory = sqlConnectionFactory;
@@ -39,12 +39,12 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Expi
             var timeForPayment = TimeSpan.FromMinutes(20);
             var date = SystemClock.Now.Add(timeForPayment);
 
-            var expiredSubscriptionPaymentsIds = 
+            var expiredSubscriptionPaymentsIds =
                 await connection.QueryAsync<Guid>(sql, new
-            {
-                Date = date,
-                Status = SubscriptionPaymentStatus.WaitingForPayment.Code
-            });
+                {
+                    Date = date,
+                    Status = SubscriptionPaymentStatus.WaitingForPayment.Code
+                });
 
             var expiredSubscriptionsPaymentsIdsList = expiredSubscriptionPaymentsIds.AsList();
 

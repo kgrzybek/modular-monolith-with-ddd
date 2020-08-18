@@ -9,6 +9,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
     public class MeetingWaitlistMember : Entity
     {
         internal MemberId MemberId { get; private set; }
+
         internal MeetingId MeetingId { get; private set; }
 
         internal DateTime SignUpDate { get; private set; }
@@ -23,7 +24,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
 
         private MeetingWaitlistMember()
         {
-            
         }
 
         private MeetingWaitlistMember(MeetingId meetingId, MemberId memberId)

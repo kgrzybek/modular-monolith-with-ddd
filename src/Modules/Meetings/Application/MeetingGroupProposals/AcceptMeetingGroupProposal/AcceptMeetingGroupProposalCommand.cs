@@ -9,7 +9,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupPropos
         public Guid MeetingGroupProposalId { get; }
 
         [JsonConstructor]
-        public AcceptMeetingGroupProposalCommand(Guid id, Guid meetingGroupProposalId) : base(id)
+        public AcceptMeetingGroupProposalCommand(Guid id, Guid meetingGroupProposalId)
+            : base(id)
         {
             this.MeetingGroupProposalId = meetingGroupProposalId;
         }

@@ -17,7 +17,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Expi
         private readonly ICommandsScheduler _commandsScheduler;
 
         public ExpireSubscriptionsCommandHandler(
-            ISqlConnectionFactory sqlConnectionFactory, 
+            ISqlConnectionFactory sqlConnectionFactory,
             ICommandsScheduler commandsScheduler)
         {
             _sqlConnectionFactory = sqlConnectionFactory;
@@ -33,11 +33,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Expi
 
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
-            var expiredSubscriptionsIds = 
+            var expiredSubscriptionsIds =
                 await connection.QueryAsync<Guid>(sql, new
-            {
-                Date = SystemClock.Now
-            });
+                {
+                    Date = SystemClock.Now
+                });
 
             var expiredSubscriptionsIdsList = expiredSubscriptionsIds.AsList();
 

@@ -5,11 +5,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationEvents
 {
     public class MeetingGroupProposedIntegrationEvent : IntegrationEvent
     {
-        public Guid MeetingGroupProposalId { get;  }
+        public Guid MeetingGroupProposalId { get; }
 
         public string Name { get; }
 
-        public string Description { get;  }
+        public string Description { get; }
 
         public string LocationCity { get; }
 
@@ -28,7 +28,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationEvents
             string locationCity,
             string locationCountryCode,
             Guid proposalUserId,
-            DateTime proposalDate) :base(id, occurredOn)
+            DateTime proposalDate)
+            : base(id, occurredOn)
         {
             this.MeetingGroupProposalId = meetingGroupProposalId;
             this.Name = name;

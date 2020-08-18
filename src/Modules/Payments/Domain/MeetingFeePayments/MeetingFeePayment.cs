@@ -57,7 +57,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFeePayments
 
         public void MarkAsPaid()
         {
-            MeetingFeePaymentPaidDomainEvent @event = 
+            MeetingFeePaymentPaidDomainEvent @event =
                 new MeetingFeePaymentPaidDomainEvent(this.Id,
                 MeetingFeePaymentStatus.Paid.Code);
 

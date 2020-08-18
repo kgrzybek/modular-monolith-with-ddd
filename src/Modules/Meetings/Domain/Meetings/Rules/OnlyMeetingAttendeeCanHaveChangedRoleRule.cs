@@ -10,6 +10,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
         private readonly List<MeetingAttendee> _attendees;
 
         private readonly MemberId _newOrganizerId;
+
         internal OnlyMeetingAttendeeCanHaveChangedRoleRule(List<MeetingAttendee> attendees, MemberId newOrganizerId)
         {
             _attendees = attendees;

@@ -14,7 +14,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure
         private readonly ConcurrentDictionary<(Type ModelClrType, Type ProviderClrType), ValueConverterInfo> _converters
             = new ConcurrentDictionary<(Type ModelClrType, Type ProviderClrType), ValueConverterInfo>();
 
-        public StronglyTypedIdValueConverterSelector(ValueConverterSelectorDependencies dependencies) 
+        public StronglyTypedIdValueConverterSelector(ValueConverterSelectorDependencies dependencies)
             : base(dependencies)
         {
         }

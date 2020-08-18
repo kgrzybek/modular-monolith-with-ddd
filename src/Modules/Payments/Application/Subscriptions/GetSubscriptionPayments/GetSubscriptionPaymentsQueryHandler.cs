@@ -32,7 +32,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetS
                                         $"[SubscriptionPayment].[Period] AS [{nameof(SubscriptionPaymentDto.Period)}] " +
                                         "FROM [payments].[SubscriptionPayments] AS [SubscriptionPayment] " +
                                         "WHERE [SubscriptionPayment].PayerId = @PayerId",
-                new {
+                new
+                {
                     query.PayerId
                 });
 

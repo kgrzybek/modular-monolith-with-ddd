@@ -7,7 +7,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ed
     public class EditMeetingCommentCommand : CommandBase<Unit>
     {
         public Guid MeetingCommentId { get; }
-        
+
         public string EditedComment { get; }
 
         public EditMeetingCommentCommand(Guid meetingCommentId, string editedComment)

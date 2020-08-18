@@ -25,7 +25,7 @@ namespace CompanyName.MyMeetings.API.Modules.Payments.Subscriptions
         {
             await _meetingsModule.ExecuteCommandAsync(
                 new BuySubscriptionCommand(
-                    request.SubscriptionTypeCode, 
+                    request.SubscriptionTypeCode,
                     request.CountryCode,
                     request.Value,
                     request.Currency));

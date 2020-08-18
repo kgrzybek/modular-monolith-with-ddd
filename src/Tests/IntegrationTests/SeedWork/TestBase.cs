@@ -66,9 +66,9 @@ namespace CompanyName.MyMeetings.IntegrationTests.SeedWork
                 ExecutionContext,
                 Logger,
                 EventsBus);
-            
+
             MeetingsStartup.Initialize(
-                ConnectionString, 
+                ConnectionString,
                 ExecutionContext,
                 Logger,
                 new EmailsConfiguration("from@email.com"),

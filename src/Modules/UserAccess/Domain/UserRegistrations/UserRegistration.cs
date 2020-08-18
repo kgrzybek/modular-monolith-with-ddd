@@ -35,9 +35,9 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations
         }
 
         public static UserRegistration RegisterNewUser(
-            string login, 
-            string password, 
-            string email, 
+            string login,
+            string password,
+            string email,
             string firstName,
             string lastName,
             IUsersCounter usersCounter)
@@ -46,10 +46,10 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations
         }
 
         private UserRegistration(
-            string login, 
-            string password, 
-            string email, 
-            string firstName, 
+            string login,
+            string password,
+            string email,
+            string firstName,
             string lastName,
             IUsersCounter usersCounter)
         {

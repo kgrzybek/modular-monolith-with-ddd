@@ -23,7 +23,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
         private readonly IDomainNotificationsMapper _domainNotificationsMapper;
 
         public ProcessOutboxCommandHandler(
-            IMediator mediator, 
+            IMediator mediator,
             ISqlConnectionFactory sqlConnectionFactory, IDomainNotificationsMapper domainNotificationsMapper)
         {
             _mediator = mediator;

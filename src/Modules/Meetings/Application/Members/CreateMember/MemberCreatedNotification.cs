@@ -9,7 +9,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Members.CreateMemb
     public class MemberCreatedNotification : DomainNotificationBase<MeetingCreatedDomainEvent>
     {
         [JsonConstructor]
-        public MemberCreatedNotification(MeetingCreatedDomainEvent domainEvent, Guid id) : base(domainEvent, id)
+        public MemberCreatedNotification(MeetingCreatedDomainEvent domainEvent, Guid id)
+            : base(domainEvent, id)
         {
         }
     }

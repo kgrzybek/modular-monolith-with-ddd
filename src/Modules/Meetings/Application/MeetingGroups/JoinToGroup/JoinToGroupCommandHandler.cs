@@ -13,7 +13,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.Join
         private readonly IMemberContext _memberContext;
 
         internal JoinToGroupCommandHandler(
-            IMeetingGroupRepository meetingGroupRepository, 
+            IMeetingGroupRepository meetingGroupRepository,
             IMemberContext memberContext)
         {
             _meetingGroupRepository = meetingGroupRepository;

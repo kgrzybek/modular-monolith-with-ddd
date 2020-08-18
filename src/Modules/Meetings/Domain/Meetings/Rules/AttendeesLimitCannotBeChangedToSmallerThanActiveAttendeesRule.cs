@@ -7,8 +7,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
         private readonly int? _attendeesLimit;
 
         private readonly int _allActiveAttendeesWithGuestsNumber;
+
         internal AttendeesLimitCannotBeChangedToSmallerThanActiveAttendeesRule(
-            MeetingLimits meetingLimits, 
+            MeetingLimits meetingLimits,
             int allActiveAttendeesWithGuestsNumber)
         {
             this._attendeesLimit = meetingLimits.AttendeesLimit;
@@ -16,6 +17,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
         }
 
         public bool IsBroken() => _attendeesLimit.HasValue && _attendeesLimit.Value < _allActiveAttendeesWithGuestsNumber;
+
         public string Message => "Attendees limit cannot be change to smaller than active attendees number";
     }
 }

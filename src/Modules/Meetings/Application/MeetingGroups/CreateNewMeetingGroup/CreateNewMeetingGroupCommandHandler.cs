@@ -13,7 +13,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.Crea
         private readonly IMeetingGroupProposalRepository _meetingGroupProposalRepository;
 
         internal CreateNewMeetingGroupCommandHandler(
-            IMeetingGroupRepository meetingGroupRepository, 
+            IMeetingGroupRepository meetingGroupRepository,
             IMeetingGroupProposalRepository meetingGroupProposalRepository)
         {
             _meetingGroupRepository = meetingGroupRepository;

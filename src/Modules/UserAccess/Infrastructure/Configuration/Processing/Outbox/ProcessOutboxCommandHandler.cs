@@ -24,8 +24,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
         private readonly IDomainNotificationsMapper _domainNotificationsMapper;
 
         public ProcessOutboxCommandHandler(
-            IMediator mediator, 
-            ISqlConnectionFactory sqlConnectionFactory, 
+            IMediator mediator,
+            ISqlConnectionFactory sqlConnectionFactory,
             IDomainNotificationsMapper domainNotificationsMapper)
         {
             _mediator = mediator;

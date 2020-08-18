@@ -15,7 +15,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupPropos
         private readonly IMemberContext _memberContext;
 
         internal ProposeMeetingGroupCommandHandler(
-            IMeetingGroupProposalRepository meetingGroupProposalRepository, 
+            IMeetingGroupProposalRepository meetingGroupProposalRepository,
             IMemberContext memberContext)
         {
             _meetingGroupProposalRepository = meetingGroupProposalRepository;
@@ -25,9 +25,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupPropos
         public async Task<Guid> Handle(ProposeMeetingGroupCommand request, CancellationToken cancellationToken)
         {
             var meetingGroupProposal = MeetingGroupProposal.ProposeNew(
-                request.Name, 
+                request.Name,
                 request.Description,
-                MeetingGroupLocation.CreateNew(request.LocationCity, request.LocationCountryCode), 
+                MeetingGroupLocation.CreateNew(request.LocationCity, request.LocationCountryCode),
                 _memberContext.MemberId);
 
             await _meetingGroupProposalRepository.AddAsync(meetingGroupProposal);

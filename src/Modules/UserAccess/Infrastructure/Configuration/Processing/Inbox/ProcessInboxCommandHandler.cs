@@ -48,7 +48,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
 
                 try
                 {
-                    await _mediator.Publish((INotification) request, cancellationToken);
+                    await _mediator.Publish((INotification)request, cancellationToken);
                 }
                 catch (Exception e)
                 {

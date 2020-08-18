@@ -22,7 +22,7 @@ namespace CompanyName.MyMeetings.API.Configuration.Authorization
                 if (!attributes.Any())
                 {
                     attributes.AddRange(GetAttributes(action.ControllerTypeInfo.UnderlyingSystemType));
-                }    
+                }
             }
 
             return HandleRequirementAsync(context, requirement, attributes);

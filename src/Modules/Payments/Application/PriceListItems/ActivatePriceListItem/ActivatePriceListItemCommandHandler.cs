@@ -21,16 +21,16 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.Act
         public async Task<Unit> Handle(ActivatePriceListItemCommand command, CancellationToken cancellationToken)
         {
             var priceListItem = await _aggregateStore.Load(new PriceListItemId(command.PriceListItemId));
-            
+
             if (priceListItem == null)
             {
-                throw new InvalidCommandException(new List<string> {"Pricelist item for activation must exist."});
+                throw new InvalidCommandException(new List<string> { "Pricelist item for activation must exist." });
             }
-            
+
             priceListItem.Activate();
-            
+
             _aggregateStore.AppendChanges(priceListItem);
-            
+
             return Unit.Value;
         }
     }

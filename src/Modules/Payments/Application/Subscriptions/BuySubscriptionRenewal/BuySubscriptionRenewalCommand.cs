@@ -7,9 +7,9 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuyS
     {
         public BuySubscriptionRenewalCommand(
             Guid subscriptionId,
-            string subscriptionTypeCode, 
-            string countryCode, 
-            decimal value, 
+            string subscriptionTypeCode,
+            string countryCode,
+            decimal value,
             string currency)
         {
             SubscriptionId = subscriptionId;
@@ -19,8 +19,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuyS
             Currency = currency;
         }
 
-        public Guid SubscriptionId { get;  }
-        
+        public Guid SubscriptionId { get; }
+
         public string SubscriptionTypeCode { get; }
 
         public string CountryCode { get; }

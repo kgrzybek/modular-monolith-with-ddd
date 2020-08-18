@@ -12,15 +12,15 @@ using Serilog.Events;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Processing
 {
-    internal class LoggingCommandHandlerDecorator<T> : ICommandHandler<T> where T:ICommand
+    internal class LoggingCommandHandlerDecorator<T> : ICommandHandler<T> where T : ICommand
     {
         private readonly ILogger _logger;
         private readonly IExecutionContextAccessor _executionContextAccessor;
         private readonly ICommandHandler<T> _decorated;
 
         public LoggingCommandHandlerDecorator(
-            ILogger logger, 
-            IExecutionContextAccessor executionContextAccessor, 
+            ILogger logger,
+            IExecutionContextAccessor executionContextAccessor,
             ICommandHandler<T> decorated)
         {
             _logger = logger;
@@ -84,8 +84,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
             {
                 if (_executionContextAccessor.IsAvailable)
                 {
-                    logEvent.AddOrUpdateProperty(new LogEventProperty("CorrelationId", new ScalarValue(_executionContextAccessor.CorrelationId))); 
-                }               
+                    logEvent.AddOrUpdateProperty(new LogEventProperty("CorrelationId", new ScalarValue(_executionContextAccessor.CorrelationId)));
+                }
             }
         }
     }

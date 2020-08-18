@@ -44,7 +44,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
 
             builder.RegisterGenericDecorator(
                 typeof(ValidationCommandHandlerDecorator<>),
-                typeof(ICommandHandler<>)); 
+                typeof(ICommandHandler<>));
 
             builder.RegisterGenericDecorator(
                 typeof(ValidationCommandHandlerWithResultDecorator<,>),
@@ -53,20 +53,20 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
 
             builder.RegisterGenericDecorator(
                 typeof(LoggingCommandHandlerDecorator<>),
-                typeof(ICommandHandler<>));  
+                typeof(ICommandHandler<>));
 
             builder.RegisterGenericDecorator(
                 typeof(LoggingCommandHandlerWithResultDecorator<,>),
                 typeof(ICommandHandler<,>));
 
             builder.RegisterGenericDecorator(
-                typeof(DomainEventsDispatcherNotificationHandlerDecorator<>), 
+                typeof(DomainEventsDispatcherNotificationHandlerDecorator<>),
                 typeof(INotificationHandler<>));
 
             builder.RegisterAssemblyTypes(Assemblies.Application)
                 .AsClosedTypesOf(typeof(IDomainEventNotification<>))
                 .InstancePerDependency()
-                .FindConstructorsWith(new AllConstructorFinder());  
+                .FindConstructorsWith(new AllConstructorFinder());
         }
     }
 }

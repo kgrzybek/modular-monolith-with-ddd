@@ -5,6 +5,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals.E
     public class MeetingGroupProposalAcceptedDomainEvent : DomainEventBase
     {
         public MeetingGroupProposalId MeetingGroupProposalId { get; }
+
         public MeetingGroupProposalAcceptedDomainEvent(MeetingGroupProposalId meetingGroupProposalId)
         {
             MeetingGroupProposalId = meetingGroupProposalId;

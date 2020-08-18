@@ -5,7 +5,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
     public class SubscriptionPeriod : ValueObject
     {
         public string Code { get; }
-        
+
         public static SubscriptionPeriod Month => new SubscriptionPeriod(nameof(Month));
 
         public static SubscriptionPeriod HalfYear => new SubscriptionPeriod(nameof(HalfYear));

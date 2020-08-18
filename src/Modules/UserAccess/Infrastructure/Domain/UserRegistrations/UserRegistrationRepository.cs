@@ -20,7 +20,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Domain.UserRe
 
         public async Task<UserRegistration> GetByIdAsync(UserRegistrationId userRegistrationId)
         {
-           return await _userAccessContext.UserRegistrations.FirstOrDefaultAsync(x => x.Id == userRegistrationId);
+            return await _userAccessContext.UserRegistrations.FirstOrDefaultAsync(x => x.Id == userRegistrationId);
         }
     }
 }

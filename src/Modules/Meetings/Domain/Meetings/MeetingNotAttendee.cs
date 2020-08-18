@@ -21,7 +21,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
 
         private MeetingNotAttendee()
         {
-            
         }
 
         private MeetingNotAttendee(MeetingId meetingId, MemberId memberId)

@@ -8,9 +8,9 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments.Ev
     {
         public SubscriptionPaymentCreatedDomainEvent(
             Guid subscriptionPaymentId,
-            Guid payerId, 
-            string subscriptionPeriodCode, 
-            string countryCode, 
+            Guid payerId,
+            string subscriptionPeriodCode,
+            string countryCode,
             string status, decimal value, string currency)
         {
             SubscriptionPaymentId = subscriptionPaymentId;

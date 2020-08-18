@@ -8,7 +8,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Users.CreateUser
     public class CreateUserCommand : InternalCommandBase<Guid>
     {
         [JsonConstructor]
-        public CreateUserCommand(Guid id, UserRegistrationId userRegistrationId): base(id)
+        public CreateUserCommand(Guid id, UserRegistrationId userRegistrationId) : base(id)
         {
             UserRegistrationId = userRegistrationId;
         }

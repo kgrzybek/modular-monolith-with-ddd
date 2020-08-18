@@ -12,27 +12,30 @@ using Serilog.Events;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Processing
 {
-    internal class LoggingCommandHandlerDecorator<T> : ICommandHandler<T> where T:ICommand
+    internal class LoggingCommandHandlerDecorator<T> : ICommandHandler<T>
+        where T : ICommand
     {
         private readonly ILogger _logger;
         private readonly IExecutionContextAccessor _executionContextAccessor;
         private readonly ICommandHandler<T> _decorated;
 
         public LoggingCommandHandlerDecorator(
-            ILogger logger, 
-            IExecutionContextAccessor executionContextAccessor, 
+            ILogger logger,
+            IExecutionContextAccessor executionContextAccessor,
             ICommandHandler<T> decorated)
         {
             _logger = logger;
             _executionContextAccessor = executionContextAccessor;
             _decorated = decorated;
         }
+
         public async Task<Unit> Handle(T command, CancellationToken cancellationToken)
         {
             if (command is IRecurringCommand)
             {
                 return await _decorated.Handle(command, cancellationToken);
             }
+
             using (
                 LogContext.Push(
                     new RequestLogEnricher(_executionContextAccessor),
@@ -66,6 +69,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.P
             {
                 _command = command;
             }
+
             public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
             {
                 logEvent.AddOrUpdateProperty(new LogEventProperty("Context", new ScalarValue($"Command:{_command.Id.ToString()}")));
@@ -75,16 +79,18 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.P
         private class RequestLogEnricher : ILogEventEnricher
         {
             private readonly IExecutionContextAccessor _executionContextAccessor;
+
             public RequestLogEnricher(IExecutionContextAccessor executionContextAccessor)
             {
                 _executionContextAccessor = executionContextAccessor;
             }
+
             public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
             {
                 if (_executionContextAccessor.IsAvailable)
                 {
-                    logEvent.AddOrUpdateProperty(new LogEventProperty("CorrelationId", new ScalarValue(_executionContextAccessor.CorrelationId))); 
-                }               
+                    logEvent.AddOrUpdateProperty(new LogEventProperty("CorrelationId", new ScalarValue(_executionContextAccessor.CorrelationId)));
+                }
             }
         }
     }

@@ -20,7 +20,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.GetMee
 
         public async Task Project(IDomainEvent @event)
         {
-            await When((dynamic) @event);
+            await When((dynamic)@event);
         }
 
         private async Task When(MeetingFeeCreatedDomainEvent meetingFeeCreated)

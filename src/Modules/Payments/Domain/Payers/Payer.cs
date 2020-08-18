@@ -26,10 +26,10 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Payers
 
         public static Payer Create(
             Guid id,
-            string login, 
-            string email, 
-            string firstName, 
-            string lastName, 
+            string login,
+            string email,
+            string firstName,
+            string lastName,
             string name)
         {
             var payer = new Payer();
@@ -41,7 +41,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Payers
                 lastName,
                 name,
                 email);
-            
+
             payer.Apply(payerCreated);
             payer.AddDomainEvent(payerCreated);
 

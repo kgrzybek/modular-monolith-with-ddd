@@ -14,7 +14,8 @@ using Newtonsoft.Json.Serialization;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.EventsBus
 {
-    internal class IntegrationEventGenericHandler<T> : IIntegrationEventHandler<T> where T : IntegrationEvent
+    internal class IntegrationEventGenericHandler<T> : IIntegrationEventHandler<T>
+        where T : IntegrationEvent
     {
         public async Task Handle(T @event)
         {

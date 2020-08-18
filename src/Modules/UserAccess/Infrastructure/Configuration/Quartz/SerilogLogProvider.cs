@@ -39,7 +39,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
                 {
                     _logger.Fatal(exception, func(), parameters);
                 }
-                    
+
                 return true;
             };
         }

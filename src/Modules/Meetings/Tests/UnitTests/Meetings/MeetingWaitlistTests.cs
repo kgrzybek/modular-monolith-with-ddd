@@ -18,13 +18,13 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             {
                 CreatorId = creatorId,
                 MeetingTerm = MeetingTerm.CreateNewBetweenDates(DateTime.UtcNow.AddDays(-2), DateTime.UtcNow.AddDays(-1))
-            });         
+            });
             var memberId = new MemberId(Guid.NewGuid());
 
             AssertBrokenRule<MeetingCannotBeChangedAfterStartRule>(() =>
             {
                 meetingTestData.Meeting.SignUpMemberToWaitlist(meetingTestData.MeetingGroup, memberId);
-            });          
+            });
         }
 
         [Test]
@@ -35,13 +35,13 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             {
                 CreatorId = creatorId,
                 RvspTerm = Term.CreateNewBetweenDates(DateTime.UtcNow.AddDays(-2), DateTime.UtcNow.AddDays(-1))
-            });               
+            });
             var memberId = new MemberId(Guid.NewGuid());
 
             AssertBrokenRule<AttendeeCanBeAddedOnlyInRsvpTermRule>(() =>
             {
                 meetingTestData.Meeting.SignUpMemberToWaitlist(meetingTestData.MeetingGroup, memberId);
-            });           
+            });
         }
 
         [Test]
@@ -51,12 +51,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions
             {
                 CreatorId = creatorId
-            });         
+            });
 
             AssertBrokenRule<MemberOnWaitlistMustBeAMemberOfGroupRule>(() =>
             {
                 meetingTestData.Meeting.SignUpMemberToWaitlist(meetingTestData.MeetingGroup, new MemberId(Guid.NewGuid()));
-            });          
+            });
         }
 
         [Test]
@@ -69,13 +69,13 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             });
             var memberId = new MemberId(Guid.NewGuid());
             meetingTestData.MeetingGroup.JoinToGroupMember(memberId);
-            
+
             meetingTestData.Meeting.SignUpMemberToWaitlist(meetingTestData.MeetingGroup, memberId);
 
             AssertBrokenRule<MemberCannotBeMoreThanOnceOnMeetingWaitlistRule>(() =>
             {
                 meetingTestData.Meeting.SignUpMemberToWaitlist(meetingTestData.MeetingGroup, memberId);
-            });          
+            });
         }
 
         [Test]
@@ -88,7 +88,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             });
             var memberId = new MemberId(Guid.NewGuid());
             meetingTestData.MeetingGroup.JoinToGroupMember(memberId);
-           
+
             meetingTestData.Meeting.SignUpMemberToWaitlist(meetingTestData.MeetingGroup, memberId);
 
             var meetingWaitlistMemberAdded = AssertPublishedDomainEvent<MeetingWaitlistMemberAddedDomainEvent>(meetingTestData.Meeting);
@@ -103,13 +103,13 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             {
                 CreatorId = creatorId,
                 MeetingTerm = MeetingTerm.CreateNewBetweenDates(DateTime.UtcNow.AddDays(-2), DateTime.UtcNow.AddDays(-1))
-            });         
+            });
             var memberId = new MemberId(Guid.NewGuid());
 
             AssertBrokenRule<MeetingCannotBeChangedAfterStartRule>(() =>
             {
                 meetingTestData.Meeting.SignOffMemberFromWaitlist(memberId);
-            });          
+            });
         }
 
         [Test]
@@ -119,13 +119,13 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions
             {
                 CreatorId = creatorId
-            });         
+            });
             var memberId = new MemberId(Guid.NewGuid());
 
             AssertBrokenRule<NotActiveMemberOfWaitlistCannotBeSignedOffRule>(() =>
             {
                 meetingTestData.Meeting.SignOffMemberFromWaitlist(memberId);
-            });          
+            });
         }
 
         [Test]
@@ -135,8 +135,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions
             {
                 CreatorId = creatorId
-            });         
-            
+            });
+
             var memberId = new MemberId(Guid.NewGuid());
             meetingTestData.MeetingGroup.JoinToGroupMember(memberId);
             meetingTestData.Meeting.SignUpMemberToWaitlist(meetingTestData.MeetingGroup, memberId);

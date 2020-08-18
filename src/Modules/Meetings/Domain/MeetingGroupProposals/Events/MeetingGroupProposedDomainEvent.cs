@@ -7,14 +7,14 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals.E
     public class MeetingGroupProposedDomainEvent : DomainEventBase
     {
         public MeetingGroupProposedDomainEvent(
-            MeetingGroupProposalId meetingGroupProposalId, 
-            string name, 
-            string description, 
+            MeetingGroupProposalId meetingGroupProposalId,
+            string name,
+            string description,
             MemberId proposalUserId,
-            DateTime proposalDate, 
-            string locationCity, 
+            DateTime proposalDate,
+            string locationCity,
             string locationCountryCode)
-        {   
+        {
             this.MeetingGroupProposalId = meetingGroupProposalId;
             this.Name = name;
             this.Description = description;
@@ -24,11 +24,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals.E
             this.ProposalUserId = proposalUserId;
         }
 
-        public MeetingGroupProposalId MeetingGroupProposalId { get;  }
+        public MeetingGroupProposalId MeetingGroupProposalId { get; }
 
         public string Name { get; }
 
-        public string Description { get;  }
+        public string Description { get; }
 
         public string LocationCity { get; }
 

@@ -6,6 +6,5 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.GetA
 {
     public class GetAllMeetingGroupsQuery : IQuery<List<MeetingGroupDto>>
     {
-        
     }
 }

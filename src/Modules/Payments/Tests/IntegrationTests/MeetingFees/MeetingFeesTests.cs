@@ -24,12 +24,12 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.MeetingFees
         {
             var payerId = Guid.NewGuid();
             var meetingId = Guid.NewGuid();
-            
+
             var meetingFeeId = await PaymentsModule.ExecuteCommandAsync(new CreateMeetingFeeCommand(
                 Guid.NewGuid(),
-                payerId, 
-                meetingId, 
-                100, 
+                payerId,
+                meetingId,
+                100,
                 "PLN"));
 
             var meetingFees = await GetEventually(new GetMeetingFeesProbe(PaymentsModule, meetingId, x => x != null), 5000);
@@ -39,7 +39,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.MeetingFees
             var meetingFeePaymentId = await PaymentsModule.ExecuteCommandAsync(new CreateMeetingFeePaymentCommand(meetingFeeId));
 
             await PaymentsModule.ExecuteCommandAsync(new MarkMeetingFeePaymentAsPaidCommand(meetingFeePaymentId));
-            
+
             meetingFees = await GetEventually(new GetMeetingFeesProbe(PaymentsModule, meetingId, x => x.Any(y => y.Status == MeetingFeePaymentStatus.Paid.Code)), 10000);
 
             Assert.That(meetingFees[0].Status, Is.EqualTo(MeetingFeeStatus.Paid.Code));
@@ -55,7 +55,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.MeetingFees
 
             public GetMeetingFeesProbe(
                 IPaymentsModule paymentsModule,
-                Guid meetingId, 
+                Guid meetingId,
                 Func<List<MeetingFeeDto>, bool> condition)
             {
                 _paymentsModule = paymentsModule;

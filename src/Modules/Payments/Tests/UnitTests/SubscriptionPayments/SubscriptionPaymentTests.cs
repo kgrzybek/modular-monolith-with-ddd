@@ -24,11 +24,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SubscriptionP
                 MoneyValue.Of(60, "PLN"),
                 subscriptionPaymentTestData.PriceList
             );
-            
+
             // Assert
             AssertPublishedDomainEvent<SubscriptionPaymentCreatedDomainEvent>(subscriptionPayment);
         }
-        
+
         [Test]
         public void BuySubscriptionRenewal_WhenPriceDoesNotExist_IsNotPossible()
         {
@@ -61,14 +61,14 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SubscriptionP
                 MoneyValue.Of(60, "PLN"),
                 subscriptionPaymentTestData.PriceList
             );
-            
+
             // Act
             subscriptionPayment.MarkAsPaid();
-            
+
             // Assert
             AssertPublishedDomainEvent<SubscriptionPaymentPaidDomainEvent>(subscriptionPayment);
         }
-        
+
         [Test]
         public void ExpireSubscription_IsSuccessful()
         {
@@ -82,10 +82,10 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SubscriptionP
                 MoneyValue.Of(60, "PLN"),
                 subscriptionPaymentTestData.PriceList
             );
-            
+
             // Act
             subscriptionPayment.Expire();
-            
+
             // Assert
             AssertPublishedDomainEvent<SubscriptionPaymentExpiredDomainEvent>(subscriptionPayment);
         }

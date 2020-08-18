@@ -58,7 +58,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
             EmailsConfiguration = new EmailsConfiguration("from@email.com");
             EventsBus = new EventsBusMock();
             ExecutionContext = new ExecutionContextMock(Guid.NewGuid());
-            
+
             PaymentsStartup.Initialize(
                 ConnectionString,
                 ExecutionContext,
@@ -104,7 +104,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
             new Poller(timeout).Check(probe);
         }
 
-        public static async Task<T> GetEventually<T>(IProbe<T> probe, int timeout) where  T: class
+        public static async Task<T> GetEventually<T>(IProbe<T> probe, int timeout) where T : class
         {
             var poller = new Poller(timeout);
 

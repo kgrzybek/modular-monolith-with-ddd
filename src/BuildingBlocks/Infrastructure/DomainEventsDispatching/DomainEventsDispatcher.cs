@@ -28,7 +28,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispa
             IMediator mediator,
             ILifetimeScope scope,
             IOutbox outbox,
-            IDomainEventsAccessor domainEventsProvider, 
+            IDomainEventsAccessor domainEventsProvider,
             IDomainNotificationsMapper domainNotificationsMapper)
         {
             _mediator = mediator;
@@ -73,7 +73,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispa
                 {
                     ContractResolver = new AllPropertiesContractResolver()
                 });
-                
+
                 var outboxMessage = new OutboxMessage(
                     domainEventNotification.Id,
                     domainEventNotification.DomainEvent.OccurredOn,

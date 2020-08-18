@@ -27,7 +27,7 @@ namespace CompanyName.MyMeetings.IntegrationTests.CreateMeetingGroup
                 "PL"));
 
             AssertEventually(
-                new GetMeetingGroupProposalFromAdministrationProbe(meetingGroupId, AdministrationModule), 
+                new GetMeetingGroupProposalFromAdministrationProbe(meetingGroupId, AdministrationModule),
                 10000);
 
             await AdministrationModule.ExecuteCommandAsync(new AcceptMeetingGroupProposalCommand(meetingGroupId));
@@ -46,7 +46,7 @@ namespace CompanyName.MyMeetings.IntegrationTests.CreateMeetingGroup
             private List<MeetingGroupDto> _allMeetingGroups;
 
             public GetCreatedMeetingGroupFromMeetingsProbe(
-                Guid expectedMeetingGroupId, 
+                Guid expectedMeetingGroupId,
                 IMeetingsModule meetingsModule)
             {
                 _expectedMeetingGroupId = expectedMeetingGroupId;
@@ -55,7 +55,7 @@ namespace CompanyName.MyMeetings.IntegrationTests.CreateMeetingGroup
 
             public bool IsSatisfied()
             {
-                return _allMeetingGroups != null && 
+                return _allMeetingGroups != null &&
                        _allMeetingGroups.Any(x => x.Id == _expectedMeetingGroupId);
             }
 
@@ -64,7 +64,7 @@ namespace CompanyName.MyMeetings.IntegrationTests.CreateMeetingGroup
                 _allMeetingGroups = await _meetingsModule.ExecuteQueryAsync(new GetAllMeetingGroupsQuery());
             }
 
-            public string DescribeFailureTo() 
+            public string DescribeFailureTo()
                 => $"Meeting group with ID: {_expectedMeetingGroupId} is not created";
         }
 

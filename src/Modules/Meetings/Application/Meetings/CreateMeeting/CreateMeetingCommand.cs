@@ -31,13 +31,17 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.CreateMee
         public string Title { get; }
 
         public DateTime TermStartDate { get; }
+
         public DateTime TermEndDate { get; }
 
         public string Description { get; }
 
         public string MeetingLocationName { get; }
+
         public string MeetingLocationAddress { get; }
+
         public string MeetingLocationPostalCode { get; }
+
         public string MeetingLocationCity { get; }
 
         public int? AttendeesLimit { get; }
@@ -49,6 +53,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.CreateMee
         public DateTime? RSVPTermEndDate { get; }
 
         public decimal? EventFeeValue { get; }
+
         public string EventFeeCurrency { get; }
 
         public List<Guid> HostMemberIds { get; }

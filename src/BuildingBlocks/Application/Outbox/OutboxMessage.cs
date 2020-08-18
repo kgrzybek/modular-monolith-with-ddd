@@ -16,7 +16,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Application.Outbox
 
         private OutboxMessage()
         {
-            
+
         }
 
         public OutboxMessage(Guid id, DateTime occurredOn, string type, string data)

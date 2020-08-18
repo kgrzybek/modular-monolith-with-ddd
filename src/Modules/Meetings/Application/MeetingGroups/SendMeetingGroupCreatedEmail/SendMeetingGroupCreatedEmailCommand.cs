@@ -13,7 +13,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.Send
         internal MemberId CreatorId { get; }
 
         [JsonConstructor]
-        internal SendMeetingGroupCreatedEmailCommand(Guid id, MeetingGroupId meetingGroupId, MemberId creatorId): base(id)
+        internal SendMeetingGroupCreatedEmailCommand(Guid id, MeetingGroupId meetingGroupId, MemberId creatorId)
+            : base(id)
         {
             MeetingGroupId = meetingGroupId;
             CreatorId = creatorId;

@@ -80,12 +80,12 @@ namespace CompanyName.MyMeetings.API
 
             return CreateAutofacServiceProvider(services);
         }
-     
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             app.UseMiddleware<CorrelationMiddleware>();
-            
+
             app.UseSwaggerDocumentation();
 
 
@@ -94,8 +94,8 @@ namespace CompanyName.MyMeetings.API
 
             if (env.IsDevelopment())
             {
-                 app.UseProblemDetails();
-              //  app.UseDeveloperExceptionPage();
+                app.UseProblemDetails();
+                //  app.UseDeveloperExceptionPage();
             }
             else
             {
@@ -115,10 +115,10 @@ namespace CompanyName.MyMeetings.API
 
         private static void ConfigureLogger()
         {
-            _logger =  new LoggerConfiguration()   
+            _logger = new LoggerConfiguration()
                 .Enrich.FromLogContext()
-                .WriteTo.Console(outputTemplate:"[{Timestamp:HH:mm:ss} {Level:u3}] [{Module}] [{Context}] {Message:lj}{NewLine}{Exception}")
-                .WriteTo.RollingFile(new CompactJsonFormatter(),"logs/logs")
+                .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] [{Module}] [{Context}] {Message:lj}{NewLine}{Exception}")
+                .WriteTo.RollingFile(new CompactJsonFormatter(), "logs/logs")
                 .CreateLogger();
 
             _loggerForApi = _logger.ForContext("Module", "API");
@@ -146,49 +146,49 @@ namespace CompanyName.MyMeetings.API
                     x.RequireHttpsMetadata = false;
                 });
         }
-        
+
         private IServiceProvider CreateAutofacServiceProvider(IServiceCollection services)
         {
             var containerBuilder = new ContainerBuilder();
 
             containerBuilder.Populate(services);
-            
+
             containerBuilder.RegisterModule(new MeetingsAutofacModule());
             containerBuilder.RegisterModule(new AdministrationAutofacModule());
             containerBuilder.RegisterModule(new UserAccessAutofacModule());
             containerBuilder.RegisterModule(new PaymentsAutofacModule());
 
             var container = containerBuilder.Build();
-            
+
             var httpContextAccessor = container.Resolve<IHttpContextAccessor>();
             var executionContextAccessor = new ExecutionContextAccessor(httpContextAccessor);
 
             var emailsConfiguration = new EmailsConfiguration(_configuration["EmailsConfiguration:FromEmail"]);
-            
+
             MeetingsStartup.Initialize(
-                this._configuration[MeetingsConnectionString], 
-                executionContextAccessor, 
-                _logger, 
+                this._configuration[MeetingsConnectionString],
+                executionContextAccessor,
+                _logger,
                 emailsConfiguration,
                 null);
-            
+
             AdministrationStartup.Initialize(
-                this._configuration[MeetingsConnectionString], 
-                executionContextAccessor, 
+                this._configuration[MeetingsConnectionString],
+                executionContextAccessor,
                 _logger,
                 null);
 
             UserAccessStartup.Initialize(
-                this._configuration[MeetingsConnectionString], 
-                executionContextAccessor, 
-                _logger, 
+                this._configuration[MeetingsConnectionString],
+                executionContextAccessor,
+                _logger,
                 emailsConfiguration,
                 this._configuration["Security:TextEncryptionKey"],
                 null);
 
             PaymentsStartup.Initialize(
-                this._configuration[MeetingsConnectionString], 
-                executionContextAccessor, 
+                this._configuration[MeetingsConnectionString],
+                executionContextAccessor,
                 _logger,
                 emailsConfiguration,
                 null);

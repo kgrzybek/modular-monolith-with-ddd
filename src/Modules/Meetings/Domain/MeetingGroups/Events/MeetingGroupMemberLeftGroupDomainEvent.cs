@@ -12,6 +12,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups.Events
         }
 
         public MeetingGroupId MeetingGroupId { get; }
+
         public MemberId MemberId { get; }
     }
 }

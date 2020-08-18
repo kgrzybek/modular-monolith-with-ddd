@@ -22,13 +22,13 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Rene
         {
             var subscriptionRenewalPayment =
                 await _aggregateStore.Load(new SubscriptionRenewalPaymentId(command.SubscriptionRenewalPaymentId));
-            
+
             var subscription = await _aggregateStore.Load(new SubscriptionId(command.SubscriptionId));
 
             subscription.Renew(subscriptionRenewalPayment.GetSnapshot());
 
             _aggregateStore.AppendChanges(subscription);
-            
+
             return Unit.Value;
         }
     }

@@ -39,7 +39,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Q
                 {
                     _logger.Fatal(exception, func(), parameters);
                 }
-                    
+
                 return true;
             };
         }

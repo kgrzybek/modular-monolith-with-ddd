@@ -23,8 +23,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.M
                 typeof(IRequestHandler<,>),
                 typeof(IRequestHandler<>),
                 typeof(INotificationHandler<>),
-                typeof(IValidator<>)
-            ));
+                typeof(IValidator<>)));
 
             var mediatorOpenTypes = new[]
             {
@@ -51,8 +50,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.M
                 var c = ctx.Resolve<IComponentContext>();
                 return t => c.Resolve(t);
             }).InstancePerLifetimeScope();
-
- 
         }
 
         private class ScopedContravariantRegistrationSource : IRegistrationSource
@@ -63,9 +60,15 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.M
             public ScopedContravariantRegistrationSource(params Type[] types)
             {
                 if (types == null)
+                {
                     throw new ArgumentNullException(nameof(types));
+                }
+
                 if (!types.All(x => x.IsGenericTypeDefinition))
+                {
                     throw new ArgumentException("Supplied types should be generic type definitions");
+                }
+
                 _types.AddRange(types);
             }
 
@@ -81,7 +84,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.M
                         .Select(x => x.ServiceType.GetGenericTypeDefinition());
 
                     if (defs.Any(_types.Contains))
+                    {
                         yield return c;
+                    }
                 }
             }
 

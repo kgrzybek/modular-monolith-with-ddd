@@ -20,13 +20,13 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetS
 
         public async Task Project(IDomainEvent @event)
         {
-            await When((dynamic) @event);
+            await When((dynamic)@event);
         }
 
         private async Task When(SubscriptionRenewedDomainEvent subscriptionRenewed)
         {
             var period = SubscriptionPeriod.GetName(subscriptionRenewed.SubscriptionPeriodCode);
-            
+
             await _connection.ExecuteScalarAsync("UPDATE payments.SubscriptionDetails " +
                                                     "SET " +
                                                         "[Status] = @Status, " +
@@ -58,7 +58,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetS
         private async Task When(SubscriptionCreatedDomainEvent subscriptionCreated)
         {
             var period = SubscriptionPeriod.GetName(subscriptionCreated.SubscriptionPeriodCode);
-            
+
             await _connection.ExecuteScalarAsync("INSERT INTO payments.SubscriptionDetails " +
                                            "([Id], [Period], [Status], [CountryCode], [ExpirationDate]) " +
                                            "VALUES (@SubscriptionId, @Period, @Status, @CountryCode, @ExpirationDate)",

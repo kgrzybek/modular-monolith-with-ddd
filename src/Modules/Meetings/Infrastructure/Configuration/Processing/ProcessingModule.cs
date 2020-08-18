@@ -54,13 +54,13 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.P
                 typeof(ICommandHandler<,>));
 
             builder.RegisterGenericDecorator(
-                typeof(DomainEventsDispatcherNotificationHandlerDecorator<>), 
+                typeof(DomainEventsDispatcherNotificationHandlerDecorator<>),
                 typeof(INotificationHandler<>));
 
             builder.RegisterAssemblyTypes(Assemblies.Application)
                 .AsClosedTypesOf(typeof(IDomainEventNotification<>))
                 .InstancePerDependency()
-                .FindConstructorsWith(new AllConstructorFinder());  
+                .FindConstructorsWith(new AllConstructorFinder());
         }
     }
 }

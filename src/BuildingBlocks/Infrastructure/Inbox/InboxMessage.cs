@@ -16,7 +16,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Inbox
 
         private InboxMessage()
         {
-            
+
         }
 
         public InboxMessage(DateTime occurredOn, string type, string data)

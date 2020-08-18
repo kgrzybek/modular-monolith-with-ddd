@@ -25,8 +25,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.ArchTests.Application
                 .Or().ImplementInterface(typeof(ICommand))
                 .Or().ImplementInterface(typeof(ICommand<>))
                 .GetTypes();
-            
-            AssertAreImmutable(types);         
+
+            AssertAreImmutable(types);
         }
 
         [Test]
@@ -34,8 +34,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.ArchTests.Application
         {
             var types = Types.InAssembly(ApplicationAssembly)
                 .That().ImplementInterface(typeof(IQuery<>)).GetTypes();
-            
-            AssertAreImmutable(types);          
+
+            AssertAreImmutable(types);
         }
 
         [Test]
@@ -49,7 +49,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.ArchTests.Application
                 .HaveNameEndingWith("CommandHandler")
                 .GetResult();
 
-             AssertArchTestResult(result);        
+            AssertArchTestResult(result);
         }
 
         [Test]
@@ -75,7 +75,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.ArchTests.Application
                     .ImplementInterface(typeof(ICommandHandler<>))
                 .Should().NotBePublic().GetResult().FailingTypes;
 
-            AssertFailingTypes(types); 
+            AssertFailingTypes(types);
         }
 
         [Test]
@@ -103,10 +103,10 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.ArchTests.Application
                 if (!hasJsonConstructorDefined)
                 {
                     failingTypes.Add(type);
-                }               
+                }
             }
 
-            AssertFailingTypes(failingTypes); 
+            AssertFailingTypes(failingTypes);
         }
 
         [Test]
@@ -131,8 +131,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.ArchTests.Application
                     failingTypes.Add(type);
                 }
             }
-            
-            AssertFailingTypes(failingTypes);      
+
+            AssertFailingTypes(failingTypes);
         }
     }
 }

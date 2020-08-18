@@ -18,7 +18,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.MeetingC
             await _meetingsContext.MeetingComments.AddAsync(meetingComment);
         }
 
-        public async Task<MeetingComment> GetById(MeetingCommentId meetingCommentId)
+        public async Task<MeetingComment> GetByIdAsync(MeetingCommentId meetingCommentId)
         {
             return await _meetingsContext.MeetingComments.FindAsync(meetingCommentId).AsTask();
         }

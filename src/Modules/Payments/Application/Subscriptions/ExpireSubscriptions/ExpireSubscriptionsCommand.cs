@@ -4,6 +4,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Expi
 {
     public class ExpireSubscriptionsCommand : CommandBase, IRecurringCommand
     {
-        
+
     }
 }

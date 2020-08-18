@@ -33,7 +33,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuyS
             _payerContext = payerContext;
             _sqlConnectionFactory = sqlConnectionFactory;
         }
-        
+
         public async Task<Guid> Handle(BuySubscriptionRenewalCommand command, CancellationToken cancellationToken)
         {
             var priceList = await PriceListProvider.GetPriceList(_sqlConnectionFactory.GetOpenConnection());
@@ -54,7 +54,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuyS
                 command.CountryCode,
                 MoneyValue.Of(command.Value, command.Currency),
                 priceList);
-            
+
             _aggregateStore.AppendChanges(subscriptionRenewalPayment);
 
             return subscriptionRenewalPayment.Id;

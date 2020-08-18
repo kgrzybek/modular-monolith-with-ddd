@@ -12,9 +12,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups.Rules
         private readonly List<MemberId> _hostsMembersIds;
 
         private readonly List<MeetingGroupMember> _members;
+
         public MeetingHostMustBeAMeetingGroupMemberRule(
-            MemberId creatorId, 
-            List<MemberId> hostsMembersIds, 
+            MemberId creatorId,
+            List<MemberId> hostsMembersIds,
             List<MeetingGroupMember> members)
         {
             _creatorId = creatorId;

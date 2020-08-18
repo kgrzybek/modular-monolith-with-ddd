@@ -14,8 +14,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationEvents
         public string FeeCurrency { get; }
 
         public MeetingAttendeeAddedIntegrationEvent(
-            Guid id, DateTime occurredOn, Guid meetingId, 
-            Guid attendeeId, decimal? feeValue, string feeCurrency) : base(id, occurredOn)
+            Guid id, DateTime occurredOn, Guid meetingId,
+            Guid attendeeId, decimal? feeValue, string feeCurrency)
+            : base(id, occurredOn)
         {
             MeetingId = meetingId;
             AttendeeId = attendeeId;

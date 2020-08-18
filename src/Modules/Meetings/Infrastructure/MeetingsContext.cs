@@ -21,7 +21,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure
     public class MeetingsContext : DbContext
     {
         public DbSet<MeetingGroup> MeetingGroups { get; set; }
+
         public DbSet<Meeting> Meetings { get; set; }
+
         public DbSet<MeetingGroupProposal> MeetingGroupProposals { get; set; }
 
         public DbSet<OutboxMessage> OutboxMessages { get; set; }
@@ -31,19 +33,20 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure
         public DbSet<Member> Members { get; set; }
 
         public DbSet<MemberSubscription> MemberSubscriptions { get; set; }
-        
+
         public DbSet<MeetingComment> MeetingComments { get; set; }
 
         private readonly ILoggerFactory _loggerFactory;
 
-        public MeetingsContext(DbContextOptions options, ILoggerFactory loggerFactory) : base(options)
+        public MeetingsContext(DbContextOptions options, ILoggerFactory loggerFactory)
+            : base(options)
         {
             _loggerFactory = loggerFactory;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-          //  optionsBuilder.UseLoggerFactory(_loggerFactory).EnableSensitiveDataLogging();
+            // optionsBuilder.UseLoggerFactory(_loggerFactory).EnableSensitiveDataLogging();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

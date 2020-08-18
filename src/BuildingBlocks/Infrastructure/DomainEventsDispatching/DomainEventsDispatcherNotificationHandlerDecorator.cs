@@ -10,7 +10,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispa
         private readonly IDomainEventsDispatcher _domainEventsDispatcher;
 
         public DomainEventsDispatcherNotificationHandlerDecorator(
-            IDomainEventsDispatcher domainEventsDispatcher, 
+            IDomainEventsDispatcher domainEventsDispatcher,
             INotificationHandler<T> decorated)
         {
             _domainEventsDispatcher = domainEventsDispatcher;

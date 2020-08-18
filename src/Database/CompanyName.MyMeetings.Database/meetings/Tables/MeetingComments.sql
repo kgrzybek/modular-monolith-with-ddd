@@ -5,6 +5,8 @@
     [AuthorId]              UNIQUEIDENTIFIER NOT NULL,
     [InReplyToCommentId]    UNIQUEIDENTIFIER NULL,
     [Comment]               VARCHAR(300)     NULL,
+    [IsRemoved]             BIT              NOT NULL,
+    [RemovedByReason]       VARCHAR(300)     NULL,
     [CreateDate]            DATETIME         NOT NULL,
     [EditDate]              DATE             NULL,
     CONSTRAINT [PK_meetings_MeetingComments_Id] PRIMARY KEY ([Id] ASC)

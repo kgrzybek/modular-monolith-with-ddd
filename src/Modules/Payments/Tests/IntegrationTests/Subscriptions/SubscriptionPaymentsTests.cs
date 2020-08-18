@@ -35,7 +35,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
 
             var subscriptionPayments = await GetEventually(
                 new GetSubscriptionPaymentsProbe(PaymentsModule, ExecutionContext.UserId,
-                    x => true), 
+                    x => true),
                 10000);
 
             Assert.That(subscriptionPayments[0].Status, Is.EqualTo(SubscriptionPaymentStatus.WaitingForPayment.Code));
@@ -60,7 +60,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
             private readonly Func<List<SubscriptionPaymentDto>, bool> _condition;
 
             public GetSubscriptionPaymentsProbe(
-                IPaymentsModule paymentsModule, 
+                IPaymentsModule paymentsModule,
                 Guid payerId, Func<List<SubscriptionPaymentDto>, bool> condition)
             {
                 _paymentsModule = paymentsModule;

@@ -8,7 +8,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationEvents
         public SubscriptionExpirationDateChangedIntegrationEvent(
             Guid id,
             DateTime occurredOn,
-            Guid payerId, 
+            Guid payerId,
             DateTime expirationDate) : base(id, occurredOn)
         {
             PayerId = payerId;

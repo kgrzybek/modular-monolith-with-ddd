@@ -5,6 +5,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
     public class MeetingMustHaveAtLeastOneHostRule : IBusinessRule
     {
         private readonly int _meetingHostNumber;
+
         public MeetingMustHaveAtLeastOneHostRule(int meetingHostNumber)
         {
             _meetingHostNumber = meetingHostNumber;

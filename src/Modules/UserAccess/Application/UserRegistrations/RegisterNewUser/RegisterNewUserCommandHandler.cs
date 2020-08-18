@@ -14,7 +14,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistration
         private readonly IUsersCounter _usersCounter;
 
         public RegisterNewUserCommandHandler(
-            IUserRegistrationRepository userRegistrationRepository, 
+            IUserRegistrationRepository userRegistrationRepository,
             IUsersCounter usersCounter)
         {
             _userRegistrationRepository = userRegistrationRepository;
@@ -26,9 +26,9 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistration
             var password = PasswordManager.HashPassword(request.Password);
 
             var userRegistration = UserRegistration.RegisterNewUser(
-                request.Login, 
-                password, 
-                request.Email, 
+                request.Login,
+                password,
+                request.Email,
                 request.FirstName,
                 request.LastName,
                 _usersCounter);
