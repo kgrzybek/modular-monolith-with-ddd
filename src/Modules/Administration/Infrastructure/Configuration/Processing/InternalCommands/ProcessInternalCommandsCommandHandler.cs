@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
+using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.InternalCommands;
 using CompanyName.MyMeetings.Modules.Administration.Application.Configuration.Commands;
 using Dapper;
 using MediatR;
@@ -14,10 +15,14 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
     {
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
+        private readonly IInternalCommandsMapper _internalCommandsMapper;
+
         public ProcessInternalCommandsCommandHandler(
-            ISqlConnectionFactory sqlConnectionFactory)
+            ISqlConnectionFactory sqlConnectionFactory, 
+            IInternalCommandsMapper internalCommandsMapper)
         {
             _sqlConnectionFactory = sqlConnectionFactory;
+            _internalCommandsMapper = internalCommandsMapper;
         }
 
         public async Task<Unit> Handle(ProcessInternalCommandsCommand command, CancellationToken cancellationToken)
@@ -71,7 +76,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
         private async Task ProcessCommand(
             InternalCommandDto internalCommand)
         {
-            Type type = Assemblies.Application.GetType(internalCommand.Type);
+            var type = _internalCommandsMapper.GetType(internalCommand.Type);
             dynamic commandToProcess = JsonConvert.DeserializeObject(internalCommand.Data, type);
 
             await CommandsExecutor.Execute(commandToProcess);
