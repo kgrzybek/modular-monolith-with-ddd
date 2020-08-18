@@ -16,8 +16,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.CreateMee
         private readonly IMeetingGroupRepository _meetingGroupRepository;
 
         internal CreateMeetingCommandHandler(
-            IMemberContext memberContext, 
-            IMeetingRepository meetingRepository, 
+            IMemberContext memberContext,
+            IMeetingRepository meetingRepository,
             IMeetingGroupRepository meetingGroupRepository)
         {
             _memberContext = memberContext;
@@ -33,7 +33,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.CreateMee
 
             var meeting = meetingGroup.CreateMeeting(
                 request.Title,
-                MeetingTerm.CreateNewBetweenDates(request.TermStartDate, request.TermStartDate), 
+                MeetingTerm.CreateNewBetweenDates(request.TermStartDate, request.TermStartDate),
                 request.Description,
                 MeetingLocation.CreateNew(request.MeetingLocationName, request.MeetingLocationAddress, request.MeetingLocationPostalCode, request.MeetingLocationCity),
                 request.AttendeesLimit,

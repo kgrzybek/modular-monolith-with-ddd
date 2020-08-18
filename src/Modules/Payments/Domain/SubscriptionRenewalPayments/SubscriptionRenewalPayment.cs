@@ -16,18 +16,18 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionRenewalPaym
         private SubscriptionId _subscriptionId;
 
         private SubscriptionPeriod _subscriptionPeriod;
-        
+
         private string _countryCode;
-        
+
         private SubscriptionRenewalPaymentStatus _subscriptionRenewalPaymentStatus;
-        
+
         private MoneyValue _value;
-        
+
         protected override void Apply(IDomainEvent @event)
         {
-            this.When((dynamic) @event);
+            this.When((dynamic)@event);
         }
-        
+
         public static SubscriptionRenewalPayment Buy(
             PayerId payerId,
             SubscriptionId subscriptionId,
@@ -56,7 +56,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionRenewalPaym
 
             return subscriptionRenewalPayment;
         }
-        
+
         private void When(SubscriptionRenewalPaymentCreatedDomainEvent @event)
         {
             this.Id = @event.SubscriptionRenewalPaymentId;
@@ -67,12 +67,12 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionRenewalPaym
             _subscriptionRenewalPaymentStatus = SubscriptionRenewalPaymentStatus.Of(@event.Status);
             _value = MoneyValue.Of(@event.Value, @event.Currency);
         }
-        
+
         private void When(SubscriptionRenewalPaymentPaidDomainEvent @event)
         {
             _subscriptionRenewalPaymentStatus = SubscriptionRenewalPaymentStatus.Of(@event.Status);
         }
-        
+
         public SubscriptionRenewalPaymentSnapshot GetSnapshot()
         {
             return new SubscriptionRenewalPaymentSnapshot(new SubscriptionRenewalPaymentId(this.Id), _payerId, _subscriptionPeriod, _countryCode);
@@ -85,7 +85,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionRenewalPaym
                     this.Id,
                     this._subscriptionId.Value,
                     SubscriptionRenewalPaymentStatus.Paid.Code);
-            
+
             this.Apply(@event);
             this.AddDomainEvent(@event);
         }

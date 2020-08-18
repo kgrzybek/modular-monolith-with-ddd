@@ -15,7 +15,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.MeetingC
             builder.ToTable("MeetingComments", "meetings");
 
             builder.HasKey(c => c.Id);
-            
+
             builder.Property<string>("_comment").HasColumnName("Comment");
             builder.Property<MeetingId>("_meetingId").HasColumnName("MeetingId");
             builder.Property<MemberId>("_authorId").HasColumnName("AuthorId");

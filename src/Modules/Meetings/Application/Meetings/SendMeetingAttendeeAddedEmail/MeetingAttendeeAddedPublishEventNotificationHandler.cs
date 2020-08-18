@@ -18,10 +18,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SendMeeti
 
         public Task Handle(MeetingAttendeeAddedNotification notification, CancellationToken cancellationToken)
         {
-            _eventsBus.Publish(new MeetingAttendeeAddedIntegrationEvent(Guid.NewGuid(),
+            _eventsBus.Publish(new MeetingAttendeeAddedIntegrationEvent(
+                Guid.NewGuid(),
                 notification.DomainEvent.OccurredOn,
-                notification.DomainEvent.MeetingId.Value, 
-                notification.DomainEvent.AttendeeId.Value, 
+                notification.DomainEvent.MeetingId.Value,
+                notification.DomainEvent.AttendeeId.Value,
                 notification.DomainEvent.FeeValue,
                 notification.DomainEvent.FeeCurrency));
 

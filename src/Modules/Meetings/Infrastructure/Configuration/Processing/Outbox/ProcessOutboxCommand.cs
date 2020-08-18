@@ -4,6 +4,5 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.P
 {
     public class ProcessOutboxCommand : CommandBase, IRecurringCommand
     {
-        
     }
 }

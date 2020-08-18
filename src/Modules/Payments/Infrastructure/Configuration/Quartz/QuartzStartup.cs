@@ -20,7 +20,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Q
 
             var schedulerConfiguration = new NameValueCollection();
             schedulerConfiguration.Add("quartz.scheduler.instanceName", "Meetings");
-            
+
             ISchedulerFactory schedulerFactory = new StdSchedulerFactory(schedulerConfiguration);
             _scheduler = schedulerFactory.GetScheduler().GetAwaiter().GetResult();
 
@@ -63,7 +63,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Q
                     .StartNow()
                     .WithCronSchedule("0/59 * * ? * *")
                     .Build();
-            
+
             scheduler.ScheduleJob(expireSubscriptionsJob, triggerCommandsProcessing).GetAwaiter().GetResult();
         }
 

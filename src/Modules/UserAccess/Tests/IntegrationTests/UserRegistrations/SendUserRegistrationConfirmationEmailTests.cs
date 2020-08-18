@@ -20,14 +20,14 @@ namespace CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.UserRegist
 
             await UserAccessModule.ExecuteCommandAsync(new SendUserRegistrationConfirmationEmailCommand(
                 Guid.NewGuid(),
-                new UserRegistrationId(registrationId), 
+                new UserRegistrationId(registrationId),
                 UserRegistrationSampleData.Email));
 
-            var email = new EmailMessage(UserRegistrationSampleData.Email, 
+            var email = new EmailMessage(UserRegistrationSampleData.Email,
                 "MyMeetings - Please confirm your registration",
                 "This should be link to confirmation page. For now, please execute HTTP request " +
                 $"PATCH http://localhost:5000/userAccess/userRegistrations/{registrationId}/confirm");
-            
+
             EmailSender.Received(Quantity.Exactly(1)).SendEmail(email);
         }
     }

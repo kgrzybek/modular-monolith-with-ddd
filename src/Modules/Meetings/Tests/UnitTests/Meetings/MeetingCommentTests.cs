@@ -15,11 +15,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
         {
             // Arrange
             var commentAuthorId = new MemberId(Guid.NewGuid());
-            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[]{ commentAuthorId }});
-            
+            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[] { commentAuthorId } });
+
             // Act
-            var meetingComment =  meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!"); 
-            
+            var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!");
+
             // Assert
             var meetingCommentCreated = AssertPublishedDomainEvent<MeetingCommentCreatedDomainEvent>(meetingComment);
             Assert.That(meetingCommentCreated.MeetingCommentId, Is.EqualTo(meetingComment.Id));
@@ -30,21 +30,21 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
         {
             // Arrange
             var commentAuthorId = new MemberId(Guid.NewGuid());
-            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[]{ commentAuthorId }});
-            
-            var meetingComment =  meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!");
+            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[] { commentAuthorId } });
+
+            var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!");
             meetingComment.ClearDomainEvents();
             var editedComment = "Wonderful!";
-                        
+
             // Act
             meetingComment.Edit(commentAuthorId, editedComment);
-            
+
             // Assert
             var meetingCommentCreated = AssertPublishedDomainEvent<MeetingCommentEditedDomainEvent>(meetingComment);
             Assert.That(meetingCommentCreated.MeetingCommentId, Is.EqualTo(meetingComment.Id));
             Assert.That(meetingCommentCreated.EditedComment, Is.EqualTo(editedComment));
         }
-        
+
         [Test]
         public void AddComment_BreaksCommentCanBeAddedOnlyByAttendeeRule()
         {
@@ -58,7 +58,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
                 meeting.AddComment(new MemberId(Guid.NewGuid()), "Bad meeting!");
             });
         }
-        
+
         [Test]
         [TestCase(null)]
         [TestCase("")]
@@ -66,9 +66,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
         {
             // Arrange
             var commentAuthorId = new MemberId(Guid.NewGuid());
-            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[]{ commentAuthorId }});
-            
-           // Assert
+            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[] { commentAuthorId } });
+
+            // Assert
             AssertBrokenRule<CommentTextMustBeProvidedRule>(() =>
             {
                 // Act
@@ -81,7 +81,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
         {
             // Arrange
             var commentAuthorId = new MemberId(Guid.NewGuid());
-            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions {Attendees = new[] {commentAuthorId}});
+            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[] { commentAuthorId } });
 
             var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!");
             meetingComment.ClearDomainEvents();
@@ -94,7 +94,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
                 meetingComment.Edit(new MemberId(Guid.NewGuid()), editedComment);
             });
         }
-        
+
         [Test]
         [TestCase(null)]
         [TestCase("")]
@@ -102,7 +102,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
         {
             // Arrange
             var authorId = new MemberId(Guid.NewGuid());
-            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions {Attendees = new[] {authorId}});
+            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[] { authorId } });
 
             var meetingComment = meetingTestData.Meeting.AddComment(authorId, "Great meeting!");
             meetingComment.ClearDomainEvents();

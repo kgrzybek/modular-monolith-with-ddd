@@ -19,8 +19,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuyS
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
         public BuySubscriptionCommandHandler(
-            IAggregateStore aggregateStore, 
-            IPayerContext payerContext, 
+            IAggregateStore aggregateStore,
+            IPayerContext payerContext,
             ISqlConnectionFactory sqlConnectionFactory)
         {
             _aggregateStore = aggregateStore;
@@ -38,7 +38,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuyS
                 command.CountryCode,
                 MoneyValue.Of(command.Value, command.Currency),
                 priceList);
-            
+
             _aggregateStore.AppendChanges(subscription);
 
             return subscription.Id;

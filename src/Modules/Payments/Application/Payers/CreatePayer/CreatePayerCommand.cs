@@ -6,7 +6,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Payers.CreatePayer
 {
     public class CreatePayerCommand : InternalCommandBase<Guid>
     {
-        internal Guid UserId {get; }
+        internal Guid UserId { get; }
 
         internal string Login { get; }
 
@@ -20,12 +20,12 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Payers.CreatePayer
 
         [JsonConstructor]
         public CreatePayerCommand(
-            Guid id, 
-            Guid userId, 
-            string login, 
-            string email, 
-            string firstName, 
-            string lastName, 
+            Guid id,
+            Guid userId,
+            string login,
+            string email,
+            string firstName,
+            string lastName,
             string name) : base(id)
         {
             UserId = userId;

@@ -20,7 +20,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupPropos
         {
             await _commandsScheduler.EnqueueAsync(
                 new CreateNewMeetingGroupCommand(
-                    Guid.NewGuid(), 
+                    Guid.NewGuid(),
                     notification.DomainEvent.MeetingGroupProposalId));
         }
     }

@@ -10,15 +10,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing
 {
-    internal class UnitOfWorkCommandHandlerDecorator<T> : ICommandHandler<T> where T:ICommand
+    internal class UnitOfWorkCommandHandlerDecorator<T> : ICommandHandler<T> where T : ICommand
     {
         private readonly ICommandHandler<T> _decorated;
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserAccessContext _userAccessContext;
 
         public UnitOfWorkCommandHandlerDecorator(
-            ICommandHandler<T> decorated, 
-            IUnitOfWork unitOfWork, 
+            ICommandHandler<T> decorated,
+            IUnitOfWork unitOfWork,
             UserAccessContext userAccessContext)
         {
             _decorated = decorated;

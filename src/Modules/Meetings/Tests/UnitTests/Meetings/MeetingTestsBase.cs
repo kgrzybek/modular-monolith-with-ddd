@@ -19,10 +19,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
 
             internal Term RvspTerm { get; set; }
 
-            internal int GuestsLimit{ get; set; }
+            internal int GuestsLimit { get; set; }
 
             internal int? AttendeesLimit { get; set; }
-            
+
             internal IEnumerable<MemberId> Attendees { get; set; } = Enumerable.Empty<MemberId>();
         }
 

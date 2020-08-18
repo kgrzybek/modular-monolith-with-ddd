@@ -29,11 +29,11 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroup
             this.ProposalDate = proposalDate;
         }
 
-        public Guid MeetingGroupProposalId { get;  }
+        public Guid MeetingGroupProposalId { get; }
 
         public string Name { get; }
 
-        public string Description { get;  }
+        public string Description { get; }
 
         public string LocationCity { get; }
 

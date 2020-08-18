@@ -13,7 +13,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.Leav
         private readonly IMemberContext _memberContext;
 
         internal LeaveMeetingGroupCommandHandler(
-            IMeetingGroupRepository meetingGroupRepository, 
+            IMeetingGroupRepository meetingGroupRepository,
             IMemberContext memberContext)
         {
             _meetingGroupRepository = meetingGroupRepository;

@@ -17,8 +17,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments.Ru
         private readonly PriceListItemCategory _category;
 
         public PriceForSubscriptionMustBeDefined(
-            string countryCode, 
-            SubscriptionPeriod subscriptionPeriod, 
+            string countryCode,
+            SubscriptionPeriod subscriptionPeriod,
             IList<PriceListItemData> priceListItems,
             PriceListItemCategory category)
         {

@@ -19,12 +19,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             {
                 CreatorId = creatorId,
                 MeetingTerm = MeetingTerm.CreateNewBetweenDates(DateTime.UtcNow.AddDays(-2), DateTime.UtcNow.AddDays(-1))
-            });         
+            });
 
             AssertBrokenRule<MeetingCannotBeChangedAfterStartRule>(() =>
             {
                 meetingTestData.Meeting.SetHostRole(meetingTestData.MeetingGroup, creatorId, creatorId);
-            });     
+            });
         }
 
         [Test]
@@ -34,17 +34,17 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions
             {
                 CreatorId = creatorId
-            });           
+            });
             var settingMemberId = new MemberId(Guid.NewGuid());
             var newOrganizerId = new MemberId(Guid.NewGuid());
             meetingTestData.MeetingGroup.JoinToGroupMember(newOrganizerId);
             meetingTestData.MeetingGroup.JoinToGroupMember(settingMemberId);
             meetingTestData.Meeting.AddAttendee(meetingTestData.MeetingGroup, newOrganizerId, 0);
-            
+
             AssertBrokenRule<OnlyMeetingOrGroupOrganizerCanSetMeetingMemberRolesRule>(() =>
             {
                 meetingTestData.Meeting.SetHostRole(meetingTestData.MeetingGroup, settingMemberId, newOrganizerId);
-            });     
+            });
         }
 
         [Test]
@@ -96,12 +96,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             {
                 CreatorId = creatorId,
                 MeetingTerm = MeetingTerm.CreateNewBetweenDates(DateTime.UtcNow.AddDays(-2), DateTime.UtcNow.AddDays(-1))
-            });         
+            });
 
             AssertBrokenRule<MeetingCannotBeChangedAfterStartRule>(() =>
             {
                 meetingTestData.Meeting.SetAttendeeRole(meetingTestData.MeetingGroup, creatorId, creatorId);
-            });     
+            });
         }
 
         [Test]
@@ -111,17 +111,17 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions
             {
                 CreatorId = creatorId
-            });           
+            });
             var settingMemberId = new MemberId(Guid.NewGuid());
             var newOrganizerId = new MemberId(Guid.NewGuid());
             meetingTestData.MeetingGroup.JoinToGroupMember(newOrganizerId);
             meetingTestData.MeetingGroup.JoinToGroupMember(settingMemberId);
             meetingTestData.Meeting.AddAttendee(meetingTestData.MeetingGroup, newOrganizerId, 0);
-            
+
             AssertBrokenRule<OnlyMeetingOrGroupOrganizerCanSetMeetingMemberRolesRule>(() =>
             {
                 meetingTestData.Meeting.SetAttendeeRole(meetingTestData.MeetingGroup, settingMemberId, newOrganizerId);
-            });     
+            });
         }
 
         [Test]

@@ -26,7 +26,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups
         }
 
         private MeetingGroupMember(
-            MeetingGroupId meetingGroupId, 
+            MeetingGroupId meetingGroupId,
             MemberId memberId,
             MeetingGroupMemberRole role)
         {

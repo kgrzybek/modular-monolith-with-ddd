@@ -71,7 +71,7 @@ namespace CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.SeedWork
                                "DELETE FROM [users].[UserRoles] " +
                                "DELETE FROM [users].[Permissions] ";
 
-           await connection.ExecuteScalarAsync(sql);
+            await connection.ExecuteScalarAsync(sql);
         }
 
         protected async Task<T> GetLastOutboxMessage<T>() where T : class, INotification

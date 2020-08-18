@@ -20,9 +20,9 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems.Events
         public string CountryCode { get; }
 
         public string SubscriptionPeriodCode { get; }
-        
+
         public string CategoryCode { get; }
-        
+
         public decimal Price { get; }
 
         public string Currency { get; }

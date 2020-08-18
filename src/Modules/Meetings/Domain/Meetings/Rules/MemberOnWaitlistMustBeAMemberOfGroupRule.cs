@@ -12,7 +12,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
         private readonly MemberId _memberId;
 
         private readonly List<MeetingAttendee> _attendees;
-        internal MemberOnWaitlistMustBeAMemberOfGroupRule(MeetingGroup meetingGroup, MemberId memberId, List<MeetingAttendee> attendees): base()
+
+        internal MemberOnWaitlistMustBeAMemberOfGroupRule(MeetingGroup meetingGroup, MemberId memberId, List<MeetingAttendee> attendees)
+            : base()
         {
             _meetingGroup = meetingGroup;
             _memberId = memberId;

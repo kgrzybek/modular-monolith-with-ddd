@@ -21,7 +21,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Rene
                 notification.DomainEvent.OccurredOn,
                 notification.DomainEvent.PayerId,
                 notification.DomainEvent.ExpirationDate));
-            
+
             return Task.CompletedTask;
         }
     }

@@ -29,7 +29,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
         {
             var expirationDate = SubscriptionDateExpirationCalculator.CalculateForRenewal(
                 _expirationDate, subscriptionRenewalPayment.SubscriptionPeriod);
-            
+
             SubscriptionRenewedDomainEvent subscriptionRenewedDomainEvent = new SubscriptionRenewedDomainEvent(
                 this.Id,
                 expirationDate,

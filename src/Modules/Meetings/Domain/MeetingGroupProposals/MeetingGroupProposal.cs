@@ -35,9 +35,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals
         }
 
         private MeetingGroupProposal(
-            string name, 
-            string description, 
-            MeetingGroupLocation location, 
+            string name,
+            string description,
+            MeetingGroupLocation location,
             MemberId proposalUserId)
         {
             Id = new MeetingGroupProposalId(Guid.NewGuid());
@@ -51,7 +51,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals
             this.AddDomainEvent(new MeetingGroupProposedDomainEvent(this.Id, _name, _description, proposalUserId, _proposalDate, _location.City, _location.CountryCode));
         }
 
-        public static MeetingGroupProposal ProposeNew(string name,
+        public static MeetingGroupProposal ProposeNew(
+            string name,
             string description,
             MeetingGroupLocation location,
             MemberId proposalMemberId)

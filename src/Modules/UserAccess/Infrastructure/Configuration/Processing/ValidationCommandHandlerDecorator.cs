@@ -11,13 +11,13 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing
 {
-    internal class ValidationCommandHandlerDecorator<T> : ICommandHandler<T> where T:ICommand
+    internal class ValidationCommandHandlerDecorator<T> : ICommandHandler<T> where T : ICommand
     {
         private readonly IList<IValidator<T>> _validators;
         private readonly ICommandHandler<T> _decorated;
 
         public ValidationCommandHandlerDecorator(
-            IList<IValidator<T>> validators, 
+            IList<IValidator<T>> validators,
             ICommandHandler<T> decorated)
         {
             this._validators = validators;

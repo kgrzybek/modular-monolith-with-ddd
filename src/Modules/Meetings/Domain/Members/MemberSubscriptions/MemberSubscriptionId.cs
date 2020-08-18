@@ -5,7 +5,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Members.MemberSubscript
 {
     public class MemberSubscriptionId : TypedIdValueBase
     {
-        public MemberSubscriptionId(Guid value) : base(value)
+        public MemberSubscriptionId(Guid value)
+            : base(value)
         {
         }
     }

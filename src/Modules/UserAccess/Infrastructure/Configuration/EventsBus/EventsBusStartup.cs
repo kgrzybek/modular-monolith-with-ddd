@@ -20,7 +20,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
             SubscribeToIntegrationEvent<MemberCreatedIntegrationEvent>(eventBus, logger);
         }
 
-        private static void SubscribeToIntegrationEvent<T>(IEventsBus eventBus, ILogger logger) where T:  IntegrationEvent
+        private static void SubscribeToIntegrationEvent<T>(IEventsBus eventBus, ILogger logger) where T : IntegrationEvent
         {
             logger.Information("Subscribe to {@IntegrationEvent}", typeof(T).FullName);
             eventBus.Subscribe(

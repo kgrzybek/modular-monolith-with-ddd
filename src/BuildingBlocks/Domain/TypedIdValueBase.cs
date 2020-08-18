@@ -41,7 +41,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Domain
             }
             return obj1.Equals(obj2);
         }
-        public static bool operator !=(TypedIdValueBase x, TypedIdValueBase y) 
+        public static bool operator !=(TypedIdValueBase x, TypedIdValueBase y)
         {
             return !(x == y);
         }

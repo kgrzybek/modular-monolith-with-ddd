@@ -20,12 +20,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             {
                 CreatorId = creatorId,
                 MeetingTerm = MeetingTerm.CreateNewBetweenDates(DateTime.UtcNow.AddDays(-2), DateTime.UtcNow.AddDays(-1))
-            });         
+            });
 
             AssertBrokenRule<MeetingCannotBeChangedAfterStartRule>(() =>
             {
                 meetingTestData.Meeting.AddNotAttendee(creatorId);
-            });          
+            });
         }
 
         [Test]
@@ -54,7 +54,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
                 CreatorId = creatorId
             });
             var memberId = new MemberId(Guid.NewGuid());
-            
+
             meetingTestData.Meeting.AddNotAttendee(memberId);
 
             var meetingNotAttendeeAdded = AssertPublishedDomainEvent<MeetingNotAttendeeAddedDomainEvent>(meetingTestData.Meeting);
@@ -68,12 +68,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions
             {
                 CreatorId = creatorId
-            });    
+            });
             var newMemberId = new MemberId(Guid.NewGuid());
             meetingTestData.MeetingGroup.JoinToGroupMember(newMemberId);
             meetingTestData.Meeting.AddAttendee(meetingTestData.MeetingGroup, newMemberId, 0);
-            
-            meetingTestData.Meeting.AddNotAttendee(newMemberId);         
+
+            meetingTestData.Meeting.AddNotAttendee(newMemberId);
 
             var meetingAttendeeChangedDecision = AssertPublishedDomainEvent<MeetingAttendeeChangedDecisionDomainEvent>(meetingTestData.Meeting);
             Assert.That(meetingAttendeeChangedDecision.MemberId, Is.EqualTo(newMemberId));
@@ -87,14 +87,14 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             {
                 CreatorId = creatorId,
                 MeetingTerm = MeetingTerm.CreateNewBetweenDates(DateTime.UtcNow.AddDays(-2), DateTime.UtcNow.AddDays(-1))
-            });         
+            });
             var newMemberId = new MemberId(Guid.NewGuid());
             meetingTestData.MeetingGroup.JoinToGroupMember(newMemberId);
 
             AssertBrokenRule<MeetingCannotBeChangedAfterStartRule>(() =>
             {
                 meetingTestData.Meeting.ChangeNotAttendeeDecision(newMemberId);
-            });          
+            });
         }
 
         [Test]
@@ -104,14 +104,14 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions
             {
                 CreatorId = creatorId
-            });         
+            });
             var newMemberId = new MemberId(Guid.NewGuid());
             meetingTestData.MeetingGroup.JoinToGroupMember(newMemberId);
 
             AssertBrokenRule<NotActiveNotAttendeeCannotChangeDecisionRule>(() =>
             {
                 meetingTestData.Meeting.ChangeNotAttendeeDecision(newMemberId);
-            });          
+            });
         }
 
         [Test]
@@ -121,7 +121,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions
             {
                 CreatorId = creatorId
-            });         
+            });
             var newMemberId = new MemberId(Guid.NewGuid());
             meetingTestData.MeetingGroup.JoinToGroupMember(newMemberId);
             meetingTestData.Meeting.AddNotAttendee(newMemberId);

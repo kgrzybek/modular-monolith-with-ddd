@@ -51,7 +51,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
                 return t => c.Resolve(t);
             }).InstancePerLifetimeScope();
 
- 
+
         }
 
         private class ScopedContravariantRegistrationSource : IRegistrationSource

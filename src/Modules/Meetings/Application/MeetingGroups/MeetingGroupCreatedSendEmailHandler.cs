@@ -21,7 +21,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups
             await _commandsScheduler.EnqueueAsync(
                 new SendMeetingGroupCreatedEmailCommand(
                     Guid.NewGuid(),
-                    notification.DomainEvent.MeetingGroupId, 
+                    notification.DomainEvent.MeetingGroupId,
                     notification.DomainEvent.CreatorId));
         }
     }

@@ -9,8 +9,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
     {
         private readonly List<MeetingAttendee> _attendees;
         private readonly MemberId _attendeeId;
+
         internal OnlyActiveAttendeeCanBeRemovedFromMeetingRule(
-            List<MeetingAttendee> attendees, 
+            List<MeetingAttendee> attendees,
             MemberId attendeeId)
         {
             _attendees = attendees;

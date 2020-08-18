@@ -52,7 +52,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.M
                 return t => c.Resolve(t);
             }).InstancePerLifetimeScope();
 
- 
+
         }
 
         private class ScopedContravariantRegistrationSource : IRegistrationSource

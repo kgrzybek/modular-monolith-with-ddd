@@ -9,9 +9,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MemberSubscription
     {
         [JsonConstructor]
         public ChangeSubscriptionExpirationDateForMemberCommand(
-            Guid id, 
-            MemberId memberId, 
-            DateTime expirationDate) : base(id)
+            Guid id,
+            MemberId memberId,
+            DateTime expirationDate)
+            : base(id)
         {
             MemberId = memberId;
             ExpirationDate = expirationDate;

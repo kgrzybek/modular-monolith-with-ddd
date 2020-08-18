@@ -7,7 +7,7 @@ using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Processing
 {
-    internal class UnitOfWorkCommandHandlerWithResultDecorator<T, TResult> : ICommandHandler<T, TResult> 
+    internal class UnitOfWorkCommandHandlerWithResultDecorator<T, TResult> : ICommandHandler<T, TResult>
         where T : ICommand<TResult>
     {
         private readonly ICommandHandler<T, TResult> _decorated;

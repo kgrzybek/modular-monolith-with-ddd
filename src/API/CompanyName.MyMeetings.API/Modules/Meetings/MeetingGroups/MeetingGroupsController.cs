@@ -37,9 +37,9 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingGroups
         {
             await _meetingsModule.ExecuteCommandAsync(new EditMeetingGroupGeneralAttributesCommand(
                 meetingGroupId,
-                request.Name, 
+                request.Name,
                 request.Description,
-                request.LocationCity, 
+                request.LocationCity,
                 request.LocationCountry));
 
             return Ok();

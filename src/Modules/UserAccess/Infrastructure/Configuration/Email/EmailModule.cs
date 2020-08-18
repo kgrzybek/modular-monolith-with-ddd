@@ -10,7 +10,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
         private readonly EmailsConfiguration _configuration;
 
         public EmailModule(
-            EmailsConfiguration configuration, 
+            EmailsConfiguration configuration,
             IEmailSender emailSender)
         {
             _configuration = configuration;

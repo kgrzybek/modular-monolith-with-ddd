@@ -22,11 +22,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.ChangeMee
         {
             var meeting = await _meetingRepository.GetByIdAsync(new MeetingId(request.MeetingId));
 
-            meeting.ChangeMainAttributes(request.Title,
-                MeetingTerm.CreateNewBetweenDates(request.TermStartDate, request.TermStartDate), 
+            meeting.ChangeMainAttributes(
+                request.Title,
+                MeetingTerm.CreateNewBetweenDates(request.TermStartDate, request.TermStartDate),
                 request.Description,
                 MeetingLocation.CreateNew(request.MeetingLocationName, request.MeetingLocationAddress, request.MeetingLocationPostalCode, request.MeetingLocationCity),
-                MeetingLimits.Create(request.AttendeesLimit, request.GuestsLimit), 
+                MeetingLimits.Create(request.AttendeesLimit, request.GuestsLimit),
                 Term.CreateNewBetweenDates(request.RSVPTermStartDate, request.RSVPTermEndDate),
                 request.EventFeeValue.HasValue ? MoneyValue.Of(request.EventFeeValue.Value, request.EventFeeCurrency) : MoneyValue.Undefined,
                 _memberContext.MemberId);

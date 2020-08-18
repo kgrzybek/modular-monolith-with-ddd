@@ -31,7 +31,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistration
                                "[UserRegistration].[StatusCode] " +
                                "FROM [users].[v_UserRegistrations] AS [UserRegistration] " +
                                "WHERE [UserRegistration].[Id] = @UserRegistrationId";
-            
+
             return await connection.QuerySingleAsync<UserRegistrationDto>(sql,
                 new
                 {

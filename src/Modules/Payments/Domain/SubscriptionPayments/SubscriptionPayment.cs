@@ -75,12 +75,12 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments
 
         public SubscriptionPaymentSnapshot GetSnapshot()
         {
-            return new SubscriptionPaymentSnapshot(new SubscriptionPaymentId(this.Id),  _payerId, _subscriptionPeriod, _countryCode);
+            return new SubscriptionPaymentSnapshot(new SubscriptionPaymentId(this.Id), _payerId, _subscriptionPeriod, _countryCode);
         }
 
         public void MarkAsPaid()
         {
-            SubscriptionPaymentPaidDomainEvent @event = 
+            SubscriptionPaymentPaidDomainEvent @event =
                 new SubscriptionPaymentPaidDomainEvent(this.Id,
                 SubscriptionPaymentStatus.Paid.Code);
 

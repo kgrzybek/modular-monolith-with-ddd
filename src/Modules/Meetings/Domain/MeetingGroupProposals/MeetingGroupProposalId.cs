@@ -5,7 +5,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals
 {
     public class MeetingGroupProposalId : TypedIdValueBase
     {
-        public MeetingGroupProposalId(Guid value) : base(value)
+        public MeetingGroupProposalId(Guid value)
+            : base(value)
         {
         }
     }

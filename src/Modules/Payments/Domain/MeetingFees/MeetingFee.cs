@@ -27,7 +27,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFees
         }
 
         public static MeetingFee Create(
-            PayerId payerId, 
+            PayerId payerId,
             MeetingId meetingId,
             MoneyValue fee)
         {
@@ -37,7 +37,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFees
                 Guid.NewGuid(),
                 payerId.Value,
                 meetingId.Value,
-                fee.Value, 
+                fee.Value,
                 fee.Currency,
                 MeetingFeeStatus.WaitingForPayment.Code);
 

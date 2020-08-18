@@ -23,9 +23,9 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
         public PaymentsUnitOfWork(
-            IOutbox outbox, 
-            IAggregateStore aggregateStore, 
-            IDomainEventsDispatcher domainEventsDispatcher, 
+            IOutbox outbox,
+            IAggregateStore aggregateStore,
+            IDomainEventsDispatcher domainEventsDispatcher,
             ISqlConnectionFactory sqlConnectionFactory)
         {
             _outbox = outbox;

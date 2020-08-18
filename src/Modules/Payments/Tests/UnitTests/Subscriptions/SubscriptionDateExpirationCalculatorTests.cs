@@ -14,7 +14,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.Subscriptions
             // Arrange
             SubscriptionPeriod period = SubscriptionPeriod.Month;
             SystemClock.Set(new DateTime(2020, 5, 11));
-            
+
             // Act
             DateTime expirationDate = SubscriptionDateExpirationCalculator.CalculateForNew(period);
 

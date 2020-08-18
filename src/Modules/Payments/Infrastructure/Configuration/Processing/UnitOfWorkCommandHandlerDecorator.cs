@@ -8,14 +8,14 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Processing
 {
-    internal class UnitOfWorkCommandHandlerDecorator<T> : ICommandHandler<T> where T:ICommand
+    internal class UnitOfWorkCommandHandlerDecorator<T> : ICommandHandler<T> where T : ICommand
     {
         private readonly ICommandHandler<T> _decorated;
 
         private readonly IUnitOfWork _unitOfWork;
 
         public UnitOfWorkCommandHandlerDecorator(
-            ICommandHandler<T> decorated, 
+            ICommandHandler<T> decorated,
             IUnitOfWork unitOfWork)
         {
             _decorated = decorated;

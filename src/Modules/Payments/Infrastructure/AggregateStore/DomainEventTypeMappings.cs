@@ -21,7 +21,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
             Dictionary.Add("SubscriptionPaymentCreated", typeof(SubscriptionPaymentCreatedDomainEvent));
             Dictionary.Add("SubscriptionPaymentPaid", typeof(SubscriptionPaymentPaidDomainEvent));
             Dictionary.Add("SubscriptionPaymentExpired", typeof(SubscriptionPaymentExpiredDomainEvent));
-            
+
             Dictionary.Add("SubscriptionRenewalPaymentCreated", typeof(SubscriptionRenewalPaymentCreatedDomainEvent));
             Dictionary.Add("SubscriptionRenewalPaymentPaid", typeof(SubscriptionRenewalPaymentPaidDomainEvent));
 
@@ -30,13 +30,13 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
             Dictionary.Add("SubscriptionExpired", typeof(SubscriptionExpiredDomainEvent));
 
             Dictionary.Add("PayerCreated", typeof(PayerCreatedDomainEvent));
-            
-            
+
+
             Dictionary.Add("PriceListItemCreated", typeof(PriceListItemCreatedDomainEvent));
             Dictionary.Add("PriceListItemActivated", typeof(PriceListItemActivatedDomainEvent));
             Dictionary.Add("PriceListItemDeactivated", typeof(PriceListItemDeactivatedDomainEvent));
             Dictionary.Add("PriceListItemAttributesChanged", typeof(PriceListItemAttributesChangedDomainEvent));
-            
+
             Dictionary.Add("MeetingFeeCanceled", typeof(MeetingFeeCanceledDomainEvent));
             Dictionary.Add("MeetingFeeCreated", typeof(MeetingFeeCreatedDomainEvent));
             Dictionary.Add("MeetingFeeExpired", typeof(MeetingFeeExpiredDomainEvent));

@@ -17,6 +17,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings
         public string LocationPostalCode { get; set; }
 
         public DateTime TermStartDate { get; set; }
+
         public DateTime TermEndDate { get; set; }
     }
 }

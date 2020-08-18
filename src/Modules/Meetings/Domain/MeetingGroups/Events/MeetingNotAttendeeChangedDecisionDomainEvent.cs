@@ -14,6 +14,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups.Events
 
         public MemberId MemberId { get; }
 
-        public MeetingId MeetingId { get;  }
+        public MeetingId MeetingId { get; }
     }
 }

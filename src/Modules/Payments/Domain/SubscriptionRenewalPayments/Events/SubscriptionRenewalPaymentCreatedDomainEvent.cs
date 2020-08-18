@@ -10,9 +10,9 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionRenewalPaym
             Guid payerId,
             Guid subscriptionId,
             string subscriptionPeriodCode,
-            string countryCode, 
-            string status, 
-            decimal value, 
+            string countryCode,
+            string status,
+            decimal value,
             string currency)
         {
             SubscriptionRenewalPaymentId = subscriptionRenewalPaymentId;
@@ -28,7 +28,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionRenewalPaym
         public Guid SubscriptionRenewalPaymentId { get; }
 
         public Guid PayerId { get; }
-        
+
         public Guid SubscriptionId { get; }
 
         public string SubscriptionPeriodCode { get; }

@@ -8,11 +8,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.Crea
     internal class CreateNewMeetingGroupCommand : InternalCommandBase
     {
         [JsonConstructor]
-        internal CreateNewMeetingGroupCommand(Guid id, MeetingGroupProposalId meetingGroupProposalId) : base(id)
+        internal CreateNewMeetingGroupCommand(Guid id, MeetingGroupProposalId meetingGroupProposalId)
+            : base(id)
         {
             this.MeetingGroupProposalId = meetingGroupProposalId;
         }
 
-        internal MeetingGroupProposalId MeetingGroupProposalId { get;  }
+        internal MeetingGroupProposalId MeetingGroupProposalId { get; }
     }
 }

@@ -8,9 +8,9 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Send
     public class SendSubscriptionRenewalConfirmationEmailCommand : InternalCommandBase
     {
         internal SubscriptionId SubscriptionId { get; }
-        
+
         internal string Email { get; }
-        
+
         [JsonConstructor]
         public SendSubscriptionRenewalConfirmationEmailCommand(
             Guid id,

@@ -133,7 +133,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
             Assert.That(subscription, Is.Not.Null);
         }
 
-        
+
 
         private class GetSubscriptionPaymentsProbe : IProbe<List<SubscriptionPaymentDto>>
         {
@@ -169,7 +169,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
             }
         }
 
-        
+
 
         private class GetSubscriptionDetailsProbe : IProbe<SubscriptionDetailsDto>
         {

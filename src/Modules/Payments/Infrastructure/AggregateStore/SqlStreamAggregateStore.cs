@@ -29,8 +29,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
             _streamStore =
                 new MsSqlStreamStore(
                     new MsSqlStreamStoreSettings(sqlConnectionFactory.GetConnectionString())
-                        {
-                            Schema = DatabaseSchema.Name
+                    {
+                        Schema = DatabaseSchema.Name
                     });
 
             _aggregatesToSave = new List<AggregateToSave>();
@@ -113,9 +113,9 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
             T aggregate) where T : AggregateRoot
         {
             List<NewStreamMessage> newStreamMessages = new List<NewStreamMessage>();
-            
+
             var domainEvents = aggregate.GetDomainEvents();
-            
+
             foreach (var domainEvent in domainEvents)
             {
                 string jsonData = JsonConvert.SerializeObject(domainEvent, new JsonSerializerSettings
@@ -142,7 +142,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
                     return key;
                 }
             }
-            
+
             throw new ArgumentException("Invalid Domain Event type", nameof(domainEvent));
         }
 

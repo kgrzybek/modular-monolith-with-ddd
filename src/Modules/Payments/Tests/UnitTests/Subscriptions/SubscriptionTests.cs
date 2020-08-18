@@ -22,14 +22,14 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.Subscriptions
                 new PayerId(Guid.NewGuid()),
                 SubscriptionPeriod.Month,
                 "PL");
-            
+
             // Act
             var subscription = Subscription.Create(subscriptionPaymentSnapshot);
 
             // Assert
             AssertPublishedDomainEvent<SubscriptionCreatedDomainEvent>(subscription);
         }
-        
+
         [Test]
         public void RenewSubscription_IsSuccessful()
         {
@@ -39,9 +39,9 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.Subscriptions
                 new PayerId(Guid.NewGuid()),
                 SubscriptionPeriod.Month,
                 "PL");
-            
+
             var subscription = Subscription.Create(subscriptionPaymentSnapshot);
-            
+
             var subscriptionRenewalPaymentSnapshot = new SubscriptionRenewalPaymentSnapshot(
                 new SubscriptionRenewalPaymentId(Guid.NewGuid()),
                 new PayerId(Guid.NewGuid()),
@@ -54,23 +54,23 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.Subscriptions
             // Assert
             AssertPublishedDomainEvent<SubscriptionRenewedDomainEvent>(subscription);
         }
-        
+
         [Test]
         public void ExpireSubscription_IsSuccessful()
         {
             // Arrange
             var referenceDate = DateTime.UtcNow;
-            
+
             SystemClock.Set(referenceDate);
-            
+
             var subscriptionPaymentSnapshot = new SubscriptionPaymentSnapshot(
                 new SubscriptionPaymentId(Guid.NewGuid()),
                 new PayerId(Guid.NewGuid()),
                 SubscriptionPeriod.Month,
                 "PL");
-            
+
             var subscription = Subscription.Create(subscriptionPaymentSnapshot);
-            
+
             SystemClock.Set(referenceDate.AddMonths(1).AddMilliseconds(1));
 
             // Act

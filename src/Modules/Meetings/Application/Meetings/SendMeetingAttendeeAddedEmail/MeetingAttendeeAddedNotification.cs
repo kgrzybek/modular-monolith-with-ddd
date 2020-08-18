@@ -8,7 +8,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SendMeeti
     public class MeetingAttendeeAddedNotification : DomainNotificationBase<MeetingAttendeeAddedDomainEvent>
     {
         [JsonConstructor]
-        public MeetingAttendeeAddedNotification(MeetingAttendeeAddedDomainEvent domainEvent, Guid id) : base(domainEvent, id)
+        public MeetingAttendeeAddedNotification(MeetingAttendeeAddedDomainEvent domainEvent, Guid id)
+            : base(domainEvent, id)
         {
         }
     }

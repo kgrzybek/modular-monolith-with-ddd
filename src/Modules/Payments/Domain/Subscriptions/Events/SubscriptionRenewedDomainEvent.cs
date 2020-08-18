@@ -6,7 +6,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions.Events
     public class SubscriptionRenewedDomainEvent : DomainEventBase
     {
         public SubscriptionRenewedDomainEvent(
-            Guid subscriptionId, 
+            Guid subscriptionId,
             DateTime expirationDate,
             Guid payerId,
             string subscriptionPeriodCode,
@@ -22,7 +22,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions.Events
         public Guid SubscriptionId { get; }
 
         public DateTime ExpirationDate { get; }
-        
+
         public Guid PayerId { get; }
 
         public string SubscriptionPeriodCode { get; }

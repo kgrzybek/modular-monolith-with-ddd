@@ -18,7 +18,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.Send
         private readonly IEmailSender _emailSender;
 
         public SendMeetingGroupCreatedEmailCommandHandler(
-            ISqlConnectionFactory sqlConnectionFactory, 
+            ISqlConnectionFactory sqlConnectionFactory,
             IEmailSender emailSender)
         {
             _sqlConnectionFactory = sqlConnectionFactory;
@@ -29,20 +29,21 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.Send
         {
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
-            var meetingGroup = await connection.QuerySingleAsync<MeetingGroupDto>("SELECT " +
+            var meetingGroup = await connection.QuerySingleAsync<MeetingGroupDto>(
+                "SELECT " +
                                   "[MeetingGroup].[Name], " +
                                   "[MeetingGroup].[LocationCountryCode], " +
                                   "[MeetingGroup].[LocationCity] " +
                                   "FROM [meetings].[v_MeetingGroups] AS [MeetingGroup] " +
                                   "WHERE [MeetingGroup].[Id] = @Id", new
-            {
-                Id = request.MeetingGroupId.Value
-            });
+                                  {
+                                      Id = request.MeetingGroupId.Value
+                                  });
 
             var member = await MembersQueryHelper.GetMember(request.CreatorId, connection);
 
             var email = new EmailMessage(
-                member.Email, 
+                member.Email,
                 $"{meetingGroup.Name} created",
                 $"{meetingGroup.Name} created at {meetingGroup.LocationCity}, {meetingGroup.LocationCountryCode}");
 

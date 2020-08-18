@@ -33,9 +33,9 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingGroupProposals
         {
             await _meetingsModule.ExecuteCommandAsync(
                 new ProposeMeetingGroupCommand(
-                    request.Name, 
-                    request.Description, 
-                    request.LocationCity, 
+                    request.Name,
+                    request.Description,
+                    request.LocationCity,
                     request.LocationCountryCode));
 
             return Ok();

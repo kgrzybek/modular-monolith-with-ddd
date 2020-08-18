@@ -10,6 +10,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules
         private readonly List<MeetingNotAttendee> _notAttendees;
 
         private readonly MemberId _memberId;
+
         public MemberCannotBeNotAttendeeTwiceRule(List<MeetingNotAttendee> notAttendees, MemberId memberId)
         {
             _notAttendees = notAttendees;

@@ -16,13 +16,13 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
         public MeetingCommentId Id { get; }
 
         private MeetingId _meetingId;
-        
+
         private MemberId _authorId;
 
         private MeetingCommentId? _inReplyToCommentId;
-        
+
         private string _comment;
-        
+
         private DateTime _createDate;
 
         private DateTime? _editDate;
@@ -34,12 +34,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
         private MeetingComment(MeetingId meetingId, MemberId authorId, string comment, MeetingCommentId? inReplyToCommentId)
         {
             this.CheckRule(new CommentTextMustBeProvidedRule(comment));
-            
+
             this.Id = new MeetingCommentId(Guid.NewGuid());
             _meetingId = meetingId;
             _authorId = authorId;
             _comment = comment;
-            
+
             _inReplyToCommentId = inReplyToCommentId;
 
             _createDate = SystemClock.Now;
@@ -50,7 +50,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
             
             this.AddDomainEvent(new MeetingCommentCreatedDomainEvent(Id));
         }
-        
+
         private MeetingComment()
         {
             // Only for EF.
@@ -63,7 +63,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
 
             _comment = editedComment;
             _editDate = SystemClock.Now;
-            
+
             this.AddDomainEvent(new MeetingCommentEditedDomainEvent(this.Id, editedComment));
         }
 

@@ -26,11 +26,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ed
             var meetingComment = await _meetingCommentRepository.GetByIdAsync(new MeetingCommentId(command.MeetingCommentId));
             if (meetingComment == null)
             {
-                throw new InvalidCommandException(new List<string>{"Meeting comment for editing must exist."});
+                throw new InvalidCommandException(new List<string> { "Meeting comment for editing must exist." });
             }
-         
+
             meetingComment.Edit(_memberContext.MemberId, command.EditedComment);
-            
+
             return Unit.Value;
         }
     }

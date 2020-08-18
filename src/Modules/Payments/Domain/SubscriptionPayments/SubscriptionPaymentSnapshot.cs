@@ -7,8 +7,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments
     {
         public SubscriptionPaymentSnapshot(
             SubscriptionPaymentId id,
-            PayerId payerId, 
-            SubscriptionPeriod subscriptionPeriod, 
+            PayerId payerId,
+            SubscriptionPeriod subscriptionPeriod,
             string countryCode)
         {
             PayerId = payerId;

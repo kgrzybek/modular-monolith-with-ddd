@@ -13,7 +13,7 @@ namespace CompanyName.MyMeetings.API.Configuration.Authorization
         private readonly IUserAccessModule _userAccessModule;
         private readonly IExecutionContextAccessor _executionContextAccessor;
         public HasPermissionAuthorizationHandler(
-            IExecutionContextAccessor executionContextAccessor, 
+            IExecutionContextAccessor executionContextAccessor,
             IUserAccessModule userAccessModule)
         {
             _executionContextAccessor = executionContextAccessor;

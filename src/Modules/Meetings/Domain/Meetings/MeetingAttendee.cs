@@ -38,7 +38,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
 
         private MeetingAttendee()
         {
-
         }
 
         internal static MeetingAttendee CreateNew(
@@ -53,10 +52,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
         }
 
         private MeetingAttendee(
-            MeetingId meetingId, 
-            MemberId attendeeId, 
-            DateTime decisionDate, 
-            MeetingAttendeeRole role, 
+            MeetingId meetingId,
+            MemberId attendeeId,
+            DateTime decisionDate,
+            MeetingAttendeeRole role,
             int guestsNumber,
             MoneyValue eventFee)
         {
@@ -78,11 +77,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
             }
 
             this.AddDomainEvent(new MeetingAttendeeAddedDomainEvent(
-                this.MeetingId, 
-                AttendeeId, 
+                this.MeetingId,
+                AttendeeId,
                 decisionDate,
-                role, 
-                guestsNumber, 
+                role,
+                guestsNumber,
                 _fee.Value,
                 _fee.Currency));
         }
@@ -108,7 +107,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
         internal bool IsActiveHost()
         {
             return this.IsActive() && _role == MeetingAttendeeRole.Host;
-
         }
 
         internal int GetAttendeeWithGuestsNumber()

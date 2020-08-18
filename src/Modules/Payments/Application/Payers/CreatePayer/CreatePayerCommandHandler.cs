@@ -19,10 +19,10 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Payers.CreatePayer
         public Task<Guid> Handle(CreatePayerCommand request, CancellationToken cancellationToken)
         {
             var payer = Payer.Create(
-                request.UserId, 
-                request.Login, 
-                request.Email, 
-                request.FirstName, 
+                request.UserId,
+                request.Login,
+                request.Email,
+                request.FirstName,
                 request.LastName,
                 request.Name);
 

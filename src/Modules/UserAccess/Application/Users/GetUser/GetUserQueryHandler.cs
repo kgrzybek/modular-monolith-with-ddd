@@ -28,7 +28,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Users.GetUser
                                "[User].[Name] " +
                                "FROM [users].[v_Users] AS [User] " +
                                "WHERE [User].[Id] = @UserId";
-            
+
             return await connection.QuerySingleAsync<UserDto>(sql, new
             {
                 request.UserId

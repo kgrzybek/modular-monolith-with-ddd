@@ -32,10 +32,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups
         private DateTime? _paymentDateTo;
 
         internal static MeetingGroup CreateBasedOnProposal(
-            MeetingGroupProposalId meetingGroupProposalId, 
-            string name, 
+            MeetingGroupProposalId meetingGroupProposalId,
+            string name,
             string description,
-            MeetingGroupLocation location, MemberId creatorId)
+            MeetingGroupLocation location,
+            MemberId creatorId)
         {
             return new MeetingGroup(meetingGroupProposalId, name, description, location, creatorId);
         }
@@ -108,12 +109,13 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups
 
             this.CheckRule(new MeetingHostMustBeAMeetingGroupMemberRule(creatorId, hostsMembersIds, _members));
 
-            return Meeting.CreateNew(this.Id,
+            return Meeting.CreateNew(
+                this.Id,
                 title,
                 term,
                 description,
                 location,
-                MeetingLimits.Create(attendeesLimit, guestsLimit), 
+                MeetingLimits.Create(attendeesLimit, guestsLimit),
                 rsvpTerm,
                 eventFee,
                 hostsMembersIds,

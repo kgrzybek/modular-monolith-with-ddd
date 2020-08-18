@@ -24,7 +24,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.Create
                 new PayerId(command.PayerId),
                 new MeetingId(command.MeetingId),
                 MoneyValue.Of(command.Value, command.Currency));
-            
+
             _aggregateStore.AppendChanges(meetingFee);
 
             return Task.FromResult(meetingFee.Id);

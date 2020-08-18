@@ -10,8 +10,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups.Rules
         private readonly List<MeetingGroupMember> _members;
 
         private readonly MemberId memberId;
-        public NotActualGroupMemberCannotLeaveGroupRule(List<MeetingGroupMember> members, MemberId memberId) : 
-            base()
+
+        public NotActualGroupMemberCannotLeaveGroupRule(List<MeetingGroupMember> members, MemberId memberId)
+            : base()
         {
             _members = members;
             this.memberId = memberId;

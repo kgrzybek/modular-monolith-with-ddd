@@ -8,6 +8,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups
         Task AddAsync(MeetingGroup meetingGroup);
 
         Task<int> Commit();
+
         Task<MeetingGroup> GetByIdAsync(MeetingGroupId id);
     }
 }

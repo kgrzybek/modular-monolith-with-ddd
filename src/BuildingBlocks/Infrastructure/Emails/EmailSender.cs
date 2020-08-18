@@ -16,9 +16,9 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails
         public void SendEmail(EmailMessage message)
         {
             _logger.Information(
-                "Email sent. From: {From}, To: {To}, Subject: {Subject}, Content: {Content}.", 
-                _configuration.FromEmail, 
-                message.To, 
+                "Email sent. From: {From}, To: {To}, Subject: {Subject}, Content: {Content}.",
+                _configuration.FromEmail,
+                message.To,
                 message.Subject,
                 message.Content);
         }
