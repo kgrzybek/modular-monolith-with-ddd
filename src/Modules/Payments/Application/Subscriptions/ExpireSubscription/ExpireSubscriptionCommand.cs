@@ -1,5 +1,6 @@
 ﻿using System;
 using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
+using Newtonsoft.Json;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.ExpireSubscription
 {
@@ -7,6 +8,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Expi
     {
         public Guid SubscriptionId { get; }
 
+        [JsonConstructor]
         public ExpireSubscriptionCommand(
             Guid id,
             Guid subscriptionId)
