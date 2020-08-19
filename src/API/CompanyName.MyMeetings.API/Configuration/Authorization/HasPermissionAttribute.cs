@@ -7,11 +7,12 @@ namespace CompanyName.MyMeetings.API.Configuration.Authorization
     internal class HasPermissionAttribute : AuthorizeAttribute
     {
         internal static string HasPermissionPolicyName = "HasPermission";
-        public string Name { get; }
 
         public HasPermissionAttribute(string name) : base(HasPermissionPolicyName)
         {
             Name = name;
         }
+
+        public string Name { get; }
     }
 }

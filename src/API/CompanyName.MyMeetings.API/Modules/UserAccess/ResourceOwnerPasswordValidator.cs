@@ -23,15 +23,15 @@ namespace CompanyName.MyMeetings.API.Modules.UserAccess
             if (!authenticationResult.IsAuthenticated)
             {
                 context.Result = new GrantValidationResult(
-                    TokenRequestErrors.InvalidGrant, 
+                    TokenRequestErrors.InvalidGrant,
                     authenticationResult.AuthenticationError);
 
                 return;
             }
 
             context.Result = new GrantValidationResult(
-                authenticationResult.User.Id.ToString(), 
-                "forms", 
+                authenticationResult.User.Id.ToString(),
+                "forms",
                 authenticationResult.User.Claims);
         }
     }

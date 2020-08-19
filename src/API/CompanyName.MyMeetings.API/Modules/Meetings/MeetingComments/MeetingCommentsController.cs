@@ -27,7 +27,9 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingComments
         [ProducesResponseType(typeof(Guid), StatusCodes.Status200OK)]
         public async Task<IActionResult> AddComment([FromBody] AddMeetingCommentRequest request)
         {
-            var commentId = await _meetingModule.ExecuteCommandAsync(new AddMeetingCommentCommand(request.MeetingId, request.Comment));
+            var commentId =
+                await _meetingModule.ExecuteCommandAsync(new AddMeetingCommentCommand(request.MeetingId,
+                    request.Comment));
 
             return Ok(commentId);
         }
@@ -35,19 +37,22 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingComments
         [HttpPut("{meetingCommentId}")]
         [HasPermission(MeetingsPermissions.EditMeetingComment)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> EditComment([FromRoute] Guid meetingCommentId, [FromBody] EditMeetingCommentRequest request)
+        public async Task<IActionResult> EditComment([FromRoute] Guid meetingCommentId,
+            [FromBody] EditMeetingCommentRequest request)
         {
-            await _meetingModule.ExecuteCommandAsync(new EditMeetingCommentCommand(meetingCommentId, request.EditedComment));
+            await _meetingModule.ExecuteCommandAsync(new EditMeetingCommentCommand(meetingCommentId,
+                request.EditedComment));
 
             return Ok();
         }
-        
+
         [HttpDelete("{meetingCommentId}")]
         [HasPermission(MeetingsPermissions.DeleteMeetingComment)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteComment([FromRoute] Guid meetingCommentId, [FromQuery] string reason)
         {
-            await _meetingModule.ExecuteCommandAsync(new RemoveMeetingCommentCommand(new MeetingCommentId(meetingCommentId), reason));
+            await _meetingModule.ExecuteCommandAsync(
+                new RemoveMeetingCommentCommand(new MeetingCommentId(meetingCommentId), reason));
 
             return Ok();
         }

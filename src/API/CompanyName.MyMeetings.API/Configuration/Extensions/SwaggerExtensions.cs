@@ -18,7 +18,7 @@ namespace CompanyName.MyMeetings.API.Configuration.Extensions
                 {
                     Title = "MyMeetings API",
                     Version = "v1",
-                    Description = "MyMeetings API for modular monolith .NET application.",
+                    Description = "MyMeetings API for modular monolith .NET application."
                 });
 
                 var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -28,7 +28,8 @@ namespace CompanyName.MyMeetings.API.Configuration.Extensions
 
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Description =
+                        "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
                     Name = "Authorization",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey
@@ -46,8 +47,7 @@ namespace CompanyName.MyMeetings.API.Configuration.Extensions
                             },
                             Scheme = "oauth2",
                             Name = "Bearer",
-                            In = ParameterLocation.Header,
-
+                            In = ParameterLocation.Header
                         },
                         new List<string>()
                     }
@@ -61,10 +61,7 @@ namespace CompanyName.MyMeetings.API.Configuration.Extensions
         {
             app.UseSwagger();
 
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyMeetings API");
-            });
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyMeetings API"); });
 
             return app;
         }

@@ -21,9 +21,7 @@ namespace CompanyName.MyMeetings.API.Configuration.Authorization
                 attributes.AddRange(GetAttributes(action.MethodInfo));
 
                 if (!attributes.Any())
-                {
                     attributes.AddRange(GetAttributes(action.ControllerTypeInfo.UnderlyingSystemType));
-                }
             }
 
             return HandleRequirementAsync(context, requirement, attributes);
