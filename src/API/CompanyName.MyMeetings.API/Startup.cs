@@ -92,6 +92,10 @@ namespace CompanyName.MyMeetings.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
+            var container = app.ApplicationServices.GetAutofacRoot();
+
+            InitializeModules(container);
+
             app.UseMiddleware<CorrelationMiddleware>();
 
             app.UseSwaggerDocumentation();
@@ -153,19 +157,8 @@ namespace CompanyName.MyMeetings.API
                 });
         }
 
-        private IServiceProvider CreateAutofacServiceProvider(IServiceCollection services)
+        private void InitializeModules(ILifetimeScope container)
         {
-            var containerBuilder = new ContainerBuilder();
-
-            containerBuilder.Populate(services);
-
-            containerBuilder.RegisterModule(new MeetingsAutofacModule());
-            containerBuilder.RegisterModule(new AdministrationAutofacModule());
-            containerBuilder.RegisterModule(new UserAccessAutofacModule());
-            containerBuilder.RegisterModule(new PaymentsAutofacModule());
-
-            var container = containerBuilder.Build();
-
             var httpContextAccessor = container.Resolve<IHttpContextAccessor>();
             var executionContextAccessor = new ExecutionContextAccessor(httpContextAccessor);
 
@@ -198,8 +191,6 @@ namespace CompanyName.MyMeetings.API
                 _logger,
                 emailsConfiguration,
                 null);
-
-            return new AutofacServiceProvider(container);
         }
     }
 }
