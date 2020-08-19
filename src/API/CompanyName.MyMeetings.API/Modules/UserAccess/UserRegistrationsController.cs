@@ -25,8 +25,12 @@ namespace CompanyName.MyMeetings.API.Modules.UserAccess
         [HttpPost("")]
         public async Task<IActionResult> RegisterNewUser(RegisterNewUserRequest request)
         {
-            await _userAccessModule.ExecuteCommandAsync(new RegisterNewUserCommand(request.Login, request.Password,
-                request.Email, request.FirstName, request.LastName));
+            await _userAccessModule.ExecuteCommandAsync(new RegisterNewUserCommand(
+                request.Login,
+                request.Password,
+                request.Email,
+                request.FirstName,
+                request.LastName));
 
             return Ok();
         }

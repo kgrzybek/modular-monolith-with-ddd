@@ -28,7 +28,8 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingComments
         public async Task<IActionResult> AddComment([FromBody] AddMeetingCommentRequest request)
         {
             var commentId =
-                await _meetingModule.ExecuteCommandAsync(new AddMeetingCommentCommand(request.MeetingId,
+                await _meetingModule.ExecuteCommandAsync(new AddMeetingCommentCommand(
+                    request.MeetingId,
                     request.Comment));
 
             return Ok(commentId);
@@ -37,10 +38,12 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingComments
         [HttpPut("{meetingCommentId}")]
         [HasPermission(MeetingsPermissions.EditMeetingComment)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> EditComment([FromRoute] Guid meetingCommentId,
+        public async Task<IActionResult> EditComment(
+            [FromRoute] Guid meetingCommentId,
             [FromBody] EditMeetingCommentRequest request)
         {
-            await _meetingModule.ExecuteCommandAsync(new EditMeetingCommentCommand(meetingCommentId,
+            await _meetingModule.ExecuteCommandAsync(new EditMeetingCommentCommand(
+                meetingCommentId,
                 request.EditedComment));
 
             return Ok();

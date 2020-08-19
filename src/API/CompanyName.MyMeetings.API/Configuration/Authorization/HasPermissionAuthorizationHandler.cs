@@ -31,11 +31,13 @@ namespace CompanyName.MyMeetings.API.Configuration.Authorization
                 new GetUserPermissionsQuery(_executionContextAccessor.UserId));
 
             foreach (var permissionAttribute in attributes)
+            {
                 if (!await AuthorizeAsync(permissionAttribute.Name, permissions))
                 {
                     context.Fail();
                     return;
                 }
+            }
 
             context.Succeed(requirement);
         }

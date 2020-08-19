@@ -24,8 +24,10 @@ namespace CompanyName.MyMeetings.API.Configuration.ExecutionContext
                     .Claims?
                     .SingleOrDefault(x => x.Type == "sub")?
                     .Value != null)
+                {
                     return Guid.Parse(_httpContextAccessor.HttpContext.User.Claims.Single(
                         x => x.Type == "sub").Value);
+                }
 
                 throw new ApplicationException("User context is not available");
             }
@@ -37,8 +39,10 @@ namespace CompanyName.MyMeetings.API.Configuration.ExecutionContext
             {
                 if (IsAvailable && _httpContextAccessor.HttpContext.Request.Headers.Keys.Any(
                     x => x == CorrelationMiddleware.CorrelationHeaderKey))
+                {
                     return Guid.Parse(
                         _httpContextAccessor.HttpContext.Request.Headers[CorrelationMiddleware.CorrelationHeaderKey]);
+                }
 
                 throw new ApplicationException("Http context and correlation id is not available");
             }
