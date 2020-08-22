@@ -7,7 +7,7 @@ using Dapper;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.GetMeetingComments
 {
-    public class GetMeetingCommentsQueryHandler : IQueryHandler<GetMeetingCommentsQuery, List<MeetingCommentDto>>
+    internal class GetMeetingCommentsQueryHandler : IQueryHandler<GetMeetingCommentsQuery, List<MeetingCommentDto>>
     {
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
