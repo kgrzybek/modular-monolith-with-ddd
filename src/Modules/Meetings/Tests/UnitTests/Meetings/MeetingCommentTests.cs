@@ -26,26 +26,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
         }
 
         [Test]
-        public void EditComment_IsSuccessful()
-        {
-            // Arrange
-            var commentAuthorId = new MemberId(Guid.NewGuid());
-            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[] { commentAuthorId } });
-
-            var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!");
-            meetingComment.ClearDomainEvents();
-            var editedComment = "Wonderful!";
-
-            // Act
-            meetingComment.Edit(commentAuthorId, editedComment);
-
-            // Assert
-            var meetingCommentCreated = AssertPublishedDomainEvent<MeetingCommentEditedDomainEvent>(meetingComment);
-            Assert.That(meetingCommentCreated.MeetingCommentId, Is.EqualTo(meetingComment.Id));
-            Assert.That(meetingCommentCreated.EditedComment, Is.EqualTo(editedComment));
-        }
-
-        [Test]
         public void AddComment_BreaksCommentCanBeAddedOnlyByAttendeeRule()
         {
             // Arrange
@@ -74,6 +54,26 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
                 // Act
                 meetingTestData.Meeting.AddComment(commentAuthorId, missingComment);
             });
+        }
+        
+        [Test]
+        public void EditComment_IsSuccessful()
+        {
+            // Arrange
+            var commentAuthorId = new MemberId(Guid.NewGuid());
+            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[] { commentAuthorId } });
+
+            var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!");
+            meetingComment.ClearDomainEvents();
+            var editedComment = "Wonderful!";
+
+            // Act
+            meetingComment.Edit(commentAuthorId, editedComment);
+
+            // Assert
+            var meetingCommentCreated = AssertPublishedDomainEvent<MeetingCommentEditedDomainEvent>(meetingComment);
+            Assert.That(meetingCommentCreated.MeetingCommentId, Is.EqualTo(meetingComment.Id));
+            Assert.That(meetingCommentCreated.EditedComment, Is.EqualTo(editedComment));
         }
 
         [Test]
@@ -112,6 +112,67 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             {
                 // Act
                 meetingComment.Edit(new MemberId(Guid.NewGuid()), missingComment);
+            });
+        }
+        
+                
+        [Test]
+        public void RemoveComment_IsSuccessful()
+        {
+            // Arrange
+            var removingMemberId = new MemberId(Guid.NewGuid());
+            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[] { removingMemberId } });
+            
+            var meetingComment =  meetingTestData.Meeting.AddComment(authorId: removingMemberId, "Great meeting!");
+            meetingComment.ClearDomainEvents();
+                        
+            // Act
+            meetingComment.Remove(removingMemberId, meetingTestData.MeetingGroup);
+            
+            // Assert
+            var meetingCommentCreated = AssertPublishedDomainEvent<MeetingCommentRemovedDomainEvent>(meetingComment);
+            Assert.That(meetingCommentCreated.MeetingCommentId, Is.EqualTo(meetingComment.Id));
+        }
+        
+        [Test]
+        public void RemoveComment_BreaksMeetingCommentCanBeRemovedOnlyByAuthorOrGroupOrganizerRule()
+        {
+            // Arrange
+            var commentAuthorId = new MemberId(Guid.NewGuid());
+            var groupCreatorId = new MemberId(Guid.NewGuid());
+            
+            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions
+            {
+                CreatorId = groupCreatorId,
+                Attendees = new[] {commentAuthorId}
+            });
+
+            var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!");
+            meetingComment.ClearDomainEvents();
+
+            // Assert
+            AssertBrokenRule<MeetingCommentCanBeRemovedOnlyByAuthorOrGroupOrganizerRule>(() =>
+            {
+                // Act
+                meetingComment.Remove(removingMemberId: new MemberId(Guid.NewGuid()), meetingTestData.MeetingGroup);
+            });
+        }
+        
+        [Test]
+        public void RemoveComment_BreaksRemovingReasonCanBeProvidedOnlyByGroupOrganizer()
+        {
+            // Arrange
+            var commentAuthorId = new MemberId(Guid.NewGuid());
+            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions {Attendees = new[] { commentAuthorId } });
+
+            var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!");
+            meetingComment.ClearDomainEvents();
+
+            // Assert
+            AssertBrokenRule<RemovingReasonCanBeProvidedOnlyByGroupOrganizer>(() =>
+            {
+                // Act
+                meetingComment.Remove(removingMemberId: commentAuthorId, meetingTestData.MeetingGroup, "I don't like the comment.");
             });
         }
     }

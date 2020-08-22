@@ -66,7 +66,6 @@
     <Folder Include="administration\Tables" />
     <Folder Include="users\Tables" />
     <Folder Include="payments\Tables" />
-    <Folder Include="meetings\Views" />
     <Folder Include="users\Views" />
     <Folder Include="Scripts" />
     <Folder Include="administration\Views" />
@@ -89,6 +88,7 @@
     <Build Include="meetings\Tables\MeetingNotAttendees.sql" />
     <Build Include="meetings\Tables\MeetingWaitlistMembers.sql" />
     <Build Include="meetings\Tables\MeetingComments.sql" />
+    <Build Include="meetings\Views\v_MeetingComments.sql" />
     <Build Include="meetings\Views\v_MeetingGroups.sql" />
     <Build Include="users\Tables\Users.sql" />
     <Build Include="users\Tables\UserRegistrations.sql" />

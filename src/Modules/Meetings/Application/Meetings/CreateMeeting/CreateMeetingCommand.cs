@@ -4,7 +4,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.CreateMeeting
 {
-    public class CreateMeetingCommand : CommandBase
+    public class CreateMeetingCommand : CommandBase<Guid>
     {
         public CreateMeetingCommand(Guid meetingGroupId, string title, DateTime termStartDate, DateTime termEndDate, string description, string meetingLocationName, string meetingLocationAddress, string meetingLocationPostalCode, string meetingLocationCity, int? attendeesLimit, int guestsLimit, DateTime? rsvpTermStartDate, DateTime? rsvpTermEndDate, decimal? eventFeeValue, string eventFeeCurrency, List<Guid> hostMemberIds)
         {

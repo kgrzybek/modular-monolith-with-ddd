@@ -1,15 +1,15 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
-using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.CreateMeeting
 {
-    internal class CreateMeetingCommandHandler : ICommandHandler<CreateMeetingCommand>
+    internal class CreateMeetingCommandHandler : ICommandHandler<CreateMeetingCommand, Guid>
     {
         private readonly IMemberContext _memberContext;
         private readonly IMeetingRepository _meetingRepository;
@@ -25,7 +25,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.CreateMee
             _meetingGroupRepository = meetingGroupRepository;
         }
 
-        public async Task<Unit> Handle(CreateMeetingCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateMeetingCommand request, CancellationToken cancellationToken)
         {
             var meetingGroup = await _meetingGroupRepository.GetByIdAsync(new MeetingGroupId(request.MeetingGroupId));
 
@@ -45,7 +45,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.CreateMee
 
             await _meetingRepository.AddAsync(meeting);
 
-            return Unit.Value;
+            return meeting.Id.Value;
         }
     }
 }
