@@ -135,7 +135,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
         }
         
         [Test]
-        public void RemoveComment_BreaksMeetingCommentCanBeRemovedOnlyByAuthorOrGroupOrganizerRule()
+        public void RemoveComment_ByNoAuthorNoOrganizer_BreaksMeetingCommentCanBeRemovedOnlyByAuthorOrGroupOrganizerRule()
         {
             // Arrange
             var commentAuthorId = new MemberId(Guid.NewGuid());
@@ -159,7 +159,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
         }
         
         [Test]
-        public void RemoveComment_BreaksRemovingReasonCanBeProvidedOnlyByGroupOrganizer()
+        public void RemoveComment_ByAuthor_BreaksRemovingReasonCanBeProvidedOnlyByGroupOrganizer()
         {
             // Arrange
             var commentAuthorId = new MemberId(Guid.NewGuid());

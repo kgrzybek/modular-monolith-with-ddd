@@ -8,6 +8,6 @@ SELECT
     [MeetingComments].Comment,
     [MeetingComments].CreateDate,
     [MeetingComments].EditDate
-FROM meetings.MeetingComments AS [MeetingComments]
- WHERE [MeetingComments].IsRemoved = 0
+FROM [meetings].[MeetingComments] AS [MeetingComments]
+WHERE [MeetingComments].IsRemoved = 0
 GO

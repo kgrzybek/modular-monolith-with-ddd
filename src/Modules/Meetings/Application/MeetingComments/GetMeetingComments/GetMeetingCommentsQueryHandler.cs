@@ -16,20 +16,19 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ge
             _sqlConnectionFactory = sqlConnectionFactory;
         }
 
-        public async Task<List<MeetingCommentDto>> Handle(GetMeetingCommentsQuery request, CancellationToken cancellationToken)
+        public async Task<List<MeetingCommentDto>> Handle(GetMeetingCommentsQuery query, CancellationToken cancellationToken)
         {
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
-            const string sql = "SELECT " +
-                               "[MeetingComment].[Id], " +
-                               "[MeetingComment].[MeetingId], " +
-                               "[MeetingComment].[AuthorId], " +
-                               "[MeetingComment].[InReplyToCommentId], " +
-                               "[MeetingComment].[Comment], " +
-                               "[MeetingComment].[CreateDate], " +
-                               "[MeetingComment].[EditDate]" +
-                               "FROM [meetings].[v_MeetingComments] AS [MeetingComment]";
-            var meetingComments = await connection.QueryAsync<MeetingCommentDto>(sql);
+            string sql = "SELECT " +
+                         $"[MeetingComment].[Id] AS [{nameof(MeetingCommentDto.Id)}], " +
+                         $"[MeetingComment].[AuthorId] AS [{nameof(MeetingCommentDto.AuthorId)}], " +
+                         $"[MeetingComment].[Comment] AS [{nameof(MeetingCommentDto.Comment)}], " +
+                         $"[MeetingComment].[CreateDate] AS [{nameof(MeetingCommentDto.CreateDate)}], " +
+                         $"[MeetingComment].[EditDate] AS [{nameof(MeetingCommentDto.EditDate)}]" +
+                         "FROM [meetings].[v_MeetingComments] AS [MeetingComment] " +
+                         "WHERE [MeetingComment].[MeetingId] = @MeetingId";
+            var meetingComments = await connection.QueryAsync<MeetingCommentDto>(sql, new { query.MeetingId });
 
             return meetingComments.AsList();
         }
