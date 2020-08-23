@@ -130,7 +130,6 @@
     <None Include="Scripts\SeedDatabase.sql" />
     <None Include="Scripts\CreateDatabase.sql" />
     <None Include="Scripts\Migrations\1_0_0_0\0001_initial_structure.sql" />
-    <None Include="Scripts\CreateMigrationsJournal.sql" />
     <Build Include="app\Tables\MigrationsJournal.sql" />
   </ItemGroup>
   <ItemGroup>
