@@ -47,7 +47,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingComments
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteComment([FromRoute] Guid meetingCommentId, [FromQuery] string reason)
         {
-            await _meetingModule.ExecuteCommandAsync(new RemoveMeetingCommentCommand(new MeetingCommentId(meetingCommentId), reason));
+            await _meetingModule.ExecuteCommandAsync(new RemoveMeetingCommentCommand(meetingCommentId, reason));
 
             return Ok();
         }

@@ -362,7 +362,7 @@ CREATE TABLE meetings.MeetingComments
     [IsRemoved]             BIT              NOT NULL,
     [RemovedByReason]       VARCHAR(300)     NULL,
     [CreateDate]            DATETIME         NOT NULL,
-    [EditDate]              DATE             NULL,
+    [EditDate]              DATETIME         NULL,
     CONSTRAINT [PK_meetings_MeetingComments_Id] PRIMARY KEY ([Id] ASC)
 )
 

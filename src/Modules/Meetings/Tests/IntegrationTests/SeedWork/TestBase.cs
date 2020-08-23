@@ -73,6 +73,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork
                                "DELETE FROM [meetings].[MeetingNotAttendees] " +
                                "DELETE FROM [meetings].[Meetings] " +
                                "DELETE FROM [meetings].[MeetingWaitlistMembers] " +
+                               "DELETE FROM [meetings].[MeetingComments] " +
                                "DELETE FROM [meetings].[Members] ";
 
             await connection.ExecuteScalarAsync(sql);

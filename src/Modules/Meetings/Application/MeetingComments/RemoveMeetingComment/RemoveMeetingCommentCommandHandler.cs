@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.Comments;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
@@ -28,7 +29,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Re
 
         public async Task<Unit> Handle(RemoveMeetingCommentCommand command, CancellationToken cancellationToken)
         {
-            var meetingComment = await _meetingCommentRepository.GetByIdAsync(command.MeetingCommentId);
+            var meetingComment = await _meetingCommentRepository.GetByIdAsync(new MeetingCommentId(command.MeetingCommentId));
             if (meetingComment == null)
             {
                 throw new InvalidCommandException(new List<string>{"Meeting comment for removing must exist."});
