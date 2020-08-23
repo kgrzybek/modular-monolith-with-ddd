@@ -1704,7 +1704,7 @@ List of technologies, frameworks and libraries used for implementation:
 dotnet DatabaseMigrator.dll "connection_string" "scripts_directory_path"
 ```
 
-*"connection_string"* - connection string to your database
+*"connection_string"* - connection string to your database <br/>
 *"scripts_directory_path"* - [path to migration scripts](src/Database/CompanyName.MyMeetings.Database/Scripts/Migrations)
 
 ### Seed database
@@ -1771,6 +1771,7 @@ List of features/tasks/approaches to add:
 | System Integration Testing | Completed  |  2020-03-28  |
 | More advanced Payments module | Completed  |  2020-07-11  |
 | Event Sourcing implementation | Completed  |  2020-07-11  |
+| Database Change Management | Completed  |  2020-08-23  |
 | API automated tests      |     |    |
 | FrontEnd SPA application |      |    |
 | Meeting comments feature |    |    |
