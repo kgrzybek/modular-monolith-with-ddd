@@ -11,6 +11,8 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
 {
     internal static class QuartzStartup
     {
+        private static IScheduler _scheduler;
+
         internal static void Initialize(ILogger logger)
         {
             logger.Information("Quartz starting...");
@@ -19,11 +21,11 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             schedulerConfiguration.Add("quartz.scheduler.instanceName", "Administration");
 
             ISchedulerFactory schedulerFactory = new StdSchedulerFactory(schedulerConfiguration);
-            IScheduler scheduler = schedulerFactory.GetScheduler().GetAwaiter().GetResult();
+            _scheduler = schedulerFactory.GetScheduler().GetAwaiter().GetResult();
 
             LogProvider.SetCurrentLogProvider(new SerilogLogProvider(logger));
 
-            scheduler.Start().GetAwaiter().GetResult();
+            _scheduler.Start().GetAwaiter().GetResult();
 
             var processOutboxJob = JobBuilder.Create<ProcessOutboxJob>().Build();
             var trigger =
@@ -33,7 +35,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
                     .WithCronSchedule("0/2 * * ? * *")
                     .Build();
 
-            scheduler
+            _scheduler
                 .ScheduleJob(processOutboxJob, trigger)
                 .GetAwaiter().GetResult();
 
@@ -45,7 +47,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
                     .WithCronSchedule("0/2 * * ? * *")
                     .Build();
 
-            scheduler
+            _scheduler
                 .ScheduleJob(processInboxJob, processInboxTrigger)
                 .GetAwaiter().GetResult();
 
@@ -56,9 +58,14 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
                     .StartNow()
                     .WithCronSchedule("0/2 * * ? * *")
                     .Build();
-            scheduler.ScheduleJob(processInternalCommandsJob, triggerCommandsProcessing).GetAwaiter().GetResult();
+            _scheduler.ScheduleJob(processInternalCommandsJob, triggerCommandsProcessing).GetAwaiter().GetResult();
 
             logger.Information("Quartz started.");
+        }
+
+        internal static void StopQuartz()
+        {
+            _scheduler.Shutdown();
         }
     }
 }
