@@ -4,10 +4,10 @@ using Newtonsoft.Json;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.SetMeetingGroupExpirationDate
 {
-    internal class SetMeetingGroupExpirationDateCommand : InternalCommandBase
+    public class SetMeetingGroupExpirationDateCommand : InternalCommandBase
     {
         [JsonConstructor]
-        internal SetMeetingGroupExpirationDateCommand(Guid id, Guid meetingGroupId, DateTime dateTo)
+        public SetMeetingGroupExpirationDateCommand(Guid id, Guid meetingGroupId, DateTime dateTo)
             : base(id)
         {
             MeetingGroupId = meetingGroupId;
