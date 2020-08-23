@@ -39,6 +39,11 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             EventsBusStartup.Initialize(moduleLogger);
         }
 
+        public static void Stop()
+        {
+            QuartzStartup.StopQuartz();
+        }
+
         private static void ConfigureContainer(
             string connectionString,
             IExecutionContextAccessor executionContextAccessor,

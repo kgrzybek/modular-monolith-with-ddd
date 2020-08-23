@@ -7,6 +7,7 @@ using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration;
 using Dapper;
@@ -96,6 +97,13 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork
             {
                 Assert.That(businessRuleValidationException.BrokenRule, Is.TypeOf<TRule>(), message);
             }
+        }
+
+        [TearDown]
+        public void AfterEachTest()
+        {
+            MeetingsStartup.Stop();
+            SystemClock.Reset();
         }
     }
 }

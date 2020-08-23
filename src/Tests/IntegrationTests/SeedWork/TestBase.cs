@@ -12,6 +12,7 @@ using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration;
 using Dapper;
@@ -113,6 +114,14 @@ namespace CompanyName.MyMeetings.IntegrationTests.SeedWork
         protected static void AssertEventually(IProbe probe, int timeout)
         {
             new Poller(timeout).Check(probe);
+        }
+
+        [TearDown]
+        public void AfterEachTest()
+        {
+            MeetingsStartup.Stop();
+            AdministrationStartup.Stop();
+            SystemClock.Reset();
         }
     }
 }
