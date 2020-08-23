@@ -62,6 +62,8 @@ Full Modular Monolith .NET application with Domain-Driven Design approach.
 
 &nbsp;&nbsp;[3.15 Event Sourcing](#315-event-sourcing)
 
+&nbsp;&nbsp;[3.16 Database change management](#316-database-change-management)
+
 [4. Technology](#4-technology)
 
 [5. How to Run](#5-how-to-run)
@@ -1644,6 +1646,22 @@ looks like this (*SQL Stream Store* table - *payments.Messages*):
 
 ![](docs/Images/ES_event_store_db_sample.png)
 
+### 3.16 Database Change Management
+
+Database change management is accomplished by *migrations/transitions* versioning. Additionally, the current state of the database structure is also versioned.
+
+Migrations are applied using a simple [DatabaseMigrator](src/Database/DatabaseMigrator) console application that uses the [DbUp](https://dbup.readthedocs.io/en/latest/) library. The current state of the database structure is kept in the [SSDT Database Project](https://docs.microsoft.com/en-us/sql/ssdt/how-to-create-a-new-database-project).
+
+The database update is performed by running the following command:
+
+```shell
+dotnet DatabaseMigrator.dll "connection_string" "scripts_directory_path"
+```
+
+The entire solution is described in detail in the following articles:
+1. [Database change management](https://www.kamilgrzybek.com/database/database-change-management/) (theory)
+2. [Using database project and DbUp for database management](https://www.kamilgrzybek.com/database/using-database-project-and-dbup-for-database-management/) (implementation)
+
 ## 4. Technology
 
 List of technologies, frameworks and libraries used for implementation:
@@ -1668,33 +1686,57 @@ List of technologies, frameworks and libraries used for implementation:
 - [NetArchTest](https://github.com/BenMorris/NetArchTest) (Architecture Unit Tests library)
 - [Polly](https://github.com/App-vNext/Polly) (Resilience and transient-fault-handling library)
 - [SQL Stream Store](https://github.com/SQLStreamStore) (Library to assist with Event Sourcing)
+- [DbUp](https://dbup.readthedocs.io/en/latest/) (Database migrations deployment)
+- [SSDT Database Project](https://docs.microsoft.com/en-us/sql/ssdt/how-to-create-a-new-database-project) (Database structure versioning)
 
 ## 5. How to Run
 
+### Install .NET Core 3.1
 - Download and install .NET Core 3.1 SDK
+
+### Create database
 - Download and install MS SQL Server Express or other
-- Create an empty database and run [InitializeDatabase.sql](src/Database/InitializeDatabase.sql) script
-  
-  - 2 test users will be created - check the script for usernames and passwords
-- Set a database connection string called `MeetingsConnectionString` in the root of the API project's appsettings.json or use [Secrets](https://blogs.msdn.microsoft.com/mihansen/2017/09/10/managing-secrets-in-net-core-2-0-apps/)
+- Create an empty database using [CreateDatabase_Windows.sql](src/Database/CompanyName.MyMeetings.Database/Scripts/CreateDatabase_Windows.sql) or [CreateDatabase_Linux.sql](src/Database/CompanyName.MyMeetings.Database/Scripts/CreateDatabase_Linux.sql). Script adds **app** schema which is needed for migrations journal table. Change database file path if needed.
+- Build [DatabaseMigrator](src/Database/DatabaseMigrator) application
+- run database migrations:
 
-  Example config setting in appsettings.json for a database called `ModularMonolith`:
-  ```json
-  {
-	  "MeetingsConnectionString": "Server=(localdb)\\mssqllocaldb;Database=ModularMonolith;Trusted_Connection=True;"
-  }
-  ```
+```shell
+dotnet DatabaseMigrator.dll "connection_string" "scripts_directory_path"
+```
 
+*"connection_string"* - connection string to your database <br/>
+*"scripts_directory_path"* - [path to migration scripts](src/Database/CompanyName.MyMeetings.Database/Scripts/Migrations)
+
+### Seed database
+
+- Execute [SeedDatabase.sql](src/Database/CompanyName.MyMeetings.Database/Scripts/SeedDatabase.sql) script
+- 2 test users will be created - check the script for usernames and passwords
+
+### Configure connection string
+
+Set a database connection string called `MeetingsConnectionString` in the root of the API project's appsettings.json or use [Secrets](https://blogs.msdn.microsoft.com/mihansen/2017/09/10/managing-secrets-in-net-core-2-0-apps/)
+
+Example config setting in appsettings.json for a database called `ModularMonolith`:
+```json
+{
+	"MeetingsConnectionString": "Server=(localdb)\\mssqllocaldb;Database=ModularMonolith;Trusted_Connection=True;"
+}
+```
+### Configure startup in IDE
 - Set the Startup Item in your IDE to the API Project, not IIS Express
+
+### Authenticate
+
 - Once it is running you'll need a token to make API calls. This is done via OAuth2 [Resource Owner Password Grant Type](https://www.oauth.com/oauth2-servers/access-tokens/password-grant/). By default IdentityServer is configured with the following:
-  - `client_id = ro.client`
-  - `client_secret = secret` **(this is literally the value - not a statement that this value is secret!)**
-  - `scope = myMeetingsAPI openid profile`
-  - `grant_type = password`
+- `client_id = ro.client`
+- `client_secret = secret` **(this is literally the value - not a statement that this value is secret!)**
+- `scope = myMeetingsAPI openid profile`
+- `grant_type = password`
   
-  Include the credentials of a test user created in the [InitializeDatabase.sql](src/Database/InitializeDatabase.sql) script - for example:
-  - `username = testMember@mail.com`
-  - `password = testMemberPass`
+
+Include the credentials of a test user created in the [SeedDatabase.sql](src/Database/CompanyName.MyMeetings.Database/Scripts/SeedDatabase.sql) script - for example:
+- `username = testMember@mail.com`
+- `password = testMemberPass`
 
 **Example HTTP Request for an Access Token:**
 ```http
@@ -1729,6 +1771,7 @@ List of features/tasks/approaches to add:
 | System Integration Testing | Completed  |  2020-03-28  |
 | More advanced Payments module | Completed  |  2020-07-11  |
 | Event Sourcing implementation | Completed  |  2020-07-11  |
+| Database Change Management | Completed  |  2020-08-23  |
 | API automated tests      |     |    |
 | FrontEnd SPA application |      |    |
 | Meeting comments feature |    |    |
