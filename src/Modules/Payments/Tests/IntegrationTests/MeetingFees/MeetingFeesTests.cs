@@ -32,7 +32,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.MeetingFees
                 100,
                 "PLN"));
 
-            var meetingFees = await GetEventually(new GetMeetingFeesProbe(PaymentsModule, meetingId, x => x != null), 5000);
+            var meetingFees = await GetEventually(new GetMeetingFeesProbe(PaymentsModule, meetingId, x => x != null && x.Count > 0), 5000);
 
             Assert.That(meetingFees[0].Status, Is.EqualTo(MeetingFeeStatus.WaitingForPayment.Code));
 
