@@ -7,6 +7,7 @@ using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.BuildingBlocks.EventBus;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
+using CompanyName.MyMeetings.BuildingBlocks.IntegrationTests;
 using CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing;
 using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure;
@@ -44,7 +45,7 @@ namespace CompanyName.MyMeetings.IntegrationTests.SeedWork
         {
             const string connectionStringEnvironmentVariable =
                 "ASPNETCORE_MyMeetings_IntegrationTests_ConnectionString";
-            ConnectionString = Environment.GetEnvironmentVariable(connectionStringEnvironmentVariable, EnvironmentVariableTarget.Machine);
+            ConnectionString = EnvironmentVariablesProvider.GetVariable(connectionStringEnvironmentVariable);
             if (ConnectionString == null)
             {
                 throw new ApplicationException(
