@@ -117,6 +117,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseMigrator", "Database\DatabaseMigrator\DatabaseMigrator.csproj", "{9189FC86-116F-49D4-900E-DEC434136C6D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -275,6 +277,10 @@ Global
 		{8CCB9013-92CE-4A26-B649-0997F5444161}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CCB9013-92CE-4A26-B649-0997F5444161}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CCB9013-92CE-4A26-B649-0997F5444161}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9189FC86-116F-49D4-900E-DEC434136C6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9189FC86-116F-49D4-900E-DEC434136C6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9189FC86-116F-49D4-900E-DEC434136C6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9189FC86-116F-49D4-900E-DEC434136C6D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -327,6 +333,7 @@ Global
 		{B1D398A1-7005-4792-8D7F-CD9E5F3C29B7} = {E91D4BE3-61FE-441C-A227-29850D414216}
 		{32915CF6-62D9-4121-8650-6279D5154B4B} = {B1D398A1-7005-4792-8D7F-CD9E5F3C29B7}
 		{8CCB9013-92CE-4A26-B649-0997F5444161} = {B1D398A1-7005-4792-8D7F-CD9E5F3C29B7}
+		{9189FC86-116F-49D4-900E-DEC434136C6D} = {C733D087-7051-4E35-BCDB-081252A108E5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B94C21A-AA6D-4D82-963E-C69C0353B938}

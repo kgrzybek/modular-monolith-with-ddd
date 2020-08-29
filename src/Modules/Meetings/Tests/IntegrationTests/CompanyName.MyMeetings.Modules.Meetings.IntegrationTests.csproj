@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\BuildingBlocks\Tests\IntegrationTests\CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.csproj" />
     <ProjectReference Include="..\..\Application\CompanyName.MyMeetings.Modules.Meetings.Application.csproj" />
     <ProjectReference Include="..\..\Infrastructure\CompanyName.MyMeetings.Modules.Meetings.Infrastructure.csproj" />
   </ItemGroup>

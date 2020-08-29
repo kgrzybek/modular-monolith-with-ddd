@@ -7,11 +7,13 @@ using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.BuildingBlocks.EventBus;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
+using CompanyName.MyMeetings.BuildingBlocks.IntegrationTests;
 using CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing;
 using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration;
 using Dapper;
@@ -43,7 +45,7 @@ namespace CompanyName.MyMeetings.IntegrationTests.SeedWork
         {
             const string connectionStringEnvironmentVariable =
                 "ASPNETCORE_MyMeetings_IntegrationTests_ConnectionString";
-            ConnectionString = Environment.GetEnvironmentVariable(connectionStringEnvironmentVariable, EnvironmentVariableTarget.Machine);
+            ConnectionString = EnvironmentVariablesProvider.GetVariable(connectionStringEnvironmentVariable);
             if (ConnectionString == null)
             {
                 throw new ApplicationException(
@@ -113,6 +115,14 @@ namespace CompanyName.MyMeetings.IntegrationTests.SeedWork
         protected static void AssertEventually(IProbe probe, int timeout)
         {
             new Poller(timeout).Check(probe);
+        }
+
+        [TearDown]
+        public void AfterEachTest()
+        {
+            MeetingsStartup.Stop();
+            AdministrationStartup.Stop();
+            SystemClock.Reset();
         }
     }
 }

@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
+using CompanyName.MyMeetings.BuildingBlocks.IntegrationTests;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration;
 using Dapper;
@@ -35,7 +37,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork
         {
             const string connectionStringEnvironmentVariable =
                 "ASPNETCORE_MyMeetings_IntegrationTests_ConnectionString";
-            ConnectionString = Environment.GetEnvironmentVariable(connectionStringEnvironmentVariable, EnvironmentVariableTarget.Machine);
+            ConnectionString = EnvironmentVariablesProvider.GetVariable(connectionStringEnvironmentVariable);
             if (ConnectionString == null)
             {
                 throw new ApplicationException(
@@ -73,6 +75,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork
                                "DELETE FROM [meetings].[MeetingNotAttendees] " +
                                "DELETE FROM [meetings].[Meetings] " +
                                "DELETE FROM [meetings].[MeetingWaitlistMembers] " +
+                               "DELETE FROM [meetings].[MeetingComments] " +
                                "DELETE FROM [meetings].[Members] ";
 
             await connection.ExecuteScalarAsync(sql);
@@ -96,6 +99,13 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork
             {
                 Assert.That(businessRuleValidationException.BrokenRule, Is.TypeOf<TRule>(), message);
             }
+        }
+
+        [TearDown]
+        public void AfterEachTest()
+        {
+            MeetingsStartup.Stop();
+            SystemClock.Reset();
         }
     }
 }

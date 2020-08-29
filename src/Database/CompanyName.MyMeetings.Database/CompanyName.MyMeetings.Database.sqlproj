@@ -66,11 +66,15 @@
     <Folder Include="administration\Tables" />
     <Folder Include="users\Tables" />
     <Folder Include="payments\Tables" />
-    <Folder Include="meetings\Views" />
     <Folder Include="users\Views" />
     <Folder Include="Scripts" />
     <Folder Include="administration\Views" />
     <Folder Include="payments\Types" />
+    <Folder Include="Scripts\Migrations" />
+    <Folder Include="Scripts\Migrations\1_0_0_0" />
+    <Folder Include="app" />
+    <Folder Include="app\Tables" />
+    <Folder Include="meetings\Views\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Security\Schemas.sql" />
@@ -89,6 +93,7 @@
     <Build Include="meetings\Tables\MeetingNotAttendees.sql" />
     <Build Include="meetings\Tables\MeetingWaitlistMembers.sql" />
     <Build Include="meetings\Tables\MeetingComments.sql" />
+    <Build Include="meetings\Views\v_MeetingComments.sql" />
     <Build Include="meetings\Views\v_MeetingGroups.sql" />
     <Build Include="users\Tables\Users.sql" />
     <Build Include="users\Tables\UserRegistrations.sql" />
@@ -124,6 +129,10 @@
     <Build Include="payments\Tables\SubscriptionDetails.sql" />
     <None Include="Scripts\CreateStructure.sql" />
     <None Include="Scripts\SeedDatabase.sql" />
+    <None Include="Scripts\CreateDatabase_Linux.sql" />
+    <None Include="Scripts\Migrations\1_0_0_0\0001_initial_structure.sql" />
+    <Build Include="app\Tables\MigrationsJournal.sql" />
+    <None Include="Scripts\CreateDatabase_Windows.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="administration\Tables\MeetingGroupProposals.sql" />

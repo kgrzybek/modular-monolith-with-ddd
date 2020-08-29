@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\BuildingBlocks\Application\CompanyName.MyMeetings.BuildingBlocks.Application.csproj" />
+    <ProjectReference Include="..\..\..\..\BuildingBlocks\Tests\IntegrationTests\CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.csproj" />
     <ProjectReference Include="..\..\Application\CompanyName.MyMeetings.Modules.UserAccess.Application.csproj" />
     <ProjectReference Include="..\..\Infrastructure\CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.csproj" />
   </ItemGroup>
