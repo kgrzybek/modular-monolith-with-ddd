@@ -30,13 +30,24 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
 
         [HttpPost("")]
         [HasPermission(MeetingsPermissions.CreateNewMeeting)]
-        public async Task<IActionResult> CreateNewMeeting([FromBody]CreateMeetingRequest request)
+        public async Task<IActionResult> CreateNewMeeting([FromBody] CreateMeetingRequest request)
         {
-            await _meetingsModule.ExecuteCommandAsync(new CreateMeetingCommand(request.MeetingGroupId, request.Title, request.TermStartDate,
-                request.TermEndDate, request.Description, request.MeetingLocationName, request.MeetingLocationAddress,
-                request.MeetingLocationPostalCode, request.MeetingLocationCity, request.AttendeesLimit,
+            await _meetingsModule.ExecuteCommandAsync(new CreateMeetingCommand(
+                request.MeetingGroupId,
+                request.Title,
+                request.TermStartDate,
+                request.TermEndDate,
+                request.Description,
+                request.MeetingLocationName,
+                request.MeetingLocationAddress,
+                request.MeetingLocationPostalCode,
+                request.MeetingLocationCity,
+                request.AttendeesLimit,
                 request.GuestsLimit,
-                request.RSVPTermStartDate, request.RSVPTermEndDate, request.EventFeeValue, request.EventFeeCurrency,
+                request.RSVPTermStartDate,
+                request.RSVPTermEndDate,
+                request.EventFeeValue,
+                request.EventFeeCurrency,
                 request.HostMemberIds));
 
             return Ok();
@@ -44,37 +55,52 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
 
         [HttpPut("{meetingId}")]
         [HasPermission(MeetingsPermissions.EditMeeting)]
-        public async Task<IActionResult> EditMeeting([FromRoute]Guid meetingId, [FromBody]ChangeMeetingMainAttributesRequest mainAttributesRequest)
+        public async Task<IActionResult> EditMeeting(
+            [FromRoute] Guid meetingId,
+            [FromBody] ChangeMeetingMainAttributesRequest mainAttributesRequest)
         {
-            await _meetingsModule.ExecuteCommandAsync(new ChangeMeetingMainAttributesCommand(meetingId,
+            await _meetingsModule.ExecuteCommandAsync(new ChangeMeetingMainAttributesCommand(
+                meetingId,
                 mainAttributesRequest.Title,
                 mainAttributesRequest.TermStartDate,
-                mainAttributesRequest.TermEndDate, mainAttributesRequest.Description, mainAttributesRequest.MeetingLocationName, mainAttributesRequest.MeetingLocationAddress,
-                mainAttributesRequest.MeetingLocationPostalCode, mainAttributesRequest.MeetingLocationCity, mainAttributesRequest.AttendeesLimit,
+                mainAttributesRequest.TermEndDate,
+                mainAttributesRequest.Description,
+                mainAttributesRequest.MeetingLocationName,
+                mainAttributesRequest.MeetingLocationAddress,
+                mainAttributesRequest.MeetingLocationPostalCode,
+                mainAttributesRequest.MeetingLocationCity,
+                mainAttributesRequest.AttendeesLimit,
                 mainAttributesRequest.GuestsLimit,
                 mainAttributesRequest.RSVPTermStartDate,
                 mainAttributesRequest.RSVPTermEndDate,
                 mainAttributesRequest.EventFeeValue,
-                mainAttributesRequest.EventFeeCurrency
-                ));
+                mainAttributesRequest.EventFeeCurrency));
 
             return Ok();
         }
 
         [HttpPost("{meetingId}/attendees")]
         [HasPermission(MeetingsPermissions.AddMeetingAttendee)]
-        public async Task<IActionResult> AddMeetingAttendee([FromRoute]Guid meetingId, [FromBody]AddMeetingAttendeeRequest attendeeRequest)
+        public async Task<IActionResult> AddMeetingAttendee(
+            [FromRoute] Guid meetingId,
+            [FromBody] AddMeetingAttendeeRequest attendeeRequest)
         {
-            await _meetingsModule.ExecuteCommandAsync(new AddMeetingAttendeeCommand(meetingId, attendeeRequest.GuestsNumber));
+            await _meetingsModule.ExecuteCommandAsync(new AddMeetingAttendeeCommand(
+                meetingId,
+                attendeeRequest.GuestsNumber));
 
             return Ok();
         }
 
         [HttpDelete("{meetingId}/attendees/{attendeeId}")]
         [HasPermission(MeetingsPermissions.RemoveMeetingAttendee)]
-        public async Task<IActionResult> RemoveMeetingAttendee(Guid meetingId, Guid attendeeId, RemoveMeetingAttendeeRequest request)
+        public async Task<IActionResult> RemoveMeetingAttendee(
+            Guid meetingId,
+            Guid attendeeId,
+            RemoveMeetingAttendeeRequest request)
         {
-            await _meetingsModule.ExecuteCommandAsync(new RemoveMeetingAttendeeCommand(meetingId, attendeeId, request.RemovingReason));
+            await _meetingsModule.ExecuteCommandAsync(
+                new RemoveMeetingAttendeeCommand(meetingId, attendeeId, request.RemovingReason));
 
             return Ok();
         }

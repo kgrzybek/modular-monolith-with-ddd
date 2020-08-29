@@ -21,7 +21,6 @@ namespace CompanyName.MyMeetings.API.Modules.Payments.MeetingFees
 
         [HttpPost]
         [HasPermission(PaymentsPermissions.RegisterPayment)]
-
         public async Task<IActionResult> CreateMeetingFeePayment(CreateMeetingFeePaymentRequest request)
         {
             await _meetingsModule.ExecuteCommandAsync(new CreateMeetingFeePaymentCommand(request.MeetingFeeId));

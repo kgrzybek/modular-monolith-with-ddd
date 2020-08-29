@@ -11,10 +11,10 @@ namespace CompanyName.MyMeetings.API.Configuration.Authorization
     {
         public static void CheckAllEndpoints()
         {
-            Assembly assembly = typeof(Startup).Assembly;
+            var assembly = typeof(Startup).Assembly;
             var allControllerTypes = assembly.GetTypes().Where(x => x.IsSubclassOf(typeof(ControllerBase)));
 
-            List<string> notProtectedActionMethods = new List<string>();
+            var notProtectedActionMethods = new List<string>();
             foreach (var controllerType in allControllerTypes)
             {
                 var controllerHasPermissionAttribute = controllerType.GetCustomAttribute<HasPermissionAttribute>();

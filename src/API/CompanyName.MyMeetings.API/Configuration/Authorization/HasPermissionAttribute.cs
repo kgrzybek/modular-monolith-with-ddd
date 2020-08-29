@@ -6,12 +6,14 @@ namespace CompanyName.MyMeetings.API.Configuration.Authorization
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     internal class HasPermissionAttribute : AuthorizeAttribute
     {
-        internal static string HasPermissionPolicyName = "HasPermission";
-        public string Name { get; }
+        internal const string HasPermissionPolicyName = "HasPermission";
 
-        public HasPermissionAttribute(string name) : base(HasPermissionPolicyName)
+        public HasPermissionAttribute(string name)
+            : base(HasPermissionPolicyName)
         {
             Name = name;
         }
+
+        public string Name { get; }
     }
 }

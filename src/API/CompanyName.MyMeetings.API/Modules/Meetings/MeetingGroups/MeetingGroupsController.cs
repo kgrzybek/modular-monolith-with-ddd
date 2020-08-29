@@ -19,7 +19,6 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingGroups
         public MeetingGroupsController(IMeetingsModule meetingsModule)
         {
             _meetingsModule = meetingsModule;
-
         }
 
         [HttpGet("")]
@@ -33,7 +32,9 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingGroups
 
         [HttpPut("{meetingGroupId}")]
         [HasPermission(MeetingsPermissions.EditMeetingGroupGeneralAttributes)]
-        public async Task<IActionResult> EditMeetingGroupGeneralAttributes([FromRoute]Guid meetingGroupId, [FromBody]EditMeetingGroupGeneralAttributesRequest request)
+        public async Task<IActionResult> EditMeetingGroupGeneralAttributes(
+            [FromRoute] Guid meetingGroupId,
+            [FromBody] EditMeetingGroupGeneralAttributesRequest request)
         {
             await _meetingsModule.ExecuteCommandAsync(new EditMeetingGroupGeneralAttributesCommand(
                 meetingGroupId,

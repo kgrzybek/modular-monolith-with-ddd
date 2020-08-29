@@ -17,14 +17,18 @@ namespace CompanyName.MyMeetings.API.Modules.UserAccess
 
         public async Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
         {
-            var authenticationResult = await _userAccessModule.ExecuteCommandAsync(new AuthenticateCommand(context.UserName, context.Password));
+            var authenticationResult = await _userAccessModule.ExecuteCommandAsync(
+                new AuthenticateCommand(context.UserName, context.Password));
+
             if (!authenticationResult.IsAuthenticated)
             {
                 context.Result = new GrantValidationResult(
                     TokenRequestErrors.InvalidGrant,
                     authenticationResult.AuthenticationError);
+
                 return;
             }
+
             context.Result = new GrantValidationResult(
                 authenticationResult.User.Id.ToString(),
                 "forms",

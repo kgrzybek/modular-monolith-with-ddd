@@ -55,7 +55,8 @@ namespace CompanyName.MyMeetings.API.Modules.Payments.PriceListItems
 
         [HttpPut]
         [HasPermission(PaymentsPermissions.ChangePriceListItemAttributes)]
-        public async Task<IActionResult> ChangePriceListItemAttributes([FromBody] ChangePriceListItemAttributesRequest request)
+        public async Task<IActionResult> ChangePriceListItemAttributes(
+            [FromBody] ChangePriceListItemAttributesRequest request)
         {
             await _paymentsModule.ExecuteCommandAsync(new ChangePriceListItemAttributesCommand(
                 request.PriceListItemId,

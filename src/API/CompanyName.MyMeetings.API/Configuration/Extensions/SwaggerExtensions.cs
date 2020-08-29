@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace CompanyName.MyMeetings.API
+namespace CompanyName.MyMeetings.API.Configuration.Extensions
 {
     internal static class SwaggerExtensions
     {
@@ -18,17 +18,18 @@ namespace CompanyName.MyMeetings.API
                 {
                     Title = "MyMeetings API",
                     Version = "v1",
-                    Description = "MyMeetings API for modular monolith .NET application.",
+                    Description = "MyMeetings API for modular monolith .NET application."
                 });
 
                 var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                var commentsFileName = Assembly.GetExecutingAssembly().GetName().Name + ".xml";
+                var commentsFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var commentsFile = Path.Combine(baseDirectory, commentsFileName);
                 options.IncludeXmlComments(commentsFile);
 
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Description =
+                        "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
                     Name = "Authorization",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey
@@ -46,24 +47,22 @@ namespace CompanyName.MyMeetings.API
                             },
                             Scheme = "oauth2",
                             Name = "Bearer",
-                            In = ParameterLocation.Header,
-
+                            In = ParameterLocation.Header
                         },
                         new List<string>()
                     }
                 });
-
             });
+
             return services;
         }
+
         internal static IApplicationBuilder UseSwaggerDocumentation(this IApplicationBuilder app)
         {
             app.UseSwagger();
 
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyMeetings API");
-            });
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyMeetings API"); });
+
             return app;
         }
     }

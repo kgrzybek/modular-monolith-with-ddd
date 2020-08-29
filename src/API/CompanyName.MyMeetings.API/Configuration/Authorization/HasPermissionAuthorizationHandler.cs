@@ -8,10 +8,12 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CompanyName.MyMeetings.API.Configuration.Authorization
 {
-    internal class HasPermissionAuthorizationHandler : AttributeAuthorizationHandler<HasPermissionAuthorizationRequirement, HasPermissionAttribute>
+    internal class HasPermissionAuthorizationHandler : AttributeAuthorizationHandler<
+        HasPermissionAuthorizationRequirement, HasPermissionAttribute>
     {
-        private readonly IUserAccessModule _userAccessModule;
         private readonly IExecutionContextAccessor _executionContextAccessor;
+        private readonly IUserAccessModule _userAccessModule;
+
         public HasPermissionAuthorizationHandler(
             IExecutionContextAccessor executionContextAccessor,
             IUserAccessModule userAccessModule)
@@ -41,13 +43,7 @@ namespace CompanyName.MyMeetings.API.Configuration.Authorization
 #if !DEBUG
             return Task.FromResult(true);
 #endif
-
-            if (permissions.Any(x => x.Code == permission))
-            {
-                return Task.FromResult(true);
-            }
-
-            return Task.FromResult(false);
+            return Task.FromResult(permissions.Any(x => x.Code == permission));
         }
     }
 }

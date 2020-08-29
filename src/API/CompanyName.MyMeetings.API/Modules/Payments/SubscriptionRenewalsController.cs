@@ -21,7 +21,8 @@ namespace CompanyName.MyMeetings.API.Modules.Payments
         [HasPermission(PaymentsPermissions.RegisterPayment)]
         public async Task<IActionResult> RegisterSubscriptionPayment(RegisterSubscriptionRenewalPaymentRequest request)
         {
-            await _paymentsModule.ExecuteCommandAsync(new MarkSubscriptionRenewalPaymentAsPaidCommand(request.PaymentId));
+            await _paymentsModule.ExecuteCommandAsync(
+                new MarkSubscriptionRenewalPaymentAsPaidCommand(request.PaymentId));
 
             return Ok();
         }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CompanyName.MyMeetings.API.Modules.Payments
+namespace CompanyName.MyMeetings.API.Modules.Payments.Subscriptions
 {
     public class RegisterSubscriptionPaymentRequest
     {
