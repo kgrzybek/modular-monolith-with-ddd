@@ -72,6 +72,8 @@ jobs:
 
     - name: Run Administration Integration Tests
       run: dotnet test --configuration Release --no-build --verbosity normal src/Modules/Administration/Tests/IntegrationTests/CompanyName.MyMeetings.Modules.Administration.IntegrationTests.csproj
+    - name: Run Meetings Integration Tests
+      run: dotnet test --configuration Release --no-build --verbosity normal src/Modules/Meetings/Tests/IntegrationTests/CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.csproj
     - name: Run Payments Integration Tests
       run: dotnet test --configuration Release --no-build --verbosity normal src/Modules/Payments/Tests/IntegrationTests/CompanyName.MyMeetings.Modules.Payments.IntegrationTests.csproj
     - name: Run UserAccess Integration Tests
