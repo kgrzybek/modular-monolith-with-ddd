@@ -47,7 +47,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
 
             _isRemoved = false;
             _removedByReason = null;
-            
+
             this.AddDomainEvent(new MeetingCommentCreatedDomainEvent(Id));
         }
 
@@ -74,12 +74,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
 
             _isRemoved = true;
             _removedByReason = reason ?? string.Empty;
-            
+
             this.AddDomainEvent(new MeetingCommentRemovedDomainEvent(this.Id));
         }
 
         public MeetingId GetMeetingId() => this._meetingId;
-        
+
         internal static MeetingComment Create(MeetingId meetingId, MemberId authorId, string comment)
             => new MeetingComment(meetingId, authorId, comment, inReplyToCommentId: null);
     }
