@@ -72,8 +72,14 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations
         {
             this.CheckRule(new UserCannotBeCreatedWhenRegistrationIsNotConfirmedRule(_status));
 
-            return User.CreateFromUserRegistration(this.Id, this._login, this._password, this._email, this._firstName,
-                this._lastName, this._name);
+            return User.CreateFromUserRegistration(
+                this.Id,
+                this._login,
+                this._password,
+                this._email,
+                this._firstName,
+                this._lastName,
+                this._name);
         }
 
         public void Confirm()
