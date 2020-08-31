@@ -8,7 +8,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Users.CreateUser
     public class UserRegistrationConfirmedNotification : DomainNotificationBase<UserRegistrationConfirmedDomainEvent>
     {
         [JsonConstructor]
-        public UserRegistrationConfirmedNotification(UserRegistrationConfirmedDomainEvent domainEvent, Guid id) : base(domainEvent, id)
+        public UserRegistrationConfirmedNotification(UserRegistrationConfirmedDomainEvent domainEvent, Guid id)
+            : base(domainEvent, id)
         {
         }
     }

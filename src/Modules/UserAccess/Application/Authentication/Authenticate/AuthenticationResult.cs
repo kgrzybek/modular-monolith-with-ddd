@@ -1,11 +1,7 @@
-﻿using System;
-using System.Diagnostics;
-
-namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Authentication.Authenticate
+﻿namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Authentication.Authenticate
 {
     public class AuthenticationResult
     {
-
         public AuthenticationResult(string authenticationError)
         {
             IsAuthenticated = false;
@@ -17,6 +13,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Authentication.A
             this.IsAuthenticated = true;
             this.User = user;
         }
+
         public bool IsAuthenticated { get; }
 
         public string AuthenticationError { get; }

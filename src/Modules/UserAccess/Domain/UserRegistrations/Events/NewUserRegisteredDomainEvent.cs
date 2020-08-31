@@ -21,7 +21,12 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations.Eve
 
         public NewUserRegisteredDomainEvent(
             UserRegistrationId userRegistrationId,
-            string login, string email, string firstName, string lastName, string name, DateTime registerDate)
+            string login,
+            string email,
+            string firstName,
+            string lastName,
+            string name,
+            DateTime registerDate)
         {
             UserRegistrationId = userRegistrationId;
             Login = login;

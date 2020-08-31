@@ -8,6 +8,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
     public class AesDataProtector : IDataProtector
     {
         private readonly string _encryptionKey;
+
         public AesDataProtector(string encryptionKey)
         {
             _encryptionKey = encryptionKey;
@@ -17,31 +18,25 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
         {
             var key = Encoding.UTF8.GetBytes(_encryptionKey);
 
-            using (var aesAlg = Aes.Create())
+            using var aesAlg = Aes.Create();
+            using var encryptor = aesAlg.CreateEncryptor(key, aesAlg.IV);
+            using var msEncrypt = new MemoryStream();
+            using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
             {
-                using (var encryptor = aesAlg.CreateEncryptor(key, aesAlg.IV))
-                {
-                    using (var msEncrypt = new MemoryStream())
-                    {
-                        using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
-                        using (var swEncrypt = new StreamWriter(csEncrypt))
-                        {
-                            swEncrypt.Write(plainText);
-                        }
-
-                        var iv = aesAlg.IV;
-
-                        var decryptedContent = msEncrypt.ToArray();
-
-                        var result = new byte[iv.Length + decryptedContent.Length];
-
-                        Buffer.BlockCopy(iv, 0, result, 0, iv.Length);
-                        Buffer.BlockCopy(decryptedContent, 0, result, iv.Length, decryptedContent.Length);
-
-                        return Convert.ToBase64String(result);
-                    }
-                }
+                using var swEncrypt = new StreamWriter(csEncrypt);
+                swEncrypt.Write(plainText);
             }
+
+            var iv = aesAlg.IV;
+
+            var decryptedContent = msEncrypt.ToArray();
+
+            var result = new byte[iv.Length + decryptedContent.Length];
+
+            Buffer.BlockCopy(iv, 0, result, 0, iv.Length);
+            Buffer.BlockCopy(decryptedContent, 0, result, iv.Length, decryptedContent.Length);
+
+            return Convert.ToBase64String(result);
         }
 
         public string Decrypt(string encryptedText)
@@ -55,25 +50,17 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
             Buffer.BlockCopy(fullCipher, iv.Length, cipher, 0, fullCipher.Length - iv.Length);
             var key = Encoding.UTF8.GetBytes(_encryptionKey);
 
-            using (var aesAlg = Aes.Create())
+            using var aesAlg = Aes.Create();
+            using var decryptor = aesAlg.CreateDecryptor(key, iv);
+            string result;
+            using (var msDecrypt = new MemoryStream(cipher))
             {
-                using (var decryptor = aesAlg.CreateDecryptor(key, iv))
-                {
-                    string result;
-                    using (var msDecrypt = new MemoryStream(cipher))
-                    {
-                        using (var csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
-                        {
-                            using (var srDecrypt = new StreamReader(csDecrypt))
-                            {
-                                result = srDecrypt.ReadToEnd();
-                            }
-                        }
-                    }
-
-                    return result;
-                }
+                using var csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read);
+                using var srDecrypt = new StreamReader(csDecrypt);
+                result = srDecrypt.ReadToEnd();
             }
+
+            return result;
         }
     }
 }

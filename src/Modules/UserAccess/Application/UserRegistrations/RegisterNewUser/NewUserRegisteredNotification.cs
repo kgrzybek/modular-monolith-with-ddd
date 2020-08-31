@@ -8,7 +8,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistration
     public class NewUserRegisteredNotification : DomainNotificationBase<NewUserRegisteredDomainEvent>
     {
         [JsonConstructor]
-        public NewUserRegisteredNotification(NewUserRegisteredDomainEvent domainEvent, Guid id) : base(domainEvent, id)
+        public NewUserRegisteredNotification(NewUserRegisteredDomainEvent domainEvent, Guid id)
+            : base(domainEvent, id)
         {
         }
     }

@@ -9,6 +9,6 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.Users.Events
             Id = id;
         }
 
-        public UserId Id { get; }
+        public new UserId Id { get; }
     }
 }

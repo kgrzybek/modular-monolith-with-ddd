@@ -80,6 +80,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
             {
                 _notification = notification;
             }
+
             public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
             {
                 logEvent.AddOrUpdateProperty(new LogEventProperty("Context", new ScalarValue($"OutboxMessage:{_notification.Id.ToString()}")));

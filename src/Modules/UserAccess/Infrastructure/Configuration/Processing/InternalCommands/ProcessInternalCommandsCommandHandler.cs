@@ -52,10 +52,11 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
 
                 if (result.Outcome == OutcomeType.Failure)
                 {
-                    await connection.ExecuteScalarAsync("UPDATE [users].[InternalCommands] " +
-                                                        "SET ProcessedDate = @NowDate, " +
-                                                        "Error = @Error " +
-                                                        "WHERE [Id] = @Id",
+                    await connection.ExecuteScalarAsync(
+                        "UPDATE [users].[InternalCommands] " +
+                            "SET ProcessedDate = @NowDate, " +
+                            "Error = @Error " +
+                            "WHERE [Id] = @Id",
                         new
                         {
                             NowDate = DateTime.UtcNow,
@@ -63,7 +64,6 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
                             internalCommand.Id
                         });
                 }
-
             }
 
             return Unit.Value;

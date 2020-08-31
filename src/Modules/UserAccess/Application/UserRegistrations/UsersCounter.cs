@@ -1,5 +1,4 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations;
 using Dapper;
 
@@ -22,7 +21,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistration
                                "COUNT(*) " +
                                "FROM [users].[v_Users] AS [User]" +
                                "WHERE [User].[Login] = @Login";
-            return connection.QuerySingle<int>(sql,
+            return connection.QuerySingle<int>(
+                sql,
                 new
                 {
                     login
