@@ -25,7 +25,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
     {
         private static IContainer _container;
 
-        public static void Initialize(string connectionString,
+        public static void Initialize(
+            string connectionString,
             IExecutionContextAccessor executionContextAccessor,
             ILogger logger,
             EmailsConfiguration emailsConfiguration,
@@ -34,7 +35,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
         {
             var moduleLogger = logger.ForContext("Module", "UserAccess");
 
-            ConfigureCompositionRoot(connectionString,
+            ConfigureCompositionRoot(
+                connectionString,
                 executionContextAccessor,
                 logger,
                 emailsConfiguration,

@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Autofac;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Serialization;
 using Dapper;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.EventsBus
 {
-    internal class IntegrationEventGenericHandler<T> : IIntegrationEventHandler<T> where T : IntegrationEvent
+    internal class IntegrationEventGenericHandler<T> : IIntegrationEventHandler<T>
+        where T : IntegrationEvent
     {
         public async Task Handle(T @event)
         {

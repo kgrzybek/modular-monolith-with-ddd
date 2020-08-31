@@ -14,6 +14,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure
     public class UserAccessContext : DbContext
     {
         public DbSet<UserRegistration> UserRegistrations { get; set; }
+
         public DbSet<User> Users { get; set; }
 
         public DbSet<OutboxMessage> OutboxMessages { get; set; }
@@ -22,7 +23,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure
 
         private readonly ILoggerFactory _loggerFactory;
 
-        public UserAccessContext(DbContextOptions options, ILoggerFactory loggerFactory) : base(options)
+        public UserAccessContext(DbContextOptions options, ILoggerFactory loggerFactory)
+            : base(options)
         {
             _loggerFactory = loggerFactory;
         }

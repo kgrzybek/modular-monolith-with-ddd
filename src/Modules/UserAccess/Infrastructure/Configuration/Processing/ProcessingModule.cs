@@ -50,7 +50,6 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
                 typeof(ValidationCommandHandlerWithResultDecorator<,>),
                 typeof(ICommandHandler<,>));
 
-
             builder.RegisterGenericDecorator(
                 typeof(LoggingCommandHandlerDecorator<>),
                 typeof(ICommandHandler<>));
