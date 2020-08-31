@@ -17,7 +17,9 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistration
 
         public Task Handle(NewUserRegisteredNotification notification, CancellationToken cancellationToken)
         {
-            _eventsBus.Publish(new NewUserRegisteredIntegrationEvent(notification.Id, notification.DomainEvent.OccurredOn,
+            _eventsBus.Publish(new NewUserRegisteredIntegrationEvent(
+                notification.Id,
+                notification.DomainEvent.OccurredOn,
                 notification.DomainEvent.UserRegistrationId.Value,
                 notification.DomainEvent.Login,
                 notification.DomainEvent.Email,

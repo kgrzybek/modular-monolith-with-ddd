@@ -15,11 +15,12 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistration
             _emailSender = emailSender;
         }
 
-        public Task<Unit> Handle(SendUserRegistrationConfirmationEmailCommand request, CancellationToken cancellationToken)
+        public Task<Unit> Handle(SendUserRegistrationConfirmationEmailCommand command, CancellationToken cancellationToken)
         {
-            var emailMessage = new EmailMessage(request.Email, "MyMeetings - Please confirm your registration",
-                "This should be link to confirmation page. For now, please execute HTTP request " +
-                $"PATCH http://localhost:5000/userAccess/userRegistrations/{request.UserRegistrationId.Value}/confirm");
+            var emailMessage = new EmailMessage(
+                command.Email,
+                "MyMeetings - Please confirm your registration",
+                $"This should be link to confirmation page. For now, please execute HTTP request PATCH http://localhost:5000/userAccess/userRegistrations/{command.UserRegistrationId.Value}/confirm");
 
             _emailSender.SendEmail(emailMessage);
 

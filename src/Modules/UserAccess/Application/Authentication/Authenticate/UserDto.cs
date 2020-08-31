@@ -7,6 +7,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Authentication.A
     public class UserDto
     {
         public Guid Id { get; set; }
+
         public string Login { get; set; }
 
         public bool IsActive { get; set; }

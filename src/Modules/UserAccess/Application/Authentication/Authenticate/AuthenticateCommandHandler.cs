@@ -33,7 +33,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Authentication.A
                                "FROM [users].[v_Users] AS [User] " +
                                "WHERE [User].[Login] = @Login";
 
-            var user = await connection.QuerySingleOrDefaultAsync<UserDto>(sql,
+            var user = await connection.QuerySingleOrDefaultAsync<UserDto>(
+                sql,
                 new
                 {
                     request.Login,
