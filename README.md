@@ -64,6 +64,8 @@ Full Modular Monolith .NET application with Domain-Driven Design approach.
 
 &nbsp;&nbsp;[3.16 Database change management](#316-database-change-management)
 
+&nbsp;&nbsp;[3.17 Continuous Integration](#317-continuous-integration)
+
 [4. Technology](#4-technology)
 
 [5. How to Run](#5-how-to-run)
@@ -110,7 +112,7 @@ This is a list of subjects which are out of scope for this repository:
 - Project management
 - Infrastructure
 - Containerization
-- Software engineering process, CI/CD
+- Software engineering process
 - Deployment process
 - Maintenance
 - Documentation
@@ -1662,6 +1664,48 @@ The entire solution is described in detail in the following articles:
 1. [Database change management](https://www.kamilgrzybek.com/database/database-change-management/) (theory)
 2. [Using database project and DbUp for database management](https://www.kamilgrzybek.com/database/using-database-project-and-dbup-for-database-management/) (implementation)
 
+### 3.17 Continuous Integration
+
+#### Definition
+
+As defined on [Martin Fowler's website](https://martinfowler.com/articles/continuousIntegration.html):
+> *Continuous Integration is a software development practice where members of a team integrate their work frequently, usually each person integrates at least daily - leading to multiple integrations per day. Each integration is verified by an automated build (including test) to detect integration errors as quickly as possible.*
+
+#### Implementation
+
+##### Pipeline description
+
+CI was implemented using [GitHub Actions](https://docs.github.com/en/actions/getting-started-with-github-actions/about-github-actions). For this purpose, one workflow, which triggers on Pull Request to *master* branch or Push to *master* branch was created. It contains 2 jobs: 
+- build test, execute Unit Tests and Architecture Tests
+- execute Integration Tests
+
+![](docs/Images/ci.jpg)
+
+**Steps description**<br/>
+a) Checkout repository - clean checkout of git repository <br/>
+b) Setup .NET Core - install .NET Core SDK<br/>
+c) Install dependencies - resolve NuGet packages<br/>
+d) Build - build solution<br/>
+e) Run Unit Tests - run automated Unit Tests (see section 3.10)<br/>
+f) Run Architecture Tests - run automated Architecture Tests (see section 3.12)<br/>
+g) Initialize containers - setup Docker container for MS SQL Server<br/>
+h) Wait for SQL Server initialization - after container initialization MS SQL Server is not ready, initialization of server itself takes some time so 30 seconds timeout before execution of next step is needed<br/>
+i) Create Database - create and initialize database<br/>
+j) Migrate Database - execute database upgrade using *DatabaseMigrator* application (see 3.16 section)<br/>
+k) Run Integration Tests - perform Integration and System Integration Testing (see section 3.13 and 3.14)<br/>
+
+##### Workflow definition
+
+Workflow definition: [buildPipeline.yml](.github/workflows/buildPipeline.yml)
+
+##### Example workflow execution
+
+Example workflow output:
+
+![](docs/Images/ci_job1.png)
+
+![](docs/Images/ci_job2.png)
+
 ## 4. Technology
 
 List of technologies, frameworks and libraries used for implementation:
@@ -1688,6 +1732,7 @@ List of technologies, frameworks and libraries used for implementation:
 - [SQL Stream Store](https://github.com/SQLStreamStore) (Library to assist with Event Sourcing)
 - [DbUp](https://dbup.readthedocs.io/en/latest/) (Database migrations deployment)
 - [SSDT Database Project](https://docs.microsoft.com/en-us/sql/ssdt/how-to-create-a-new-database-project) (Database structure versioning)
+- [GitHub Actions](https://docs.github.com/en/actions) (Continuous Integration workflows implementation)
 
 ## 5. How to Run
 
@@ -1772,7 +1817,7 @@ List of features/tasks/approaches to add:
 | More advanced Payments module | Completed  |  2020-07-11  |
 | Event Sourcing implementation | Completed  |  2020-07-11  |
 | Database Change Management | Completed  |  2020-08-23  |
-| API automated tests      |     |    |
+| Continuous Integration      | Completed  | 2020-09-01   |
 | FrontEnd SPA application |      |    |
 | Meeting comments feature |    |    |
 | Notifications feature |     |    |
