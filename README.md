@@ -1681,18 +1681,18 @@ CI was implemented using [GitHub Actions](https://docs.github.com/en/actions/get
 
 ![](docs/Images/ci.jpg)
 
-**Steps description**
-a) Checkout repository - clean checkout of git repository
-b) Setup .NET Core - install .NET Core SDK
-c) Install dependencies - resolve NuGet packages
-d) Build - build solution
-e) Run Unit Tests - run automated Unit Tests (see section 3.10)
-f) Run Architecture Tests - run automated Architecture Tests (see section 3.12)
-g) Initialize containers - setup Docker container for MS SQL Server
-h) Wait for SQL Server initialization - after container initialization MS SQL Server is not ready, initialization of server itself takes some time so 30 seconds timeout before execution of next step is needed
-i) Create Database - create and initialize database
-j) Migrate Database - execute database upgrade using *DatabaseMigrator* application (see 3.16 section)
-k) Run Integration Tests - perform Integration and System Integration Testing (see section 3.13 and 3.14)
+**Steps description**<br/>
+a) Checkout repository - clean checkout of git repository <br/>
+b) Setup .NET Core - install .NET Core SDK<br/>
+c) Install dependencies - resolve NuGet packages<br/>
+d) Build - build solution<br/>
+e) Run Unit Tests - run automated Unit Tests (see section 3.10)<br/>
+f) Run Architecture Tests - run automated Architecture Tests (see section 3.12)<br/>
+g) Initialize containers - setup Docker container for MS SQL Server<br/>
+h) Wait for SQL Server initialization - after container initialization MS SQL Server is not ready, initialization of server itself takes some time so 30 seconds timeout before execution of next step is needed<br/>
+i) Create Database - create and initialize database<br/>
+j) Migrate Database - execute database upgrade using *DatabaseMigrator* application (see 3.16 section)<br/>
+k) Run Integration Tests - perform Integration and System Integration Testing (see section 3.13 and 3.14)<br/>
 
 ##### Workflow definition
 
