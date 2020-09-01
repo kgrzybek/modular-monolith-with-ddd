@@ -1732,7 +1732,7 @@ List of technologies, frameworks and libraries used for implementation:
 - [SQL Stream Store](https://github.com/SQLStreamStore) (Library to assist with Event Sourcing)
 - [DbUp](https://dbup.readthedocs.io/en/latest/) (Database migrations deployment)
 - [SSDT Database Project](https://docs.microsoft.com/en-us/sql/ssdt/how-to-create-a-new-database-project) (Database structure versioning)
-- [GitHub Actions] (https://docs.github.com/en/actions) (Continuous Integration workflows implementation)
+- [GitHub Actions](https://docs.github.com/en/actions) (Continuous Integration workflows implementation)
 
 ## 5. How to Run
 
