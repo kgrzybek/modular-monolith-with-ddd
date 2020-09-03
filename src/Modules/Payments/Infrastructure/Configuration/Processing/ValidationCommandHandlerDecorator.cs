@@ -11,7 +11,8 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Processing
 {
-    internal class ValidationCommandHandlerDecorator<T> : ICommandHandler<T> where T : ICommand
+    internal class ValidationCommandHandlerDecorator<T> : ICommandHandler<T>
+        where T : ICommand
     {
         private readonly IList<IValidator<T>> _validators;
         private readonly ICommandHandler<T> _decorated;

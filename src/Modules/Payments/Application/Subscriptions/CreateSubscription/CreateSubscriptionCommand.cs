@@ -11,7 +11,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Crea
         [JsonConstructor]
         public CreateSubscriptionCommand(
             Guid id,
-            Guid subscriptionPaymentId) : base(id)
+            Guid subscriptionPaymentId)
+            : base(id)
         {
             SubscriptionPaymentId = subscriptionPaymentId;
         }

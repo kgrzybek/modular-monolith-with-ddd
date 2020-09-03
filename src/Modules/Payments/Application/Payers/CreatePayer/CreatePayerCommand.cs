@@ -26,7 +26,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Payers.CreatePayer
             string email,
             string firstName,
             string lastName,
-            string name) : base(id)
+            string name)
+            : base(id)
         {
             UserId = userId;
             Login = login;

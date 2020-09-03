@@ -11,6 +11,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.A
         {
             this._executionContextAccessor = executionContextAccessor;
         }
+
         public PayerId PayerId => new PayerId(_executionContextAccessor.UserId);
     }
 }

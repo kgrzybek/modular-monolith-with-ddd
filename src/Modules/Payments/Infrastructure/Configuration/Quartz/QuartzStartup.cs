@@ -14,6 +14,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Q
     {
         private static IScheduler _scheduler;
 
+        internal static void StopQuartz()
+        {
+            _scheduler.Shutdown();
+        }
+
         internal static void Initialize(ILogger logger)
         {
             logger.Information("Quartz starting...");
@@ -107,11 +112,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Q
             scheduler
                 .ScheduleJob(processOutboxJob, trigger)
                 .GetAwaiter().GetResult();
-        }
-
-        public static void StopQuartz()
-        {
-            _scheduler.Shutdown();
         }
     }
 }

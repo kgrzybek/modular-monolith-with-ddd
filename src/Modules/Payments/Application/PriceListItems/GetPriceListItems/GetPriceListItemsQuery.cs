@@ -5,6 +5,5 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.Get
 {
     public class GetPriceListItemsQuery : QueryBase<List<PriceListItemDto>>
     {
-
     }
 }

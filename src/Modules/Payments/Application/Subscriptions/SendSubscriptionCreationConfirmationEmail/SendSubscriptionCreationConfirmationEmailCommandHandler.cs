@@ -17,7 +17,9 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Send
 
         public Task<Unit> Handle(SendSubscriptionCreationConfirmationEmailCommand request, CancellationToken cancellationToken)
         {
-            var emailMessage = new EmailMessage(request.Email, "MyMeetings - Subscription purchased",
+            var emailMessage = new EmailMessage(
+                request.Email,
+                "MyMeetings - Subscription purchased",
                 $"Subscription {request.SubscriptionId.Value} was successfully paid and created with ❤ for you!");
 
             _emailSender.SendEmail(emailMessage);

@@ -8,7 +8,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.Create
     {
         [JsonConstructor]
         public CreateMeetingFeeCommand(
-            Guid id, Guid payerId, Guid meetingId, decimal value, string currency) : base(id)
+            Guid id, Guid payerId, Guid meetingId, decimal value, string currency)
+            : base(id)
         {
             PayerId = payerId;
             MeetingId = meetingId;
