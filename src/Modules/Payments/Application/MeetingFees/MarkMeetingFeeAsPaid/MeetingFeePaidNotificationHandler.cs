@@ -26,7 +26,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.MarkMe
 
             var meetingFeeSnapshot = meetingFee.GetSnapshot();
 
-            _eventsBus.Publish(new MeetingFeePaidIntegrationEvent(notification.Id,
+            _eventsBus.Publish(new MeetingFeePaidIntegrationEvent(
+                notification.Id,
                 notification.DomainEvent.OccurredOn,
                 meetingFeeSnapshot.PayerId,
                 meetingFeeSnapshot.MeetingId));

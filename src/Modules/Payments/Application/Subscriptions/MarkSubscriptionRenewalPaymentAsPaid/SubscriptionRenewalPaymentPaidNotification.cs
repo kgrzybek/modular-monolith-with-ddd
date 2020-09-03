@@ -7,7 +7,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Mark
     public class SubscriptionRenewalPaymentPaidNotification
         : DomainNotificationBase<SubscriptionRenewalPaymentPaidDomainEvent>
     {
-        public SubscriptionRenewalPaymentPaidNotification(SubscriptionRenewalPaymentPaidDomainEvent domainEvent, Guid id) : base(domainEvent, id)
+        public SubscriptionRenewalPaymentPaidNotification(SubscriptionRenewalPaymentPaidDomainEvent domainEvent, Guid id)
+            : base(domainEvent, id)
         {
         }
     }

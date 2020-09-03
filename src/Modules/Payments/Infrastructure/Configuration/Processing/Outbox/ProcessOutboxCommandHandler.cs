@@ -24,7 +24,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
 
         public ProcessOutboxCommandHandler(
             IMediator mediator,
-            ISqlConnectionFactory sqlConnectionFactory, IDomainNotificationsMapper domainNotificationsMapper)
+            ISqlConnectionFactory sqlConnectionFactory,
+            IDomainNotificationsMapper domainNotificationsMapper)
         {
             _mediator = mediator;
             _sqlConnectionFactory = sqlConnectionFactory;
@@ -78,6 +79,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
             {
                 _notification = notification;
             }
+
             public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
             {
                 logEvent.AddOrUpdateProperty(new LogEventProperty("Context", new ScalarValue($"OutboxMessage:{_notification.Id.ToString()}")));

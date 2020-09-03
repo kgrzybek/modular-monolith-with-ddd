@@ -1,5 +1,4 @@
 ﻿using System;
-using CompanyName.MyMeetings.Modules.Payments.Domain.Payers;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments.Events
@@ -11,7 +10,9 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments.Ev
             Guid payerId,
             string subscriptionPeriodCode,
             string countryCode,
-            string status, decimal value, string currency)
+            string status,
+            decimal value,
+            string currency)
         {
             SubscriptionPaymentId = subscriptionPaymentId;
             PayerId = payerId;

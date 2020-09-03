@@ -6,11 +6,18 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork
 {
     public abstract class AggregateRoot
     {
+        private readonly List<IDomainEvent> _domainEvents;
+
         public Guid Id { get; protected set; }
 
         public int Version { get; private set; }
 
-        private readonly List<IDomainEvent> _domainEvents;
+        public IReadOnlyCollection<IDomainEvent> GetDomainEvents() => _domainEvents.AsReadOnly();
+
+        protected void AddDomainEvent(IDomainEvent @event)
+        {
+            _domainEvents.Add(@event);
+        }
 
         protected AggregateRoot()
         {
@@ -18,13 +25,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork
 
             Version = -1;
         }
-
-        protected void AddDomainEvent(IDomainEvent @event)
-        {
-            _domainEvents.Add(@event);
-        }
-
-        public IReadOnlyCollection<IDomainEvent> GetDomainEvents() => _domainEvents.AsReadOnly();
 
         public void Load(IEnumerable<IDomainEvent> history)
         {

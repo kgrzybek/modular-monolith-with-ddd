@@ -9,11 +9,13 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork
     {
         Task Save();
 
-        Task<T> Load<T>(AggregateId<T> aggregateId) where T : AggregateRoot;
+        Task<T> Load<T>(AggregateId<T> aggregateId)
+            where T : AggregateRoot;
 
         List<IDomainEvent> GetChanges();
 
-        void AppendChanges<T>(T aggregate) where T : AggregateRoot;
+        void AppendChanges<T>(T aggregate)
+            where T : AggregateRoot;
 
         void ClearChanges();
     }

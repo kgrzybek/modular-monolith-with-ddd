@@ -23,8 +23,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Mark
                 new RenewSubscriptionCommand(
                     Guid.NewGuid(),
                     notification.DomainEvent.SubscriptionId,
-                    notification.DomainEvent.SubscriptionRenewalPaymentId
-                    ));
+                    notification.DomainEvent.SubscriptionRenewalPaymentId));
         }
     }
 }

@@ -57,10 +57,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.GetMee
 
         private async Task UpdateStatus(Guid meetingFeeId, string status)
         {
-            await _connection.ExecuteScalarAsync("UPDATE payments.MeetingFees " +
-                                                 "SET " +
-                                                 "[Status] = @Status " +
-                                                 "WHERE [MeetingFeeId] = @MeetingFeeId",
+            await _connection.ExecuteScalarAsync(
+                "UPDATE payments.MeetingFees " +
+                "SET " +
+                "[Status] = @Status " +
+                "WHERE [MeetingFeeId] = @MeetingFeeId",
                 new
                 {
                     meetingFeeId,

@@ -49,7 +49,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
             _aggregatesToSave.Clear();
         }
 
-        public async Task<T> Load<T>(AggregateId<T> aggregateId) where T : AggregateRoot
+        public async Task<T> Load<T>(AggregateId<T> aggregateId)
+            where T : AggregateRoot
         {
             var streamId = GetStreamId(aggregateId);
 
@@ -67,7 +68,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
 
                     domainEvents.Add(domainEvent);
                 }
-            } while (!readStreamPage.IsEnd);
+            }
+            while (!readStreamPage.IsEnd);
 
             if (!domainEvents.Any())
             {
@@ -86,7 +88,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
             return _appendedChanges;
         }
 
-        public void AppendChanges<T>(T aggregate) where T : AggregateRoot
+        public void AppendChanges<T>(T aggregate)
+            where T : AggregateRoot
         {
             _aggregatesToSave.Add(new AggregateToSave(aggregate, CreateStreamMessages(aggregate).ToList()));
         }
@@ -110,7 +113,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
         }
 
         private NewStreamMessage[] CreateStreamMessages<T>(
-            T aggregate) where T : AggregateRoot
+            T aggregate)
+            where T : AggregateRoot
         {
             List<NewStreamMessage> newStreamMessages = new List<NewStreamMessage>();
 
@@ -146,7 +150,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
             throw new ArgumentException("Invalid Domain Event type", nameof(domainEvent));
         }
 
-        private static string GetStreamId<T>(T aggregate) where T : AggregateRoot
+        private static string GetStreamId<T>(T aggregate)
+            where T : AggregateRoot
         {
             return $"{aggregate.GetType().Name}-{aggregate.Id:N}";
         }

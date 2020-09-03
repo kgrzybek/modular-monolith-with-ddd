@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Routing;
@@ -20,8 +18,8 @@ namespace CompanyName.MyMeetings.API.Configuration.Authorization
         }
 
         protected abstract Task HandleRequirementAsync(
-            AuthorizationHandlerContext context, 
-            TRequirement requirement, 
+            AuthorizationHandlerContext context,
+            TRequirement requirement,
             TAttribute attribute);
     }
 }

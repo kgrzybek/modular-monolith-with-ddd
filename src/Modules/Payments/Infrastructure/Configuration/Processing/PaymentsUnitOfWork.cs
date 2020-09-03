@@ -45,7 +45,10 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
                 IsolationLevel = IsolationLevel.ReadCommitted
             };
 
-            using var transaction = new TransactionScope(TransactionScopeOption.Required, options, TransactionScopeAsyncFlowOption.Enabled);
+            using var transaction = new TransactionScope(
+                TransactionScopeOption.Required,
+                options,
+                TransactionScopeAsyncFlowOption.Enabled);
 
             await _aggregateStore.Save();
 
@@ -54,9 +57,10 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
             if (internalCommandId.HasValue)
             {
                 using var connection = _sqlConnectionFactory.CreateNewConnection();
-                await connection.ExecuteScalarAsync("UPDATE payments.InternalCommands " +
-                                                    "SET ProcessedDate = @Date " +
-                                                    "WHERE Id = @Id",
+                await connection.ExecuteScalarAsync(
+                    "UPDATE payments.InternalCommands " +
+                    "SET ProcessedDate = @Date " +
+                    "WHERE Id = @Id",
                     new
                     {
                         Date = DateTime.UtcNow,

@@ -27,12 +27,13 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetS
         {
             var period = SubscriptionPeriod.GetName(subscriptionRenewed.SubscriptionPeriodCode);
 
-            await _connection.ExecuteScalarAsync("UPDATE payments.SubscriptionDetails " +
-                                                    "SET " +
-                                                        "[Status] = @Status, " +
-                                                        "[ExpirationDate] = @ExpirationDate, " +
-                                                        "[Period] = @Period " +
-                                                    "WHERE [Id] = @SubscriptionId",
+            await _connection.ExecuteScalarAsync(
+                "UPDATE payments.SubscriptionDetails " +
+                "SET " +
+                "[Status] = @Status, " +
+                "[ExpirationDate] = @ExpirationDate, " +
+                "[Period] = @Period " +
+                "WHERE [Id] = @SubscriptionId",
                 new
                 {
                     subscriptionRenewed.SubscriptionId,
@@ -44,10 +45,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetS
 
         private async Task When(SubscriptionExpiredDomainEvent subscriptionExpired)
         {
-            await _connection.ExecuteScalarAsync("UPDATE payments.SubscriptionDetails " +
-                                                 "SET " +
-                                                 "[Status] = @Status " +
-                                                 "WHERE [Id] = @SubscriptionId",
+            await _connection.ExecuteScalarAsync(
+                "UPDATE payments.SubscriptionDetails " +
+                "SET " +
+                "[Status] = @Status " +
+                "WHERE [Id] = @SubscriptionId",
                 new
                 {
                     subscriptionExpired.SubscriptionId,
@@ -59,9 +61,10 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetS
         {
             var period = SubscriptionPeriod.GetName(subscriptionCreated.SubscriptionPeriodCode);
 
-            await _connection.ExecuteScalarAsync("INSERT INTO payments.SubscriptionDetails " +
-                                           "([Id], [Period], [Status], [CountryCode], [ExpirationDate]) " +
-                                           "VALUES (@SubscriptionId, @Period, @Status, @CountryCode, @ExpirationDate)",
+            await _connection.ExecuteScalarAsync(
+                "INSERT INTO payments.SubscriptionDetails " +
+                "([Id], [Period], [Status], [CountryCode], [ExpirationDate]) " +
+                "VALUES (@SubscriptionId, @Period, @Status, @CountryCode, @ExpirationDate)",
                 new
                 {
                     subscriptionCreated.SubscriptionId,

@@ -25,11 +25,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
             var connection = this._sqlConnectionFactory.GetOpenConnection();
 
             string sql = "SELECT " +
-                               $"[Command].[Id] AS [{nameof(InternalCommandDto.Id)}], " +
-                               $"[Command].[Type] AS [{nameof(InternalCommandDto.Type)}], " +
-                               $"[Command].[Data] AS [{nameof(InternalCommandDto.Data)}] " +
-                               "FROM [payments].[InternalCommands] AS [Command] " +
-                               "WHERE [Command].[ProcessedDate] IS NULL";
+                         $"[Command].[Id] AS [{nameof(InternalCommandDto.Id)}], " +
+                         $"[Command].[Type] AS [{nameof(InternalCommandDto.Type)}], " +
+                         $"[Command].[Data] AS [{nameof(InternalCommandDto.Data)}] " +
+                         "FROM [payments].[InternalCommands] AS [Command] " +
+                         "WHERE [Command].[ProcessedDate] IS NULL";
             var commands = await connection.QueryAsync<InternalCommandDto>(sql);
 
             var internalCommandsList = commands.AsList();
@@ -50,10 +50,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
 
                 if (result.Outcome == OutcomeType.Failure)
                 {
-                    await connection.ExecuteScalarAsync("UPDATE [payments].[InternalCommands] " +
-                                                        "SET ProcessedDate = @NowDate, " +
-                                                        "Error = @Error " +
-                                                        "WHERE [Id] = @Id",
+                    await connection.ExecuteScalarAsync(
+                        "UPDATE [payments].[InternalCommands] " +
+                        "SET ProcessedDate = @NowDate, " +
+                        "Error = @Error " +
+                        "WHERE [Id] = @Id",
                         new
                         {
                             NowDate = DateTime.UtcNow,

@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
 using Newtonsoft.Json;
 
@@ -13,7 +12,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Rene
 
         [JsonConstructor]
         public RenewSubscriptionCommand(
-            Guid id, Guid subscriptionId, Guid subscriptionRenewalPaymentId) : base(id)
+            Guid id, Guid subscriptionId, Guid subscriptionRenewalPaymentId)
+            : base(id)
         {
             SubscriptionId = subscriptionId;
             SubscriptionRenewalPaymentId = subscriptionRenewalPaymentId;

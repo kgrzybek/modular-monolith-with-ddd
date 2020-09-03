@@ -57,14 +57,13 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.D
                 .As<SubscriptionsManager>()
                 .SingleInstance();
 
-
             var infrastructureAssembly = ThisAssembly;
 
             builder.RegisterAssemblyTypes(infrastructureAssembly)
                 .Where(type => type.Name.EndsWith("Repository"))
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope()
-                .FindConstructorsWith(new AllConstructorFinder()); ;
+                .FindConstructorsWith(new AllConstructorFinder());
         }
     }
 }

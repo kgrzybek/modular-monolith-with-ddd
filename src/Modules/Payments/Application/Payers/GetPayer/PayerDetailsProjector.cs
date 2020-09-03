@@ -24,12 +24,12 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Payers.GetPayer
 
         private async Task When(PayerCreatedDomainEvent payerCreated)
         {
-
-            await _connection.ExecuteScalarAsync("INSERT INTO payments.Payers " +
-                                                 "([Id], [Login], [Email], [FirstName], [LastName], " +
-                                                 "[Name]) " +
-                                                 "VALUES (@PayerId, @Login, @Email, @FirstName, @LastName," +
-                                                 "@Name)",
+            await _connection.ExecuteScalarAsync(
+                "INSERT INTO payments.Payers " +
+                "([Id], [Login], [Email], [FirstName], [LastName], " +
+                "[Name]) " +
+                "VALUES (@PayerId, @Login, @Email, @FirstName, @LastName," +
+                "@Name)",
                 new
                 {
                     payerCreated.PayerId,

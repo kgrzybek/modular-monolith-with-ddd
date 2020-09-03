@@ -51,6 +51,12 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration
             EventsBusStartup.Initialize(moduleLogger);
         }
 
+        public static void Stop()
+        {
+            _subscriptionsManager.Stop();
+            QuartzStartup.StopQuartz();
+        }
+
         private static void ConfigureCompositionRoot(
             string connectionString,
             IExecutionContextAccessor executionContextAccessor,
@@ -71,7 +77,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration
             containerBuilder.RegisterModule(new EventsBusModule(eventsBus));
             containerBuilder.RegisterModule(new MediatorModule());
             containerBuilder.RegisterModule(new AuthenticationModule());
-
 
             BiDictionary<string, Type> domainNotificationsMap = new BiDictionary<string, Type>();
             domainNotificationsMap.Add("MeetingFeePaidNotification", typeof(MeetingFeePaidNotification));
@@ -102,12 +107,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration
             _subscriptionsManager = _container.Resolve<SubscriptionsManager>();
 
             _subscriptionsManager.Start();
-        }
-
-        public static void Stop()
-        {
-            _subscriptionsManager.Stop();
-            QuartzStartup.StopQuartz();
         }
     }
 }

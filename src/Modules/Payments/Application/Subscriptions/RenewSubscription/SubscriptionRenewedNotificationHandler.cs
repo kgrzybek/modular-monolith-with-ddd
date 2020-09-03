@@ -17,7 +17,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Rene
 
         public Task Handle(SubscriptionRenewedNotification notification, CancellationToken cancellationToken)
         {
-            _eventsBus.Publish(new SubscriptionExpirationDateChangedIntegrationEvent(notification.Id,
+            _eventsBus.Publish(new SubscriptionExpirationDateChangedIntegrationEvent(
+                notification.Id,
                 notification.DomainEvent.OccurredOn,
                 notification.DomainEvent.PayerId,
                 notification.DomainEvent.ExpirationDate));

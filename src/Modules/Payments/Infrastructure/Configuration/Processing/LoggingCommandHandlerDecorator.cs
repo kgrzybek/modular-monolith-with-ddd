@@ -12,7 +12,8 @@ using Serilog.Events;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Processing
 {
-    internal class LoggingCommandHandlerDecorator<T> : ICommandHandler<T> where T : ICommand
+    internal class LoggingCommandHandlerDecorator<T> : ICommandHandler<T>
+        where T : ICommand
     {
         private readonly ILogger _logger;
         private readonly IExecutionContextAccessor _executionContextAccessor;
@@ -27,6 +28,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
             _executionContextAccessor = executionContextAccessor;
             _decorated = decorated;
         }
+
         public async Task<Unit> Handle(T command, CancellationToken cancellationToken)
         {
             if (command is IRecurringCommand)
@@ -67,6 +69,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
             {
                 _command = command;
             }
+
             public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
             {
                 logEvent.AddOrUpdateProperty(new LogEventProperty("Context", new ScalarValue($"Command:{_command.Id.ToString()}")));
@@ -76,10 +79,12 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
         private class RequestLogEnricher : ILogEventEnricher
         {
             private readonly IExecutionContextAccessor _executionContextAccessor;
+
             public RequestLogEnricher(IExecutionContextAccessor executionContextAccessor)
             {
                 _executionContextAccessor = executionContextAccessor;
             }
+
             public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
             {
                 if (_executionContextAccessor.IsAvailable)

@@ -6,7 +6,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Mark
 {
     public class SubscriptionPaymentPaidNotification : DomainNotificationBase<SubscriptionPaymentPaidDomainEvent>
     {
-        public SubscriptionPaymentPaidNotification(SubscriptionPaymentPaidDomainEvent domainEvent, Guid id) : base(domainEvent, id)
+        public SubscriptionPaymentPaidNotification(SubscriptionPaymentPaidDomainEvent domainEvent, Guid id)
+            : base(domainEvent, id)
         {
         }
     }

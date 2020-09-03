@@ -5,7 +5,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFees
 {
     public class MeetingFeeId : AggregateId<MeetingFee>
     {
-        public MeetingFeeId(Guid value) : base(value)
+        public MeetingFeeId(Guid value)
+            : base(value)
         {
         }
     }

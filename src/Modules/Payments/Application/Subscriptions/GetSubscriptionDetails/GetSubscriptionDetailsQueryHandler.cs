@@ -27,7 +27,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetS
 
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
-            return await connection.QuerySingleAsync<SubscriptionDetailsDto>(sql,
+            return await connection.QuerySingleAsync<SubscriptionDetailsDto>(
+                sql,
                 new
                 {
                     query.SubscriptionId

@@ -31,7 +31,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
 
             Dictionary.Add("PayerCreated", typeof(PayerCreatedDomainEvent));
 
-
             Dictionary.Add("PriceListItemCreated", typeof(PriceListItemCreatedDomainEvent));
             Dictionary.Add("PriceListItemActivated", typeof(PriceListItemActivatedDomainEvent));
             Dictionary.Add("PriceListItemDeactivated", typeof(PriceListItemDeactivatedDomainEvent));

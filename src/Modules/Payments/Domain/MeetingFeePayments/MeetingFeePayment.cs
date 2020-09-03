@@ -12,11 +12,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFeePayments
 
         private MeetingFeePaymentStatus _status;
 
-        protected override void Apply(IDomainEvent @event)
-        {
-            this.When((dynamic)@event);
-        }
-
         public static MeetingFeePayment Create(
             MeetingFeeId meetingFeeId)
         {
@@ -31,6 +26,38 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFeePayments
             meetingFeePayment.AddDomainEvent(meetingFeePaymentCreated);
 
             return meetingFeePayment;
+        }
+
+        public void Expire()
+        {
+            MeetingFeePaymentPaidDomainEvent @event =
+                new MeetingFeePaymentPaidDomainEvent(
+                    this.Id,
+                    MeetingFeePaymentStatus.Expired.Code);
+
+            this.Apply(@event);
+            this.AddDomainEvent(@event);
+        }
+
+        public void MarkAsPaid()
+        {
+            MeetingFeePaymentPaidDomainEvent @event =
+                new MeetingFeePaymentPaidDomainEvent(
+                    this.Id,
+                    MeetingFeePaymentStatus.Paid.Code);
+
+            this.Apply(@event);
+            this.AddDomainEvent(@event);
+        }
+
+        public MeetingFeePaymentSnapshot GetSnapshot()
+        {
+            return new MeetingFeePaymentSnapshot(this.Id, _meetingFeeId.Value);
+        }
+
+        protected override void Apply(IDomainEvent @event)
+        {
+            this.When((dynamic)@event);
         }
 
         private void When(MeetingFeePaymentCreatedDomainEvent @event)
@@ -48,36 +75,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFeePayments
         private void When(MeetingFeePaymentPaidDomainEvent @event)
         {
             _status = MeetingFeePaymentStatus.Of(@event.Status);
-        }
-
-        //public SubscriptionPaymentSnapshot GetSnapshot()
-        //{
-        //    return new SubscriptionPaymentSnapshot(new SubscriptionPaymentId(this.Id),  _payerId, _subscriptionPeriod, _countryCode);
-        //}
-
-        public void MarkAsPaid()
-        {
-            MeetingFeePaymentPaidDomainEvent @event =
-                new MeetingFeePaymentPaidDomainEvent(this.Id,
-                MeetingFeePaymentStatus.Paid.Code);
-
-            this.Apply(@event);
-            this.AddDomainEvent(@event);
-        }
-
-        public void Expire()
-        {
-            MeetingFeePaymentPaidDomainEvent @event =
-                new MeetingFeePaymentPaidDomainEvent(this.Id,
-                    MeetingFeePaymentStatus.Expired.Code);
-
-            this.Apply(@event);
-            this.AddDomainEvent(@event);
-        }
-
-        public MeetingFeePaymentSnapshot GetSnapshot()
-        {
-            return new MeetingFeePaymentSnapshot(this.Id, _meetingFeeId.Value);
         }
     }
 }
