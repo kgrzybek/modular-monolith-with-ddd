@@ -32,8 +32,6 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
 
         private void CheckMappings()
         {
-
-            var type = typeof(CreateMemberCommand);
             var internalCommands = Assemblies.Application
                 .GetTypes()
                 .Where(x => x.BaseType != null &&

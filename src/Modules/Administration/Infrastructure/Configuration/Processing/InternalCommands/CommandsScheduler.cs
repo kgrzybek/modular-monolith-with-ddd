@@ -17,7 +17,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
         private readonly IInternalCommandsMapper _internalCommandsMapper;
 
         public CommandsScheduler(
-            ISqlConnectionFactory sqlConnectionFactory, 
+            ISqlConnectionFactory sqlConnectionFactory,
             IInternalCommandsMapper internalCommandsMapper)
         {
             _sqlConnectionFactory = sqlConnectionFactory;
