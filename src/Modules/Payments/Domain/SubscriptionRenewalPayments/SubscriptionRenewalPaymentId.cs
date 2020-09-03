@@ -5,7 +5,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionRenewalPaym
 {
     public class SubscriptionRenewalPaymentId : AggregateId<SubscriptionRenewalPayment>
     {
-        public SubscriptionRenewalPaymentId(Guid value) : base(value)
+        public SubscriptionRenewalPaymentId(Guid value)
+            : base(value)
         {
         }
     }

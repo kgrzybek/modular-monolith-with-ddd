@@ -45,36 +45,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems
             return priceListItem;
         }
 
-        protected override void Apply(IDomainEvent @event) => When((dynamic)@event);
-
-        private void When(PriceListItemCreatedDomainEvent @event)
-        {
-            this.Id = @event.PriceListItemId;
-            _countryCode = @event.CountryCode;
-            _subscriptionPeriod = SubscriptionPeriod.Of(@event.SubscriptionPeriodCode);
-            _category = PriceListItemCategory.Of(@event.CategoryCode);
-            _price = MoneyValue.Of(@event.Price, @event.Currency);
-            _isActive = true;
-        }
-
-        private void When(PriceListItemActivatedDomainEvent @event)
-        {
-            this._isActive = true;
-        }
-
-        private void When(PriceListItemDeactivatedDomainEvent @event)
-        {
-            this._isActive = false;
-        }
-
-        private void When(PriceListItemAttributesChangedDomainEvent @event)
-        {
-            this._countryCode = @event.CountryCode;
-            this._subscriptionPeriod = SubscriptionPeriod.Of(@event.SubscriptionPeriodCode);
-            this._category = PriceListItemCategory.Of(@event.CategoryCode);
-            this._price = MoneyValue.Of(@event.Price, @event.Currency);
-        }
-
         public void Activate()
         {
             if (!_isActive)
@@ -107,6 +77,36 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems
 
             this.Apply(priceListItemChangedDomainEvent);
             this.AddDomainEvent(priceListItemChangedDomainEvent);
+        }
+
+        protected override void Apply(IDomainEvent @event) => When((dynamic)@event);
+
+        private void When(PriceListItemActivatedDomainEvent @event)
+        {
+            this._isActive = true;
+        }
+
+        private void When(PriceListItemCreatedDomainEvent @event)
+        {
+            this.Id = @event.PriceListItemId;
+            _countryCode = @event.CountryCode;
+            _subscriptionPeriod = SubscriptionPeriod.Of(@event.SubscriptionPeriodCode);
+            _category = PriceListItemCategory.Of(@event.CategoryCode);
+            _price = MoneyValue.Of(@event.Price, @event.Currency);
+            _isActive = true;
+        }
+
+        private void When(PriceListItemDeactivatedDomainEvent @event)
+        {
+            this._isActive = false;
+        }
+
+        private void When(PriceListItemAttributesChangedDomainEvent @event)
+        {
+            this._countryCode = @event.CountryCode;
+            this._subscriptionPeriod = SubscriptionPeriod.Of(@event.SubscriptionPeriodCode);
+            this._category = PriceListItemCategory.Of(@event.CategoryCode);
+            this._price = MoneyValue.Of(@event.Price, @event.Currency);
         }
     }
 }

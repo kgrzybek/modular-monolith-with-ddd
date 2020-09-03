@@ -23,7 +23,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFees
 
         private MeetingFee()
         {
-
         }
 
         public static MeetingFee Create(
@@ -47,6 +46,22 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFees
             return meetingFee;
         }
 
+        public void MarkAsPaid()
+        {
+            var @event =
+                new MeetingFeePaidDomainEvent(
+                    this.Id,
+                    MeetingFeeStatus.Paid.Code);
+
+            this.Apply(@event);
+            this.AddDomainEvent(@event);
+        }
+
+        public MeetingFeeSnapshot GetSnapshot()
+        {
+            return new MeetingFeeSnapshot(this.Id, _payerId.Value, _meetingId.Value);
+        }
+
         private void When(MeetingFeeCreatedDomainEvent meetingFeeCreated)
         {
             this.Id = meetingFeeCreated.MeetingFeeId;
@@ -54,11 +69,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFees
             _meetingId = new MeetingId(meetingFeeCreated.MeetingId);
             _fee = MoneyValue.Of(meetingFeeCreated.FeeValue, meetingFeeCreated.FeeCurrency);
             _status = MeetingFeeStatus.Of(meetingFeeCreated.Status);
-        }
-
-        private void When(MeetingFeePaidDomainEvent meetingFeePaid)
-        {
-            _status = MeetingFeeStatus.Of(meetingFeePaid.Status);
         }
 
         private void When(MeetingFeeCanceledDomainEvent meetingFeeCanceled)
@@ -71,19 +81,9 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFees
             _status = MeetingFeeStatus.Of(meetingFeeExpired.Status);
         }
 
-        public void MarkAsPaid()
+        private void When(MeetingFeePaidDomainEvent meetingFeePaid)
         {
-            var @event =
-                new MeetingFeePaidDomainEvent(this.Id,
-                    MeetingFeeStatus.Paid.Code);
-
-            this.Apply(@event);
-            this.AddDomainEvent(@event);
-        }
-
-        public MeetingFeeSnapshot GetSnapshot()
-        {
-            return new MeetingFeeSnapshot(this.Id, _payerId.Value, _meetingId.Value);
+            _status = MeetingFeeStatus.Of(meetingFeePaid.Status);
         }
     }
 }

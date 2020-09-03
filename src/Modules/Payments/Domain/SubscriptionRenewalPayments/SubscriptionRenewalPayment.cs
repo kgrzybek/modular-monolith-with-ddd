@@ -23,11 +23,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionRenewalPaym
 
         private MoneyValue _value;
 
-        protected override void Apply(IDomainEvent @event)
-        {
-            this.When((dynamic)@event);
-        }
-
         public static SubscriptionRenewalPayment Buy(
             PayerId payerId,
             SubscriptionId subscriptionId,
@@ -57,22 +52,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionRenewalPaym
             return subscriptionRenewalPayment;
         }
 
-        private void When(SubscriptionRenewalPaymentCreatedDomainEvent @event)
-        {
-            this.Id = @event.SubscriptionRenewalPaymentId;
-            _payerId = new PayerId(@event.PayerId);
-            _subscriptionId = new SubscriptionId(@event.SubscriptionId);
-            _subscriptionPeriod = SubscriptionPeriod.Of(@event.SubscriptionPeriodCode);
-            _countryCode = @event.CountryCode;
-            _subscriptionRenewalPaymentStatus = SubscriptionRenewalPaymentStatus.Of(@event.Status);
-            _value = MoneyValue.Of(@event.Value, @event.Currency);
-        }
-
-        private void When(SubscriptionRenewalPaymentPaidDomainEvent @event)
-        {
-            _subscriptionRenewalPaymentStatus = SubscriptionRenewalPaymentStatus.Of(@event.Status);
-        }
-
         public SubscriptionRenewalPaymentSnapshot GetSnapshot()
         {
             return new SubscriptionRenewalPaymentSnapshot(new SubscriptionRenewalPaymentId(this.Id), _payerId, _subscriptionPeriod, _countryCode);
@@ -88,6 +67,27 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionRenewalPaym
 
             this.Apply(@event);
             this.AddDomainEvent(@event);
+        }
+
+        protected override void Apply(IDomainEvent @event)
+        {
+            this.When((dynamic)@event);
+        }
+
+        private void When(SubscriptionRenewalPaymentCreatedDomainEvent @event)
+        {
+            this.Id = @event.SubscriptionRenewalPaymentId;
+            _payerId = new PayerId(@event.PayerId);
+            _subscriptionId = new SubscriptionId(@event.SubscriptionId);
+            _subscriptionPeriod = SubscriptionPeriod.Of(@event.SubscriptionPeriodCode);
+            _countryCode = @event.CountryCode;
+            _subscriptionRenewalPaymentStatus = SubscriptionRenewalPaymentStatus.Of(@event.Status);
+            _value = MoneyValue.Of(@event.Value, @event.Currency);
+        }
+
+        private void When(SubscriptionRenewalPaymentPaidDomainEvent @event)
+        {
+            _subscriptionRenewalPaymentStatus = SubscriptionRenewalPaymentStatus.Of(@event.Status);
         }
     }
 }

@@ -21,7 +21,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
 
         private Subscription()
         {
-
         }
 
         public void Renew(
@@ -35,8 +34,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
                 expirationDate,
                 subscriptionRenewalPayment.PayerId.Value,
                 subscriptionRenewalPayment.SubscriptionPeriod.Code,
-                SubscriptionStatus.Active.Code
-                );
+                SubscriptionStatus.Active.Code);
 
             this.Apply(subscriptionRenewedDomainEvent);
             this.AddDomainEvent(subscriptionRenewedDomainEvent);
@@ -52,6 +50,33 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
                 this.When(subscriptionExpiredDomainEvent);
                 this.AddDomainEvent(subscriptionExpiredDomainEvent);
             }
+        }
+
+        public static Subscription Create(
+            SubscriptionPaymentSnapshot subscriptionPayment)
+        {
+            var subscription = new Subscription();
+
+            var expirationDate = SubscriptionDateExpirationCalculator.CalculateForNew(subscriptionPayment.SubscriptionPeriod);
+
+            var subscriptionCreatedDomainEvent = new SubscriptionCreatedDomainEvent(
+                subscriptionPayment.Id.Value,
+                Guid.NewGuid(),
+                subscriptionPayment.PayerId.Value,
+                subscriptionPayment.SubscriptionPeriod.Code,
+                subscriptionPayment.CountryCode,
+                expirationDate,
+                SubscriptionStatus.Active.Code);
+
+            subscription.Apply(subscriptionCreatedDomainEvent);
+            subscription.AddDomainEvent(subscriptionCreatedDomainEvent);
+
+            return subscription;
+        }
+
+        protected sealed override void Apply(IDomainEvent @event)
+        {
+            this.When((dynamic)@event);
         }
 
         private void When(SubscriptionCreatedDomainEvent @event)
@@ -75,33 +100,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions
         private void When(SubscriptionExpiredDomainEvent @event)
         {
             _status = SubscriptionStatus.Of(@event.Status);
-        }
-
-        protected sealed override void Apply(IDomainEvent @event)
-        {
-            this.When((dynamic)@event);
-        }
-
-        public static Subscription Create(
-            SubscriptionPaymentSnapshot subscriptionPayment)
-        {
-            var subscription = new Subscription();
-
-            var expirationDate = SubscriptionDateExpirationCalculator.CalculateForNew(subscriptionPayment.SubscriptionPeriod);
-
-            var subscriptionCreatedDomainEvent = new SubscriptionCreatedDomainEvent(
-                subscriptionPayment.Id.Value,
-                Guid.NewGuid(),
-                subscriptionPayment.PayerId.Value,
-                subscriptionPayment.SubscriptionPeriod.Code,
-                subscriptionPayment.CountryCode,
-                expirationDate,
-                SubscriptionStatus.Active.Code);
-
-            subscription.Apply(subscriptionCreatedDomainEvent);
-            subscription.AddDomainEvent(subscriptionCreatedDomainEvent);
-
-            return subscription;
         }
     }
 }

@@ -10,7 +10,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFees.Events
             Guid payerId,
             Guid meetingId,
             decimal feeValue,
-            string feeCurrency, string status)
+            string feeCurrency,
+            string status)
         {
             PayerId = payerId;
             MeetingId = meetingId;

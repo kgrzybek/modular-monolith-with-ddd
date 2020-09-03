@@ -7,7 +7,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFeePayments.Even
     {
         public MeetingFeePaymentCreatedDomainEvent(
             Guid meetingFeePaymentId,
-            Guid meetingFeeId, string status)
+            Guid meetingFeeId,
+            string status)
         {
             MeetingFeeId = meetingFeeId;
             Status = status;
