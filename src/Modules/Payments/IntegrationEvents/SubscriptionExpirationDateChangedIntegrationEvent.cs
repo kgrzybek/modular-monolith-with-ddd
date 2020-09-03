@@ -9,7 +9,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationEvents
             Guid id,
             DateTime occurredOn,
             Guid payerId,
-            DateTime expirationDate) : base(id, occurredOn)
+            DateTime expirationDate)
+            : base(id, occurredOn)
         {
             PayerId = payerId;
             ExpirationDate = expirationDate;
