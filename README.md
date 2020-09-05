@@ -66,6 +66,8 @@ Full Modular Monolith .NET application with Domain-Driven Design approach.
 
 &nbsp;&nbsp;[3.17 Continuous Integration](#317-continuous-integration)
 
+&nbsp;&nbsp;[3.18 Static code analysis](#318-static-code-analysis)
+
 [4. Technology](#4-technology)
 
 [5. How to Run](#5-how-to-run)
@@ -1706,6 +1708,18 @@ Example workflow output:
 
 ![](docs/Images/ci_job2.png)
 
+### 3.18 Static code analysis
+
+In order to standardize the appearance of the code and increase its readability, the [StyleCopAnalyzers](https://github.com/DotNetAnalyzers/StyleCopAnalyzers) library was used. This library implements StyleCop rules using the .NET Compiler Platform and is responsible for the static code analysis.<br/>
+
+Using this library is trivial - it is just added as a NuGet package to all projects. There are many ways to configure rules, but currently the best way to do this is to edit the [.editorconfig](src/.editorconfig) file. More information can be found at the link above.<br/>
+
+**Note! Static code analysis works best when the following points are met:**<br/>
+
+1. Each developer has an IDE that respects the rules and helps to follow them
+2. The rules are checked during the project build process as part of Continuous Integration
+3. The rules are set to *help your system grow*. **Static analysis is not a value in itself.** Some rules may not make complete sense and should be turned off. Other rules may have higher priority. It all depends on the project, company standards and people involved in the project. Be pragmatic.
+
 ## 4. Technology
 
 List of technologies, frameworks and libraries used for implementation:
@@ -1733,6 +1747,7 @@ List of technologies, frameworks and libraries used for implementation:
 - [DbUp](https://dbup.readthedocs.io/en/latest/) (Database migrations deployment)
 - [SSDT Database Project](https://docs.microsoft.com/en-us/sql/ssdt/how-to-create-a-new-database-project) (Database structure versioning)
 - [GitHub Actions](https://docs.github.com/en/actions) (Continuous Integration workflows implementation)
+- [StyleCopAnalyzers](https://github.com/DotNetAnalyzers/StyleCopAnalyzers) (Static code analysis library)
 
 ## 5. How to Run
 
@@ -1818,6 +1833,7 @@ List of features/tasks/approaches to add:
 | Event Sourcing implementation | Completed  |  2020-07-11  |
 | Database Change Management | Completed  |  2020-08-23  |
 | Continuous Integration      | Completed  | 2020-09-01   |
+| StyleCop Static Code Analysis      | Completed  | 2020-09-05   |
 | FrontEnd SPA application |      |    |
 | Meeting comments feature |    |    |
 | Notifications feature |     |    |
