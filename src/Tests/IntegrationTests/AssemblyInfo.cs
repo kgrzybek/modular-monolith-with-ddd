@@ -7,6 +7,5 @@ namespace CompanyName.MyMeetings.IntegrationTests
 {
     public class AssemblyInfo
     {
-
     }
 }

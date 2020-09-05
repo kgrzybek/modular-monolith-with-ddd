@@ -153,7 +153,6 @@ namespace CompanyName.MyMeetings.Modules.Administration.ArchTests.Domain
                 var constructors = domainObjectType.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
                 foreach (var constructorInfo in constructors)
                 {
-
                     if (!constructorInfo.IsPrivate)
                     {
                         failingTypes.Add(domainObjectType);

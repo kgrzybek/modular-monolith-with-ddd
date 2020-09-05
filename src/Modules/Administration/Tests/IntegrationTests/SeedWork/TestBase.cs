@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.IntegrationTests;
 using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure;
@@ -20,16 +19,15 @@ namespace CompanyName.MyMeetings.Modules.Administration.IntegrationTests.SeedWor
 {
     public class TestBase
     {
-        protected string ConnectionString;
+        protected string ConnectionString { get; private set; }
 
-        protected ILogger Logger;
+        protected ILogger Logger { get; private set; }
 
-        protected IAdministrationModule AdministrationModule;
+        protected IAdministrationModule AdministrationModule { get; private set; }
 
-        protected IEmailSender EmailSender;
+        protected IEmailSender EmailSender { get; private set; }
 
-        protected ExecutionContextMock ExecutionContext;
-
+        protected ExecutionContextMock ExecutionContext { get; private set; }
 
         [SetUp]
         public async Task BeforeEachTest()
@@ -61,18 +59,8 @@ namespace CompanyName.MyMeetings.Modules.Administration.IntegrationTests.SeedWor
             AdministrationModule = new AdministrationModule();
         }
 
-        private static async Task ClearDatabase(IDbConnection connection)
-        {
-            const string sql = "DELETE FROM [administration].[InboxMessages] " +
-                               "DELETE FROM [administration].[InternalCommands] " +
-                               "DELETE FROM [administration].[OutboxMessages] " +
-                               "DELETE FROM [administration].[MeetingGroupProposals] " +
-                               "DELETE FROM [administration].[Members] ";
-
-            await connection.ExecuteScalarAsync(sql);
-        }
-
-        protected async Task<T> GetLastOutboxMessage<T>() where T : class, INotification
+        protected async Task<T> GetLastOutboxMessage<T>()
+            where T : class, INotification
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
@@ -82,7 +70,8 @@ namespace CompanyName.MyMeetings.Modules.Administration.IntegrationTests.SeedWor
             }
         }
 
-        protected static void AssertBrokenRule<TRule>(AsyncTestDelegate testDelegate) where TRule : class, IBusinessRule
+        protected static void AssertBrokenRule<TRule>(AsyncTestDelegate testDelegate)
+            where TRule : class, IBusinessRule
         {
             var message = $"Expected {typeof(TRule).Name} broken rule";
             var businessRuleValidationException = Assert.CatchAsync<BusinessRuleValidationException>(testDelegate, message);
@@ -90,6 +79,17 @@ namespace CompanyName.MyMeetings.Modules.Administration.IntegrationTests.SeedWor
             {
                 Assert.That(businessRuleValidationException.BrokenRule, Is.TypeOf<TRule>(), message);
             }
+        }
+
+        private static async Task ClearDatabase(IDbConnection connection)
+        {
+            const string sql = "DELETE FROM [administration].[InboxMessages] " +
+                               "DELETE FROM [administration].[InternalCommands] " +
+                               "DELETE FROM [administration].[OutboxMessages] " +
+                               "DELETE FROM [administration].[MeetingGroupProposals] " +
+                               "DELETE FROM [administration].[Members] ";
+
+            await connection.ExecuteScalarAsync(sql);
         }
     }
 }

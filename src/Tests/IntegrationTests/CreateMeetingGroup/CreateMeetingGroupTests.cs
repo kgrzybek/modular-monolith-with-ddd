@@ -21,10 +21,11 @@ namespace CompanyName.MyMeetings.IntegrationTests.CreateMeetingGroup
         public async Task CreateMeetingGroupScenario_WhenProposalIsAccepted()
         {
             var meetingGroupId = await MeetingsModule.ExecuteCommandAsync(
-                new ProposeMeetingGroupCommand("Name",
-                "Description",
-                "Location",
-                "PL"));
+                new ProposeMeetingGroupCommand(
+                    "Name",
+                    "Description",
+                    "Location",
+                    "PL"));
 
             AssertEventually(
                 new GetMeetingGroupProposalFromAdministrationProbe(meetingGroupId, AdministrationModule),
@@ -72,11 +73,13 @@ namespace CompanyName.MyMeetings.IntegrationTests.CreateMeetingGroup
         {
             private readonly Guid _expectedMeetingGroupProposalId;
 
-            private MeetingGroupProposalDto _meetingGroupProposal;
-
             private readonly IAdministrationModule _administrationModule;
 
-            public GetMeetingGroupProposalFromAdministrationProbe(Guid expectedMeetingGroupProposalId, IAdministrationModule administrationModule)
+            private MeetingGroupProposalDto _meetingGroupProposal;
+
+            public GetMeetingGroupProposalFromAdministrationProbe(
+                Guid expectedMeetingGroupProposalId,
+                IAdministrationModule administrationModule)
             {
                 _expectedMeetingGroupProposalId = expectedMeetingGroupProposalId;
                 _administrationModule = administrationModule;

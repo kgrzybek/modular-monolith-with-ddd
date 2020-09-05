@@ -22,20 +22,19 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
 {
     public class TestBase
     {
-        protected string ConnectionString;
+        protected string ConnectionString { get; private set; }
 
-        protected ILogger Logger;
+        protected ILogger Logger { get; private set; }
 
-        protected IPaymentsModule PaymentsModule;
+        protected IPaymentsModule PaymentsModule { get; private set; }
 
-        protected IEmailSender EmailSender;
+        protected IEmailSender EmailSender { get; private set; }
 
-        protected EmailsConfiguration EmailsConfiguration;
+        protected EmailsConfiguration EmailsConfiguration { get; private set; }
 
-        protected EventsBusMock EventsBus;
+        protected EventsBusMock EventsBus { get; private set; }
 
-        protected ExecutionContextMock ExecutionContext;
-
+        protected ExecutionContextMock ExecutionContext { get; private set; }
 
         [SetUp]
         public async Task BeforeEachTest()
@@ -71,6 +70,37 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
             PaymentsModule = new PaymentsModule();
         }
 
+        public static async Task<T> GetEventually<T>(IProbe<T> probe, int timeout)
+            where T : class
+        {
+            var poller = new Poller(timeout);
+
+            return await poller.GetAsync(probe);
+        }
+
+        [TearDown]
+        public void AfterEachTest()
+        {
+            PaymentsStartup.Stop();
+            SystemClock.Reset();
+        }
+
+        protected async Task<T> GetLastOutboxMessage<T>()
+            where T : class, INotification
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var messages = await OutboxMessagesHelper.GetOutboxMessages(connection);
+
+                return OutboxMessagesHelper.Deserialize<T>(messages.Last());
+            }
+        }
+
+        protected static void AssertEventually(IProbe probe, int timeout)
+        {
+            new Poller(timeout).Check(probe);
+        }
+
         private static async Task ClearDatabase(IDbConnection connection)
         {
             const string sql = "DELETE FROM [payments].[InboxMessages] " +
@@ -88,35 +118,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
                                "DELETE FROM [payments].[Payers] ";
 
             await connection.ExecuteScalarAsync(sql);
-        }
-
-        protected async Task<T> GetLastOutboxMessage<T>() where T : class, INotification
-        {
-            using (var connection = new SqlConnection(ConnectionString))
-            {
-                var messages = await OutboxMessagesHelper.GetOutboxMessages(connection);
-
-                return OutboxMessagesHelper.Deserialize<T>(messages.Last());
-            }
-        }
-
-        protected static void AssertEventually(IProbe probe, int timeout)
-        {
-            new Poller(timeout).Check(probe);
-        }
-
-        public static async Task<T> GetEventually<T>(IProbe<T> probe, int timeout) where T : class
-        {
-            var poller = new Poller(timeout);
-
-            return await poller.GetAsync(probe);
-        }
-
-        [TearDown]
-        public void AfterEachTest()
-        {
-            PaymentsStartup.Stop();
-            SystemClock.Reset();
         }
     }
 }

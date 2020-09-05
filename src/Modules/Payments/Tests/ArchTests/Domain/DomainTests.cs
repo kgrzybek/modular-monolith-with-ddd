@@ -154,7 +154,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.ArchTests.Domain
                 var constructors = domainObjectType.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
                 foreach (var constructorInfo in constructors)
                 {
-
                     if (!constructorInfo.IsPrivate)
                     {
                         failingTypes.Add(domainObjectType);

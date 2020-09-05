@@ -13,8 +13,13 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Members
         public void CreateMember_IsSuccessful()
         {
             MemberId memberId = new MemberId(Guid.NewGuid());
-            var member = Member.Create(memberId.Value, "memberLogin", "memberEmail@mail.com",
-                "John", "Doe", "John Doe");
+            var member = Member.Create(
+                memberId.Value,
+                "memberLogin",
+                "memberEmail@mail.com",
+                "John",
+                "Doe",
+                "John Doe");
 
             var memberCreated = AssertPublishedDomainEvent<MemberCreatedDomainEvent>(member);
 

@@ -15,7 +15,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
         {
             // Arrange
             var commentAuthorId = new MemberId(Guid.NewGuid());
-            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[] { commentAuthorId } });
+            var meetingTestData =
+                CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[] { commentAuthorId } });
 
             // Act
             var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!");
@@ -46,7 +47,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
         {
             // Arrange
             var commentAuthorId = new MemberId(Guid.NewGuid());
-            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[] { commentAuthorId } });
+            var meetingTestData =
+                CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[] { commentAuthorId } });
 
             // Assert
             AssertBrokenRule<CommentTextMustBeProvidedRule>(() =>
@@ -55,13 +57,14 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
                 meetingTestData.Meeting.AddComment(commentAuthorId, missingComment);
             });
         }
-        
+
         [Test]
         public void EditComment_IsSuccessful()
         {
             // Arrange
             var commentAuthorId = new MemberId(Guid.NewGuid());
-            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[] { commentAuthorId } });
+            var meetingTestData =
+                CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[] { commentAuthorId } });
 
             var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!");
             meetingComment.ClearDomainEvents();
@@ -81,7 +84,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
         {
             // Arrange
             var commentAuthorId = new MemberId(Guid.NewGuid());
-            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[] { commentAuthorId } });
+            var meetingTestData =
+                CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[] { commentAuthorId } });
 
             var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!");
             meetingComment.ClearDomainEvents();
@@ -114,37 +118,38 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
                 meetingComment.Edit(new MemberId(Guid.NewGuid()), missingComment);
             });
         }
-        
-                
+
         [Test]
         public void RemoveComment_IsSuccessful()
         {
             // Arrange
             var removingMemberId = new MemberId(Guid.NewGuid());
-            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[] { removingMemberId } });
-            
-            var meetingComment =  meetingTestData.Meeting.AddComment(authorId: removingMemberId, "Great meeting!");
+            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions
+            { Attendees = new[] { removingMemberId } });
+
+            var meetingComment = meetingTestData.Meeting.AddComment(authorId: removingMemberId, "Great meeting!");
             meetingComment.ClearDomainEvents();
-                        
+
             // Act
             meetingComment.Remove(removingMemberId, meetingTestData.MeetingGroup);
-            
+
             // Assert
             var meetingCommentCreated = AssertPublishedDomainEvent<MeetingCommentRemovedDomainEvent>(meetingComment);
             Assert.That(meetingCommentCreated.MeetingCommentId, Is.EqualTo(meetingComment.Id));
         }
-        
+
         [Test]
-        public void RemoveComment_ByNoAuthorNoOrganizer_BreaksMeetingCommentCanBeRemovedOnlyByAuthorOrGroupOrganizerRule()
+        public void
+            RemoveComment_ByNoAuthorNoOrganizer_BreaksMeetingCommentCanBeRemovedOnlyByAuthorOrGroupOrganizerRule()
         {
             // Arrange
             var commentAuthorId = new MemberId(Guid.NewGuid());
             var groupCreatorId = new MemberId(Guid.NewGuid());
-            
+
             var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions
             {
                 CreatorId = groupCreatorId,
-                Attendees = new[] {commentAuthorId}
+                Attendees = new[] { commentAuthorId }
             });
 
             var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!");
@@ -157,13 +162,14 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
                 meetingComment.Remove(removingMemberId: new MemberId(Guid.NewGuid()), meetingTestData.MeetingGroup);
             });
         }
-        
+
         [Test]
         public void RemoveComment_ByAuthor_BreaksRemovingReasonCanBeProvidedOnlyByGroupOrganizer()
         {
             // Arrange
             var commentAuthorId = new MemberId(Guid.NewGuid());
-            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions {Attendees = new[] { commentAuthorId } });
+            var meetingTestData =
+                CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[] { commentAuthorId } });
 
             var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!");
             meetingComment.ClearDomainEvents();
@@ -172,7 +178,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             AssertBrokenRule<RemovingReasonCanBeProvidedOnlyByGroupOrganizer>(() =>
             {
                 // Act
-                meetingComment.Remove(removingMemberId: commentAuthorId, meetingTestData.MeetingGroup, "I don't like the comment.");
+                meetingComment.Remove(
+                    removingMemberId: commentAuthorId,
+                    meetingTestData.MeetingGroup,
+                    "I don't like the comment.");
             });
         }
     }

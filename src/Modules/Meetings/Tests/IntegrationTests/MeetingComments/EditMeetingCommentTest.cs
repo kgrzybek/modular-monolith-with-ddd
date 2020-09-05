@@ -20,21 +20,24 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
         {
             // Arrange
             var meetingId = await CreateMeetingAsync(MeetingsModule, ExecutionContext);
-            var meetingCommentId = await MeetingsModule.ExecuteCommandAsync(new AddMeetingCommentCommand(meetingId, "The meeting was great."));
+            var meetingCommentId =
+                await MeetingsModule.ExecuteCommandAsync(new AddMeetingCommentCommand(
+                    meetingId,
+                    "The meeting was great."));
             var editedComment = "It was very interesting!";
-            
+
             var meetingCommentsBefore = await MeetingsModule.ExecuteQueryAsync(new GetMeetingCommentsQuery(meetingId));
             var originalMeetingComment = meetingCommentsBefore.Single();
 
             var date = new DateTime(2020, 1, 1, 01, 00, 00);
             SystemClock.Set(date);
-            
+
             // Act
             await MeetingsModule.ExecuteCommandAsync(new EditMeetingCommentCommand(meetingCommentId, editedComment));
-            
+
             // Assert
             var meetingCommentsAfter = await MeetingsModule.ExecuteQueryAsync(new GetMeetingCommentsQuery(meetingId));
-            
+
             Assert.That(meetingCommentsAfter.Count, Is.EqualTo(1));
             var editedMeetingComment = meetingCommentsAfter.Single();
             Assert.That(editedMeetingComment.Comment, Is.EqualTo(editedComment));
@@ -42,7 +45,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
             Assert.That(editedMeetingComment.AuthorId, Is.EqualTo(originalMeetingComment.AuthorId));
             Assert.That(editedMeetingComment.CreateDate, Is.EqualTo(originalMeetingComment.CreateDate));
         }
-        
+
         [Test]
         public void EditMeetingComment_WhenItIsNonexistent_ThrowsInvalidCommandException()
         {

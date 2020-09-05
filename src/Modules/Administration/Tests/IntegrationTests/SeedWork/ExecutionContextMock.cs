@@ -9,8 +9,11 @@ namespace CompanyName.MyMeetings.Modules.Administration.IntegrationTests.SeedWor
         {
             UserId = userId;
         }
+
         public Guid UserId { get; }
+
         public Guid CorrelationId { get; }
+
         public bool IsAvailable { get; }
     }
 }

@@ -5,8 +5,8 @@ using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddMeetingComment;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.GetMeetingComments;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
+using CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork;
-using static CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.Meetings.MeetingHelper;
 using NUnit.Framework;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingComments
@@ -18,18 +18,19 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
         public async Task AddMeetingComment_WhenDataIsValid_IsSuccessful()
         {
             // Arrange
-            var meetingId = await CreateMeetingAsync(MeetingsModule, ExecutionContext);
+            var meetingId = await MeetingHelper.CreateMeetingAsync(MeetingsModule, ExecutionContext);
 
             var date = new DateTime(2020, 1, 1, 01, 00, 00);
             SystemClock.Set(date);
             var comment = "The meeting was great.";
-            
+
             // Act
-            var meetingCommentId = await MeetingsModule.ExecuteCommandAsync(new AddMeetingCommentCommand(meetingId, comment));
+            var meetingCommentId =
+                await MeetingsModule.ExecuteCommandAsync(new AddMeetingCommentCommand(meetingId, comment));
 
             // Assert
             var meetingComments = await MeetingsModule.ExecuteQueryAsync(new GetMeetingCommentsQuery(meetingId));
-            
+
             Assert.That(meetingComments.Count, Is.EqualTo(1));
             var meetingComment = meetingComments.Single();
             Assert.That(meetingComment.Id, Is.EqualTo(meetingCommentId));

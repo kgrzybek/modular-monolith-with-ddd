@@ -16,33 +16,31 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingGroupP
                 "Name 1",
                 "Desc 1",
                 "Warsaw",
-                "PL"
-            ));
+                "PL"));
+
             await MeetingsModule.ExecuteCommandAsync(new ProposeMeetingGroupCommand(
                 "Name 2",
                 "Desc 2",
                 "London",
-                "GB"
-            ));
+                "GB"));
+
             await MeetingsModule.ExecuteCommandAsync(new ProposeMeetingGroupCommand(
                 "Name 3",
                 "Desc 3",
                 "Rome",
-                "IT"
-            ));
+                "IT"));
+
             await MeetingsModule.ExecuteCommandAsync(new ProposeMeetingGroupCommand(
                 "Name 4",
                 "Desc 4",
                 "Madrid",
-                "ES"
-            ));
+                "ES"));
 
             await MeetingsModule.ExecuteCommandAsync(new ProposeMeetingGroupCommand(
                 "Name 5",
                 "Desc 5",
                 "Berlin",
-                "DE"
-            ));
+                "DE"));
 
             var allProposals = await MeetingsModule.ExecuteQueryAsync(new GetMeetingGroupProposalsQuery(null, null));
 
@@ -53,8 +51,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingGroupP
             Assert.That(proposalsPaged.Count, Is.EqualTo(2));
             Assert.That(proposalsPaged[0].Name, Is.EqualTo("Name 3"));
             Assert.That(proposalsPaged[1].Name, Is.EqualTo("Name 4"));
-
-
         }
     }
 }

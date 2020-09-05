@@ -43,8 +43,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
         {
             var proposalMemberId = options.CreatorId ?? new MemberId(Guid.NewGuid());
             var meetingProposal = MeetingGroupProposal.ProposeNew(
-                "name", "description",
-                MeetingGroupLocation.CreateNew("Warsaw", "PL"), proposalMemberId);
+                "name",
+                "description",
+                MeetingGroupLocation.CreateNew("Warsaw", "PL"),
+                proposalMemberId);
 
             meetingProposal.Accept();
 
@@ -56,7 +58,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
                               MeetingTerm.CreateNewBetweenDates(DateTime.UtcNow.AddDays(1), DateTime.UtcNow.AddDays(2));
 
             var rsvpTerm = options.RvspTerm ?? Term.NoTerm;
-            var meeting = meetingGroup.CreateMeeting("title",
+            var meeting = meetingGroup.CreateMeeting(
+                "title",
                 meetingTerm,
                 "description",
                 MeetingLocation.CreateNew("Name", "Address", "PostalCode", "City"),

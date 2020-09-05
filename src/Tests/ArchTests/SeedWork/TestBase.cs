@@ -10,10 +10,14 @@ namespace CompanyName.MyMeetings.ArchTests.SeedWork
 {
     public abstract class TestBase
     {
-        protected static Assembly ApiAssembly = typeof(Startup).Assembly;
+        protected static Assembly ApiAssembly => typeof(Startup).Assembly;
+
         public const string MeetingsNamespace = "CompanyName.MyMeetings.Modules.Meetings";
+
         public const string AdministrationNamespace = "CompanyName.MyMeetings.Modules.Administration";
+
         public const string PaymentsNamespace = "CompanyName.MyMeetings.Modules.Payments";
+
         public const string UserAccessNamespace = "CompanyName.MyMeetings.Modules.UserAccess";
 
         protected static void AssertAreImmutable(IEnumerable<Type> types)
@@ -30,6 +34,7 @@ namespace CompanyName.MyMeetings.ArchTests.SeedWork
 
             AssertFailingTypes(failingTypes);
         }
+
         protected static void AssertFailingTypes(IEnumerable<Type> types)
         {
             Assert.That(types, Is.Null.Or.Empty);

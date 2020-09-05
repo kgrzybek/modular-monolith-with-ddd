@@ -26,7 +26,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork
             return messages.AsList();
         }
 
-        public static T Deserialize<T>(OutboxMessageDto message) where T : class, INotification
+        public static T Deserialize<T>(OutboxMessageDto message)
+            where T : class, INotification
         {
             Type type = Assembly.GetAssembly(typeof(MeetingGroupProposalAcceptedNotification)).GetType(message.Type);
             return JsonConvert.DeserializeObject(message.Data, type) as T;

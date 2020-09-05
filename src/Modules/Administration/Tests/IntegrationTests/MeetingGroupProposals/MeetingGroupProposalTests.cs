@@ -81,8 +81,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.IntegrationTests.Meeting
 
             AssertBrokenRule<MeetingGroupProposalCanBeVerifiedOnceRule>(async () =>
                 await AdministrationModule.ExecuteCommandAsync(
-                    new AcceptMeetingGroupProposalCommand(MeetingGroupProposalSampleData.MeetingGroupProposalId))
-            );
+                    new AcceptMeetingGroupProposalCommand(MeetingGroupProposalSampleData.MeetingGroupProposalId)));
         }
     }
 }
