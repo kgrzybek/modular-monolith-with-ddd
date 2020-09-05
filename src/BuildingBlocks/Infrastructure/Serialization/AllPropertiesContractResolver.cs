@@ -15,7 +15,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Serialization
                     BindingFlags.Public |
                     BindingFlags.NonPublic |
                     BindingFlags.Instance)
-                .Select(p => base.CreateProperty(p, memberSerialization))
+                .Select(p => this.CreateProperty(p, memberSerialization))
                 .ToList();
 
             properties.ForEach(p =>

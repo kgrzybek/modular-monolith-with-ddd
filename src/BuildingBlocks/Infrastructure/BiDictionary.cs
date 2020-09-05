@@ -16,6 +16,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure
             {
                 throw new ArgumentException("Duplicate first or second");
             }
+
             _firstToSecond.Add(first, second);
             _secondToFirst.Add(second, first);
         }
