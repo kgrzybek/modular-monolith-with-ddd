@@ -19,8 +19,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroupP
             var proposalMemberId = new MemberId(Guid.NewGuid());
 
             var meetingProposal = MeetingGroupProposal.ProposeNew(
-                "name", "description",
-                MeetingGroupLocation.CreateNew("Warsaw", "PL"), proposalMemberId);
+                "name",
+                "description",
+                MeetingGroupLocation.CreateNew("Warsaw", "PL"),
+                proposalMemberId);
 
             var meetingGroupProposed = AssertPublishedDomainEvent<MeetingGroupProposedDomainEvent>(meetingProposal);
 
@@ -33,8 +35,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroupP
             var proposalMemberId = new MemberId(Guid.NewGuid());
 
             var meetingProposal = MeetingGroupProposal.ProposeNew(
-                "name", "description",
-                MeetingGroupLocation.CreateNew("Warsaw", "PL"), proposalMemberId);
+                "name",
+                "description",
+                MeetingGroupLocation.CreateNew("Warsaw", "PL"),
+                proposalMemberId);
 
             meetingProposal.Accept();
 
@@ -49,8 +53,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroupP
             var proposalMemberId = new MemberId(Guid.NewGuid());
 
             var meetingProposal = MeetingGroupProposal.ProposeNew(
-                "name", "description",
-                MeetingGroupLocation.CreateNew("Warsaw", "PL"), proposalMemberId);
+                "name",
+                "description",
+                MeetingGroupLocation.CreateNew("Warsaw", "PL"),
+                proposalMemberId);
 
             meetingProposal.Accept();
 
@@ -68,8 +74,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroupP
             var description = "description";
             var meetingGroupLocation = MeetingGroupLocation.CreateNew("Warsaw", "PL");
             var meetingProposal = MeetingGroupProposal.ProposeNew(
-                name, description,
-                meetingGroupLocation, proposalMemberId);
+                name,
+                description,
+                meetingGroupLocation,
+                proposalMemberId);
 
             var meetingGroup = meetingProposal.CreateMeetingGroup();
 

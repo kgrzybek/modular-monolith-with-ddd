@@ -34,7 +34,9 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
                 "PLN"));
 
             var subscriptionPayments = await GetEventually(
-                new GetSubscriptionPaymentsProbe(PaymentsModule, ExecutionContext.UserId,
+                new GetSubscriptionPaymentsProbe(
+                    PaymentsModule,
+                    ExecutionContext.UserId,
                     x => true),
                 10000);
 
@@ -46,7 +48,9 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
                 new ExpireSubscriptionPaymentsCommand());
 
             await GetEventually(
-                new GetSubscriptionPaymentsProbe(PaymentsModule, ExecutionContext.UserId,
+                new GetSubscriptionPaymentsProbe(
+                    PaymentsModule,
+                    ExecutionContext.UserId,
                     x => x.Any(y => y.Status == SubscriptionPaymentStatus.Expired.Code)),
                 10000);
         }
@@ -61,7 +65,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
 
             public GetSubscriptionPaymentsProbe(
                 IPaymentsModule paymentsModule,
-                Guid payerId, Func<List<SubscriptionPaymentDto>, bool> condition)
+                Guid payerId,
+                Func<List<SubscriptionPaymentDto>, bool> condition)
             {
                 _paymentsModule = paymentsModule;
 

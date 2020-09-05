@@ -21,16 +21,15 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork
 {
     public class TestBase
     {
-        protected string ConnectionString;
+        protected string ConnectionString { get; private set; }
 
-        protected ILogger Logger;
+        protected ILogger Logger { get; private set; }
 
-        protected IMeetingsModule MeetingsModule;
+        protected IMeetingsModule MeetingsModule { get; private set; }
 
-        protected IEmailSender EmailSender;
+        protected IEmailSender EmailSender { get; private set; }
 
-        protected ExecutionContextMock ExecutionContext;
-
+        protected ExecutionContextMock ExecutionContext { get; private set; }
 
         [SetUp]
         public async Task BeforeEachTest()
@@ -63,6 +62,35 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork
             MeetingsModule = new MeetingsModule();
         }
 
+        [TearDown]
+        public void AfterEachTest()
+        {
+            MeetingsStartup.Stop();
+            SystemClock.Reset();
+        }
+
+        protected async Task<T> GetLastOutboxMessage<T>()
+            where T : class, INotification
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                var messages = await OutboxMessagesHelper.GetOutboxMessages(connection);
+
+                return OutboxMessagesHelper.Deserialize<T>(messages.Last());
+            }
+        }
+
+        protected static void AssertBrokenRule<TRule>(AsyncTestDelegate testDelegate)
+            where TRule : class, IBusinessRule
+        {
+            var message = $"Expected {typeof(TRule).Name} broken rule";
+            var businessRuleValidationException = Assert.CatchAsync<BusinessRuleValidationException>(testDelegate, message);
+            if (businessRuleValidationException != null)
+            {
+                Assert.That(businessRuleValidationException.BrokenRule, Is.TypeOf<TRule>(), message);
+            }
+        }
+
         private static async Task ClearDatabase(IDbConnection connection)
         {
             const string sql = "DELETE FROM [meetings].[InboxMessages] " +
@@ -79,33 +107,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork
                                "DELETE FROM [meetings].[Members] ";
 
             await connection.ExecuteScalarAsync(sql);
-        }
-
-        protected async Task<T> GetLastOutboxMessage<T>() where T : class, INotification
-        {
-            using (var connection = new SqlConnection(ConnectionString))
-            {
-                var messages = await OutboxMessagesHelper.GetOutboxMessages(connection);
-
-                return OutboxMessagesHelper.Deserialize<T>(messages.Last());
-            }
-        }
-
-        protected static void AssertBrokenRule<TRule>(AsyncTestDelegate testDelegate) where TRule : class, IBusinessRule
-        {
-            var message = $"Expected {typeof(TRule).Name} broken rule";
-            var businessRuleValidationException = Assert.CatchAsync<BusinessRuleValidationException>(testDelegate, message);
-            if (businessRuleValidationException != null)
-            {
-                Assert.That(businessRuleValidationException.BrokenRule, Is.TypeOf<TRule>(), message);
-            }
-        }
-
-        [TearDown]
-        public void AfterEachTest()
-        {
-            MeetingsStartup.Stop();
-            SystemClock.Reset();
         }
     }
 }

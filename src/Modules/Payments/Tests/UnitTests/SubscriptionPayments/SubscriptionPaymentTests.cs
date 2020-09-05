@@ -22,8 +22,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SubscriptionP
                 SubscriptionPeriod.Month,
                 "PL",
                 MoneyValue.Of(60, "PLN"),
-                subscriptionPaymentTestData.PriceList
-            );
+                subscriptionPaymentTestData.PriceList);
 
             // Assert
             AssertPublishedDomainEvent<SubscriptionPaymentCreatedDomainEvent>(subscriptionPayment);
@@ -43,8 +42,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SubscriptionP
                     SubscriptionPeriod.Month,
                     "PL",
                     MoneyValue.Of(50, "PLN"),
-                    subscriptionPaymentTestData.PriceList
-                );
+                    subscriptionPaymentTestData.PriceList);
             });
         }
 
@@ -59,8 +57,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SubscriptionP
                 SubscriptionPeriod.Month,
                 "PL",
                 MoneyValue.Of(60, "PLN"),
-                subscriptionPaymentTestData.PriceList
-            );
+                subscriptionPaymentTestData.PriceList);
 
             // Act
             subscriptionPayment.MarkAsPaid();
@@ -80,8 +77,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SubscriptionP
                 SubscriptionPeriod.Month,
                 "PL",
                 MoneyValue.Of(60, "PLN"),
-                subscriptionPaymentTestData.PriceList
-            );
+                subscriptionPaymentTestData.PriceList);
 
             // Act
             subscriptionPayment.Expire();

@@ -19,12 +19,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingGroupP
                 MeetingGroupProposalSampleData.Name,
                 MeetingGroupProposalSampleData.Description,
                 MeetingGroupProposalSampleData.LocationCity,
-                MeetingGroupProposalSampleData.LocationCountryCode
-            ));
+                MeetingGroupProposalSampleData.LocationCountryCode));
 
             await MeetingsModule.ExecuteCommandAsync(new AcceptMeetingGroupProposalCommand(Guid.NewGuid(), proposalId));
 
-            var meetingGroupProposal = await MeetingsModule.ExecuteQueryAsync(new GetMeetingGroupProposalQuery(proposalId));
+            var meetingGroupProposal =
+                await MeetingsModule.ExecuteQueryAsync(new GetMeetingGroupProposalQuery(proposalId));
 
             Assert.That(meetingGroupProposal.Id, Is.EqualTo(proposalId));
             Assert.That(meetingGroupProposal.Name, Is.EqualTo(MeetingGroupProposalSampleData.Name));
@@ -43,8 +43,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingGroupP
                     MeetingGroupProposalSampleData.Name,
                     MeetingGroupProposalSampleData.Description,
                     null,
-                    null
-                ));
+                    null));
             });
         }
     }

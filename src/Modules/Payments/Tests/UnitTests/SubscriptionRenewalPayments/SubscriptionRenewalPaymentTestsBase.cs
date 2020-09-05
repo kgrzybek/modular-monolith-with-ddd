@@ -46,8 +46,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SubscriptionR
                 "PL",
                 SubscriptionPeriod.Month,
                 MoneyValue.Of(60, "PLN"),
-                PriceListItemCategory.Renewal
-            );
+                PriceListItemCategory.Renewal);
 
             var priceList = PriceList.CreateFromItems(new List<PriceListItemData> { priceListItem });
 

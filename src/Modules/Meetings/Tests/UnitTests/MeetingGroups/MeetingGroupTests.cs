@@ -10,7 +10,6 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.SeedWork;
 using NUnit.Framework;
 
-
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
 {
     [TestFixture]
@@ -110,7 +109,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
 
             AssertBrokenRule<MeetingCanBeOrganizedOnlyByPayedGroupRule>(() =>
             {
-                meetingGroup.CreateMeeting("title",
+                meetingGroup.CreateMeeting(
+                    "title",
                     MeetingTerm.CreateNewBetweenDates(
                         new DateTime(2019, 1, 1, 10, 0, 0),
                         new DateTime(2019, 1, 1, 12, 0, 0)),
@@ -132,7 +132,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
             var meetingGroup = CreateMeetingGroup(definedProposalMemberId);
             meetingGroup.SetExpirationDate(DateTime.UtcNow.AddDays(1));
 
-            var meeting = meetingGroup.CreateMeeting("title",
+            var meeting = meetingGroup.CreateMeeting(
+                "title",
                 MeetingTerm.CreateNewBetweenDates(
                     new DateTime(2019, 1, 1, 10, 0, 0),
                     new DateTime(2019, 1, 1, 12, 0, 0)),
@@ -162,7 +163,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
             meetingGroup.JoinToGroupMember(hostOne);
             meetingGroup.JoinToGroupMember(hostTwo);
 
-            var meeting = meetingGroup.CreateMeeting("title",
+            var meeting = meetingGroup.CreateMeeting(
+                "title",
                 MeetingTerm.CreateNewBetweenDates(
                     new DateTime(2019, 1, 1, 10, 0, 0),
                     new DateTime(2019, 1, 1, 12, 0, 0)),
@@ -197,7 +199,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
 
             AssertBrokenRule<MeetingHostMustBeAMeetingGroupMemberRule>(() =>
             {
-                meetingGroup.CreateMeeting("title",
+                meetingGroup.CreateMeeting(
+                    "title",
                     MeetingTerm.CreateNewBetweenDates(
                         new DateTime(2019, 1, 1, 10, 0, 0),
                         new DateTime(2019, 1, 1, 12, 0, 0)),
@@ -222,7 +225,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
 
             AssertBrokenRule<MeetingHostMustBeAMeetingGroupMemberRule>(() =>
             {
-                meetingGroup.CreateMeeting("title",
+                meetingGroup.CreateMeeting(
+                    "title",
                     MeetingTerm.CreateNewBetweenDates(
                         new DateTime(2019, 1, 1, 10, 0, 0),
                         new DateTime(2019, 1, 1, 12, 0, 0)),
@@ -241,8 +245,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
         {
             var proposalMemberId = definedProposalMemberId ?? new MemberId(Guid.NewGuid());
             var meetingProposal = MeetingGroupProposal.ProposeNew(
-                "name", "description",
-                MeetingGroupLocation.CreateNew("Warsaw", "PL"), proposalMemberId);
+                "name",
+                "description",
+                MeetingGroupLocation.CreateNew("Warsaw", "PL"),
+                proposalMemberId);
 
             meetingProposal.Accept();
 

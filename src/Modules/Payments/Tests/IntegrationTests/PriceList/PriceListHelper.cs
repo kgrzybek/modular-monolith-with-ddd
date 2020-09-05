@@ -55,6 +55,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.PriceList
 
             await TestBase.GetEventually(new GetPriceListProbe(paymentsModule, x => x.Count == 5), 5000);
         }
+
         private class GetPriceListProbe : IProbe<List<PriceListItemDto>>
         {
             private readonly IPaymentsModule _paymentsModule;

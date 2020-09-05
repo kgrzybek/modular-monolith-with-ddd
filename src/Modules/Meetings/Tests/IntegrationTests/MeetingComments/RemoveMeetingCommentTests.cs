@@ -4,8 +4,8 @@ using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddMeetingComment;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.GetMeetingComments;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.RemoveMeetingComment;
+using CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork;
-using static CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.Meetings.MeetingHelper;
 using NUnit.Framework;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingComments
@@ -15,18 +15,23 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
         [Test]
         public async Task RemoveMeetingComment_ByAuthor_WhenDataIsValid_IsSuccessful()
         {
-            //Arrange
-            var meetingId = await CreateMeetingAsync(MeetingsModule, ExecutionContext);
-            var meetingCommentId = await MeetingsModule.ExecuteCommandAsync(new AddMeetingCommentCommand(meetingId, "The meeting was great."));
-            
+            // Arrange
+            var meetingId = await MeetingHelper.CreateMeetingAsync(MeetingsModule, ExecutionContext);
+            var meetingCommentId =
+                await MeetingsModule.ExecuteCommandAsync(new AddMeetingCommentCommand(
+                    meetingId,
+                    "The meeting was great."));
+
             // Act
-            await MeetingsModule.ExecuteCommandAsync(new RemoveMeetingCommentCommand(meetingCommentId, reason: string.Empty));
-            
-            //Assert
+            await MeetingsModule.ExecuteCommandAsync(new RemoveMeetingCommentCommand(
+                meetingCommentId,
+                reason: string.Empty));
+
+            // Assert
             var meetingComments = await MeetingsModule.ExecuteQueryAsync(new GetMeetingCommentsQuery(meetingId));
             Assert.IsEmpty(meetingComments);
         }
-        
+
         [Test]
         public void RemoveMeetingComment_WhenItIsNonexistent_ThrowsInvalidCommandException()
         {
@@ -35,8 +40,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
             {
                 // Act
                 await MeetingsModule.ExecuteCommandAsync(new RemoveMeetingCommentCommand(
-                    meetingCommentId: Guid.NewGuid(), 
-                    reason: String.Empty));
+                    meetingCommentId: Guid.NewGuid(),
+                    reason: string.Empty));
             });
         }
     }
