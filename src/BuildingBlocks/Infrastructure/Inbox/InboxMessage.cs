@@ -14,17 +14,16 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Inbox
 
         public DateTime? ProcessedDate { get; set; }
 
-        private InboxMessage()
-        {
-
-        }
-
         public InboxMessage(DateTime occurredOn, string type, string data)
         {
             this.Id = Guid.NewGuid();
             this.OccurredOn = occurredOn;
             this.Type = type;
             this.Data = data;
+        }
+
+        private InboxMessage()
+        {
         }
     }
 }

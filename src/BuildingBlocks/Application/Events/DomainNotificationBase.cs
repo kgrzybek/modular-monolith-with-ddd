@@ -3,7 +3,8 @@ using CompanyName.MyMeetings.BuildingBlocks.Domain;
 
 namespace CompanyName.MyMeetings.BuildingBlocks.Application.Events
 {
-    public class DomainNotificationBase<T> : IDomainEventNotification<T> where T : IDomainEvent
+    public class DomainNotificationBase<T> : IDomainEventNotification<T>
+        where T : IDomainEvent
     {
         public T DomainEvent { get; }
 
