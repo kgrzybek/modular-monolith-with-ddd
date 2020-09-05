@@ -16,16 +16,17 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.Meetings
 {
     internal static class MeetingHelper
     {
-        public static async Task<Guid> CreateMeetingAsync(IMeetingsModule meetingsModule, ExecutionContextMock executionContext)
+        public static async Task<Guid> CreateMeetingAsync(
+            IMeetingsModule meetingsModule,
+            ExecutionContextMock executionContext)
         {
             var proposalId = await meetingsModule.ExecuteCommandAsync(
                 new ProposeMeetingGroupCommand(
                     "Amazing group",
                     "Absolutely amazing meeting group.",
                     "London",
-                    "UK"
-                ));
-            
+                    "UK"));
+
             await meetingsModule.ExecuteCommandAsync(
                 new CreateNewMeetingGroupCommand(
                     Guid.NewGuid(),
@@ -37,7 +38,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.Meetings
             await meetingsModule.ExecuteCommandAsync(
                 new SetMeetingGroupExpirationDateCommand(
                     Guid.NewGuid(),
-                    meetingGroup.Id, 
+                    meetingGroup.Id,
                     SystemClock.Now.AddMonths(1)));
 
             var meetingId = await meetingsModule.ExecuteCommandAsync(
@@ -57,9 +58,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.Meetings
                     null,
                     null,
                     null,
-                    new List<Guid> {executionContext.UserId}
-                ));
-            
+                    new List<Guid> { executionContext.UserId }));
+
             return meetingId;
         }
     }
