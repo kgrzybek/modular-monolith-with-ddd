@@ -17,9 +17,14 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Payers
         public async Task CreatePayer_Test()
         {
             var payerId = await PaymentsModule.ExecuteCommandAsync(
-                new CreatePayerCommand(Guid.NewGuid(),
-                PayerSampleData.Id, PayerSampleData.Login, PayerSampleData.Email, PayerSampleData.FirstName,
-                PayerSampleData.LastName, PayerSampleData.Name));
+                new CreatePayerCommand(
+                    Guid.NewGuid(),
+                    PayerSampleData.Id,
+                    PayerSampleData.Login,
+                    PayerSampleData.Email,
+                    PayerSampleData.FirstName,
+                    PayerSampleData.LastName,
+                    PayerSampleData.Name));
 
             var payer = await GetEventually(
                 new GetPayerProbe(PaymentsModule, payerId),
