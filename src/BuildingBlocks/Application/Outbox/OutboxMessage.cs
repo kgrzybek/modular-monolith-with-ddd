@@ -14,17 +14,16 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Application.Outbox
 
         public DateTime? ProcessedDate { get; set; }
 
-        private OutboxMessage()
-        {
-
-        }
-
         public OutboxMessage(Guid id, DateTime occurredOn, string type, string data)
         {
             this.Id = id;
             this.OccurredOn = occurredOn;
             this.Type = type;
             this.Data = data;
+        }
+
+        private OutboxMessage()
+        {
         }
     }
 }

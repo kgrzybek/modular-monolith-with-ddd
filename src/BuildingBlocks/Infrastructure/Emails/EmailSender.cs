@@ -8,11 +8,13 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails
     {
         private readonly ILogger _logger;
         private readonly EmailsConfiguration _configuration;
+
         public EmailSender(ILogger logger, EmailsConfiguration configuration)
         {
             _logger = logger;
             _configuration = configuration;
         }
+
         public void SendEmail(EmailMessage message)
         {
             _logger.Information(

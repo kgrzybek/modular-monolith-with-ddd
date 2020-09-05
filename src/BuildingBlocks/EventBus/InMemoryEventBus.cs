@@ -19,12 +19,14 @@ namespace CompanyName.MyMeetings.BuildingBlocks.EventBus
 
         private readonly List<HandlerSubscription> _handlers;
 
-        public void Subscribe<T>(IIntegrationEventHandler<T> handler) where T : IntegrationEvent
+        public void Subscribe<T>(IIntegrationEventHandler<T> handler)
+            where T : IntegrationEvent
         {
             _handlers.Add(new HandlerSubscription(handler, typeof(T).FullName));
         }
 
-        public void Publish<T>(T @event) where T : IntegrationEvent
+        public void Publish<T>(T @event)
+            where T : IntegrationEvent
         {
             var eventType = @event.GetType();
 

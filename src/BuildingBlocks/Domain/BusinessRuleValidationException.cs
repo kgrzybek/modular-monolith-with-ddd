@@ -8,7 +8,8 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Domain
 
         public string Details { get; }
 
-        public BusinessRuleValidationException(IBusinessRule brokenRule) : base(brokenRule.Message)
+        public BusinessRuleValidationException(IBusinessRule brokenRule)
+            : base(brokenRule.Message)
         {
             BrokenRule = brokenRule;
             this.Details = brokenRule.Message;
