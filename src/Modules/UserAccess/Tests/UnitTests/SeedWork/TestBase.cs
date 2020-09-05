@@ -7,7 +7,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.SeedWork
 {
     public abstract class TestBase
     {
-        public static T AssertPublishedDomainEvent<T>(Entity aggregate) where T : IDomainEvent
+        public static T AssertPublishedDomainEvent<T>(Entity aggregate)
+            where T : IDomainEvent
         {
             var domainEvent = DomainEventsTestHelper.GetAllDomainEvents(aggregate).OfType<T>().SingleOrDefault();
 
@@ -19,7 +20,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.SeedWork
             return domainEvent;
         }
 
-        public static void AssertBrokenRule<TRule>(TestDelegate testDelegate) where TRule : class, IBusinessRule
+        public static void AssertBrokenRule<TRule>(TestDelegate testDelegate)
+            where TRule : class, IBusinessRule
         {
             var message = $"Expected {typeof(TRule).Name} broken rule";
             var businessRuleValidationException = Assert.Catch<BusinessRuleValidationException>(testDelegate, message);

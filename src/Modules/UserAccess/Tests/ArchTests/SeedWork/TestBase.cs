@@ -12,9 +12,11 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.ArchTests.SeedWork
 {
     public abstract class TestBase
     {
-        protected static Assembly ApplicationAssembly = typeof(CommandBase).Assembly;
-        protected static Assembly DomainAssembly = typeof(User).Assembly;
-        protected static Assembly InfrastructureAssembly = typeof(UserAccessContext).Assembly;
+        protected static Assembly ApplicationAssembly => typeof(CommandBase).Assembly;
+
+        protected static Assembly DomainAssembly => typeof(User).Assembly;
+
+        protected static Assembly InfrastructureAssembly => typeof(UserAccessContext).Assembly;
 
         protected static void AssertAreImmutable(IEnumerable<Type> types)
         {
@@ -30,6 +32,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.ArchTests.SeedWork
 
             AssertFailingTypes(failingTypes);
         }
+
         protected static void AssertFailingTypes(IEnumerable<Type> types)
         {
             Assert.That(types, Is.Null.Or.Empty);
