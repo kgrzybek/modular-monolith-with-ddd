@@ -101,10 +101,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork
                                "DELETE FROM [meetings].[MeetingGroupProposals] " +
                                "DELETE FROM [meetings].[MeetingGroups] " +
                                "DELETE FROM [meetings].[MeetingNotAttendees] " +
+                               "DELETE FROM [meetings].[MeetingCommentingConfigurations] " +
                                "DELETE FROM [meetings].[Meetings] " +
                                "DELETE FROM [meetings].[MeetingWaitlistMembers] " +
                                "DELETE FROM [meetings].[MeetingComments] " +
-                               "DELETE FROM [meetings].[MeetingCommentingConfigurations] " +
                                "DELETE FROM [meetings].[Members] ";
 
             await connection.ExecuteScalarAsync(sql);

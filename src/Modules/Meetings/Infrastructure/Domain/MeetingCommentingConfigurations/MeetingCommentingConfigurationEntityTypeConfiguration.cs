@@ -14,7 +14,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.MeetingC
             builder.HasKey(c => c.Id);
             builder.HasOne<Meeting>()
                 .WithOne()
-                .HasForeignKey(nameof(MeetingCommentingConfiguration), "_meetingId");
+                .HasForeignKey(nameof(MeetingCommentingConfiguration), "_meetingId")
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property<MeetingId>("_meetingId").HasColumnName("MeetingId");
             builder.Property<bool>("_isCommentingEnabled").HasColumnName("IsCommentingEnabled");

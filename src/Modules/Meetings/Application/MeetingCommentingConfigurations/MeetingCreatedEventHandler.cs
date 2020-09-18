@@ -26,7 +26,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingCommentingC
         public async Task Handle(MeetingCreatedDomainEvent @event, CancellationToken cancellationToken)
         {
             var meeting = await _meetingRepository.GetByIdAsync(@event.MeetingId);
+
             var meetingCommentingConfiguration = meeting.CreateCommentingConfiguration();
+
             await _meetingCommentingConfigurationRepository.AddAsync(meetingCommentingConfiguration);
         }
     }
