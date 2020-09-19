@@ -65,7 +65,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Q
 
         internal static void StopQuartz()
         {
-            _scheduler.Shutdown();
+            _scheduler?.Shutdown();
         }
     }
 }

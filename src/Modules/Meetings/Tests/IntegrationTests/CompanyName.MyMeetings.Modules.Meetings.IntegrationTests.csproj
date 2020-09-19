@@ -25,4 +25,10 @@
     <ProjectReference Include="..\..\Infrastructure\CompanyName.MyMeetings.Modules.Meetings.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Countries\0001_SeedCountries.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

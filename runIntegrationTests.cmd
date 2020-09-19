@@ -19,4 +19,5 @@ dotnet "src/Database/DatabaseMigrator/bin/Release/netcoreapp3.1/DatabaseMigrator
 dotnet test --configuration Release --no-build --verbosity normal src/Modules/Administration/Tests/IntegrationTests/CompanyName.MyMeetings.Modules.Administration.IntegrationTests.csproj
 dotnet test --configuration Release --no-build --verbosity normal src/Modules/Payments/Tests/IntegrationTests/CompanyName.MyMeetings.Modules.Payments.IntegrationTests.csproj
 dotnet test --configuration Release --no-build --verbosity normal src/Modules/UserAccess/Tests/IntegrationTests/CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.csproj
+dotnet test --configuration Release --no-build --verbosity normal src/Modules/Meetings/Tests/IntegrationTests/CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.csproj
 dotnet test --configuration Release --no-build --verbosity normal src/Tests/IntegrationTests/CompanyName.MyMeetings.IntegrationTests.csproj
