@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
@@ -69,6 +70,14 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork
             SystemClock.Reset();
         }
 
+        protected async Task ExecuteScript(string scriptPath)
+        {
+            var sql = await File.ReadAllTextAsync(scriptPath);
+
+            await using var sqlConnection = new SqlConnection(ConnectionString);
+            await sqlConnection.ExecuteScalarAsync(sql);
+        }
+
         protected async Task<T> GetLastOutboxMessage<T>()
             where T : class, INotification
         {
@@ -104,6 +113,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork
                                "DELETE FROM [meetings].[Meetings] " +
                                "DELETE FROM [meetings].[MeetingWaitlistMembers] " +
                                "DELETE FROM [meetings].[MeetingComments] " +
+                               "DELETE FROM [meetings].[Countries] " +
                                "DELETE FROM [meetings].[Members] ";
 
             await connection.ExecuteScalarAsync(sql);

@@ -94,6 +94,9 @@ namespace CompanyName.MyMeetings.API
         {
             var container = app.ApplicationServices.GetAutofacRoot();
 
+            app.UseCors(builder =>
+                builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+
             InitializeModules(container);
 
             app.UseMiddleware<CorrelationMiddleware>();
