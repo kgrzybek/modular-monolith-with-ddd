@@ -133,6 +133,7 @@
     <None Include="Scripts\CreateDatabase_Linux.sql" />
     <None Include="Scripts\Migrations\1_0_0_0\0001_initial_structure.sql" />
     <None Include="Scripts\Migrations\1_0_0_0\0002_change_meeting_comments_edit_date_type_and_add_meeting_comments_view.sql" />
+    <None Include="Scripts\Migrations\1_0_0_0\0004_add_meeting_commenting_configurations_table.sql" />
     <Build Include="app\Tables\MigrationsJournal.sql" />
     <None Include="Scripts\CreateDatabase_Windows.sql" />
     <None Include="Scripts\Seeds\0001_SeedCountries.sql">
@@ -144,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="administration\Tables\MeetingGroupProposals.sql" />
+    <Build Include="meetings\Tables\MeetingCommentingConfigurations.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\ClearDatabase.sql" />

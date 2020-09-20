@@ -13,7 +13,7 @@ using static CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.Meetings.M
 namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingComments
 {
     [TestFixture]
-    public class EditMeetingCommentTest : TestBase
+    public class EditMeetingCommentTests : TestBase
     {
         [Test]
         public async Task EditMeetingComment_WhenDataIsValid_IsSuccessful()

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingCommentingConfigurations;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Events;
@@ -313,6 +314,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
             this.CheckRule(new CommentCanBeAddedOnlyByAttendeeRule(authorId, _attendees));
 
             return MeetingComment.Create(this.Id, authorId, comment);
+        }
+
+        public MeetingCommentingConfiguration CreateCommentingConfiguration()
+        {
+            return MeetingCommentingConfiguration.Create(this.Id);
         }
 
         private MeetingWaitlistMember GetActiveMemberOnWaitlist(MemberId memberId)
