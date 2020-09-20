@@ -22,6 +22,13 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.SeedWork
             return domainEvent;
         }
 
+        public static void AssertDomainEventNotPublished<T>(Entity aggregate)
+            where T : IDomainEvent
+        {
+            var domainEvent = DomainEventsTestHelper.GetAllDomainEvents(aggregate).OfType<T>().SingleOrDefault();
+            Assert.Null(domainEvent);
+        }
+
         public static List<T> AssertPublishedDomainEvents<T>(Entity aggregate)
             where T : IDomainEvent
         {

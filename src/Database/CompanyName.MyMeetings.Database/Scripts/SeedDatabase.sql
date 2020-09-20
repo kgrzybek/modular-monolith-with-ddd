@@ -92,6 +92,7 @@ INSERT INTO users.[Permissions] ([Code], [Name]) VALUES
 	('AddMeetingComment','AddMeetingComment'),
 	('EditMeetingComment','EditMeetingComment'),
 	('DeleteMeetingComment','DeleteMeetingComment'),
+	('EditMeetingCommentingConfiguration','EditMeetingCommentingConfiguration'),
 
 	-- Administration
 	('AcceptMeetingGroupProposal','AcceptMeetingGroupProposal'),
