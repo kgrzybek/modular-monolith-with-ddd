@@ -22,8 +22,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!");
 
             // Assert
-            var meetingCommentCreated = AssertPublishedDomainEvent<MeetingCommentCreatedDomainEvent>(meetingComment);
-            Assert.That(meetingCommentCreated.MeetingCommentId, Is.EqualTo(meetingComment.Id));
+            var meetingCommentCreatedEvent = AssertPublishedDomainEvent<MeetingCommentCreatedDomainEvent>(meetingComment);
+            Assert.That(meetingCommentCreatedEvent.MeetingCommentId, Is.EqualTo(meetingComment.Id));
         }
 
         [Test]
@@ -74,9 +74,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             meetingComment.Edit(commentAuthorId, editedComment);
 
             // Assert
-            var meetingCommentCreated = AssertPublishedDomainEvent<MeetingCommentEditedDomainEvent>(meetingComment);
-            Assert.That(meetingCommentCreated.MeetingCommentId, Is.EqualTo(meetingComment.Id));
-            Assert.That(meetingCommentCreated.EditedComment, Is.EqualTo(editedComment));
+            var meetingCommentEditedEvent = AssertPublishedDomainEvent<MeetingCommentEditedDomainEvent>(meetingComment);
+            Assert.That(meetingCommentEditedEvent.MeetingCommentId, Is.EqualTo(meetingComment.Id));
+            Assert.That(meetingCommentEditedEvent.EditedComment, Is.EqualTo(editedComment));
         }
 
         [Test]
@@ -134,8 +134,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             meetingComment.Remove(removingMemberId, meetingTestData.MeetingGroup);
 
             // Assert
-            var meetingCommentCreated = AssertPublishedDomainEvent<MeetingCommentRemovedDomainEvent>(meetingComment);
-            Assert.That(meetingCommentCreated.MeetingCommentId, Is.EqualTo(meetingComment.Id));
+            var meetingCommentRemovedEvent = AssertPublishedDomainEvent<MeetingCommentRemovedDomainEvent>(meetingComment);
+            Assert.That(meetingCommentRemovedEvent.MeetingCommentId, Is.EqualTo(meetingComment.Id));
         }
 
         [Test]

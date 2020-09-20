@@ -1,5 +1,6 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Outbox;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.InternalCommands;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingCommentingConfigurations;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
@@ -35,6 +36,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure
         public DbSet<MemberSubscription> MemberSubscriptions { get; set; }
 
         public DbSet<MeetingComment> MeetingComments { get; set; }
+
+        public DbSet<MeetingCommentingConfiguration> MeetingCommentingConfigurations { get; set; }
 
         private readonly ILoggerFactory _loggerFactory;
 

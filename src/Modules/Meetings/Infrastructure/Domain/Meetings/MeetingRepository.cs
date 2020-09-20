@@ -20,7 +20,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.Meetings
 
         public async Task<Meeting> GetByIdAsync(MeetingId id)
         {
-            return await _meetingsContext.Meetings.FirstOrDefaultAsync(x => x.Id == id);
+            return await _meetingsContext.Meetings.FindAsync(id);
         }
     }
 }

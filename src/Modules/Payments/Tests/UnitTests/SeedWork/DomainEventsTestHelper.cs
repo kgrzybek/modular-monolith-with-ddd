@@ -21,7 +21,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SeedWork
 
             foreach (var field in fields)
             {
-                var isEntity = field.FieldType.IsAssignableFrom(typeof(Entity));
+                var isEntity = typeof(Entity).IsAssignableFrom(field.FieldType);
 
                 if (isEntity)
                 {
