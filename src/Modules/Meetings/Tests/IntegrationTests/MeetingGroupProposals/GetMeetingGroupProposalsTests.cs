@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals.GetMeetingGroupProposals;
+using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals.GetAllMeetingGroupProposals;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals.ProposeMeetingGroup;
 using CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork;
 using NUnit.Framework;
@@ -42,11 +42,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingGroupP
                 "Berlin",
                 "DE"));
 
-            var allProposals = await MeetingsModule.ExecuteQueryAsync(new GetMeetingGroupProposalsQuery(null, null));
+            var allProposals = await MeetingsModule.ExecuteQueryAsync(new GetAllMeetingGroupProposalsQuery(null, null));
 
             Assert.That(allProposals.Count, Is.EqualTo(5));
 
-            var proposalsPaged = await MeetingsModule.ExecuteQueryAsync(new GetMeetingGroupProposalsQuery(2, 2));
+            var proposalsPaged = await MeetingsModule.ExecuteQueryAsync(new GetAllMeetingGroupProposalsQuery(2, 2));
 
             Assert.That(proposalsPaged.Count, Is.EqualTo(2));
             Assert.That(proposalsPaged[0].Name, Is.EqualTo("Name 3"));

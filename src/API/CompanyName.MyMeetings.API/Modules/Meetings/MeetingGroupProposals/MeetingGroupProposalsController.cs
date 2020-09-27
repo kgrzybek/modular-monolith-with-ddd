@@ -1,7 +1,9 @@
 ﻿using System.Threading.Tasks;
 using CompanyName.MyMeetings.API.Configuration.Authorization;
+using CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.GetMeetingGroupProposal;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
-using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals.GetMeetingGroupProposals;
+using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals.GetAllMeetingGroupProposals;
+using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals.GetMemberMeetingGroupProposals;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals.ProposeMeetingGroup;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,10 +22,20 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingGroupProposals
 
         [HttpGet("")]
         [HasPermission(MeetingsPermissions.GetMeetingGroupProposals)]
-        public async Task<IActionResult> GetMeetingGroupProposals(int? page, int? perPage)
+        public async Task<IActionResult> GetMemberMeetingGroupProposals()
         {
             var meetingGroupProposals = await _meetingsModule.ExecuteQueryAsync(
-                new GetMeetingGroupProposalsQuery(page, perPage));
+                new GetMemberMeetingGroupProposalsQuery());
+
+            return Ok(meetingGroupProposals);
+        }
+
+        [HttpGet("all")]
+        [HasPermission(MeetingsPermissions.GetMeetingGroupProposals)]
+        public async Task<IActionResult> GetAllMeetingGroupProposals(int? page, int? perPage)
+        {
+            var meetingGroupProposals = await _meetingsModule.ExecuteQueryAsync(
+                new GetAllMeetingGroupProposalsQuery(page, perPage));
 
             return Ok(meetingGroupProposals);
         }

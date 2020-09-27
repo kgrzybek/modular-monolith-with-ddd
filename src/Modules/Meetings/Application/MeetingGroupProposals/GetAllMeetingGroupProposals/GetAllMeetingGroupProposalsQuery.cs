@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Queries;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Queries;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals.GetMeetingGroupProposal;
 
-namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals.GetMeetingGroupProposals
+namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals.GetAllMeetingGroupProposals
 {
-    public class GetMeetingGroupProposalsQuery : QueryBase<List<MeetingGroupProposalDto>>, IPagedQuery
+    public class GetAllMeetingGroupProposalsQuery : QueryBase<List<MeetingGroupProposalDto>>, IPagedQuery
     {
-        public GetMeetingGroupProposalsQuery(int? page, int? perPage)
+        public GetAllMeetingGroupProposalsQuery(int? page, int? perPage)
         {
             Page = page;
             PerPage = perPage;

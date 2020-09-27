@@ -22,7 +22,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.Countries
         [HttpGet("")]
         [HasPermission(MeetingsPermissions.GetMeetingGroupProposals)]
         [ProducesResponseType(typeof(List<CountryDto>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetMeetingGroupProposals(int? page, int? perPage)
+        public async Task<IActionResult> GetAllCountries(int? page, int? perPage)
         {
             var countries = await _meetingsModule.ExecuteQueryAsync(
                 new GetAllCountriesQuery());

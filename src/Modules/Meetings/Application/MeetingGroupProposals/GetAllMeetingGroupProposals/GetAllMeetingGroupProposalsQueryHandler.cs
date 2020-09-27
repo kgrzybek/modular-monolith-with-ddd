@@ -7,18 +7,18 @@ using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Queries;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals.GetMeetingGroupProposal;
 using Dapper;
 
-namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals.GetMeetingGroupProposals
+namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals.GetAllMeetingGroupProposals
 {
-    internal class GetMeetingGroupProposalsQueryHandler : IQueryHandler<GetMeetingGroupProposalsQuery, List<MeetingGroupProposalDto>>
+    internal class GetAllMeetingGroupProposalsQueryHandler : IQueryHandler<GetAllMeetingGroupProposalsQuery, List<MeetingGroupProposalDto>>
     {
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
-        public GetMeetingGroupProposalsQueryHandler(ISqlConnectionFactory sqlConnectionFactory)
+        public GetAllMeetingGroupProposalsQueryHandler(ISqlConnectionFactory sqlConnectionFactory)
         {
             _sqlConnectionFactory = sqlConnectionFactory;
         }
 
-        public async Task<List<MeetingGroupProposalDto>> Handle(GetMeetingGroupProposalsQuery query, CancellationToken cancellationToken)
+        public async Task<List<MeetingGroupProposalDto>> Handle(GetAllMeetingGroupProposalsQuery query, CancellationToken cancellationToken)
         {
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
