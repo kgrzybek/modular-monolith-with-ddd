@@ -63,11 +63,12 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetS
 
             await _connection.ExecuteScalarAsync(
                 "INSERT INTO payments.SubscriptionDetails " +
-                "([Id], [Period], [Status], [CountryCode], [ExpirationDate]) " +
-                "VALUES (@SubscriptionId, @Period, @Status, @CountryCode, @ExpirationDate)",
+                "([Id], [PayerId], [Period], [Status], [CountryCode], [ExpirationDate]) " +
+                "VALUES (@SubscriptionId, @PayerId, @Period, @Status, @CountryCode, @ExpirationDate)",
                 new
                 {
                     subscriptionCreated.SubscriptionId,
+                    subscriptionCreated.PayerId,
                     period,
                     subscriptionCreated.Status,
                     subscriptionCreated.CountryCode,

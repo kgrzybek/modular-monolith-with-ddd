@@ -35,6 +35,16 @@ INSERT INTO meetings.Members VALUES
 	'John Doe'
 )
 
+INSERT INTO payments.Payers VALUES
+(
+	'2EBFECFC-ED13-43B8-B516-6AC89D51C510',
+	'testMember@mail.com',
+	'testMember@mail.com',
+	'John',
+	'Doe',
+	'John Doe'
+)
+
 INSERT INTO users.UserRoles VALUES
 ('2EBFECFC-ED13-43B8-B516-6AC89D51C510', 'Member')
 
@@ -103,7 +113,9 @@ INSERT INTO users.[Permissions] ([Code], [Name]) VALUES
 	('CreatePriceListItem','CreatePriceListItem'),
 	('ActivatePriceListItem','ActivatePriceListItem'),
 	('DeactivatePriceListItem','DeactivatePriceListItem'),
-	('ChangePriceListItemAttributes','ChangePriceListItemAttributes')
+	('ChangePriceListItemAttributes','ChangePriceListItemAttributes'),
+	('GetAuthenticatedPayerSubscription','GetAuthenticatedPayerSubscription'),
+	('GetPriceListItem','GetPriceListItem')
 
 -- Meetings
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetMeetingGroupProposals')
@@ -133,7 +145,10 @@ INSERT INTO users.RolesToPermissions VALUES ('Administrator', 'AcceptMeetingGrou
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'RegisterPayment')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'BuySubscription')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'RenewSubscription')
+INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetAuthenticatedPayerSubscription')
+INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetPriceListItem')
 INSERT INTO users.RolesToPermissions VALUES ('Administrator', 'CreatePriceListItem')
 INSERT INTO users.RolesToPermissions VALUES ('Administrator', 'ActivatePriceListItem')
 INSERT INTO users.RolesToPermissions VALUES ('Administrator', 'DeactivatePriceListItem')
 INSERT INTO users.RolesToPermissions VALUES ('Administrator', 'ChangePriceListItemAttributes')
+INSERT INTO users.RolesToPermissions VALUES ('Administrator', 'GetPriceListItem')

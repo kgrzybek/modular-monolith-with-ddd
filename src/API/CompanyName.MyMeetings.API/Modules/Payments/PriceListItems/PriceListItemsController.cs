@@ -6,6 +6,7 @@ using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems;
 using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.ActivatePriceListItem;
 using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.CreatePriceListItem;
 using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.DeactivatePriceListItem;
+using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.GetPriceListItem;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyName.MyMeetings.API.Modules.Payments.PriceListItems
@@ -19,6 +20,18 @@ namespace CompanyName.MyMeetings.API.Modules.Payments.PriceListItems
         public PriceListItemsController(IPaymentsModule paymentsModule)
         {
             _paymentsModule = paymentsModule;
+        }
+
+        [HttpGet]
+        [HasPermission(PaymentsPermissions.GetPriceListItem)]
+        public async Task<IActionResult> GetPriceListItem([FromQuery] GetPriceListItemRequest request)
+        {
+            var priceListItem = await _paymentsModule.ExecuteQueryAsync(new GetPriceListItemQuery(
+                request.CountryCode,
+                request.CategoryCode,
+                request.PeriodTypeCode));
+
+            return Ok(priceListItem);
         }
 
         [HttpPost]

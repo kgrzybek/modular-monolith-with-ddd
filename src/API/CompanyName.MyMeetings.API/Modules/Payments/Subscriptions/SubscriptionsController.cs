@@ -23,14 +23,14 @@ namespace CompanyName.MyMeetings.API.Modules.Payments.Subscriptions
         [HasPermission(PaymentsPermissions.BuySubscription)]
         public async Task<IActionResult> BuySubscription(BuySubscriptionRequest request)
         {
-            await _meetingsModule.ExecuteCommandAsync(
+            var paymentId = await _meetingsModule.ExecuteCommandAsync(
                 new BuySubscriptionCommand(
                     request.SubscriptionTypeCode,
                     request.CountryCode,
                     request.Value,
                     request.Currency));
 
-            return Ok();
+            return Ok(paymentId);
         }
 
         [HttpPost("{subscriptionId}/renewals")]

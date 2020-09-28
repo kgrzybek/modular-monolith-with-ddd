@@ -135,41 +135,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
             Assert.That(subscription, Is.Not.Null);
         }
 
-        private class GetSubscriptionPaymentsProbe : IProbe<List<SubscriptionPaymentDto>>
-        {
-            private readonly IPaymentsModule _paymentsModule;
-
-            private readonly Guid _payerId;
-
-            private readonly Func<List<SubscriptionPaymentDto>, bool> _condition;
-
-            public GetSubscriptionPaymentsProbe(
-                IPaymentsModule paymentsModule,
-                Guid payerId,
-                Func<List<SubscriptionPaymentDto>, bool> condition)
-            {
-                _paymentsModule = paymentsModule;
-
-                _payerId = payerId;
-                _condition = condition;
-            }
-
-            public bool IsSatisfied(List<SubscriptionPaymentDto> sample)
-            {
-                return sample != null && _condition(sample);
-            }
-
-            public async Task<List<SubscriptionPaymentDto>> GetSampleAsync()
-            {
-                return await _paymentsModule.ExecuteQueryAsync(new GetSubscriptionPaymentsQuery(_payerId));
-            }
-
-            public string DescribeFailureTo()
-            {
-                return $"Cannot get subscription payments for PayerId: {_payerId}";
-            }
-        }
-
         private class GetSubscriptionDetailsProbe : IProbe<SubscriptionDetailsDto>
         {
             private readonly IPaymentsModule _paymentsModule;

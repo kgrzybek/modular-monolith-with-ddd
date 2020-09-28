@@ -9,5 +9,7 @@
         public const string ActivatePriceListItem = "ActivatePriceListItem";
         public const string DeactivatePriceListItem = "DeactivatePriceListItem";
         public const string ChangePriceListItemAttributes = "ChangePriceListItemAttributes";
+        public const string GetAuthenticatedPayerSubscription = "GetAuthenticatedPayerSubscription";
+        public const string GetPriceListItem = "GetPriceListItem";
     }
 }
