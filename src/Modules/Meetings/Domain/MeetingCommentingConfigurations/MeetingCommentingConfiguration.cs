@@ -1,7 +1,10 @@
 ﻿using System;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingCommentingConfigurations.Events;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingCommentingConfigurations.Rules;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingCommentingConfigurations
 {
@@ -25,6 +28,28 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingCommentingConfig
         private MeetingCommentingConfiguration()
         {
             // Only for EF.
+        }
+
+        public void EnableCommenting(MemberId enablingMemberId, MeetingGroup meetingGroup)
+        {
+            CheckRule(new MeetingCommentingCanBeEnabledOnlyByGroupOrganizerRule(enablingMemberId, meetingGroup));
+
+            if (!this._isCommentingEnabled)
+            {
+                this._isCommentingEnabled = true;
+                AddDomainEvent(new MeetingCommentingEnabledDomainEvent(this._meetingId));
+            }
+        }
+
+        public void DisableCommenting(MemberId disablingMemberId, MeetingGroup meetingGroup)
+        {
+            CheckRule(new MeetingCommentingCanBeDisabledOnlyByGroupOrganizerRule(disablingMemberId, meetingGroup));
+
+            if (this._isCommentingEnabled)
+            {
+                this._isCommentingEnabled = false;
+                AddDomainEvent(new MeetingCommentingDisabledDomainEvent(this._meetingId));
+            }
         }
 
         internal static MeetingCommentingConfiguration Create(MeetingId meetingId)

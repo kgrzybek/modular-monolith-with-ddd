@@ -22,5 +22,7 @@
         public const string AddMeetingComment = "AddMeetingComment";
         public const string EditMeetingComment = "EditMeetingComment";
         public const string DeleteMeetingComment = "DeleteMeetingComment";
+        public const string EnableMeetingCommenting = "EnableMeetingCommenting";
+        public const string DisableMeetingCommenting = "DisableMeetingCommenting";
     }
 }
