@@ -54,13 +54,10 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
 
             var projectors = scope.Resolve<IList<IProjector>>();
 
-            var tasks = projectors
-                .Select(async projector =>
-                {
-                    await projector.Project(domainEvent);
-                });
-
-            await Task.WhenAll(tasks);
+            foreach (var projector in projectors)
+            {
+                await projector.Project(domainEvent);
+            }
 
             var checkpointStore = scope.Resolve<ICheckpointStore>();
             await checkpointStore.StoreCheckpoint(SubscriptionCode.All, streamMessage.Position);

@@ -48,7 +48,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
                 new GetPayerSubscriptionProbe(
                     PaymentsModule,
                     ExecutionContext.UserId),
-                5000);
+                10000);
 
             Assert.That(subscription.Period, Is.EqualTo(SubscriptionPeriod.Month.Code));
             Assert.That(subscription.Status, Is.EqualTo(SubscriptionStatus.Active.Code));
