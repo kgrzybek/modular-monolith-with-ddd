@@ -30,9 +30,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingCommentingConfig
             // Only for EF.
         }
 
-        internal static MeetingCommentingConfiguration Create(MeetingId meetingId)
-            => new MeetingCommentingConfiguration(meetingId);
-
         public void EnableCommenting(MemberId enablingMemberId, MeetingGroup meetingGroup)
         {
             CheckRule(new MeetingCommentingCanBeEnabledOnlyByGroupOrganizerRule(enablingMemberId, meetingGroup));
@@ -54,5 +51,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingCommentingConfig
                 AddDomainEvent(new MeetingCommentingDisabledDomainEvent(this._meetingId));
             }
         }
+
+        internal static MeetingCommentingConfiguration Create(MeetingId meetingId)
+            => new MeetingCommentingConfiguration(meetingId);
     }
 }
