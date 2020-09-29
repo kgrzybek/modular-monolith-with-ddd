@@ -19,7 +19,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.ArchTests.Domain
                 .That()
                     .Inherit(typeof(DomainEventBase))
                         .Or()
-                    .Inherit(typeof(IDomainEvent))
+                    .ImplementInterface(typeof(IDomainEvent))
                 .GetTypes();
 
             AssertAreImmutable(types);
@@ -218,7 +218,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.ArchTests.Domain
                 .That()
                 .Inherit(typeof(DomainEventBase))
                 .Or()
-                .Inherit(typeof(IDomainEvent))
+                .ImplementInterface(typeof(IDomainEvent))
                 .Should().HaveNameEndingWith("DomainEvent")
                 .GetResult();
 
@@ -230,7 +230,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.ArchTests.Domain
         {
             var result = Types.InAssembly(DomainAssembly)
                 .That()
-                .Inherit(typeof(IBusinessRule))
+                .ImplementInterface(typeof(IBusinessRule))
                 .Should().HaveNameEndingWith("Rule")
                 .GetResult();
 

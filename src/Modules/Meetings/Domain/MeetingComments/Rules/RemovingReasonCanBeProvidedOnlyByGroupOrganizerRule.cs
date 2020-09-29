@@ -4,13 +4,13 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments.Rules
 {
-    public class RemovingReasonCanBeProvidedOnlyByGroupOrganizer : IBusinessRule
+    public class RemovingReasonCanBeProvidedOnlyByGroupOrganizerRule : IBusinessRule
     {
         private readonly MeetingGroup _meetingGroup;
         private readonly MemberId _removingMemberId;
         private readonly string _removingReason;
 
-        public RemovingReasonCanBeProvidedOnlyByGroupOrganizer(MeetingGroup meetingGroup, MemberId removingMemberId, string removingReason)
+        public RemovingReasonCanBeProvidedOnlyByGroupOrganizerRule(MeetingGroup meetingGroup, MemberId removingMemberId, string removingReason)
         {
             _meetingGroup = meetingGroup;
             _removingMemberId = removingMemberId;

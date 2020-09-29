@@ -26,7 +26,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems
             SubscriptionPeriod subscriptionPeriod,
             PriceListItemCategory category)
         {
-            CheckRule(new PriceForSubscriptionMustBeDefined(countryCode, subscriptionPeriod, _items, category));
+            CheckRule(new PriceForSubscriptionMustBeDefinedRule(countryCode, subscriptionPeriod, _items, category));
 
             var priceListItem = _items.Single(x =>
                 x.CountryCode == countryCode && x.SubscriptionPeriod == subscriptionPeriod &&

@@ -2,11 +2,11 @@
 
 namespace CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork.Rules
 {
-    public class ValueOfMoneyMustNotBeNegative : IBusinessRule
+    public class ValueOfMoneyMustNotBeNegativeRule : IBusinessRule
     {
         private readonly decimal _value;
 
-        public ValueOfMoneyMustNotBeNegative(decimal value)
+        public ValueOfMoneyMustNotBeNegativeRule(decimal value)
         {
             _value = value;
         }
