@@ -59,7 +59,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
         public void Edit(MemberId editorId, string editedComment)
         {
             this.CheckRule(new CommentTextMustBeProvidedRule(editedComment));
-            this.CheckRule(new MeetingCommentCanBeEditedOnlyByAuthor(this._authorId, editorId));
+            this.CheckRule(new MeetingCommentCanBeEditedOnlyByAuthorRule(this._authorId, editorId));
 
             _comment = editedComment;
             _editDate = SystemClock.Now;
@@ -70,7 +70,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
         public void Remove(MemberId removingMemberId, MeetingGroup meetingGroup, string reason = null)
         {
             this.CheckRule(new MeetingCommentCanBeRemovedOnlyByAuthorOrGroupOrganizerRule(meetingGroup, this._authorId, removingMemberId));
-            this.CheckRule(new RemovingReasonCanBeProvidedOnlyByGroupOrganizer(meetingGroup, removingMemberId, reason));
+            this.CheckRule(new RemovingReasonCanBeProvidedOnlyByGroupOrganizerRule(meetingGroup, removingMemberId, reason));
 
             _isRemoved = true;
             _removedByReason = reason ?? string.Empty;

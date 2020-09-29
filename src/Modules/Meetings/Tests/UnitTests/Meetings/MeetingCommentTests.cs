@@ -92,7 +92,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             var editedComment = "Wonderful!";
 
             // Assert
-            AssertBrokenRule<MeetingCommentCanBeEditedOnlyByAuthor>(() =>
+            AssertBrokenRule<MeetingCommentCanBeEditedOnlyByAuthorRule>(() =>
             {
                 // Act
                 meetingComment.Edit(new MemberId(Guid.NewGuid()), editedComment);
@@ -175,7 +175,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             meetingComment.ClearDomainEvents();
 
             // Assert
-            AssertBrokenRule<RemovingReasonCanBeProvidedOnlyByGroupOrganizer>(() =>
+            AssertBrokenRule<RemovingReasonCanBeProvidedOnlyByGroupOrganizerRule>(() =>
             {
                 // Act
                 meetingComment.Remove(

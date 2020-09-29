@@ -17,7 +17,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork
 
         public static MoneyValue Of(decimal value, string currency)
         {
-            CheckRule(new ValueOfMoneyMustNotBeNegative(value));
+            CheckRule(new ValueOfMoneyMustNotBeNegativeRule(value));
 
             return new MoneyValue(value, currency);
         }

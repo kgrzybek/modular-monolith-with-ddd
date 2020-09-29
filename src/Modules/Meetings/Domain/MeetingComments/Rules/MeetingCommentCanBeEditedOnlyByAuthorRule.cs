@@ -3,12 +3,12 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments.Rules
 {
-    public class MeetingCommentCanBeEditedOnlyByAuthor : IBusinessRule
+    public class MeetingCommentCanBeEditedOnlyByAuthorRule : IBusinessRule
     {
         private readonly MemberId _authorId;
         private readonly MemberId _editorId;
 
-        public MeetingCommentCanBeEditedOnlyByAuthor(MemberId authorId, MemberId editorId)
+        public MeetingCommentCanBeEditedOnlyByAuthorRule(MemberId authorId, MemberId editorId)
         {
             _authorId = authorId;
             _editorId = editorId;

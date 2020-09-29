@@ -6,7 +6,7 @@ using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments.Rules
 {
-    public class PriceForSubscriptionMustBeDefined : IBusinessRule
+    public class PriceForSubscriptionMustBeDefinedRule : IBusinessRule
     {
         private readonly string _countryCode;
 
@@ -16,7 +16,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments.Ru
 
         private readonly PriceListItemCategory _category;
 
-        public PriceForSubscriptionMustBeDefined(
+        public PriceForSubscriptionMustBeDefinedRule(
             string countryCode,
             SubscriptionPeriod subscriptionPeriod,
             IList<PriceListItemData> priceListItems,
