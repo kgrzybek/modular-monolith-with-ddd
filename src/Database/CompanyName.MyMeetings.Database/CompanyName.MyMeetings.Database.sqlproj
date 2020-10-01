@@ -143,6 +143,8 @@
     <None Include="Scripts\Migrations\1_0_0_0\0003_add_meetings_countries_table.sql" />
     <Build Include="meetings\Views\v_Countries.sql" />
     <None Include="Scripts\Migrations\1_0_0_0\0005_add_payer_id_to_subcription_details_view.sql" />
+    <Build Include="meetings\Views\v_MemberMeetingGroups.sql" />
+    <None Include="Scripts\Migrations\1_0_0_0\0006_add_member_meeting_groups_view.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="administration\Tables\MeetingGroupProposals.sql" />
