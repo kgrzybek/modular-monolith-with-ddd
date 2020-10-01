@@ -5,6 +5,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.EditMeetingGroupGeneralAttributes;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.GetAllMeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.GetAuthenticationMemberMeetingGroups;
+using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.GetMeetingGroupDetails;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.JoinToGroup;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.LeaveMeetingGroup;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,16 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingGroups
                 new GetAuthenticationMemberMeetingGroupsQuery());
 
             return Ok(meetingGroups);
+        }
+
+        [HttpGet("{meetingGroupId}")]
+        [HasPermission(MeetingsPermissions.GetAuthenticatedMemberMeetingGroups)]
+        public async Task<IActionResult> GetMeetingGroupDetails(Guid meetingGroupId)
+        {
+            var meetingGroupDetails = await _meetingsModule.ExecuteQueryAsync(
+                new GetMeetingGroupDetailsQuery(meetingGroupId));
+
+            return Ok(meetingGroupDetails);
         }
 
         [HttpGet("all")]
