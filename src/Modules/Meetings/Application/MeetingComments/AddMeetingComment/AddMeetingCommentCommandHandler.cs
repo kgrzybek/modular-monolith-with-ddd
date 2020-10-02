@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingCommentingConfigurations;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
@@ -14,13 +15,19 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ad
     {
         private readonly IMeetingRepository _meetingRepository;
         private readonly IMeetingCommentRepository _meetingCommentRepository;
+        private readonly IMeetingCommentingConfigurationRepository _meetingCommentingConfigurationRepository;
         private readonly IMemberContext _memberContext;
 
-        public AddMeetingCommentCommandHandler(IMeetingRepository meetingRepository, IMeetingCommentRepository meetingCommentRepository, IMemberContext memberContext)
+        public AddMeetingCommentCommandHandler(
+            IMeetingRepository meetingRepository,
+            IMeetingCommentRepository meetingCommentRepository,
+            IMeetingCommentingConfigurationRepository meetingCommentingConfigurationRepository,
+            IMemberContext memberContext)
         {
             _meetingRepository = meetingRepository;
-            _memberContext = memberContext;
+            _meetingCommentingConfigurationRepository = meetingCommentingConfigurationRepository;
             _meetingCommentRepository = meetingCommentRepository;
+            _memberContext = memberContext;
         }
 
         public async Task<Guid> Handle(AddMeetingCommentCommand command, CancellationToken cancellationToken)
@@ -31,7 +38,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ad
                 throw new InvalidCommandException(new List<string> { "Meeting for adding comment must exist." });
             }
 
-            var meetingComment = meeting.AddComment(_memberContext.MemberId, command.Comment);
+            var meetingCommentingConfiguration = await _meetingCommentingConfigurationRepository.GetByMeetingIdAsync(new MeetingId(command.MeetingId));
+
+            var meetingComment = meeting.AddComment(_memberContext.MemberId, command.Comment, meetingCommentingConfiguration);
+
             await _meetingCommentRepository.AddAsync(meetingComment);
 
             return meetingComment.Id.Value;
