@@ -63,10 +63,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
             // Only for EF.
         }
 
-        public void Edit(MemberId editorId, string editedComment)
+        public void Edit(MemberId editorId, string editedComment, MeetingCommentingConfiguration meetingCommentingConfiguration)
         {
             this.CheckRule(new CommentTextMustBeProvidedRule(editedComment));
             this.CheckRule(new MeetingCommentCanBeEditedOnlyByAuthorRule(this._authorId, editorId));
+            this.CheckRule(new CommentCanBeEditedOnlyIfCommentingForMeetingEnabledRule(meetingCommentingConfiguration));
 
             _comment = editedComment;
             _editDate = SystemClock.Now;

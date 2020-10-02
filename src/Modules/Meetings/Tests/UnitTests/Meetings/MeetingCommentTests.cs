@@ -26,7 +26,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
         }
 
         [Test]
-        public void AddComment_BreaksCommentCanBeAddedOnlyByAttendeeRule()
+        public void AddComment_WhenAuthorIsNotAttendee_BreaksCommentCanBeAddedOnlyByAttendeeRule()
         {
             // Arrange
             var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions());
@@ -42,7 +42,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
         [Test]
         [TestCase(null)]
         [TestCase("")]
-        public void AddComment_BreaksCommentTextMustBeProvidedRule(string missingComment)
+        public void AddComment_WhenTextIsEmpty_BreaksCommentTextMustBeProvidedRule(string missingComment)
         {
             // Arrange
             var commentAuthorId = new MemberId(Guid.NewGuid());
@@ -53,6 +53,29 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             {
                 // Act
                 meetingTestData.Meeting.AddComment(commentAuthorId, missingComment, meetingTestData.MeetingCommentingConfiguration);
+            });
+        }
+
+        [Test]
+        public void AddComment_WhenMeetingCommentingDisabled_BreaksCommentCanBeCreatedOnlyIfCommentingForMeetingEnabledRule()
+        {
+            // Arrange
+            var commentAuthorId = new MemberId(Guid.NewGuid());
+            var meetingTestData = CreateMeetingTestData(
+                new MeetingTestDataOptions
+                {
+                    Attendees = new[] { commentAuthorId },
+                    IsMeetingCommentingEnabled = false
+                });
+
+            // Assert
+            AssertBrokenRule<CommentCanBeCreatedOnlyIfCommentingForMeetingEnabledRule>(() =>
+            {
+                // Act
+                meetingTestData.Meeting.AddComment(
+                    commentAuthorId,
+                    "I appreciate your work!",
+                    meetingTestData.MeetingCommentingConfiguration);
             });
         }
 
@@ -68,7 +91,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             var editedComment = "Wonderful!";
 
             // Act
-            meetingComment.Edit(commentAuthorId, editedComment);
+            meetingComment.Edit(commentAuthorId, editedComment, meetingTestData.MeetingCommentingConfiguration);
 
             // Assert
             var meetingCommentEditedEvent = AssertPublishedDomainEvent<MeetingCommentEditedDomainEvent>(meetingComment);
@@ -77,7 +100,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
         }
 
         [Test]
-        public void EditComment_BreaksMeetingCommentCanBeEditedOnlyByAuthor()
+        public void EditComment_ByNoAuthor_BreaksMeetingCommentCanBeEditedOnlyByAuthor()
         {
             // Arrange
             var commentAuthorId = new MemberId(Guid.NewGuid());
@@ -91,14 +114,14 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             AssertBrokenRule<MeetingCommentCanBeEditedOnlyByAuthorRule>(() =>
             {
                 // Act
-                meetingComment.Edit(new MemberId(Guid.NewGuid()), editedComment);
+                meetingComment.Edit(new MemberId(Guid.NewGuid()), editedComment, meetingTestData.MeetingCommentingConfiguration);
             });
         }
 
         [Test]
         [TestCase(null)]
         [TestCase("")]
-        public void EditComment_BreaksCommentTextMustBeProvidedRule(string missingComment)
+        public void EditComment_WhenNewTextIsEmpty_BreaksCommentTextMustBeProvidedRule(string missingComment)
         {
             // Arrange
             var authorId = new MemberId(Guid.NewGuid());
@@ -111,7 +134,31 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             AssertBrokenRule<CommentTextMustBeProvidedRule>(() =>
             {
                 // Act
-                meetingComment.Edit(new MemberId(Guid.NewGuid()), missingComment);
+                meetingComment.Edit(new MemberId(Guid.NewGuid()), missingComment, meetingTestData.MeetingCommentingConfiguration);
+            });
+        }
+
+        [Test]
+        public void EditComment_WhenMeetingCommentingDisabled_BreaksCommentCanBeEditedOnlyIfCommentingForMeetingEnabledRule()
+        {
+            // Arrange
+            var groupOrganizerId = new MemberId(Guid.NewGuid());
+            var commentAuthorId = new MemberId(Guid.NewGuid());
+            var meetingTestData = CreateMeetingTestData(
+                new MeetingTestDataOptions
+                {
+                    CreatorId = groupOrganizerId,
+                    Attendees = new[] { commentAuthorId }
+                });
+
+            var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "It was good.", meetingTestData.MeetingCommentingConfiguration);
+            meetingTestData.MeetingCommentingConfiguration.DisableCommenting(groupOrganizerId, meetingTestData.MeetingGroup);
+
+            // Assert
+            AssertBrokenRule<CommentCanBeEditedOnlyIfCommentingForMeetingEnabledRule>(() =>
+            {
+                // Act
+                meetingComment.Edit(commentAuthorId, "It was bad.", meetingTestData.MeetingCommentingConfiguration);
             });
         }
 
@@ -177,29 +224,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
                     commentAuthorId,
                     meetingTestData.MeetingGroup,
                     "I don't like the comment.");
-            });
-        }
-
-        [Test]
-        public void AddComment_WhenMeetingCommentingDisabled_BreaksCommentCanBeCreatedOnlyIfCommentingForMeetingEnabledRule()
-        {
-            // Arrange
-            var commentAuthorId = new MemberId(Guid.NewGuid());
-            var meetingTestData = CreateMeetingTestData(
-                new MeetingTestDataOptions
-                {
-                    Attendees = new[] { commentAuthorId },
-                    IsMeetingCommentingEnabled = false
-                });
-
-            // Assert
-            AssertBrokenRule<CommentCanBeCreatedOnlyIfCommentingForMeetingEnabledRule>(() =>
-            {
-                // Act
-                meetingTestData.Meeting.AddComment(
-                    commentAuthorId,
-                    "I appreciate your work!",
-                    meetingTestData.MeetingCommentingConfiguration);
             });
         }
     }
