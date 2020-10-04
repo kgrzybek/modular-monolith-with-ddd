@@ -52,6 +52,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingCommentingConfig
             }
         }
 
+        public bool GetIsCommentingEnabled() => _isCommentingEnabled;
+
         internal static MeetingCommentingConfiguration Create(MeetingId meetingId)
             => new MeetingCommentingConfiguration(meetingId);
     }
