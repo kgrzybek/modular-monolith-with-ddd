@@ -80,7 +80,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
                 this.MeetingId,
                 AttendeeId,
                 decisionDate,
-                role,
+                role.Value,
                 guestsNumber,
                 _fee.Value,
                 _fee.Currency));

@@ -145,6 +145,10 @@
     <None Include="Scripts\Migrations\1_0_0_0\0005_add_payer_id_to_subcription_details_view.sql" />
     <Build Include="meetings\Views\v_MemberMeetingGroups.sql" />
     <None Include="Scripts\Migrations\1_0_0_0\0006_add_member_meeting_groups_view.sql" />
+    <Build Include="meetings\Views\v_MeetingAttendees.sql" />
+    <None Include="Scripts\Migrations\1_0_0_0\0007_add_meeting_attendees_view.sql" />
+    <Build Include="meetings\Views\v_MeetingDetails.sql" />
+    <None Include="Scripts\Migrations\1_0_0_0\0008_add_meeting_details_view.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="administration\Tables\MeetingGroupProposals.sql" />

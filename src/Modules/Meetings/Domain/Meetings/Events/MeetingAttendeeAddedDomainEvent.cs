@@ -10,7 +10,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Events
             MeetingId meetingId,
             MemberId attendeeId,
             DateTime rsvpDate,
-            MeetingAttendeeRole role,
+            string role,
             int guestsNumber,
             decimal? feeValue,
             string feeCurrency)
@@ -30,7 +30,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Events
 
         public DateTime RSVPDate { get; }
 
-        public MeetingAttendeeRole Role { get; }
+        public string Role { get; }
 
         public int GuestsNumber { get; }
 

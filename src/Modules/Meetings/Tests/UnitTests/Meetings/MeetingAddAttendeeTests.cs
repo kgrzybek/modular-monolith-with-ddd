@@ -137,9 +137,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
                 AssertPublishedDomainEvents<MeetingAttendeeAddedDomainEvent>(meetingTestData.Meeting);
             Assert.That(meetingAttendeesAddedEvents.Count, Is.EqualTo(2));
             Assert.That(meetingAttendeesAddedEvents[0].AttendeeId, Is.EqualTo(creatorId));
-            Assert.That(meetingAttendeesAddedEvents[0].Role, Is.EqualTo(MeetingAttendeeRole.Host));
+            Assert.That(meetingAttendeesAddedEvents[0].Role, Is.EqualTo(MeetingAttendeeRole.Host.Value));
             Assert.That(meetingAttendeesAddedEvents[1].AttendeeId, Is.EqualTo(newMemberId));
-            Assert.That(meetingAttendeesAddedEvents[1].Role, Is.EqualTo(MeetingAttendeeRole.Attendee));
+            Assert.That(meetingAttendeesAddedEvents[1].Role, Is.EqualTo(MeetingAttendeeRole.Attendee.Value));
         }
 
         [Test]

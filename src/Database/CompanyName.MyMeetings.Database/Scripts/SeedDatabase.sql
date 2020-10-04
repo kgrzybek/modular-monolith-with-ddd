@@ -140,6 +140,10 @@ INSERT INTO users.RolesToPermissions VALUES ('Member', 'LeaveMeetingGroup')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'AddMeetingComment')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'EditMeetingComment')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetAuthenticatedMemberMeetingGroups')
+INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetMeetingGroupDetails')
+INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetMeetingDetails')
+INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetMeetingAttendees')
+
 
 
 -- Administration

@@ -180,9 +180,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
             var meetingAttendeeAddedEvents = AssertPublishedDomainEvents<MeetingAttendeeAddedDomainEvent>(meeting);
             Assert.That(meetingAttendeeAddedEvents.Count, Is.EqualTo(2));
             Assert.That(meetingAttendeeAddedEvents[0].AttendeeId, Is.EqualTo(hostOne));
-            Assert.That(meetingAttendeeAddedEvents[0].Role, Is.EqualTo(MeetingAttendeeRole.Host));
+            Assert.That(meetingAttendeeAddedEvents[0].Role, Is.EqualTo(MeetingAttendeeRole.Host.Value));
             Assert.That(meetingAttendeeAddedEvents[1].AttendeeId, Is.EqualTo(hostTwo));
-            Assert.That(meetingAttendeeAddedEvents[1].Role, Is.EqualTo(MeetingAttendeeRole.Host));
+            Assert.That(meetingAttendeeAddedEvents[1].Role, Is.EqualTo(MeetingAttendeeRole.Host.Value));
         }
 
         [Test]

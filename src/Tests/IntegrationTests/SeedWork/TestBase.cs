@@ -119,6 +119,7 @@ namespace CompanyName.MyMeetings.IntegrationTests.SeedWork
                                "DELETE FROM [meetings].[MeetingGroupProposals] " +
                                "DELETE FROM [meetings].[MeetingGroups] " +
                                "DELETE FROM [meetings].[MeetingNotAttendees] " +
+                               "DELETE FROM [meetings].[MeetingCommentingConfigurations] " +
                                "DELETE FROM [meetings].[Meetings] " +
                                "DELETE FROM [meetings].[MeetingWaitlistMembers] " +
                                "DELETE FROM [meetings].[Members] ";

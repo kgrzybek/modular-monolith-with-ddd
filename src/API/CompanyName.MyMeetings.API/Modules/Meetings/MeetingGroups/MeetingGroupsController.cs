@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.API.Configuration.Authorization;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
@@ -34,7 +35,8 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingGroups
         }
 
         [HttpGet("{meetingGroupId}")]
-        [HasPermission(MeetingsPermissions.GetAuthenticatedMemberMeetingGroups)]
+        [HasPermission(MeetingsPermissions.GetMeetingGroupDetails)]
+        [ProducesResponseType(typeof(MeetingGroupDetailsDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetMeetingGroupDetails(Guid meetingGroupId)
         {
             var meetingGroupDetails = await _meetingsModule.ExecuteQueryAsync(

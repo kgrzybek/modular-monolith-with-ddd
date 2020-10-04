@@ -26,5 +26,7 @@
         public const string DisableMeetingCommenting = "DisableMeetingCommenting";
         public const string GetAuthenticatedMemberMeetingGroups = "GetAuthenticatedMemberMeetingGroups";
         public const string GetMeetingGroupDetails = "GetMeetingGroupDetails";
+        public const string GetMeetingDetails = "GetMeetingDetails";
+        public const string GetMeetingAttendees = "GetMeetingAttendees";
     }
 }

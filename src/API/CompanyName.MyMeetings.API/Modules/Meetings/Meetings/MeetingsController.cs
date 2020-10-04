@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.API.Configuration.Authorization;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
@@ -8,6 +10,8 @@ using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.CancelMeeting
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.ChangeMeetingMainAttributes;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.ChangeNotAttendeeDecision;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.CreateMeeting;
+using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.GetMeetingAttendees;
+using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.GetMeetingDetails;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.RemoveMeetingAttendee;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SetMeetingAttendeeRole;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SetMeetingHostRole;
@@ -26,6 +30,16 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
         public MeetingsController(IMeetingsModule meetingsModule)
         {
             _meetingsModule = meetingsModule;
+        }
+
+        [HttpGet("{meetingId}")]
+        [HasPermission(MeetingsPermissions.GetMeetingDetails)]
+        [ProducesResponseType(typeof(MeetingDetailsDto), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetMeetingDetails(Guid meetingId)
+        {
+            var meetingDetails = await _meetingsModule.ExecuteQueryAsync(new GetMeetingDetailsQuery(meetingId));
+
+            return Ok(meetingDetails);
         }
 
         [HttpPost("")]
@@ -77,6 +91,16 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
                 mainAttributesRequest.EventFeeCurrency));
 
             return Ok();
+        }
+
+        [HttpGet("{meetingId}/attendees")]
+        [HasPermission(MeetingsPermissions.GetMeetingAttendees)]
+        [ProducesResponseType(typeof(List<MeetingAttendeeDto>), (int) HttpStatusCode.OK)]
+        public async Task<IActionResult> GetMeetingAttendees(Guid meetingId)
+        {
+            var meetingAttendees = await _meetingsModule.ExecuteQueryAsync(new GetMeetingAttendeesQuery(meetingId));
+
+            return Ok(meetingAttendees);
         }
 
         [HttpPost("{meetingId}/attendees")]
