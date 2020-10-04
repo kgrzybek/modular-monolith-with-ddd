@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Comments;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Comments.Events;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingCommentingConfigurations;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments.Rules;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
@@ -31,9 +32,15 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
 
         private string _removedByReason;
 
-        private MeetingComment(MeetingId meetingId, MemberId authorId, string comment, MeetingCommentId? inReplyToCommentId)
+        private MeetingComment(
+            MeetingId meetingId,
+            MemberId authorId,
+            string comment,
+            MeetingCommentingConfiguration meetingCommentingConfiguration,
+            MeetingCommentId inReplyToCommentId)
         {
             this.CheckRule(new CommentTextMustBeProvidedRule(comment));
+            this.CheckRule(new CommentCanBeCreatedOnlyIfCommentingForMeetingEnabledRule(meetingCommentingConfiguration));
 
             this.Id = new MeetingCommentId(Guid.NewGuid());
             _meetingId = meetingId;
@@ -56,10 +63,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
             // Only for EF.
         }
 
-        public void Edit(MemberId editorId, string editedComment)
+        public void Edit(MemberId editorId, string editedComment, MeetingCommentingConfiguration meetingCommentingConfiguration)
         {
             this.CheckRule(new CommentTextMustBeProvidedRule(editedComment));
             this.CheckRule(new MeetingCommentCanBeEditedOnlyByAuthorRule(this._authorId, editorId));
+            this.CheckRule(new CommentCanBeEditedOnlyIfCommentingForMeetingEnabledRule(meetingCommentingConfiguration));
 
             _comment = editedComment;
             _editDate = SystemClock.Now;
@@ -80,7 +88,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
 
         public MeetingId GetMeetingId() => this._meetingId;
 
-        internal static MeetingComment Create(MeetingId meetingId, MemberId authorId, string comment)
-            => new MeetingComment(meetingId, authorId, comment, inReplyToCommentId: null);
+        internal static MeetingComment Create(
+            MeetingId meetingId,
+            MemberId authorId,
+            string comment,
+            MeetingCommentingConfiguration meetingCommentingConfiguration)
+            => new MeetingComment(meetingId, authorId, comment, meetingCommentingConfiguration, inReplyToCommentId: null);
     }
 }

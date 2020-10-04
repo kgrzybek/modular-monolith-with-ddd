@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingCommentingConfigurations;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
@@ -23,20 +24,25 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
 
             internal int? AttendeesLimit { get; set; }
 
+            internal bool IsMeetingCommentingEnabled { get; set; } = true;
+
             internal IEnumerable<MemberId> Attendees { get; set; } = Enumerable.Empty<MemberId>();
         }
 
         protected class MeetingTestData
         {
-            public MeetingTestData(MeetingGroup meetingGroup, Meeting meeting)
+            public MeetingTestData(MeetingGroup meetingGroup, Meeting meeting, MeetingCommentingConfiguration meetingCommentingConfiguration)
             {
                 MeetingGroup = meetingGroup;
                 Meeting = meeting;
+                MeetingCommentingConfiguration = meetingCommentingConfiguration;
             }
 
             internal MeetingGroup MeetingGroup { get; }
 
             internal Meeting Meeting { get; }
+
+            internal MeetingCommentingConfiguration MeetingCommentingConfiguration { get; }
         }
 
         protected MeetingTestData CreateMeetingTestData(MeetingTestDataOptions options)
@@ -76,9 +82,19 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
                 meeting.AddAttendee(meetingGroup, attendee, 0);
             }
 
+            var meetingCommentingConfiguration = meeting.CreateCommentingConfiguration();
+            if (options.IsMeetingCommentingEnabled)
+            {
+                meetingCommentingConfiguration.EnableCommenting(proposalMemberId, meetingGroup);
+            }
+            else
+            {
+                meetingCommentingConfiguration.DisableCommenting(proposalMemberId, meetingGroup);
+            }
+
             DomainEventsTestHelper.ClearAllDomainEvents(meetingGroup);
 
-            return new MeetingTestData(meetingGroup, meeting);
+            return new MeetingTestData(meetingGroup, meeting, meetingCommentingConfiguration);
         }
     }
 }
