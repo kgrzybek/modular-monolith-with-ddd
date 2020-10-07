@@ -22,7 +22,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
 
         public async Task<Unit> Handle(ProcessInternalCommandsCommand command, CancellationToken cancellationToken)
         {
-            var connection = this._sqlConnectionFactory.GetOpenConnection();
+            using var connection = this._sqlConnectionFactory.GetOpenConnection();
 
             string sql = "SELECT " +
                          $"[Command].[Id] AS [{nameof(InternalCommandDto.Id)}], " +

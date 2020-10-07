@@ -25,7 +25,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupPropos
 
         public async Task<List<MeetingGroupProposalDto>> Handle(GetMemberMeetingGroupProposalsQuery query, CancellationToken cancellationToken)
         {
-            var connection = _sqlConnectionFactory.GetOpenConnection();
+            using var connection = _sqlConnectionFactory.GetOpenConnection();
 
             string sql = "SELECT " +
                          $"[MeetingGroupProposal].[Id] AS [{nameof(MeetingGroupProposalDto.Id)}], " +

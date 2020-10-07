@@ -62,12 +62,11 @@ namespace CompanyName.MyMeetings.Modules.Administration.IntegrationTests.SeedWor
         protected async Task<T> GetLastOutboxMessage<T>()
             where T : class, INotification
         {
-            using (var connection = new SqlConnection(ConnectionString))
-            {
-                var messages = await OutboxMessagesHelper.GetOutboxMessages(connection);
+            using var connection = new SqlConnection(ConnectionString);
 
-                return OutboxMessagesHelper.Deserialize<T>(messages.Last());
-            }
+            var messages = await OutboxMessagesHelper.GetOutboxMessages(connection);
+
+            return OutboxMessagesHelper.Deserialize<T>(messages.Last());
         }
 
         protected static void AssertBrokenRule<TRule>(AsyncTestDelegate testDelegate)

@@ -34,7 +34,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MemberSubscription
                       "FROM [meetings].[v_MeetingGroupMembers] AS [MeetingGroupMember] " +
                       "WHERE [MeetingGroupMember].MemberId = @MemberId";
 
-            var connection = _sqlConnectionFactory.GetOpenConnection();
+            using var connection = _sqlConnectionFactory.GetOpenConnection();
 
             var meetingGroupMembers = await connection.QueryAsync<MeetingGroupMemberResponse>(
                 sql,

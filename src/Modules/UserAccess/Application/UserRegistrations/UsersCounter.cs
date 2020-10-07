@@ -15,7 +15,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistration
 
         public int CountUsersWithLogin(string login)
         {
-            var connection = _sqlConnectionFactory.GetOpenConnection();
+            using var connection = _sqlConnectionFactory.GetOpenConnection();
 
             const string sql = "SELECT " +
                                "COUNT(*) " +

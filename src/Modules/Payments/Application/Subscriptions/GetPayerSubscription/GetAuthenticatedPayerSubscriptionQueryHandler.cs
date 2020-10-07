@@ -32,7 +32,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetP
                       "FROM [payments].[SubscriptionDetails] AS [SubscriptionDetails] " +
                       "WHERE [SubscriptionDetails].[PayerId] = @PayerId";
 
-            var connection = _sqlConnectionFactory.GetOpenConnection();
+            using var connection = _sqlConnectionFactory.GetOpenConnection();
 
             return await connection.QuerySingleOrDefaultAsync<SubscriptionDetailsDto>(
                 sql,

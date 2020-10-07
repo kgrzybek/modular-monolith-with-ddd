@@ -18,7 +18,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Countries
 
         public async Task<List<CountryDto>> Handle(GetAllCountriesQuery query, CancellationToken cancellationToken)
         {
-            var connection = _sqlConnectionFactory.GetOpenConnection();
+            using var connection = _sqlConnectionFactory.GetOpenConnection();
 
             return (await connection.QueryAsync<CountryDto>(
                 "SELECT " +

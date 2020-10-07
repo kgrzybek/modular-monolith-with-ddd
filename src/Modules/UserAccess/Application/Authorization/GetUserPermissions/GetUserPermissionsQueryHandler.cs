@@ -19,7 +19,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Authorization.Ge
 
         public async Task<List<UserPermissionDto>> Handle(GetUserPermissionsQuery request, CancellationToken cancellationToken)
         {
-            var connection = _sqlConnectionFactory.GetOpenConnection();
+            using var connection = _sqlConnectionFactory.GetOpenConnection();
 
             const string sql = "SELECT " +
                                "[UserPermission].[PermissionCode] AS [Code] " +

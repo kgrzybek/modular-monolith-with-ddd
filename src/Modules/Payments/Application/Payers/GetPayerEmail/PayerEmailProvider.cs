@@ -9,7 +9,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Payers.GetPayerEma
     {
         public static async Task<string> GetPayerEmail(Guid payerId, ISqlConnectionFactory sqlConnectionFactory)
         {
-            var connection = sqlConnectionFactory.GetOpenConnection();
+            using var connection = sqlConnectionFactory.GetOpenConnection();
 
             const string sql = "SELECT " +
                                "[Payer].[Email] " +

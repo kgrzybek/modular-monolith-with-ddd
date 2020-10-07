@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
@@ -11,7 +12,7 @@ using Dapper;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetSubscriptionPayments
 {
-    internal class SubscriptionPaymentsProjector : ProjectorBase, IProjector
+    internal class SubscriptionPaymentsProjector : ProjectorBase, IProjector, IDisposable
     {
         private readonly IDbConnection _connection;
 
@@ -23,6 +24,14 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetS
         public async Task Project(IDomainEvent @event)
         {
             await When((dynamic)@event);
+        }
+
+        public void Dispose()
+        {
+            if (_connection?.State == ConnectionState.Open)
+            {
+                this._connection.Dispose();
+            }
         }
 
         private async Task When(SubscriptionPaymentCreatedDomainEvent subscriptionPaymentCreated)

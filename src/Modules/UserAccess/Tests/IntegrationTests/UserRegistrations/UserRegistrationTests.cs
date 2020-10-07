@@ -27,7 +27,7 @@ namespace CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.UserRegist
             Assert.That(userRegistration.FirstName, Is.EqualTo(UserRegistrationSampleData.FirstName));
             Assert.That(userRegistration.LastName, Is.EqualTo(UserRegistrationSampleData.LastName));
 
-            var connection = new SqlConnection(ConnectionString);
+            using var connection = new SqlConnection(ConnectionString);
             var messagesList = await OutboxMessagesHelper.GetOutboxMessages(connection);
 
             Assert.That(messagesList.Count, Is.EqualTo(1));

@@ -18,7 +18,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.Members.GetM
 
         public async Task<MemberDto> Handle(GetMemberQuery query, CancellationToken cancellationToken)
         {
-            var connection = _sqlConnectionFactory.GetOpenConnection();
+            using var connection = _sqlConnectionFactory.GetOpenConnection();
 
             var sql = "SELECT " +
                       $"[Member].[Id] AS [{nameof(MemberDto.Id)}], " +

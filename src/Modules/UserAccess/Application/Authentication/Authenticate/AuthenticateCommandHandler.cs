@@ -21,7 +21,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Authentication.A
 
         public async Task<AuthenticationResult> Handle(AuthenticateCommand request, CancellationToken cancellationToken)
         {
-            var connection = _sqlConnectionFactory.GetOpenConnection();
+            using var connection = _sqlConnectionFactory.GetOpenConnection();
 
             const string sql = "SELECT " +
                                "[User].[Id], " +

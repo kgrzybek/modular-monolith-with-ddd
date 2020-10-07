@@ -31,7 +31,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Expi
                                "FROM [payments].[SubscriptionDetails] AS [SubscriptionDetails] " +
                                "WHERE [SubscriptionDetails].ExpirationDate < @Date";
 
-            var connection = _sqlConnectionFactory.GetOpenConnection();
+            using var connection = _sqlConnectionFactory.GetOpenConnection();
 
             var expiredSubscriptionsIds =
                 await connection.QueryAsync<Guid>(sql, new

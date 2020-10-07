@@ -25,7 +25,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetS
                       "FROM [payments].[SubscriptionDetails] AS [SubscriptionDetails] " +
                       "WHERE [SubscriptionDetails].[Id] = @SubscriptionId";
 
-            var connection = _sqlConnectionFactory.GetOpenConnection();
+            using var connection = _sqlConnectionFactory.GetOpenConnection();
 
             return await connection.QuerySingleAsync<SubscriptionDetailsDto>(
                 sql,

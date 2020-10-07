@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
 using Dapper;
 using MediatR;
@@ -24,7 +23,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
 
         public async Task<Unit> Handle(ProcessInboxCommand command, CancellationToken cancellationToken)
         {
-            var connection = this._sqlConnectionFactory.GetOpenConnection();
+            using var connection = this._sqlConnectionFactory.GetOpenConnection();
+            
             const string sql = "SELECT " +
                                "[InboxMessage].[Id], " +
                                "[InboxMessage].[Type], " +

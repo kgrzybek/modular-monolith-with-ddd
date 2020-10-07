@@ -19,7 +19,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistration
 
         public async Task<UserRegistrationDto> Handle(GetUserRegistrationQuery query, CancellationToken cancellationToken)
         {
-            var connection = _sqlConnectionFactory.GetOpenConnection();
+            using var connection = _sqlConnectionFactory.GetOpenConnection();
 
             const string sql = "SELECT " +
                                "[UserRegistration].[Id], " +

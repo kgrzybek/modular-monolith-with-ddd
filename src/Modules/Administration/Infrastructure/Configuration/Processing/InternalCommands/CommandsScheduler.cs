@@ -26,7 +26,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
 
         public async Task EnqueueAsync(ICommand command)
         {
-            var connection = this._sqlConnectionFactory.GetOpenConnection();
+            using var connection = this._sqlConnectionFactory.GetOpenConnection();
 
             const string sqlInsert = "INSERT INTO [administration].[InternalCommands] ([Id], [EnqueueDate] , [Type], [Data]) VALUES " +
                                      "(@Id, @EnqueueDate, @Type, @Data)";
@@ -45,7 +45,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
 
         public async Task EnqueueAsync<T>(ICommand<T> command)
         {
-            var connection = this._sqlConnectionFactory.GetOpenConnection();
+            using var connection = this._sqlConnectionFactory.GetOpenConnection();
 
             const string sqlInsert = "INSERT INTO [administration].[InternalCommands] ([Id], [EnqueueDate] , [Type], [Data]) VALUES " +
                                      "(@Id, @EnqueueDate, @Type, @Data)";

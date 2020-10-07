@@ -21,7 +21,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetS
             GetSubscriptionPaymentsQuery query,
             CancellationToken cancellationToken)
         {
-            var connection = _sqlConnectionFactory.GetOpenConnection();
+            using var connection = _sqlConnectionFactory.GetOpenConnection();
 
             var subscriptionPayments = await connection.QueryAsync<SubscriptionPaymentDto>(
                 "SELECT " +

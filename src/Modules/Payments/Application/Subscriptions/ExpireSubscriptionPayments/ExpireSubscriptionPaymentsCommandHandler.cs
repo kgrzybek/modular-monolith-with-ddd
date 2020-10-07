@@ -34,7 +34,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Expi
                                "WHERE [SubscriptionPayment].Date > @Date AND " +
                                "[SubscriptionPayment].[Status] = @Status";
 
-            var connection = _sqlConnectionFactory.GetOpenConnection();
+            using var connection = _sqlConnectionFactory.GetOpenConnection();
 
             var timeForPayment = TimeSpan.FromMinutes(20);
             var date = SystemClock.Now.Add(timeForPayment);

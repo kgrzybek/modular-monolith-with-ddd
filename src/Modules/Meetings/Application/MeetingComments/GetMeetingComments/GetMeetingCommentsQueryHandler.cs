@@ -18,7 +18,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ge
 
         public async Task<List<MeetingCommentDto>> Handle(GetMeetingCommentsQuery query, CancellationToken cancellationToken)
         {
-            var connection = _sqlConnectionFactory.GetOpenConnection();
+            using var connection = _sqlConnectionFactory.GetOpenConnection();
 
             string sql = "SELECT " +
                          $"[MeetingComment].[Id] AS [{nameof(MeetingCommentDto.Id)}], " +

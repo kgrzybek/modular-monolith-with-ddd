@@ -17,7 +17,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Payers.GetPayer
 
         public async Task<PayerDto> Handle(GetPayerQuery query, CancellationToken cancellationToken)
         {
-            var connection = _sqlConnectionFactory.GetOpenConnection();
+            using var connection = _sqlConnectionFactory.GetOpenConnection();
 
             const string sql = "SELECT " +
                                "[Payer].[Id], " +

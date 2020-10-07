@@ -25,7 +25,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SendMeeti
 
         public async Task<Unit> Handle(SendMeetingAttendeeAddedEmailCommand request, CancellationToken cancellationToken)
         {
-            var connection = _sqlConnectionFactory.GetOpenConnection();
+            using var connection = _sqlConnectionFactory.GetOpenConnection();
 
             var member = await MembersQueryHelper.GetMember(request.AttendeeId, connection);
 

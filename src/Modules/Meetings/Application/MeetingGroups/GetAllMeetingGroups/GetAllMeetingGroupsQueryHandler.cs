@@ -20,7 +20,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.GetA
 
         public async Task<List<MeetingGroupDto>> Handle(GetAllMeetingGroupsQuery request, CancellationToken cancellationToken)
         {
-            var connection = _sqlConnectionFactory.GetOpenConnection();
+            using var connection = _sqlConnectionFactory.GetOpenConnection();
 
             const string sql = "SELECT " +
                                "[MeetingGroup].[Id], " +

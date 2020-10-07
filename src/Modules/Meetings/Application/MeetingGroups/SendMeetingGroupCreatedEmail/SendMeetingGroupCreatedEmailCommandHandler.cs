@@ -27,7 +27,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.Send
 
         public async Task<Unit> Handle(SendMeetingGroupCreatedEmailCommand request, CancellationToken cancellationToken)
         {
-            var connection = _sqlConnectionFactory.GetOpenConnection();
+            using var connection = _sqlConnectionFactory.GetOpenConnection();
 
             var meetingGroup = await connection.QuerySingleAsync<MeetingGroupDto>(
                 "SELECT " +

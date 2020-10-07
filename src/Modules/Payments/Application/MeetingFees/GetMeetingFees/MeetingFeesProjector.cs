@@ -9,7 +9,7 @@ using Dapper;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.GetMeetingFees
 {
-    internal class MeetingFeesProjector : ProjectorBase, IProjector
+    internal class MeetingFeesProjector : ProjectorBase, IProjector, IDisposable
     {
         private readonly IDbConnection _connection;
 
@@ -21,6 +21,14 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.GetMee
         public async Task Project(IDomainEvent @event)
         {
             await When((dynamic)@event);
+        }
+
+        public void Dispose()
+        {
+            if (_connection?.State == ConnectionState.Open)
+            {
+                this._connection.Dispose();
+            }
         }
 
         private async Task When(MeetingFeeCreatedDomainEvent meetingFeeCreated)

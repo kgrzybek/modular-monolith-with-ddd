@@ -20,7 +20,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupPropos
 
         public async Task<List<MeetingGroupProposalDto>> Handle(GetAllMeetingGroupProposalsQuery query, CancellationToken cancellationToken)
         {
-            var connection = _sqlConnectionFactory.GetOpenConnection();
+            using var connection = _sqlConnectionFactory.GetOpenConnection();
 
             var parameters = new DynamicParameters();
             var pageData = PagedQueryHelper.GetPageData(query);

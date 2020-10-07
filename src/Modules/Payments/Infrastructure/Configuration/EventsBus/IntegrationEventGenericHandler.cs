@@ -13,28 +13,25 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.E
     {
         public async Task Handle(T @event)
         {
-            using (var scope = PaymentsCompositionRoot.BeginLifetimeScope())
+            using var scope = PaymentsCompositionRoot.BeginLifetimeScope();
+            using var connection = scope.Resolve<ISqlConnectionFactory>().GetOpenConnection();
+
+            string type = @event.GetType().FullName;
+            var data = JsonConvert.SerializeObject(@event, new JsonSerializerSettings
             {
-                using (var connection = scope.Resolve<ISqlConnectionFactory>().GetOpenConnection())
-                {
-                    string type = @event.GetType().FullName;
-                    var data = JsonConvert.SerializeObject(@event, new JsonSerializerSettings
-                    {
-                        ContractResolver = new AllPropertiesContractResolver()
-                    });
+                ContractResolver = new AllPropertiesContractResolver()
+            });
 
-                    var sql = "INSERT INTO [payments].[InboxMessages] (Id, OccurredOn, Type, Data) " +
-                              "VALUES (@Id, @OccurredOn, @Type, @Data)";
+            var sql = "INSERT INTO [payments].[InboxMessages] (Id, OccurredOn, Type, Data) " +
+                      "VALUES (@Id, @OccurredOn, @Type, @Data)";
 
-                    await connection.ExecuteScalarAsync(sql, new
-                    {
-                        @event.Id,
-                        @event.OccurredOn,
-                        type,
-                        data
-                    });
-                }
-            }
+            await connection.ExecuteScalarAsync(sql, new
+            {
+                @event.Id,
+                @event.OccurredOn,
+                type,
+                data
+            });
         }
     }
 }

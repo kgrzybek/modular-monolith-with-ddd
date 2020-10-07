@@ -18,7 +18,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.GetMee
 
         public async Task<List<MeetingFeeDto>> Handle(GetMeetingFeesQuery query, CancellationToken cancellationToken)
         {
-            var connection = _sqlConnectionFactory.GetOpenConnection();
+            using var connection = _sqlConnectionFactory.GetOpenConnection();
 
             var meetingFees = await connection.QueryAsync<MeetingFeeDto>(
                 "SELECT" +

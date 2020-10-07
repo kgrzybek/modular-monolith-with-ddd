@@ -28,7 +28,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.GetA
             GetAuthenticationMemberMeetingGroupsQuery query,
             CancellationToken cancellationToken)
         {
-            var connection = _sqlConnectionFactory.GetOpenConnection();
+            using var connection = _sqlConnectionFactory.GetOpenConnection();
 
             var sql = "SELECT " +
                       $"[MemberMeetingGroup].[Id] AS [{nameof(MemberMeetingGroupDto.Id)}], " +
