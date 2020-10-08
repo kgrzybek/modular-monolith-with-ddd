@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Comments;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Comments.Events;

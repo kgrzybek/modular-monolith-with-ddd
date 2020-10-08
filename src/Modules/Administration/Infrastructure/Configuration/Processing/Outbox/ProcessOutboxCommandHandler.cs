@@ -36,7 +36,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
         public async Task<Unit> Handle(ProcessOutboxCommand command, CancellationToken cancellationToken)
         {
             using var connection = this._sqlConnectionFactory.GetOpenConnection();
-            
+
             const string sql = "SELECT " +
                                "[OutboxMessage].[Id], " +
                                "[OutboxMessage].[Type], " +

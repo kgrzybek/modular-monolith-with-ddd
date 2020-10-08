@@ -95,7 +95,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
 
         [HttpGet("{meetingId}/attendees")]
         [HasPermission(MeetingsPermissions.GetMeetingAttendees)]
-        [ProducesResponseType(typeof(List<MeetingAttendeeDto>), (int) HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(List<MeetingAttendeeDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetMeetingAttendees(Guid meetingId)
         {
             var meetingAttendees = await _meetingsModule.ExecuteQueryAsync(new GetMeetingAttendeesQuery(meetingId));

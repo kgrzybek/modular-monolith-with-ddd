@@ -18,7 +18,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.Get
         public async Task<List<PriceListItemDto>> Handle(GetPriceListItemsQuery request, CancellationToken cancellationToken)
         {
             using var connection = _sqlConnectionFactory.GetOpenConnection();
-            
+
             return await PriceListProvider.GetPriceListItems(connection);
         }
     }

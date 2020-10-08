@@ -32,7 +32,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuyS
         public async Task<Guid> Handle(BuySubscriptionCommand command, CancellationToken cancellationToken)
         {
             using var connection = _sqlConnectionFactory.GetOpenConnection();
-            
+
             var priceList = await PriceListProvider.GetPriceList(connection);
 
             var subscription = SubscriptionPayment.Buy(

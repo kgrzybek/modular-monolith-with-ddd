@@ -25,7 +25,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
         public async Task<Unit> Handle(ProcessInboxCommand command, CancellationToken cancellationToken)
         {
             using var connection = this._sqlConnectionFactory.GetOpenConnection();
-            
+
             const string sql = "SELECT " +
                                "[InboxMessage].[Id], " +
                                "[InboxMessage].[Type], " +

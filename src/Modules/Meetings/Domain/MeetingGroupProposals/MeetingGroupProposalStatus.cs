@@ -1,4 +1,3 @@
-using System.Reflection.Metadata;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals
