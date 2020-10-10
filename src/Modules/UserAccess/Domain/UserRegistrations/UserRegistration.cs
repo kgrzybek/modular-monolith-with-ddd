@@ -40,9 +40,10 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations
             string email,
             string firstName,
             string lastName,
-            IUsersCounter usersCounter)
+            IUsersCounter usersCounter,
+            string confirmLink)
         {
-            return new UserRegistration(login, password, email, firstName, lastName, usersCounter);
+            return new UserRegistration(login, password, email, firstName, lastName, usersCounter, confirmLink);
         }
 
         private UserRegistration(
@@ -51,7 +52,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations
             string email,
             string firstName,
             string lastName,
-            IUsersCounter usersCounter)
+            IUsersCounter usersCounter,
+            string confirmLink)
         {
             this.CheckRule(new UserLoginMustBeUniqueRule(usersCounter, login));
 
@@ -65,7 +67,15 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations
             _registerDate = DateTime.UtcNow;
             _status = UserRegistrationStatus.WaitingForConfirmation;
 
-            this.AddDomainEvent(new NewUserRegisteredDomainEvent(this.Id, _login, _email, _firstName, _lastName, _name, _registerDate));
+            this.AddDomainEvent(new NewUserRegisteredDomainEvent(
+                this.Id,
+                _login,
+                _email,
+                _firstName,
+                _lastName,
+                _name,
+                _registerDate,
+                confirmLink));
         }
 
         public User CreateUser()

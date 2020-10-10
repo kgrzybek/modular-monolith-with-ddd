@@ -18,7 +18,8 @@ namespace CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.UserRegist
                 UserRegistrationSampleData.Password,
                 UserRegistrationSampleData.Email,
                 UserRegistrationSampleData.FirstName,
-                UserRegistrationSampleData.LastName));
+                UserRegistrationSampleData.LastName,
+                "confirmLink"));
 
             var userRegistration = await UserAccessModule.ExecuteQueryAsync(new GetUserRegistrationQuery(registrationId));
 

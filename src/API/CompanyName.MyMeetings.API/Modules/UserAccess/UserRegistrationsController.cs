@@ -30,7 +30,8 @@ namespace CompanyName.MyMeetings.API.Modules.UserAccess
                 request.Password,
                 request.Email,
                 request.FirstName,
-                request.LastName));
+                request.LastName,
+                request.ConfirmLink));
 
             return Ok();
         }

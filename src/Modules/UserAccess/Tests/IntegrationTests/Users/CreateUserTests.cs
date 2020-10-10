@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.ConfirmUserRegistration;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.RegisterNewUser;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Users.CreateUser;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Users.GetUser;
 using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations;
 using CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.SeedWork;
@@ -22,12 +21,11 @@ namespace CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.Users
                 UserRegistrationSampleData.Password,
                 UserRegistrationSampleData.Email,
                 UserRegistrationSampleData.FirstName,
-                UserRegistrationSampleData.LastName));
+                UserRegistrationSampleData.LastName,
+                "confirmLink"));
             await UserAccessModule.ExecuteCommandAsync(new ConfirmUserRegistrationCommand(registrationId));
 
-            var userId = await UserAccessModule.ExecuteCommandAsync(new CreateUserCommand(Guid.NewGuid(), new UserRegistrationId(registrationId)));
-
-            var user = await UserAccessModule.ExecuteQueryAsync(new GetUserQuery(userId));
+            var user = await UserAccessModule.ExecuteQueryAsync(new GetUserQuery(registrationId));
 
             Assert.That(user.Login, Is.EqualTo(UserRegistrationSampleData.Login));
         }

@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Commands;
 using MediatR;
@@ -10,17 +11,22 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistration
     {
         private readonly IEmailSender _emailSender;
 
-        public SendUserRegistrationConfirmationEmailCommandHandler(IEmailSender emailSender)
+        public SendUserRegistrationConfirmationEmailCommandHandler(
+            IEmailSender emailSender)
         {
             _emailSender = emailSender;
         }
 
         public Task<Unit> Handle(SendUserRegistrationConfirmationEmailCommand command, CancellationToken cancellationToken)
         {
+            string link = $"<a href=\"{command.ConfirmLink}{command.UserRegistrationId.Value}\">link</a>";
+
+            string content = $"Welcome to MyMeetings application! Please confirm your registration using this {link}.";
+
             var emailMessage = new EmailMessage(
                 command.Email,
                 "MyMeetings - Please confirm your registration",
-                $"This should be link to confirmation page. For now, please execute HTTP request PATCH http://localhost:5000/userAccess/userRegistrations/{command.UserRegistrationId.Value}/confirm");
+                content);
 
             _emailSender.SendEmail(emailMessage);
 

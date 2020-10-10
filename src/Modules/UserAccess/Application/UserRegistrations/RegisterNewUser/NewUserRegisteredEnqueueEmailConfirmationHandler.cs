@@ -21,7 +21,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistration
             await _commandsScheduler.EnqueueAsync(new SendUserRegistrationConfirmationEmailCommand(
                 Guid.NewGuid(),
                 notification.DomainEvent.UserRegistrationId,
-                notification.DomainEvent.Email));
+                notification.DomainEvent.Email,
+                notification.DomainEvent.ConfirmLink));
         }
     }
 }

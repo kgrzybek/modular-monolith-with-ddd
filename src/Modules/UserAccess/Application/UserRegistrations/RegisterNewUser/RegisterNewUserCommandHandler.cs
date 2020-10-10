@@ -21,17 +21,18 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistration
             _usersCounter = usersCounter;
         }
 
-        public async Task<Guid> Handle(RegisterNewUserCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(RegisterNewUserCommand command, CancellationToken cancellationToken)
         {
-            var password = PasswordManager.HashPassword(request.Password);
+            var password = PasswordManager.HashPassword(command.Password);
 
             var userRegistration = UserRegistration.RegisterNewUser(
-                request.Login,
+                command.Login,
                 password,
-                request.Email,
-                request.FirstName,
-                request.LastName,
-                _usersCounter);
+                command.Email,
+                command.FirstName,
+                command.LastName,
+                _usersCounter,
+                command.ConfirmLink);
 
             await _userRegistrationRepository.AddAsync(userRegistration);
 

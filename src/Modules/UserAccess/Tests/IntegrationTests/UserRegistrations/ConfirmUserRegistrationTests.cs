@@ -6,7 +6,6 @@ using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.Co
 using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.GetUserRegistration;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.RegisterNewUser;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.SendUserRegistrationConfirmationEmail;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Users.CreateUser;
 using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations;
 using CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.SeedWork;
 using NSubstitute.ReceivedExtensions;
@@ -25,17 +24,14 @@ namespace CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.UserRegist
                 UserRegistrationSampleData.Password,
                 UserRegistrationSampleData.Email,
                 UserRegistrationSampleData.FirstName,
-                UserRegistrationSampleData.LastName));
+                UserRegistrationSampleData.LastName,
+                "confirmLink"));
 
             await UserAccessModule.ExecuteCommandAsync(new ConfirmUserRegistrationCommand(registrationId));
 
             var userRegistration = await UserAccessModule.ExecuteQueryAsync(new GetUserRegistrationQuery(registrationId));
 
             Assert.That(userRegistration.StatusCode, Is.EqualTo(UserRegistrationStatus.Confirmed.Value));
-
-            var userRegistrationConfirmedNotification = await GetLastOutboxMessage<UserRegistrationConfirmedNotification>();
-
-            Assert.That(userRegistrationConfirmedNotification.DomainEvent.UserRegistrationId.Value, Is.EqualTo(registrationId));
         }
     }
 }

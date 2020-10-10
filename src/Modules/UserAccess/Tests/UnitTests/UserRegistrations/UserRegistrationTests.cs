@@ -25,7 +25,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.UserRegistr
                     "test@email",
                     "firstName",
                     "lastName",
-                    usersCounter);
+                    usersCounter,
+                    "confirmLink");
 
             // Assert
             var newUserRegisteredDomainEvent =
@@ -50,7 +51,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.UserRegistr
                     "test@email",
                     "firstName",
                     "lastName",
-                    usersCounter);
+                    usersCounter,
+                    "confirmLink");
             });
         }
 
@@ -65,7 +67,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.UserRegistr
                 "test@email",
                 "firstName",
                 "lastName",
-                usersCounter);
+                usersCounter,
+                "confirmLink");
 
             registration.Confirm();
 
@@ -86,7 +89,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.UserRegistr
                 "test@email",
                 "firstName",
                 "lastName",
-                usersCounter);
+                usersCounter,
+                "confirmLink");
 
             registration.Confirm();
 
@@ -104,7 +108,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.UserRegistr
                 "test@email",
                 "firstName",
                 "lastName",
-                usersCounter);
+                usersCounter,
+                "confirmLink");
 
             registration.Expire();
 
@@ -122,7 +127,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.UserRegistr
                 "test@email",
                 "firstName",
                 "lastName",
-                usersCounter);
+                usersCounter,
+                "confirmLink");
 
             registration.Expire();
 
@@ -142,7 +148,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.UserRegistr
                 "test@email",
                 "firstName",
                 "lastName",
-                usersCounter);
+                usersCounter,
+                "confirmLink");
 
             registration.Expire();
 
@@ -160,7 +167,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.UserRegistr
                 "test@email",
                 "firstName",
                 "lastName",
-                usersCounter);
+                usersCounter,
+                "confirmLink");
 
             registration.Confirm();
 
@@ -183,7 +191,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.UserRegistr
                 "test@email",
                 "firstName",
                 "lastName",
-                usersCounter);
+                usersCounter,
+                "confirmLink");
 
             AssertBrokenRule<UserCannotBeCreatedWhenRegistrationIsNotConfirmedRule>(
                 () => { registration.CreateUser(); });
