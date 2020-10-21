@@ -22,6 +22,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ge
 
             string sql = "SELECT " +
                          $"[MeetingComment].[Id] AS [{nameof(MeetingCommentDto.Id)}], " +
+                         $"[MeetingComment].[InReplyToCommentId] AS [{nameof(MeetingCommentDto.InReplyToCommentId)}], " +
                          $"[MeetingComment].[AuthorId] AS [{nameof(MeetingCommentDto.AuthorId)}], " +
                          $"[MeetingComment].[Comment] AS [{nameof(MeetingCommentDto.Comment)}], " +
                          $"[MeetingComment].[CreateDate] AS [{nameof(MeetingCommentDto.CreateDate)}], " +
