@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddMeetingComment;
-using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddReply;
+using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddCommentReply;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.GetMeetingComments;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
 using CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.Meetings;
@@ -13,7 +13,7 @@ using NUnit.Framework;
 namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingComments
 {
     [TestFixture]
-    public class AddReplyTests : TestBase
+    public class AddCommentReplyTests : TestBase
     {
         [Test]
         public async Task AddReply_WhenDataIsValid_IsSuccessful()
