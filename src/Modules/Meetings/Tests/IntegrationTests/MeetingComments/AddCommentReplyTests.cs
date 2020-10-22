@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
-using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddMeetingComment;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddCommentReply;
+using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddMeetingComment;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.GetMeetingComments;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
 using CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.Meetings;
@@ -42,7 +42,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
         }
 
         [Test]
-        public async Task AddReply_WhenParentCommentNotExists_ThrowsInvalidCommandException()
+        public void AddReply_WhenParentCommentNotExists_ThrowsInvalidCommandException()
         {
             // Assert
             Assert.CatchAsync<InvalidCommandException>(async () =>

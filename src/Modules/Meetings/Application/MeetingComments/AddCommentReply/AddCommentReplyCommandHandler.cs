@@ -35,7 +35,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ad
             var meetingComment = await _meetingCommentRepository.GetByIdAsync(new MeetingCommentId(command.InReplyToCommentId));
             if (meetingComment == null)
             {
-                throw new InvalidCommandException(new List<string> {"To create reply the commit must exist."});
+                throw new InvalidCommandException(new List<string> { "To create reply the commit must exist." });
             }
 
             var meeting = await _meetingRepository.GetByIdAsync(meetingComment.GetMeetingId());
