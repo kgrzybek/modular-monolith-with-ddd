@@ -7,9 +7,15 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Comments.Events
     {
         public MeetingCommentId MeetingCommentId { get; }
 
-        public MeetingCommentCreatedDomainEvent(MeetingCommentId meetingCommentId)
+        public MeetingCommentId? InReplyToCommentId { get; }
+
+        public string Comment { get; }
+
+        public MeetingCommentCreatedDomainEvent(MeetingCommentId meetingCommentId, MeetingCommentId? inReplyToCommentId, string comment)
         {
             MeetingCommentId = meetingCommentId;
+            InReplyToCommentId = inReplyToCommentId;
+            Comment = comment;
         }
     }
 }

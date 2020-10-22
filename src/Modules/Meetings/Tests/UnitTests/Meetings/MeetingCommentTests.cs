@@ -239,10 +239,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             var commentReply = meetingComment.Reply(replyAuthorId, reply, meetingTestData.MeetingGroup, meetingTestData.MeetingCommentingConfiguration);
 
             // Assert
-            var commentReplyCreatedEvent = AssertPublishedDomainEvent<CommentReplyCreatedDomainEvent>(commentReply);
-            Assert.That(commentReplyCreatedEvent.ReplyId, Is.EqualTo(commentReply.Id));
+            var commentReplyCreatedEvent = AssertPublishedDomainEvent<MeetingCommentCreatedDomainEvent>(commentReply);
+            Assert.That(commentReplyCreatedEvent.MeetingCommentId, Is.EqualTo(commentReply.Id));
             Assert.That(commentReplyCreatedEvent.InReplyToCommentId, Is.EqualTo(meetingComment.Id));
-            Assert.That(commentReplyCreatedEvent.Reply, Is.EqualTo(reply));
+            Assert.That(commentReplyCreatedEvent.Comment, Is.EqualTo(reply));
         }
 
         [Test]
@@ -286,17 +286,15 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
         public void AddCommentReply_WhenMeetingCommentingDisabled_BreaksCommentCanBeCreatedOnlyIfCommentingForMeetingEnabledRule()
         {
             // Arrange
+            var creatorId = new MemberId(Guid.NewGuid());
             var commentAuthorId = new MemberId(Guid.NewGuid());
             var replyAuthorId = new MemberId(Guid.NewGuid());
 
-            var meetingTestData = CreateMeetingTestData(
-                new MeetingTestDataOptions
-                {
-                    Attendees = new[] { commentAuthorId, replyAuthorId },
-                    IsMeetingCommentingEnabled = false
-                });
+            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions { CreatorId = creatorId, Attendees = new[] { commentAuthorId, replyAuthorId } });
 
             var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!", meetingTestData.MeetingGroup, meetingTestData.MeetingCommentingConfiguration);
+
+            meetingTestData.MeetingCommentingConfiguration.DisableCommenting(creatorId, meetingTestData.MeetingGroup);
 
             // Assert
             AssertBrokenRule<CommentCanBeCreatedOnlyIfCommentingForMeetingEnabledRule>(() =>

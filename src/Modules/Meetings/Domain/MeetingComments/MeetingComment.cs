@@ -57,7 +57,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
             _isRemoved = false;
             _removedByReason = null;
 
-            this.AddDomainEvent(new MeetingCommentCreatedDomainEvent(Id));
+            this.AddDomainEvent(new MeetingCommentCreatedDomainEvent(this.Id, inReplyToCommentId, comment));
         }
 
         private MeetingComment()
@@ -89,9 +89,13 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
         }
 
         public MeetingComment Reply(MemberId replierId, string reply, MeetingGroup meetingGroup, MeetingCommentingConfiguration meetingCommentingConfiguration)
-        {
-            throw new NotImplementedException();
-        }
+            => new MeetingComment(
+                _meetingId,
+                replierId,
+                reply,
+                this.Id,
+                meetingCommentingConfiguration,
+                meetingGroup);
 
         public MeetingId GetMeetingId() => this._meetingId;
 
