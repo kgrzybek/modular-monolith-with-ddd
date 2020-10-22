@@ -309,12 +309,13 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
             attendee.MarkFeeAsPayed();
         }
 
-        public MeetingComment AddComment(MemberId authorId, string comment, MeetingCommentingConfiguration meetingCommentingConfiguration)
-        {
-            this.CheckRule(new CommentCanBeAddedOnlyByAttendeeRule(authorId, _attendees));
-
-            return MeetingComment.Create(this.Id, authorId, comment, meetingCommentingConfiguration);
-        }
+        public MeetingComment AddComment(MemberId authorId, string comment, MeetingGroup meetingGroup, MeetingCommentingConfiguration meetingCommentingConfiguration)
+            => MeetingComment.Create(
+                this.Id,
+                authorId,
+                comment,
+                meetingGroup,
+                meetingCommentingConfiguration);
 
         public MeetingCommentingConfiguration CreateCommentingConfiguration()
         {
