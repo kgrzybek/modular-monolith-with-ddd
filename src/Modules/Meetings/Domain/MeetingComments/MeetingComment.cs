@@ -88,6 +88,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
             this.AddDomainEvent(new MeetingCommentRemovedDomainEvent(this.Id));
         }
 
+        public MeetingComment Reply(MemberId replierId, string reply, MeetingGroup meetingGroup, MeetingCommentingConfiguration meetingCommentingConfiguration)
+        {
+            throw new NotImplementedException();
+        }
+
         public MeetingId GetMeetingId() => this._meetingId;
 
         internal static MeetingComment Create(

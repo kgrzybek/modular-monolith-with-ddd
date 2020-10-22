@@ -10,7 +10,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
     public class MeetingCommentTests : MeetingTestsBase
     {
         [Test]
-        public void AddComment_IsSuccessful()
+        public void AddComment_WhenDataIsValid_IsSuccessful()
         {
             // Arrange
             var commentAuthorId = new MemberId(Guid.NewGuid());
@@ -220,6 +220,89 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
                     commentAuthorId,
                     meetingTestData.MeetingGroup,
                     "I don't like the comment.");
+            });
+        }
+
+        [Test]
+        public void AddCommentReply_WhenDataIsValid_IsSuccessful()
+        {
+            // Arrange
+            var commentAuthorId = new MemberId(Guid.NewGuid());
+            var replyAuthorId = new MemberId(Guid.NewGuid());
+            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[] { commentAuthorId, replyAuthorId } });
+
+            var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!", meetingTestData.MeetingGroup, meetingTestData.MeetingCommentingConfiguration);
+
+            var reply = "Exactly!";
+
+            // Act
+            var commentReply = meetingComment.Reply(replyAuthorId, reply, meetingTestData.MeetingGroup, meetingTestData.MeetingCommentingConfiguration);
+
+            // Assert
+            var commentReplyCreatedEvent = AssertPublishedDomainEvent<CommentReplyCreatedDomainEvent>(commentReply);
+            Assert.That(commentReplyCreatedEvent.ReplyId, Is.EqualTo(commentReply.Id));
+            Assert.That(commentReplyCreatedEvent.InReplyToCommentId, Is.EqualTo(meetingComment.Id));
+            Assert.That(commentReplyCreatedEvent.Reply, Is.EqualTo(reply));
+        }
+
+        [Test]
+        public void AddCommentReply_WhenAuthorIsNotMeetingGroupMember_BreaksCommentCanBeAddedOnlyByMeetingGroupMemberRule()
+        {
+            // Arrange
+            var commentAuthorId = new MemberId(Guid.NewGuid());
+            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[] { commentAuthorId } });
+
+            var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!", meetingTestData.MeetingGroup, meetingTestData.MeetingCommentingConfiguration);
+
+            // Assert
+            AssertBrokenRule<CommentCanBeAddedOnlyByMeetingGroupMemberRule>(() =>
+            {
+                // Act
+                meetingComment.Reply(replierId: new MemberId(Guid.NewGuid()), "Exactly!", meetingTestData.MeetingGroup, meetingTestData.MeetingCommentingConfiguration);
+            });
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        public void AddCommentReply_WhenTextIsEmpty_BreaksCommentTextMustBeProvidedRule(string missingReply)
+        {
+            // Arrange
+            var commentAuthorId = new MemberId(Guid.NewGuid());
+            var replyAuthorId = new MemberId(Guid.NewGuid());
+            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[] { commentAuthorId, replyAuthorId } });
+
+            var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!", meetingTestData.MeetingGroup, meetingTestData.MeetingCommentingConfiguration);
+
+            // Assert
+            AssertBrokenRule<CommentTextMustBeProvidedRule>(() =>
+            {
+                // Act
+                meetingComment.Reply(replyAuthorId, missingReply, meetingTestData.MeetingGroup, meetingTestData.MeetingCommentingConfiguration);
+            });
+        }
+
+        [Test]
+        public void AddCommentReply_WhenMeetingCommentingDisabled_BreaksCommentCanBeCreatedOnlyIfCommentingForMeetingEnabledRule()
+        {
+            // Arrange
+            var commentAuthorId = new MemberId(Guid.NewGuid());
+            var replyAuthorId = new MemberId(Guid.NewGuid());
+
+            var meetingTestData = CreateMeetingTestData(
+                new MeetingTestDataOptions
+                {
+                    Attendees = new[] { commentAuthorId, replyAuthorId },
+                    IsMeetingCommentingEnabled = false
+                });
+
+            var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!", meetingTestData.MeetingGroup, meetingTestData.MeetingCommentingConfiguration);
+
+            // Assert
+            AssertBrokenRule<CommentCanBeCreatedOnlyIfCommentingForMeetingEnabledRule>(() =>
+            {
+                // Act
+                meetingComment.Reply(replyAuthorId, "Exactly!", meetingTestData.MeetingGroup, meetingTestData.MeetingCommentingConfiguration);
             });
         }
     }
