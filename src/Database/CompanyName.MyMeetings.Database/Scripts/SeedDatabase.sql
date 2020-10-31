@@ -104,9 +104,14 @@ INSERT INTO users.[Permissions] ([Code], [Name]) VALUES
 	('DeleteMeetingComment','DeleteMeetingComment'),
 	('EnableMeetingCommenting','EnableMeetingCommenting'),
 	('DisableMeetingCommenting','DisableMeetingCommenting'),
+	('MyMeetingGroupsView','MyMeetingGroupsView'),
+	('AllMeetingGroupsView','AllMeetingGroupsView'),
+	('SubscriptionView','SubscriptionView'),
+	('EmailsView','EmailsView'),
 
 	-- Administration
 	('AcceptMeetingGroupProposal','AcceptMeetingGroupProposal'),
+	('AdministrationsView','AdministrationsView'),
 
 	-- Payments
 	('RegisterPayment','RegisterPayment'),
@@ -143,11 +148,16 @@ INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetAuthenticatedMemberMe
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetMeetingGroupDetails')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetMeetingDetails')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetMeetingAttendees')
+INSERT INTO users.RolesToPermissions VALUES ('Member', 'MyMeetingsGroupsView')
+INSERT INTO users.RolesToPermissions VALUES ('Member', 'SubscriptionView')
+INSERT INTO users.RolesToPermissions VALUES ('Member', 'EmailsView')
+INSERT INTO users.RolesToPermissions VALUES ('Member', 'AllMeetingGroupsView')
 
 
 
 -- Administration
 INSERT INTO users.RolesToPermissions VALUES ('Administrator', 'AcceptMeetingGroupProposal')
+INSERT INTO users.RolesToPermissions VALUES ('Administrator', 'AdministrationsView')
 
 -- Payments
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'RegisterPayment')
