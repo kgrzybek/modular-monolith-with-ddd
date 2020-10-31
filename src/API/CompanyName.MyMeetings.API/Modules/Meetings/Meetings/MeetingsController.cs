@@ -10,6 +10,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.CancelMeeting
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.ChangeMeetingMainAttributes;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.ChangeNotAttendeeDecision;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.CreateMeeting;
+using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.GetAuthenticatedMemberMeetings;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.GetMeetingAttendees;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.GetMeetingDetails;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.RemoveMeetingAttendee;
@@ -30,6 +31,17 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
         public MeetingsController(IMeetingsModule meetingsModule)
         {
             _meetingsModule = meetingsModule;
+        }
+
+
+        [HttpGet("")]
+        [HasPermission(MeetingsPermissions.GetAuthenticatedMemberMeetings)]
+        [ProducesResponseType(typeof(MeetingDetailsDto), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetAuthenticatedMemberMeetings()
+        {
+            var meetings = await _meetingsModule.ExecuteQueryAsync(new GetAuthenticatedMemberMeetingsQuery());
+
+            return Ok(meetings);
         }
 
         [HttpGet("{meetingId}")]

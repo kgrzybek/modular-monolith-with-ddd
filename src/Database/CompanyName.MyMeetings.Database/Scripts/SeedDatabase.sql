@@ -108,6 +108,8 @@ INSERT INTO users.[Permissions] ([Code], [Name]) VALUES
 	('AllMeetingGroupsView','AllMeetingGroupsView'),
 	('SubscriptionView','SubscriptionView'),
 	('EmailsView','EmailsView'),
+	('MyMeetingsView','MyMeetingsView'),
+	('GetAuthenticatedMemberMeetings','GetAuthenticatedMemberMeetings'),
 
 	-- Administration
 	('AcceptMeetingGroupProposal','AcceptMeetingGroupProposal'),
@@ -152,8 +154,8 @@ INSERT INTO users.RolesToPermissions VALUES ('Member', 'MyMeetingsGroupsView')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'SubscriptionView')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'EmailsView')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'AllMeetingGroupsView')
-
-
+INSERT INTO users.RolesToPermissions VALUES ('Member', 'MyMeetingsView')
+INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetAuthenticatedMemberMeetings')
 
 -- Administration
 INSERT INTO users.RolesToPermissions VALUES ('Administrator', 'AcceptMeetingGroupProposal')
