@@ -13,7 +13,7 @@ using NUnit.Framework;
 namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingComments
 {
     [TestFixture]
-    public class AddCommentReplyTests : TestBase
+    public class AddReplyToMeetingCommentTests : TestBase
     {
         [Test]
         public async Task AddReply_WhenDataIsValid_IsSuccessful()
@@ -27,7 +27,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
             var reply = "Absolutely!";
 
             // Act
-            var replyId = await MeetingsModule.ExecuteCommandAsync(new AddCommentReplyCommand(meetingCommentId, reply));
+            var replyId = await MeetingsModule.ExecuteCommandAsync(new AddReplyToMeetingCommentCommand(meetingCommentId, reply));
 
             // Assert
             var meetingComments = await MeetingsModule.ExecuteQueryAsync(new GetMeetingCommentsQuery(meetingId));
@@ -48,7 +48,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
             Assert.CatchAsync<InvalidCommandException>(async () =>
             {
                 // Act
-                await MeetingsModule.ExecuteCommandAsync(new AddCommentReplyCommand(
+                await MeetingsModule.ExecuteCommandAsync(new AddReplyToMeetingCommentCommand(
                     inReplyToCommentId: Guid.NewGuid(),
                     "Reply for a nonexistent comment."));
             });

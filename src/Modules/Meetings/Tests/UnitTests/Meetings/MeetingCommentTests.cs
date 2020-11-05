@@ -15,13 +15,16 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             // Arrange
             var commentAuthorId = new MemberId(Guid.NewGuid());
             var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[] { commentAuthorId } });
+            var comment = "Great meeting!";
 
             // Act
-            var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!", meetingTestData.MeetingGroup, meetingTestData.MeetingCommentingConfiguration);
+            var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, comment, meetingTestData.MeetingGroup, meetingTestData.MeetingCommentingConfiguration);
 
             // Assert
-            var meetingCommentCreatedEvent = AssertPublishedDomainEvent<MeetingCommentCreatedDomainEvent>(meetingComment);
+            var meetingCommentCreatedEvent = AssertPublishedDomainEvent<MeetingCommentAddedDomainEvent>(meetingComment);
             Assert.That(meetingCommentCreatedEvent.MeetingCommentId, Is.EqualTo(meetingComment.Id));
+            Assert.That(meetingCommentCreatedEvent.MeetingId, Is.EqualTo(meetingTestData.Meeting.Id));
+            Assert.That(meetingCommentCreatedEvent.Comment, Is.EqualTo(comment));
         }
 
         [Test]
@@ -224,7 +227,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
         }
 
         [Test]
-        public void AddCommentReply_WhenDataIsValid_IsSuccessful()
+        public void AddReplyToComment_WhenDataIsValid_IsSuccessful()
         {
             // Arrange
             var commentAuthorId = new MemberId(Guid.NewGuid());
@@ -236,17 +239,17 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             var reply = "Exactly!";
 
             // Act
-            var commentReply = meetingComment.Reply(replyAuthorId, reply, meetingTestData.MeetingGroup, meetingTestData.MeetingCommentingConfiguration);
+            var replyToComment = meetingComment.Reply(replyAuthorId, reply, meetingTestData.MeetingGroup, meetingTestData.MeetingCommentingConfiguration);
 
             // Assert
-            var commentReplyCreatedEvent = AssertPublishedDomainEvent<MeetingCommentCreatedDomainEvent>(commentReply);
-            Assert.That(commentReplyCreatedEvent.MeetingCommentId, Is.EqualTo(commentReply.Id));
-            Assert.That(commentReplyCreatedEvent.InReplyToCommentId, Is.EqualTo(meetingComment.Id));
-            Assert.That(commentReplyCreatedEvent.Comment, Is.EqualTo(reply));
+            var replyToMeetingCommentAddedEvent = AssertPublishedDomainEvent<ReplyToMeetingCommentAddedDomainEvent>(replyToComment);
+            Assert.That(replyToMeetingCommentAddedEvent.MeetingCommentId, Is.EqualTo(replyToComment.Id));
+            Assert.That(replyToMeetingCommentAddedEvent.InReplyToCommentId, Is.EqualTo(meetingComment.Id));
+            Assert.That(replyToMeetingCommentAddedEvent.Reply, Is.EqualTo(reply));
         }
 
         [Test]
-        public void AddCommentReply_WhenAuthorIsNotMeetingGroupMember_BreaksCommentCanBeAddedOnlyByMeetingGroupMemberRule()
+        public void AddReplyToComment_WhenAuthorIsNotMeetingGroupMember_BreaksCommentCanBeAddedOnlyByMeetingGroupMemberRule()
         {
             // Arrange
             var commentAuthorId = new MemberId(Guid.NewGuid());
@@ -265,7 +268,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
         [Test]
         [TestCase(null)]
         [TestCase("")]
-        public void AddCommentReply_WhenTextIsEmpty_BreaksCommentTextMustBeProvidedRule(string missingReply)
+        public void AddReplyToComment_WhenTextIsEmpty_BreaksCommentTextMustBeProvidedRule(string missingReply)
         {
             // Arrange
             var commentAuthorId = new MemberId(Guid.NewGuid());
@@ -283,7 +286,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
         }
 
         [Test]
-        public void AddCommentReply_WhenMeetingCommentingDisabled_BreaksCommentCanBeCreatedOnlyIfCommentingForMeetingEnabledRule()
+        public void AddReplyToComment_WhenMeetingCommentingDisabled_BreaksCommentCanBeCreatedOnlyIfCommentingForMeetingEnabledRule()
         {
             // Arrange
             var creatorId = new MemberId(Guid.NewGuid());

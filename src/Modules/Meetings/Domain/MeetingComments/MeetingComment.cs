@@ -36,7 +36,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
             MeetingId meetingId,
             MemberId authorId,
             string comment,
-            MeetingCommentId inReplyToCommentId,
+            MeetingCommentId? inReplyToCommentId,
             MeetingCommentingConfiguration meetingCommentingConfiguration,
             MeetingGroup meetingGroup)
         {
@@ -57,7 +57,14 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
             _isRemoved = false;
             _removedByReason = null;
 
-            this.AddDomainEvent(new MeetingCommentCreatedDomainEvent(this.Id, inReplyToCommentId, comment));
+            if (inReplyToCommentId == null)
+            {
+                this.AddDomainEvent(new MeetingCommentAddedDomainEvent(this.Id, _meetingId, comment));
+            }
+            else
+            {
+                this.AddDomainEvent(new ReplyToMeetingCommentAddedDomainEvent(this.Id, inReplyToCommentId, comment));
+            }
         }
 
         private MeetingComment()

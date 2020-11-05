@@ -13,7 +13,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddCommentReply
 {
-    public class AddCommentReplyCommandHandler : ICommandHandler<AddCommentReplyCommand, Guid>
+    public class AddReplyToMeetingCommentCommandHandler : ICommandHandler<AddReplyToMeetingCommentCommand, Guid>
     {
         private readonly IMeetingCommentRepository _meetingCommentRepository;
         private readonly IMeetingRepository _meetingRepository;
@@ -21,7 +21,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ad
         private readonly IMeetingCommentingConfigurationRepository _meetingCommentingConfigurationRepository;
         private readonly IMemberContext _memberContext;
 
-        public AddCommentReplyCommandHandler(IMeetingCommentRepository meetingCommentRepository, IMeetingRepository meetingRepository, IMeetingGroupRepository meetingGroupRepository, IMeetingCommentingConfigurationRepository meetingCommentingConfigurationRepository, IMemberContext memberContext)
+        public AddReplyToMeetingCommentCommandHandler(IMeetingCommentRepository meetingCommentRepository, IMeetingRepository meetingRepository, IMeetingGroupRepository meetingGroupRepository, IMeetingCommentingConfigurationRepository meetingCommentingConfigurationRepository, IMemberContext memberContext)
         {
             _meetingCommentRepository = meetingCommentRepository;
             _meetingRepository = meetingRepository;
@@ -30,12 +30,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ad
             _memberContext = memberContext;
         }
 
-        public async Task<Guid> Handle(AddCommentReplyCommand command, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(AddReplyToMeetingCommentCommand command, CancellationToken cancellationToken)
         {
             var meetingComment = await _meetingCommentRepository.GetByIdAsync(new MeetingCommentId(command.InReplyToCommentId));
             if (meetingComment == null)
             {
-                throw new InvalidCommandException(new List<string> { "To create reply the commit must exist." });
+                throw new InvalidCommandException(new List<string> { "To create reply the comment must exist." });
             }
 
             var meeting = await _meetingRepository.GetByIdAsync(meetingComment.GetMeetingId());
@@ -44,10 +44,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ad
 
             var meetingCommentingConfiguration = await _meetingCommentingConfigurationRepository.GetByMeetingIdAsync(meetingComment.GetMeetingId());
 
-            var commentReply = meetingComment.Reply(_memberContext.MemberId, command.Reply, meetingGroup, meetingCommentingConfiguration);
-            await _meetingCommentRepository.AddAsync(commentReply);
+            var replyToComment = meetingComment.Reply(_memberContext.MemberId, command.Reply, meetingGroup, meetingCommentingConfiguration);
+            await _meetingCommentRepository.AddAsync(replyToComment);
 
-            return commentReply.Id.Value;
+            return replyToComment.Id.Value;
         }
     }
 }
