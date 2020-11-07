@@ -6,6 +6,10 @@ Full Modular Monolith .NET application with Domain-Driven Design approach.
 
 ![](https://github.com/kgrzybek/modular-monolith-with-ddd/workflows/Build%20Pipeline/badge.svg)
 
+## FrontEnd application
+
+FrontEnd application : [Modular Monolith With DDD: FrontEnd React application](https://github.com/kgrzybek/modular-monolith-with-ddd-fe-react) 
+
 ## Table of contents
 
 [1. Introduction](#1-Introduction)
@@ -1834,7 +1838,7 @@ List of features/tasks/approaches to add:
 | Database Change Management | Completed  |  2020-08-23  |
 | Continuous Integration      | Completed  | 2020-09-01   |
 | StyleCop Static Code Analysis      | Completed  | 2020-09-05   |
-| FrontEnd SPA application |      |    |
+| FrontEnd SPA application | Completed |  2020-11-08  |
 | Meeting comments feature |    |    |
 | Notifications feature |     |    |
 | Messages feature |     |    |
