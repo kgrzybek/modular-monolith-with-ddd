@@ -6,6 +6,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ge
     {
         public Guid Id { get; }
 
+        public Guid? InReplyToCommentId { get; }
+
         public Guid AuthorId { get; }
 
         public string Comment { get; }

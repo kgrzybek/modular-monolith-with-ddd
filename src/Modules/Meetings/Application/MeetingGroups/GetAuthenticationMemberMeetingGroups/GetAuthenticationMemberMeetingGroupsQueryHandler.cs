@@ -17,7 +17,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.GetA
         private readonly IExecutionContextAccessor _executionContextAccessor;
 
         public GetAuthenticationMemberMeetingGroupsQueryHandler(
-            ISqlConnectionFactory sqlConnectionFactory, 
+            ISqlConnectionFactory sqlConnectionFactory,
             IExecutionContextAccessor executionContextAccessor)
         {
             _sqlConnectionFactory = sqlConnectionFactory;

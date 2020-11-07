@@ -36,11 +36,13 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
             MeetingId meetingId,
             MemberId authorId,
             string comment,
+            MeetingCommentId? inReplyToCommentId,
             MeetingCommentingConfiguration meetingCommentingConfiguration,
-            MeetingCommentId inReplyToCommentId)
+            MeetingGroup meetingGroup)
         {
             this.CheckRule(new CommentTextMustBeProvidedRule(comment));
             this.CheckRule(new CommentCanBeCreatedOnlyIfCommentingForMeetingEnabledRule(meetingCommentingConfiguration));
+            this.CheckRule(new CommentCanBeAddedOnlyByMeetingGroupMemberRule(authorId, meetingGroup));
 
             this.Id = new MeetingCommentId(Guid.NewGuid());
             _meetingId = meetingId;
@@ -55,7 +57,14 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
             _isRemoved = false;
             _removedByReason = null;
 
-            this.AddDomainEvent(new MeetingCommentCreatedDomainEvent(Id));
+            if (inReplyToCommentId == null)
+            {
+                this.AddDomainEvent(new MeetingCommentAddedDomainEvent(this.Id, _meetingId, comment));
+            }
+            else
+            {
+                this.AddDomainEvent(new ReplyToMeetingCommentAddedDomainEvent(this.Id, inReplyToCommentId, comment));
+            }
         }
 
         private MeetingComment()
@@ -86,13 +95,29 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
             this.AddDomainEvent(new MeetingCommentRemovedDomainEvent(this.Id));
         }
 
+        public MeetingComment Reply(MemberId replierId, string reply, MeetingGroup meetingGroup, MeetingCommentingConfiguration meetingCommentingConfiguration)
+            => new MeetingComment(
+                _meetingId,
+                replierId,
+                reply,
+                this.Id,
+                meetingCommentingConfiguration,
+                meetingGroup);
+
         public MeetingId GetMeetingId() => this._meetingId;
 
         internal static MeetingComment Create(
             MeetingId meetingId,
             MemberId authorId,
             string comment,
+            MeetingGroup meetingGroup,
             MeetingCommentingConfiguration meetingCommentingConfiguration)
-            => new MeetingComment(meetingId, authorId, comment, meetingCommentingConfiguration, inReplyToCommentId: null);
+            => new MeetingComment(
+                meetingId,
+                authorId,
+                comment,
+                inReplyToCommentId: null,
+                meetingCommentingConfiguration,
+                meetingGroup);
     }
 }

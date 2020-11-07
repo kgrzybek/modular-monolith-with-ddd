@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.API.Configuration.Authorization;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
+using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddCommentReply;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddMeetingComment;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.EditMeetingComment;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.RemoveMeetingComment;
-using CompanyName.MyMeetings.Modules.Meetings.Domain.Comments;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -56,6 +56,16 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingComments
         {
             await _meetingModule.ExecuteCommandAsync(
                 new RemoveMeetingCommentCommand(meetingCommentId, reason));
+
+            return Ok();
+        }
+
+        [HttpPost("{meetingCommentId}/replies")]
+        [HasPermission(MeetingsPermissions.AddMeetingCommentReply)]
+        [ProducesResponseType(typeof(Guid), StatusCodes.Status200OK)]
+        public async Task<IActionResult> AddReplyToMeetingComment([FromRoute] Guid meetingCommentId, [FromBody] string reply)
+        {
+            await _meetingModule.ExecuteCommandAsync(new AddReplyToMeetingCommentCommand(meetingCommentId, reply));
 
             return Ok();
         }
