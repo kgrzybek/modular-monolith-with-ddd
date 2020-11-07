@@ -56,9 +56,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
 
             IList<IDomainEvent> domainEvents = new List<IDomainEvent>();
             ReadStreamPage readStreamPage;
+            int position = StreamVersion.Start;
+            int take = 100;
             do
             {
-                readStreamPage = await _streamStore.ReadStreamForwards(streamId, StreamVersion.Start, maxCount: 100);
+                readStreamPage = await _streamStore.ReadStreamForwards(streamId, position, take);
                 var messages = readStreamPage.Messages;
                 foreach (var streamMessage in messages)
                 {
@@ -68,6 +70,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
 
                     domainEvents.Add(domainEvent);
                 }
+
+                position += take;
             }
             while (!readStreamPage.IsEnd);
 

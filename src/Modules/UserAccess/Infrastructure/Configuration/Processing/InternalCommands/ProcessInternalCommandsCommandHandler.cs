@@ -31,7 +31,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
                                $"[Command].[Type] AS [{nameof(InternalCommandDto.Type)}], " +
                                $"[Command].[Data] AS [{nameof(InternalCommandDto.Data)}] " +
                                "FROM [users].[InternalCommands] AS [Command] " +
-                               "WHERE [Command].[ProcessedDate] IS NULL";
+                               "WHERE [Command].[ProcessedDate] IS NULL " +
+                               "ORDER BY [Command].[EnqueueDate]";
             var commands = await connection.QueryAsync<InternalCommandDto>(sql);
 
             var internalCommandsList = commands.AsList();
