@@ -1,4 +1,5 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
+﻿using System.Threading.Tasks;
+using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
 using Serilog;
 
 namespace CompanyName.MyMeetings.BuildingBlocks.EventBus
@@ -16,11 +17,11 @@ namespace CompanyName.MyMeetings.BuildingBlocks.EventBus
         {
         }
 
-        public void Publish<T>(T @event)
+        public async Task Publish<T>(T @event)
             where T : IntegrationEvent
         {
             _logger.Information("Publishing {Event}", @event.GetType().FullName);
-            InMemoryEventBus.Instance.Publish(@event);
+            await InMemoryEventBus.Instance.Publish(@event);
         }
 
         public void Subscribe<T>(IIntegrationEventHandler<T> handler)

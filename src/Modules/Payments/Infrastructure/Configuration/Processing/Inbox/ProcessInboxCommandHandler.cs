@@ -49,7 +49,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
 
                 try
                 {
-                    await _mediator.Publish((INotification)request, cancellationToken);
+                    await _mediator.Publish((INotification) request, cancellationToken);
                 }
                 catch (Exception e)
                 {
@@ -57,7 +57,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
                     throw;
                 }
 
-                await connection.ExecuteAsync(sqlUpdateProcessedDate, new
+                await connection.ExecuteScalarAsync(sqlUpdateProcessedDate, new
                 {
                     Date = DateTime.UtcNow,
                     message.Id

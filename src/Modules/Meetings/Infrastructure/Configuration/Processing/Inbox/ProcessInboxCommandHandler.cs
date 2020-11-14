@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands;
 using Dapper;
 using MediatR;
@@ -57,7 +56,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.P
                     throw;
                 }
 
-                await connection.ExecuteAsync(sqlUpdateProcessedDate, new
+                await connection.ExecuteScalarAsync(sqlUpdateProcessedDate, new
                 {
                     Date = DateTime.UtcNow,
                     message.Id

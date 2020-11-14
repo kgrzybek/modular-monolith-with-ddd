@@ -16,9 +16,9 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Payers.CreatePayer
             _commandsScheduler = commandsScheduler;
         }
 
-        public Task Handle(NewUserRegisteredIntegrationEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(NewUserRegisteredIntegrationEvent notification, CancellationToken cancellationToken)
         {
-            _commandsScheduler.EnqueueAsync(new
+            await _commandsScheduler.EnqueueAsync(new
                 CreatePayerCommand(
                     Guid.NewGuid(),
                     notification.UserId,
@@ -27,8 +27,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Payers.CreatePayer
                     notification.FirstName,
                     notification.LastName,
                     notification.Name));
-
-            return Task.CompletedTask;
         }
     }
 }

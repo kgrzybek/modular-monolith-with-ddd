@@ -58,7 +58,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
                     throw;
                 }
 
-                await connection.ExecuteAsync(sqlUpdateProcessedDate, new
+                await connection.ExecuteScalarAsync(sqlUpdateProcessedDate, new
                 {
                     Date = DateTime.UtcNow,
                     message.Id
