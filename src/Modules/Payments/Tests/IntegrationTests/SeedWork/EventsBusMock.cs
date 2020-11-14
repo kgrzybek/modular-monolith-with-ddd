@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
 
 namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
@@ -17,10 +18,12 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
         {
         }
 
-        public void Publish<T>(T @event)
+        public Task Publish<T>(T @event)
             where T : IntegrationEvent
         {
             _publishedEvents.Add(@event);
+
+            return Task.CompletedTask;
         }
 
         public T GetLastPublishedEvent<T>()
