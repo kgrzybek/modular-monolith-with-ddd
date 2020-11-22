@@ -99,9 +99,11 @@ INSERT INTO users.[Permissions] ([Code], [Name]) VALUES
 	('EditMeetingGroupGeneralAttributes','EditMeetingGroupGeneralAttributes'),
 	('JoinToGroup','JoinToGroup'),
 	('LeaveMeetingGroup','LeaveMeetingGroup'),
+    ('GetMeetingComments', 'GetMeetingComments'),
 	('AddMeetingComment','AddMeetingComment'),
 	('EditMeetingComment','EditMeetingComment'),
 	('DeleteMeetingComment','DeleteMeetingComment'),
+    ('AddMeetingCommentReply', 'AddMeetingCommentReply'),
 	('EnableMeetingCommenting','EnableMeetingCommenting'),
 	('DisableMeetingCommenting','DisableMeetingCommenting'),
 	('MyMeetingGroupsView','MyMeetingGroupsView'),
@@ -144,8 +146,10 @@ INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetAllMeetingGroups')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'EditMeetingGroupGeneralAttributes')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'JoinToGroup')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'LeaveMeetingGroup')
+INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetMeetingComments')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'AddMeetingComment')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'EditMeetingComment')
+INSERT INTO users.RolesToPermissions VALUES ('Member', 'AddMeetingCommentReply')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetAuthenticatedMemberMeetingGroups')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetMeetingGroupDetails')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetMeetingDetails')
