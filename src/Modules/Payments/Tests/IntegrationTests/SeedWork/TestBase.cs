@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -98,7 +98,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
 
         protected static void AssertEventually(IProbe probe, int timeout)
         {
-            new Poller(timeout).Check(probe);
+            await new Poller(timeout).CheckAsync(probe);
         }
 
         private static async Task ClearDatabase(IDbConnection connection)

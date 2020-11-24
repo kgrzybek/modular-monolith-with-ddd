@@ -27,13 +27,13 @@ namespace CompanyName.MyMeetings.IntegrationTests.CreateMeetingGroup
                     "Location",
                     "PL"));
 
-            AssertEventually(
+            await AssertEventually(
                 new GetMeetingGroupProposalFromAdministrationProbe(meetingGroupId, AdministrationModule),
                 10000);
 
             await AdministrationModule.ExecuteCommandAsync(new AcceptMeetingGroupProposalCommand(meetingGroupId));
 
-            AssertEventually(
+            await AssertEventually(
                 new GetCreatedMeetingGroupFromMeetingsProbe(meetingGroupId, MeetingsModule),
                 15000);
         }
