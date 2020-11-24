@@ -96,7 +96,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
             }
         }
 
-        protected static void AssertEventually(IProbe probe, int timeout)
+        protected static async Task AssertEventually(IProbe probe, int timeout)
         {
             await new Poller(timeout).CheckAsync(probe);
         }
