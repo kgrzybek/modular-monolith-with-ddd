@@ -1,0 +1,32 @@
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
+WORKDIR /app
+
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
+WORKDIR /src
+
+COPY ["DatabaseMigrator/DatabaseMigrator.csproj", "DatabaseMigrator.csproj"]
+COPY ["DatabaseMigrator/DatabaseMigrator.csproj", "DatabaseMigrator.csproj"]
+
+RUN dotnet restore "DatabaseMigrator.csproj"
+
+COPY . .
+
+WORKDIR "/src"
+RUN dotnet build "DatabaseMigrator.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "DatabaseMigrator.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+
+ADD entrypoint_DatabaseMigrator.sh /
+ADD CompanyName.MyMeetings.Database/Scripts/Migrations /migrations/
+
+# Copy wait-for-it.sh into our image
+COPY wait-for-it.sh wait-for-it.sh
+# Make it executable, in Linux
+RUN chmod +x wait-for-it.sh
+
+#ENTRYPOINT ["/bin/bash", "/entrypoint_DatabaseMigrator.sh"]

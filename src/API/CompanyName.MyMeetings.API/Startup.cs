@@ -48,7 +48,10 @@ namespace CompanyName.MyMeetings.API
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json")
                 .AddUserSecrets<Startup>()
+                .AddEnvironmentVariables("Meetings_")
                 .Build();
+
+            _loggerForApi.Information("Connection string:" + _configuration[MeetingsConnectionString]);
 
             AuthorizationChecker.CheckAllEndpoints();
         }
