@@ -71,11 +71,11 @@
     <Folder Include="administration\Views" />
     <Folder Include="payments\Types" />
     <Folder Include="Scripts\Migrations" />
-    <Folder Include="Scripts\Migrations\1_0_0_0" />
     <Folder Include="app" />
     <Folder Include="app\Tables" />
     <Folder Include="meetings\Views\" />
     <Folder Include="Scripts\Seeds" />
+    <Folder Include="Scripts\Migrations\1_0_0_0\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Security\Schemas.sql" />
@@ -153,6 +153,8 @@
     <None Include="Scripts\Migrations\1_0_0_0\0009_add_mock_emails_table.sql" />
     <Build Include="meetings\Views\v_MemberMeetings.sql" />
     <None Include="Scripts\Migrations\1_0_0_0\0010_add_member_meetings_view.sql" />
+    <None Include="Scripts\Migrations\1_0_0_0\0011_add_likes_count_to_meeting_comments_table.sql" />
+    <None Include="Scripts\Migrations\1_0_0_0\0012_add_likes_count_to_meeting_comments_view.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="administration\Tables\MeetingGroupProposals.sql" />
