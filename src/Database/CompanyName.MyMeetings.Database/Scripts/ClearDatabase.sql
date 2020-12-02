@@ -32,6 +32,8 @@ DELETE FROM [meetings].[Members]
 
 DELETE FROM [meetings].[MeetingComments]
 
+DELETE FROM [meetings].[MeetingMemberCommentLikes]
+
 DELETE FROM [payments].[InboxMessages]
 
 DELETE FROM [payments].[InternalCommands]

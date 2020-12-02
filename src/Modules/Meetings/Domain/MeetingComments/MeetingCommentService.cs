@@ -16,13 +16,13 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
             _meetingMemberCommentLikesRepository = meetingMemberCommentLikesRepository;
         }
 
-        public async Task AddLikeAsync(MeetingGroup meetingGroup, MeetingComment comment, MemberId likerId)
+        public async Task<MeetingMemberCommentLike> AddLikeAsync(MeetingGroup meetingGroup, MeetingComment comment, MemberId likerId)
         {
             var meetingMemberCommentLikesCount = await _meetingMemberCommentLikesRepository.CountMemberCommentLikesAsync(likerId, comment.Id);
 
             CheckRule(new CommentCannotBeLikedByTheSameMemberMoreThanOnceRule(meetingMemberCommentLikesCount));
 
-            comment.Like(meetingGroup, likerId);
+            return comment.Like(meetingGroup, likerId);
         }
 
         private static void CheckRule(IBusinessRule rule)

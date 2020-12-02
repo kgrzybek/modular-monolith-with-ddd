@@ -6,6 +6,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingMemberCommentLik
 {
     public interface IMeetingMemberCommentLikesRepository
     {
-        Task<int> CountMemberCommentLikesAsync(MemberId memberId, MeetingCommentId commentId);
+        Task<int> CountMemberCommentLikesAsync(MemberId memberId, MeetingCommentId meetingCommentId);
     }
 }

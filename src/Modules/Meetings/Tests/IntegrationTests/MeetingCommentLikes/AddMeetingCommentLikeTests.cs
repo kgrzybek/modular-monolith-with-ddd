@@ -5,7 +5,6 @@ using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddMeetingComment;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddMeetingCommentLike;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.GetMeetingCommentLikes;
-using CompanyName.MyMeetings.Modules.Meetings.Application.Members.GetMember;
 using CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork;
 using NUnit.Framework;
@@ -29,9 +28,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
             var meetingCommentLikers = await MeetingsModule.ExecuteQueryAsync(new GetMeetingCommentLikersQuery(meetingCommentId));
             Assert.That(meetingCommentLikers.Count, Is.EqualTo(1));
             Assert.That(meetingCommentLikers.Single().Id, Is.EqualTo(ExecutionContext.UserId));
-
-            var liker = await MeetingsModule.ExecuteQueryAsync(new GetMemberQuery(ExecutionContext.UserId));
-            Assert.That(meetingCommentLikers.Single().Name, Is.EqualTo(liker.Name));
 
             await AssertEventually(
                 new GetLikedMeetingCommentProbe(MeetingsModule, meetingId, meetingCommentId),

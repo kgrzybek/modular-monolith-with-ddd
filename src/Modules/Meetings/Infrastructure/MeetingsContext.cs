@@ -4,6 +4,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingCommentingConfigurat
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingMemberCommentLikes;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members.MemberSubscriptions;
@@ -38,6 +39,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure
         public DbSet<MeetingComment> MeetingComments { get; set; }
 
         public DbSet<MeetingCommentingConfiguration> MeetingCommentingConfigurations { get; set; }
+
+        public DbSet<MeetingMemberCommentLike> MeetingMemberCommentLikes { get; set; }
 
         private readonly ILoggerFactory _loggerFactory;
 

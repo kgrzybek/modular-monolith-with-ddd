@@ -1,2 +1,2 @@
-﻿ALTER TABLE [meetings].[MeetingComments] ADD [LikesCount] INT NOT NULL
+﻿ALTER TABLE [meetings].[MeetingComments] ADD [LikesCount] INT DEFAULT 0
 GO
