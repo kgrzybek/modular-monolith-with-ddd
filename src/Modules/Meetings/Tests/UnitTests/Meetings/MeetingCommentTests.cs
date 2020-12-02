@@ -319,7 +319,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!", meetingTestData.MeetingGroup, meetingTestData.MeetingCommentingConfiguration);
 
             // Act
-            meetingComment.Like(likerId);
+            meetingComment.Like(meetingTestData.MeetingGroup, likerId);
 
             // Assert
             var meetingCommentLikedEvent = AssertPublishedDomainEvent<MeetingCommentLikedDomainEvent>(meetingComment);
@@ -340,7 +340,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             AssertBrokenRule<CommentCanBeLikedOnlyByMeetingGroupMemberRule>(() =>
             {
                 // Act
-                meetingComment.Like(likerId: new MemberId(Guid.NewGuid()));
+                meetingComment.Like(meetingTestData.MeetingGroup, likerId: new MemberId(Guid.NewGuid()));
             });
         }
     }
