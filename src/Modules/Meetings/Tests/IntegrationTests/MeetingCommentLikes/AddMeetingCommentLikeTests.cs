@@ -31,7 +31,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
 
             await AssertEventually(
                 new GetLikedMeetingCommentProbe(MeetingsModule, meetingId, meetingCommentId),
-                5000);
+                10000);
         }
 
         [Test]

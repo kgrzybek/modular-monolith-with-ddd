@@ -4,6 +4,7 @@ using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
+using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals.AcceptMeetingGroupProposal;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups;
@@ -81,6 +82,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration
             domainNotificationsMap.Add("MeetingAttendeeAddedNotification", typeof(MeetingAttendeeAddedNotification));
             domainNotificationsMap.Add("MemberCreatedNotification", typeof(MemberCreatedNotification));
             domainNotificationsMap.Add("MemberSubscriptionExpirationDateChangedNotification", typeof(MemberSubscriptionExpirationDateChangedNotification));
+            domainNotificationsMap.Add("MeetingCommentLikedNotification", typeof(MeetingCommentLikedNotification));
             containerBuilder.RegisterModule(new OutboxModule(domainNotificationsMap));
 
             containerBuilder.RegisterModule(new EmailModule(emailsConfiguration));
