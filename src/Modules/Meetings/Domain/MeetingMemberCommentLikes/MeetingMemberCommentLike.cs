@@ -19,7 +19,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingMemberCommentLik
             // Only for EF.
         }
 
-        public MeetingMemberCommentLike(MeetingCommentId meetingCommentId, MemberId memberId)
+        private MeetingMemberCommentLike(MeetingCommentId meetingCommentId, MemberId memberId)
         {
             Id = new MeetingMemberCommentLikeId(Guid.NewGuid());
             _meetingCommentId = meetingCommentId;

@@ -5,6 +5,7 @@ using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddMeetingComment;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddMeetingCommentLike;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.GetMeetingCommentLikes;
+using CompanyName.MyMeetings.Modules.Meetings.Application.Members.CreateMember;
 using CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork;
 using NUnit.Framework;
@@ -18,6 +19,16 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
         public async Task AddMeetingCommentLike_WhenDataIsValid_IsSuccess()
         {
             // Arrange
+            await MeetingsModule.ExecuteCommandAsync(
+                new CreateMemberCommand(
+                    Guid.NewGuid(),
+                    ExecutionContext.UserId,
+                    "ivan_petrov",
+                    "ivan@mail.com",
+                    "Ivan",
+                    "Petrov",
+                    "Ivan Petrov"));
+
             var meetingId = await MeetingHelper.CreateMeetingAsync(MeetingsModule, ExecutionContext);
             var meetingCommentId = await MeetingsModule.ExecuteCommandAsync(new AddMeetingCommentCommand(meetingId, "The meeting was awesome."));
 

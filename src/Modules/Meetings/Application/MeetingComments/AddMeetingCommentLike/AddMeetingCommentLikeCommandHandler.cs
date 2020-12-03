@@ -13,7 +13,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddMeetingCommentLike
 {
-    public class AddMeetingCommentLikeCommandHandler : ICommandHandler<AddMeetingCommentLikeCommand>
+    internal class AddMeetingCommentLikeCommandHandler : ICommandHandler<AddMeetingCommentLikeCommand>
     {
         private readonly IMeetingCommentRepository _meetingCommentRepository;
         private readonly IMeetingGroupRepository _meetingGroupRepository;

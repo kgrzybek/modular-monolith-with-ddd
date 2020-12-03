@@ -21,16 +21,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.Meetings
             IMeetingsModule meetingsModule,
             ExecutionContextMock executionContext)
         {
-            await meetingsModule.ExecuteCommandAsync(
-                new CreateMemberCommand(
-                    Guid.NewGuid(),
-                    executionContext.UserId,
-                    "ivan@test.com",
-                    "ivan@test.com",
-                    "Ivan",
-                    "Petrov",
-                    "Ivan Petrov"));
-
             var proposalId = await meetingsModule.ExecuteCommandAsync(
                 new ProposeMeetingGroupCommand(
                     "Amazing group",
