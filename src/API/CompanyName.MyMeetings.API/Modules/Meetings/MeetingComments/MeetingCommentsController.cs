@@ -4,6 +4,7 @@ using CompanyName.MyMeetings.API.Configuration.Authorization;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddCommentReply;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddMeetingComment;
+using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddMeetingCommentLike;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.EditMeetingComment;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.RemoveMeetingComment;
 using Microsoft.AspNetCore.Http;
@@ -63,9 +64,20 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingComments
         [HttpPost("{meetingCommentId}/replies")]
         [HasPermission(MeetingsPermissions.AddMeetingCommentReply)]
         [ProducesResponseType(typeof(Guid), StatusCodes.Status200OK)]
-        public async Task<IActionResult> AddReplyToMeetingComment([FromRoute] Guid meetingCommentId, [FromBody] string reply)
+        public async Task<IActionResult> AddReply([FromRoute] Guid meetingCommentId, [FromBody] string reply)
         {
             await _meetingModule.ExecuteCommandAsync(new AddReplyToMeetingCommentCommand(meetingCommentId, reply));
+
+            return Ok();
+        }
+
+        [HttpPost("{meetingCommentId}/likes")]
+        [HasPermission(MeetingsPermissions.LikeMeetingComment)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> LikeComment([FromRoute] Guid meetingCommentId)
+        {
+            await _meetingModule.ExecuteCommandAsync(
+                new AddMeetingCommentLikeCommand(meetingCommentId));
 
             return Ok();
         }
