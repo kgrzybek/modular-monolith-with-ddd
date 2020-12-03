@@ -1,7 +1,7 @@
 ﻿using System;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Comments.Events;
-using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments.Rules;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingMemberCommentLikes.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 using NUnit.Framework;
 
@@ -319,10 +319,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!", meetingTestData.MeetingGroup, meetingTestData.MeetingCommentingConfiguration);
 
             // Act
-            meetingComment.Like(meetingTestData.MeetingGroup, likerId);
+            var like = meetingComment.Like(meetingTestData.MeetingGroup, likerId);
 
             // Assert
-            var meetingCommentLikedEvent = AssertPublishedDomainEvent<MeetingCommentLikedDomainEvent>(meetingComment);
+            var meetingCommentLikedEvent = AssertPublishedDomainEvent<MeetingCommentLikedDomainEvent>(like);
             Assert.That(meetingCommentLikedEvent.MeetingCommentId, Is.EqualTo(meetingComment.Id));
             Assert.That(meetingCommentLikedEvent.LikerId, Is.EqualTo(likerId));
         }

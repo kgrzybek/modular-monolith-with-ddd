@@ -1,6 +1,7 @@
 ﻿using System;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Comments;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingMemberCommentLikes.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingMemberCommentLikes
@@ -23,6 +24,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingMemberCommentLik
             Id = new MeetingMemberCommentLikeId(Guid.NewGuid());
             _meetingCommentId = meetingCommentId;
             _memberId = memberId;
+
+            this.AddDomainEvent(new MeetingCommentLikedDomainEvent(meetingCommentId, memberId));
         }
 
         public static MeetingMemberCommentLike Create(MeetingCommentId meetingCommentId, MemberId memberId)

@@ -4,10 +4,10 @@ using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Comments;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Comments.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingCommentingConfigurations;
-using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments.Rules;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingMemberCommentLikes;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingMemberCommentLikes.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
@@ -109,8 +109,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
         public MeetingMemberCommentLike Like(MeetingGroup meetingGroup, MemberId likerId)
         {
             this.CheckRule(new CommentCanBeLikedOnlyByMeetingGroupMemberRule(meetingGroup, likerId));
-
-            this.AddDomainEvent(new MeetingCommentLikedDomainEvent(this.Id, likerId));
 
             return MeetingMemberCommentLike.Create(this.Id, likerId);
         }
