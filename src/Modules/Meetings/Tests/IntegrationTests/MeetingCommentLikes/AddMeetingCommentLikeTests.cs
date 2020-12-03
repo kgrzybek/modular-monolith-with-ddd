@@ -29,7 +29,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
             Assert.That(meetingCommentLikers.Count, Is.EqualTo(1));
             Assert.That(meetingCommentLikers.Single().Id, Is.EqualTo(ExecutionContext.UserId));
 
-            await AssertEventually(
+            AssertEventually(
                 new GetLikedMeetingCommentProbe(MeetingsModule, meetingId, meetingCommentId),
                 10000);
         }

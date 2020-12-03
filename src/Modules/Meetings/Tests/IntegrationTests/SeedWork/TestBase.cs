@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
+using CompanyName.MyMeetings.BuildingBlocks.IntegrationTests;
 using CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
@@ -100,9 +101,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork
             }
         }
 
-        protected static async Task AssertEventually(IProbe probe, int timeout)
+        protected static void AssertEventually(IProbe probe, int timeout)
         {
-            await new Poller(timeout).CheckAsync(probe);
+            new Poller(timeout).Check(probe);
         }
 
         private static async Task ClearDatabase(IDbConnection connection)
