@@ -5,7 +5,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ge
     public class MeetingCommentLikerDto
     {
         public Guid Id { get; set; }
-        
+
         public string Name { get; set; }
     }
 }

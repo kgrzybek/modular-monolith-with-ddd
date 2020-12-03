@@ -8,6 +8,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.CreateNe
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.GetAllMeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.SetMeetingGroupExpirationDate;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.CreateMeeting;
+using CompanyName.MyMeetings.Modules.Meetings.Application.Members.CreateMember;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
 using CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork;
@@ -20,6 +21,16 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.Meetings
             IMeetingsModule meetingsModule,
             ExecutionContextMock executionContext)
         {
+            await meetingsModule.ExecuteCommandAsync(
+                new CreateMemberCommand(
+                    Guid.NewGuid(),
+                    executionContext.UserId,
+                    "ivan@test.com",
+                    "ivan@test.com",
+                    "Ivan",
+                    "Petrov",
+                    "Ivan Petrov"));
+
             var proposalId = await meetingsModule.ExecuteCommandAsync(
                 new ProposeMeetingGroupCommand(
                     "Amazing group",

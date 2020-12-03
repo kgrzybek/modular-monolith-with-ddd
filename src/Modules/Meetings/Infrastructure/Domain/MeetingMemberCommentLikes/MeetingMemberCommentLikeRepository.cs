@@ -10,6 +10,18 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.MeetingM
     public class MeetingMemberCommentLikeRepository : IMeetingMemberCommentLikesRepository
     {
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
+        private readonly MeetingsContext _meetingsContext;
+
+        public MeetingMemberCommentLikeRepository(ISqlConnectionFactory sqlConnectionFactory, MeetingsContext meetingsContext)
+        {
+            _sqlConnectionFactory = sqlConnectionFactory;
+            _meetingsContext = meetingsContext;
+        }
+
+        public async Task AddAsync(MeetingMemberCommentLike meetingMemberCommentLike)
+        {
+            await _meetingsContext.MeetingMemberCommentLikes.AddAsync(meetingMemberCommentLike);
+        }
 
         public Task<int> CountMemberCommentLikesAsync(MemberId memberId, MeetingCommentId meetingCommentId)
         {
@@ -17,15 +29,15 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.MeetingM
 
             const string sql = "SELECT " +
                                "COUNT(*) " +
-                               "FROM [meetings].[MeetingMemberCommentLikes] AS [Likes]" +
+                               "FROM [meetings].[MeetingMemberCommentLikes] AS [Likes] " +
                                "WHERE [Likes].[MemberId] = @MemberId AND [Likes].[MeetingCommentId] = @MeetingCommentId";
 
             return connection.QuerySingleAsync<int>(
                 sql,
                 new
                 {
-                    memberId,
-                    meetingCommentId
+                    memberId = memberId.Value,
+                    meetingCommentId = meetingCommentId.Value
                 });
         }
     }
