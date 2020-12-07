@@ -307,41 +307,5 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
                 meetingComment.Reply(replyAuthorId, "Exactly!", meetingTestData.MeetingGroup, meetingTestData.MeetingCommentingConfiguration);
             });
         }
-
-        [Test]
-        public void AddLikeToComment_WhenDataIsValid_IsSuccessful()
-        {
-            // Arrange
-            var commentAuthorId = new MemberId(Guid.NewGuid());
-            var likerId = new MemberId(Guid.NewGuid());
-            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[] { commentAuthorId, likerId } });
-
-            var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!", meetingTestData.MeetingGroup, meetingTestData.MeetingCommentingConfiguration);
-
-            // Act
-            var like = meetingComment.Like(meetingTestData.MeetingGroup, likerId);
-
-            // Assert
-            var meetingCommentLikedEvent = AssertPublishedDomainEvent<MeetingCommentLikedDomainEvent>(like);
-            Assert.That(meetingCommentLikedEvent.MeetingCommentId, Is.EqualTo(meetingComment.Id));
-            Assert.That(meetingCommentLikedEvent.LikerId, Is.EqualTo(likerId));
-        }
-
-        [Test]
-        public void AddLikeToComment_WhenLikerIsNotGroupMember_BreaksCommentCanBeLikedOnlyByMeetingGroupMemberRule()
-        {
-            // Arrange
-            var commentAuthorId = new MemberId(Guid.NewGuid());
-            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[] { commentAuthorId } });
-
-            var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!", meetingTestData.MeetingGroup, meetingTestData.MeetingCommentingConfiguration);
-
-            // Assert
-            AssertBrokenRule<CommentCanBeLikedOnlyByMeetingGroupMemberRule>(() =>
-            {
-                // Act
-                meetingComment.Like(meetingTestData.MeetingGroup, likerId: new MemberId(Guid.NewGuid()));
-            });
-        }
     }
 }

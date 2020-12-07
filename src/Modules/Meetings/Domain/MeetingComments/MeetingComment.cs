@@ -106,14 +106,14 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
                 meetingCommentingConfiguration,
                 meetingGroup);
 
-        public MeetingMemberCommentLike Like(MeetingGroup meetingGroup, MemberId likerId)
+        public MeetingId GetMeetingId() => this._meetingId;
+
+        internal MeetingMemberCommentLike Like(MeetingGroup meetingGroup, MemberId likerId)
         {
             this.CheckRule(new CommentCanBeLikedOnlyByMeetingGroupMemberRule(meetingGroup, likerId));
 
             return MeetingMemberCommentLike.Create(this.Id, likerId);
         }
-
-        public MeetingId GetMeetingId() => this._meetingId;
 
         internal static MeetingComment Create(
             MeetingId meetingId,
