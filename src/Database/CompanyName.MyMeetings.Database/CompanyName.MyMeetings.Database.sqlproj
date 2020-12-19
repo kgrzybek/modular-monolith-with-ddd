@@ -75,6 +75,7 @@
     <Folder Include="meetings\Views\" />
     <Folder Include="Scripts\Seeds" />
     <Folder Include="Scripts\Migrations\1_0_0_0\" />
+    <Folder Include="meetings\Tables\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="meetings\Tables\MeetingMemberCommentLikes.sql" />
@@ -155,7 +156,7 @@
     <None Include="Scripts\Migrations\1_0_0_0\0010_add_member_meetings_view.sql" />
     <None Include="Scripts\Migrations\1_0_0_0\0011_add_likes_count_to_meeting_comments_table.sql" />
     <None Include="Scripts\Migrations\1_0_0_0\0012_add_likes_count_to_meeting_comments_view.sql" />
-	<None Include="Scripts\Migrations\1_0_0_0\0013_add_meeting_member_comment_likes_table.sql" />
+    <None Include="Scripts\Migrations\1_0_0_0\0013_add_meeting_member_comment_likes_table.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="administration\Tables\MeetingGroupProposals.sql" />

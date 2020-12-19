@@ -21,8 +21,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ge
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
             var sql = "SELECT " +
-                      "[Liker].[Id]," +
-                      "[Liker].[Name] " +
+                      $"[Liker].[{nameof(MeetingCommentLikerDto.Id)}]," +
+                      $"[Liker].[{nameof(MeetingCommentLikerDto.Name)}] " +
                       "FROM [meetings].[Members] AS [Liker]" +
                       "INNER JOIN [meetings].[MeetingMemberCommentLikes] AS [Like]" +
                       "ON [Liker].[Id] = [Like].[MemberId]" +
