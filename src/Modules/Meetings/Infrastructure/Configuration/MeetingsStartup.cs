@@ -13,7 +13,6 @@ using CompanyName.MyMeetings.Modules.Meetings.Application.Members.CreateMember;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MemberSubscriptions;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Authentication;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.DataAccess;
-using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Domain;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Email;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.EventsBus;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Logging;
@@ -69,7 +68,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration
 
             var loggerFactory = new SerilogLoggerFactory(logger);
             containerBuilder.RegisterModule(new DataAccessModule(connectionString, loggerFactory));
-            containerBuilder.RegisterModule(new DomainModule());
             containerBuilder.RegisterModule(new ProcessingModule());
             containerBuilder.RegisterModule(new EventsBusModule(eventsBus));
             containerBuilder.RegisterModule(new MediatorModule());

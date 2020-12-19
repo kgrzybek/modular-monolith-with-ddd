@@ -20,21 +20,18 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ad
         private readonly IMeetingRepository _meetingRepository;
         private readonly IMeetingMemberCommentLikesRepository _meetingMemberCommentLikesRepository;
         private readonly IMemberContext _memberContext;
-        private readonly MeetingCommentService _meetingCommentService;
 
         public AddMeetingCommentLikeCommandHandler(
             IMeetingCommentRepository meetingCommentRepository,
             IMeetingGroupRepository meetingGroupRepository,
             IMeetingRepository meetingRepository,
             IMeetingMemberCommentLikesRepository meetingMemberCommentLikesRepository,
-            IMemberContext memberContext,
-            MeetingCommentService meetingCommentService)
+            IMemberContext memberContext)
         {
             _meetingCommentRepository = meetingCommentRepository;
             _meetingGroupRepository = meetingGroupRepository;
             _meetingRepository = meetingRepository;
             _memberContext = memberContext;
-            _meetingCommentService = meetingCommentService;
             _meetingMemberCommentLikesRepository = meetingMemberCommentLikesRepository;
         }
 
@@ -50,7 +47,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ad
 
             var meetingGroup = await _meetingGroupRepository.GetByIdAsync(meeting.GetMeetingGroupId());
 
-            var like = await _meetingCommentService.AddLikeAsync(meetingGroup, meetingComment, _memberContext.MemberId);
+            var meetingMemeberCommentLikesCount = await _meetingMemberCommentLikesRepository.CountMemberCommentLikesAsync(
+                    _memberContext.MemberId,
+                    new MeetingCommentId(request.MeetingCommentId));
+
+            var like = meetingComment.Like(meetingGroup, _memberContext.MemberId, meetingMemeberCommentLikesCount);
 
             await _meetingMemberCommentLikesRepository.AddAsync(like);
 
