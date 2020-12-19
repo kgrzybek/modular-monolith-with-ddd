@@ -1,4 +1,5 @@
-﻿using DbUp;
+﻿using System.IO;
+using DbUp;
 using DbUp.ScriptProviders;
 using Serilog;
 using Serilog.Formatting.Compact;
@@ -30,6 +31,13 @@ namespace DatabaseMigrator
             var connectionString = args[0];
 
             var scriptsPath = args[1];
+
+            if (!Directory.Exists(scriptsPath))
+            {
+                logger.Information($"Directory {scriptsPath} does not exist");
+
+                return -1;
+            }
 
             var serilogUpgradeLog = new SerilogUpgradeLog(logger);
 

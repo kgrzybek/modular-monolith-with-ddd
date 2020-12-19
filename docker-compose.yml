@@ -1,0 +1,40 @@
+version: '3.4'
+
+services:
+
+  backend:
+    container_name: mymeetings_backend
+    build:
+      context: ./src/
+    ports:
+      - "5000:80"
+    networks:
+      - starfish-crm-network
+    environment:
+      - Meetings_MeetingsConnectionString=Server=mymeetingsdb,1433;Database=MyMeetings;User=sa;Password=Test@12345
+    depends_on:
+      - migrator
+    restart: on-failure
+            
+  mymeetingsdb:
+    build: ./src/Database/
+    ports:
+      - 1445:1433
+    networks:
+      - starfish-crm-network
+      
+  migrator:
+    container_name: mymeetings_db_migrator
+    build:
+      context: ./src/Database/
+      dockerfile: Dockerfile_DatabaseMigrator
+    networks:
+      - starfish-crm-network
+    environment:
+      - ASPNETCORE_MyMeetings_IntegrationTests_ConnectionString=Server=mymeetingsdb,1433;Database=MyMeetings;User=sa;Password=Test@12345
+    command: ["./wait-for-it.sh", "mymeetingsdb:1433", "--timeout=60", "--", "/bin/bash", "/entrypoint_DatabaseMigrator.sh"]
+    restart: on-failure
+
+ 
+networks:
+  starfish-crm-network:

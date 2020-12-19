@@ -4,11 +4,24 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <UserSecretsId>2b9855d3-f073-44d2-aa45-b15e896794b9</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
+    <Configurations>Debug;Release;Production</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netcoreapp2.2\CompanyName.MyMeetings.API\CompanyName.MyMeetings.API.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netcoreapp3.1\CompanyName.MyMeetings.API\CompanyName.MyMeetings.API.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Production|AnyCPU'">
+    <DocumentationFile>bin\Production\netcoreapp3.1\CompanyName.MyMeetings.API\CompanyName.MyMeetings.API.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netcoreapp3.1\CompanyName.MyMeetings.API.xml</DocumentationFile>
+      <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,6 +40,7 @@
     <PackageReference Include="FluentValidation" Version="8.6.2" />
     <PackageReference Include="Hellang.Middleware.ProblemDetails" Version="4.2.0" />
     <PackageReference Include="IdentityServer4" Version="3.1.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.10" />
     <PackageReference Include="Serilog.Formatting.Compact" Version="1.1.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
     <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
@@ -49,6 +63,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="appsettings.Production.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="appsettings.Development.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -1818,6 +1818,18 @@ This will fetch an access token for this user to make authorized API requests us
 
 If you use a tool such as Postman to test your API, the token can be fetched and stored within the tool itself and appended to all API calls. Check your tool documentation for instructions.
 
+### Run using Docker Compose
+
+You can run whole application using [docker compose](https://docs.docker.com/compose/) from root folder:
+```shell
+docker-compose up
+```
+
+It will create following services: <br/>
+- MS SQL Server Database
+- Database Migrator
+- Application
+
 ## 6. Contribution
 
 This project is still under analysis and development. I assume its maintenance for a long time and I would appreciate your contribution to it. Please let me know by creating an Issue or Pull Request.
@@ -1839,6 +1851,7 @@ List of features/tasks/approaches to add:
 | Continuous Integration      | Completed  | 2020-09-01   |
 | StyleCop Static Code Analysis      | Completed  | 2020-09-05   |
 | FrontEnd SPA application | Completed |  2020-11-08  |
+| Docker support | Completed |  2020-11-26  |
 | Meeting comments feature |    |    |
 | Notifications feature |     |    |
 | Messages feature |     |    |

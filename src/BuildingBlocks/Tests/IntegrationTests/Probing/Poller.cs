@@ -15,7 +15,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing
             _pollDelayMillis = 1000;
         }
 
-        public void Check(IProbe probe)
+        public async Task CheckAsync(IProbe probe)
         {
             var timeout = new Timeout(_timeoutMillis);
             while (!probe.IsSatisfied())
@@ -25,8 +25,8 @@ namespace CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing
                     throw new AssertErrorException(DescribeFailureOf(probe));
                 }
 
-                Thread.Sleep(_pollDelayMillis);
-                probe.SampleAsync();
+                await Task.Delay(_pollDelayMillis);
+                await probe.SampleAsync();
             }
         }
 
@@ -42,7 +42,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing
                     throw new AssertErrorException(DescribeFailureOf(probe));
                 }
 
-                Thread.Sleep(_pollDelayMillis);
+                await Task.Delay(_pollDelayMillis);
                 sample = await probe.GetSampleAsync();
             }
 
