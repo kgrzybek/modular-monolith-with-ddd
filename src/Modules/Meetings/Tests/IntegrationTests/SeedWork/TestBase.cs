@@ -103,7 +103,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork
 
         protected static void AssertEventually(IProbe probe, int timeout)
         {
-            new Poller(timeout).Check(probe);
+            new Poller(timeout).CheckAsync(probe);
         }
 
         private static async Task ClearDatabase(IDbConnection connection)
