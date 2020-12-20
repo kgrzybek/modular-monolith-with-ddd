@@ -107,11 +107,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
                 meetingGroup);
 
         public MeetingMemberCommentLike Like(
-            MeetingGroup meetingGroup,
             MemberId likerId,
+            MeetingGroupMemberData likerMeetingGroupMember,
             int meetingMemberCommentLikesCount)
         {
-            this.CheckRule(new CommentCanBeLikedOnlyByMeetingGroupMemberRule(meetingGroup, likerId));
+            this.CheckRule(new CommentCanBeLikedOnlyByMeetingGroupMemberRule(likerMeetingGroupMember));
             this.CheckRule(new CommentCannotBeLikedByTheSameMemberMoreThanOnceRule(meetingMemberCommentLikesCount));
 
             return MeetingMemberCommentLike.Create(this.Id, likerId);

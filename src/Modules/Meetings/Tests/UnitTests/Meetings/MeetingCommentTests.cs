@@ -319,7 +319,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!", meetingTestData.MeetingGroup, meetingTestData.MeetingCommentingConfiguration);
 
             // Act
-            var like = meetingComment.Like(meetingTestData.MeetingGroup, likerId, meetingMemberCommentLikesCount: 0);
+            var like = meetingComment.Like(
+                likerId,
+                likerMeetingGroupMember: new MeetingGroupMemberData(meetingTestData.MeetingGroup.Id, likerId),
+                meetingMemberCommentLikesCount: 0);
 
             // Assert
             var meetingCommentLikedEvent = AssertPublishedDomainEvent<MeetingCommentLikedDomainEvent>(like);
@@ -341,8 +344,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             {
                 // Act
                 meetingComment.Like(
-                    meetingTestData.MeetingGroup,
                     likerId: new MemberId(Guid.NewGuid()),
+                    likerMeetingGroupMember: null,
                     meetingMemberCommentLikesCount: 0);
             });
         }
@@ -362,7 +365,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             AssertBrokenRule<CommentCannotBeLikedByTheSameMemberMoreThanOnceRule>(() =>
             {
                 // Act
-                meetingComment.Like(meetingTestData.MeetingGroup, likerId, meetingMemberCommentLikesCount: 1);
+                meetingComment.Like(
+                    likerId,
+                    likerMeetingGroupMember: new MeetingGroupMemberData(meetingTestData.MeetingGroup.Id, likerId),
+                    meetingMemberCommentLikesCount: 1);
             });
         }
     }

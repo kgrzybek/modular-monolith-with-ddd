@@ -2,12 +2,12 @@
 using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands;
+using CompanyName.MyMeetings.Modules.Meetings.Application.Members;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Comments;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments;
-using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingMemberCommentLikes;
-using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 using MediatR;
 
@@ -16,22 +16,19 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ad
     internal class AddMeetingCommentLikeCommandHandler : ICommandHandler<AddMeetingCommentLikeCommand>
     {
         private readonly IMeetingCommentRepository _meetingCommentRepository;
-        private readonly IMeetingGroupRepository _meetingGroupRepository;
-        private readonly IMeetingRepository _meetingRepository;
         private readonly IMeetingMemberCommentLikesRepository _meetingMemberCommentLikesRepository;
         private readonly IMemberContext _memberContext;
+        private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
         public AddMeetingCommentLikeCommandHandler(
             IMeetingCommentRepository meetingCommentRepository,
-            IMeetingGroupRepository meetingGroupRepository,
-            IMeetingRepository meetingRepository,
             IMeetingMemberCommentLikesRepository meetingMemberCommentLikesRepository,
-            IMemberContext memberContext)
+            IMemberContext memberContext,
+            ISqlConnectionFactory sqlConnectionFactory)
         {
             _meetingCommentRepository = meetingCommentRepository;
-            _meetingGroupRepository = meetingGroupRepository;
-            _meetingRepository = meetingRepository;
             _memberContext = memberContext;
+            _sqlConnectionFactory = sqlConnectionFactory;
             _meetingMemberCommentLikesRepository = meetingMemberCommentLikesRepository;
         }
 
@@ -43,15 +40,14 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ad
                 throw new InvalidCommandException(new List<string> { "To add like the comment must exist." });
             }
 
-            var meeting = await _meetingRepository.GetByIdAsync(meetingComment.GetMeetingId());
-
-            var meetingGroup = await _meetingGroupRepository.GetByIdAsync(meeting.GetMeetingGroupId());
+            var connection = _sqlConnectionFactory.GetOpenConnection();
+            var likerMeetingGroupMemberData = await MembersQueryHelper.GetMeetingGroupMember(_memberContext.MemberId, meetingComment.GetMeetingId(), connection);
 
             var meetingMemeberCommentLikesCount = await _meetingMemberCommentLikesRepository.CountMemberCommentLikesAsync(
                     _memberContext.MemberId,
                     new MeetingCommentId(request.MeetingCommentId));
 
-            var like = meetingComment.Like(meetingGroup, _memberContext.MemberId, meetingMemeberCommentLikesCount);
+            var like = meetingComment.Like(_memberContext.MemberId, likerMeetingGroupMemberData, meetingMemeberCommentLikesCount);
 
             await _meetingMemberCommentLikesRepository.AddAsync(like);
 
