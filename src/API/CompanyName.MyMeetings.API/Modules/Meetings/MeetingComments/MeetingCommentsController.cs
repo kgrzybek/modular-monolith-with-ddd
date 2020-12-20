@@ -25,7 +25,6 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingComments
         }
 
         [HttpGet("{meetingId}")]
-        [HasPermission(MeetingsPermissions.GetMeetingComments)]
         [ProducesResponseType(typeof(List<MeetingCommentDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetComments([FromRoute] Guid meetingId)
         {
