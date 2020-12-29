@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
@@ -26,10 +27,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Members
 
         public static async Task<MeetingGroupMemberData> GetMeetingGroupMember(MemberId memberId, MeetingId meetingOfGroupId, IDbConnection connection)
         {
-            var result = await connection.QuerySingleAsync<MeetingGroupMemberDto>(
+            var result = await connection.QuerySingleAsync<MeetingGroupMemberResponse>(
                 "SELECT " +
-                $"[MeetingGroupMember].{nameof(MeetingGroupMemberDto.MeetingGroupId)}, " +
-                $"[MeetingGroupMember].{nameof(MeetingGroupMemberDto.MemberId)} " +
+                $"[MeetingGroupMember].{nameof(MeetingGroupMemberResponse.MeetingGroupId)}, " +
+                $"[MeetingGroupMember].{nameof(MeetingGroupMemberResponse.MemberId)} " +
                 "FROM [meetings].[v_MeetingGroupMembers] AS [MeetingGroupMember] " +
                 "INNER JOIN [meetings].[Meetings] AS [Meeting] ON [Meeting].[MeetingGroupId] = [MeetingGroupMember].[MeetingGroupId] " +
                 "WHERE [MeetingGroupMember].[MemberId] = @MemberId AND [Meeting].[Id] = @MeetingId",
@@ -42,6 +43,13 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Members
             return new MeetingGroupMemberData(
                 new MeetingGroupId(result.MeetingGroupId),
                 new MemberId(result.MemberId));
+        }
+
+        private class MeetingGroupMemberResponse
+        {
+            public Guid MeetingGroupId { get; set; }
+
+            public Guid MemberId { get; set; }
         }
     }
 }
