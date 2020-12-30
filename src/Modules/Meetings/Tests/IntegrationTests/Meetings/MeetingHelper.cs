@@ -8,6 +8,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.CreateNe
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.GetAllMeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.SetMeetingGroupExpirationDate;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.CreateMeeting;
+using CompanyName.MyMeetings.Modules.Meetings.Application.Members.CreateMember;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
 using CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork;

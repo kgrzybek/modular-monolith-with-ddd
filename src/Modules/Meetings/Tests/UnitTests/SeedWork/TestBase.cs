@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
 using NUnit.Framework;
@@ -47,6 +48,17 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.SeedWork
         {
             var message = $"Expected {typeof(TRule).Name} broken rule";
             var businessRuleValidationException = Assert.Catch<BusinessRuleValidationException>(testDelegate, message);
+            if (businessRuleValidationException != null)
+            {
+                Assert.That(businessRuleValidationException.BrokenRule, Is.TypeOf<TRule>(), message);
+            }
+        }
+
+        public static void AssertBrokenRule<TRule>(AsyncTestDelegate testDelegate)
+            where TRule : class, IBusinessRule
+        {
+            var message = $"Expected {typeof(TRule).Name} broken rule";
+            var businessRuleValidationException = Assert.CatchAsync<BusinessRuleValidationException>(testDelegate, message);
             if (businessRuleValidationException != null)
             {
                 Assert.That(businessRuleValidationException.BrokenRule, Is.TypeOf<TRule>(), message);

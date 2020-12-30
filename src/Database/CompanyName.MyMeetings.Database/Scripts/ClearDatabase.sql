@@ -28,6 +28,8 @@ DELETE FROM [meetings].[Meetings]
 
 DELETE FROM [meetings].[MeetingWaitlistMembers]
 
+DELETE FROM [meetings].[MeetingMemberCommentLikes]
+
 DELETE FROM [meetings].[Members]
 
 DELETE FROM [meetings].[MeetingComments]

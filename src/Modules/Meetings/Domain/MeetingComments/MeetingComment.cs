@@ -6,6 +6,8 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.Comments.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingCommentingConfigurations;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments.Rules;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingMemberCommentLikes;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingMemberCommentLikes.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
@@ -103,6 +105,17 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
                 this.Id,
                 meetingCommentingConfiguration,
                 meetingGroup);
+
+        public MeetingMemberCommentLike Like(
+            MemberId likerId,
+            MeetingGroupMemberData likerMeetingGroupMember,
+            int meetingMemberCommentLikesCount)
+        {
+            this.CheckRule(new CommentCanBeLikedOnlyByMeetingGroupMemberRule(likerMeetingGroupMember));
+            this.CheckRule(new CommentCannotBeLikedByTheSameMemberMoreThanOnceRule(meetingMemberCommentLikesCount));
+
+            return MeetingMemberCommentLike.Create(this.Id, likerId);
+        }
 
         public MeetingId GetMeetingId() => this._meetingId;
 

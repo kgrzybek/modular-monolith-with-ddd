@@ -15,5 +15,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ge
         public DateTime CreateDate { get; }
 
         public DateTime? EditDate { get; }
+
+        public int LikesCount { get; }
     }
 }

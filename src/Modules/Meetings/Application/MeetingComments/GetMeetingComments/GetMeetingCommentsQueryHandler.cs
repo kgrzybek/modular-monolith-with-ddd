@@ -26,7 +26,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ge
                          $"[MeetingComment].[AuthorId] AS [{nameof(MeetingCommentDto.AuthorId)}], " +
                          $"[MeetingComment].[Comment] AS [{nameof(MeetingCommentDto.Comment)}], " +
                          $"[MeetingComment].[CreateDate] AS [{nameof(MeetingCommentDto.CreateDate)}], " +
-                         $"[MeetingComment].[EditDate] AS [{nameof(MeetingCommentDto.EditDate)}]" +
+                         $"[MeetingComment].[EditDate] AS [{nameof(MeetingCommentDto.EditDate)}], " +
+                         $"[MeetingComment].[LikesCount] AS [{nameof(MeetingCommentDto.LikesCount)}]" +
                          "FROM [meetings].[v_MeetingComments] AS [MeetingComment] " +
                          "WHERE [MeetingComment].[MeetingId] = @MeetingId";
             var meetingComments = await connection.QueryAsync<MeetingCommentDto>(sql, new { query.MeetingId });

@@ -8,6 +8,7 @@ using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.IntegrationTests;
+using CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure;
@@ -100,6 +101,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork
             }
         }
 
+        protected static void AssertEventually(IProbe probe, int timeout)
+        {
+            new Poller(timeout).CheckAsync(probe);
+        }
+
         private static async Task ClearDatabase(IDbConnection connection)
         {
             const string sql = "DELETE FROM [meetings].[InboxMessages] " +
@@ -113,6 +119,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork
                                "DELETE FROM [meetings].[MeetingCommentingConfigurations] " +
                                "DELETE FROM [meetings].[Meetings] " +
                                "DELETE FROM [meetings].[MeetingWaitlistMembers] " +
+                               "DELETE FROM [meetings].[MeetingMemberCommentLikes] " +
                                "DELETE FROM [meetings].[MeetingComments] " +
                                "DELETE FROM [meetings].[Countries] " +
                                "DELETE FROM [meetings].[Members] ";

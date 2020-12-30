@@ -102,6 +102,7 @@ INSERT INTO users.[Permissions] ([Code], [Name]) VALUES
 	('AddMeetingComment','AddMeetingComment'),
 	('EditMeetingComment','EditMeetingComment'),
 	('DeleteMeetingComment','DeleteMeetingComment'),
+	('LikeMeetingComment','LikeMeetingComment'),
 	('EnableMeetingCommenting','EnableMeetingCommenting'),
 	('DisableMeetingCommenting','DisableMeetingCommenting'),
 	('MyMeetingGroupsView','MyMeetingGroupsView'),
