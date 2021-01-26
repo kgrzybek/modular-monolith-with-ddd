@@ -8,7 +8,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.GetMee
 
 namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommentLikes
 {
-    public class GetLikedMeetingCommentProbe : IProbe
+    public class GetMeetingCommentsProbe : IProbe
     {
         private readonly IMeetingsModule _meetingsModule;
 
@@ -18,15 +18,23 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
 
         private List<MeetingCommentDto> _meetingComments;
 
-        public GetLikedMeetingCommentProbe(IMeetingsModule meetingsModule, Guid meetingId, Guid likedMeetingCommentId)
+        private readonly int _expectedCommentLikesCount;
+
+        public GetMeetingCommentsProbe(
+            IMeetingsModule meetingsModule,
+            Guid meetingId,
+            Guid likedMeetingCommentId,
+            int expectedCommentLikesCount)
         {
             _meetingsModule = meetingsModule;
             _meetingId = meetingId;
             _likedMeetingCommentId = likedMeetingCommentId;
+            _expectedCommentLikesCount = expectedCommentLikesCount;
         }
 
         public bool IsSatisfied() => _meetingComments != null &&
-                                     _meetingComments.Any(c => c.Id == _likedMeetingCommentId && c.LikesCount == 1);
+                                     _meetingComments.Any(c => c.Id == _likedMeetingCommentId 
+                                                               && c.LikesCount == _expectedCommentLikesCount);
 
         public async Task SampleAsync()
         {

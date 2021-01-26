@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddMeetingComment;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddMeetingCommentLike;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.GetMeetingCommentLikes;
+using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.RemoveMeetingCommentLike;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Members.CreateMember;
 using CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork;
@@ -13,10 +13,10 @@ using NUnit.Framework;
 namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommentLikes
 {
     [TestFixture]
-    public class AddMeetingCommentLikeTests : TestBase
+    public class UnlikeMeetingCommentTests : TestBase
     {
         [Test]
-        public async Task AddMeetingCommentLike_WhenDataIsValid_IsSuccess()
+        public async Task UnlikeMeetingComment_WhenDataIsValid_IsSuccessful()
         {
             // Arrange
             await MeetingsModule.ExecuteCommandAsync(
@@ -30,30 +30,33 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
                     "Ivan Petrov"));
 
             var meetingId = await MeetingHelper.CreateMeetingAsync(MeetingsModule, ExecutionContext);
+
             var meetingCommentId = await MeetingsModule.ExecuteCommandAsync(new AddMeetingCommentCommand(meetingId, "The meeting was awesome."));
 
-            // Act
             await MeetingsModule.ExecuteCommandAsync(new AddMeetingCommentLikeCommand(meetingCommentId));
+
+            // Act
+            await MeetingsModule.ExecuteCommandAsync(new UnlikeMeetingCommentCommand(meetingCommentId));
 
             // Assert
             var meetingCommentLikers = await MeetingsModule.ExecuteQueryAsync(new GetMeetingCommentLikersQuery(meetingCommentId));
-            Assert.That(meetingCommentLikers.Count, Is.EqualTo(1));
-            Assert.That(meetingCommentLikers.Single().Id, Is.EqualTo(ExecutionContext.UserId));
+            Assert.That(meetingCommentLikers.Count, Is.EqualTo(0));
 
             AssertEventually(
-                new GetMeetingCommentsProbe(MeetingsModule, meetingId, meetingCommentId, expectedCommentLikesCount: 1),
+                new GetMeetingCommentsProbe(MeetingsModule, meetingId, meetingCommentId, expectedCommentLikesCount: 0),
                 10000);
         }
 
         [Test]
-        public void AddMeetingCommentLike_WhenCommentNotExists_ThrowsInvalidCommandException()
+        public void UnlikeMeetingComment_WhenCommentNotExists_ThrowsInvalidCommandException()
         {
             // Assert
             Assert.CatchAsync<InvalidCommandException>(async () =>
             {
                 // Act
-                await MeetingsModule.ExecuteCommandAsync(new AddMeetingCommentLikeCommand(meetingCommentId: Guid.NewGuid()));
+                await MeetingsModule.ExecuteCommandAsync(new UnlikeMeetingCommentCommand(meetingCommentId: Guid.NewGuid()));
             });
         }
+
     }
 }
