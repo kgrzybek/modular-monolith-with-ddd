@@ -61,6 +61,5 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
                 await MeetingsModule.ExecuteCommandAsync(new RemoveMeetingCommentLikeCommand(meetingCommentId: Guid.NewGuid()));
             });
         }
-
     }
 }

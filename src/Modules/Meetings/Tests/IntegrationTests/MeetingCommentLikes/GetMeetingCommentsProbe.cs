@@ -16,9 +16,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
 
         private readonly Guid _likedMeetingCommentId;
 
-        private List<MeetingCommentDto> _meetingComments;
-
         private readonly int _expectedCommentLikesCount;
+
+        private List<MeetingCommentDto> _meetingComments;
 
         public GetMeetingCommentsProbe(
             IMeetingsModule meetingsModule,

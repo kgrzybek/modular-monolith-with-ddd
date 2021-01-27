@@ -33,7 +33,6 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
             _meetingsModule = meetingsModule;
         }
 
-
         [HttpGet("")]
         [HasPermission(MeetingsPermissions.GetAuthenticatedMemberMeetings)]
         [ProducesResponseType(typeof(MeetingDetailsDto), (int)HttpStatusCode.OK)]
