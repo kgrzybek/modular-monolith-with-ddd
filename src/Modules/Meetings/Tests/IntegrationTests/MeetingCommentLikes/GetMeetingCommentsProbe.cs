@@ -33,7 +33,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
         }
 
         public bool IsSatisfied() => _meetingComments != null &&
-                                     _meetingComments.Any(c => c.Id == _likedMeetingCommentId 
+                                     _meetingComments.Any(c => c.Id == _likedMeetingCommentId
                                                                && c.LikesCount == _expectedCommentLikesCount);
 
         public async Task SampleAsync()

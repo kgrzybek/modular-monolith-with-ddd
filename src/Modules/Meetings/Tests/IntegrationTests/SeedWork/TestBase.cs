@@ -101,9 +101,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork
             }
         }
 
-        protected static void AssertEventually(IProbe probe, int timeout)
+        protected static async Task AssertEventually(IProbe probe, int timeout)
         {
-            new Poller(timeout).CheckAsync(probe);
+            await new Poller(timeout).CheckAsync(probe);
         }
 
         private static async Task ClearDatabase(IDbConnection connection)

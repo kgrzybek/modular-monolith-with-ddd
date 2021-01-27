@@ -35,6 +35,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
 
             await MeetingsModule.ExecuteCommandAsync(new AddMeetingCommentLikeCommand(meetingCommentId));
 
+            await AssertEventually(
+                new GetMeetingCommentsProbe(MeetingsModule, meetingId, meetingCommentId, expectedCommentLikesCount: 1),
+                10000);
+
             // Act
             await MeetingsModule.ExecuteCommandAsync(new RemoveMeetingCommentLikeCommand(meetingCommentId));
 
@@ -42,7 +46,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
             var meetingCommentLikers = await MeetingsModule.ExecuteQueryAsync(new GetMeetingCommentLikersQuery(meetingCommentId));
             Assert.That(meetingCommentLikers.Count, Is.EqualTo(0));
 
-            AssertEventually(
+            await AssertEventually(
                 new GetMeetingCommentsProbe(MeetingsModule, meetingId, meetingCommentId, expectedCommentLikesCount: 0),
                 10000);
         }
