@@ -28,6 +28,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingMemberCommentLik
             this.AddDomainEvent(new MeetingCommentLikedDomainEvent(meetingCommentId, memberId));
         }
 
+        public void Remove()
+        {
+            this.AddDomainEvent(new MeetingCommentUnlikedDomainEvent(_meetingCommentId, _memberId));
+        }
+
         public static MeetingMemberCommentLike Create(MeetingCommentId meetingCommentId, MemberId memberId)
             => new MeetingMemberCommentLike(meetingCommentId, memberId);
     }

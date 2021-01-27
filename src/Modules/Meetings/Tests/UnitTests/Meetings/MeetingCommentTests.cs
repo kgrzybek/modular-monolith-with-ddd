@@ -4,6 +4,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments.Rules;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingMemberCommentLikes.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 using NUnit.Framework;
+using MeetingCommentLikedDomainEvent = CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingMemberCommentLikes.Events.MeetingCommentLikedDomainEvent;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
 {
@@ -370,6 +371,31 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
                     likerMeetingGroupMember: new MeetingGroupMemberData(meetingTestData.MeetingGroup.Id, likerId),
                     meetingMemberCommentLikesCount: 1);
             });
+        }
+
+        [Test]
+        public void RemoveLike_WhenDataIsValid_IsSuccessful()
+        {
+            // Arrange
+            var commentAuthorId = new MemberId(Guid.NewGuid());
+            var likerId = new MemberId(Guid.NewGuid());
+            var meetingTestData = CreateMeetingTestData(new MeetingTestDataOptions { Attendees = new[] { commentAuthorId, likerId } });
+
+            var meetingComment = meetingTestData.Meeting.AddComment(commentAuthorId, "Great meeting!", meetingTestData.MeetingGroup, meetingTestData.MeetingCommentingConfiguration);
+
+            var commentLike = meetingComment.Like(
+                likerId,
+                likerMeetingGroupMember: new MeetingGroupMemberData(meetingTestData.MeetingGroup.Id, likerId),
+                meetingMemberCommentLikesCount: 0);
+            commentLike.ClearDomainEvents();
+
+            // Act
+            commentLike.Remove();
+
+            // Assert
+            var meetingCommentUnlikedEvent = AssertPublishedDomainEvent<MeetingCommentUnlikedDomainEvent>(commentLike);
+            Assert.That(meetingCommentUnlikedEvent.MeetingCommentId, Is.EqualTo(meetingComment.Id));
+            Assert.That(meetingCommentUnlikedEvent.LikerId, Is.EqualTo(likerId));
         }
     }
 }
