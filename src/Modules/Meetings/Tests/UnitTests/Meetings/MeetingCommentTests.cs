@@ -4,7 +4,6 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments.Rules;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingMemberCommentLikes.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 using NUnit.Framework;
-using MeetingCommentLikedDomainEvent = CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingMemberCommentLikes.Events.MeetingCommentLikedDomainEvent;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
 {
