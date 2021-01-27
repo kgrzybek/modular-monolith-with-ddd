@@ -7,6 +7,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddMee
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddMeetingCommentLike;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.EditMeetingComment;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.RemoveMeetingComment;
+using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.RemoveMeetingCommentLike;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -51,7 +52,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingComments
         }
 
         [HttpDelete("{meetingCommentId}")]
-        [HasPermission(MeetingsPermissions.DeleteMeetingComment)]
+        [HasPermission(MeetingsPermissions.RemoveMeetingComment)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteComment([FromRoute] Guid meetingCommentId, [FromQuery] string reason)
         {
@@ -78,6 +79,17 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingComments
         {
             await _meetingModule.ExecuteCommandAsync(
                 new AddMeetingCommentLikeCommand(meetingCommentId));
+
+            return Ok();
+        }
+
+        [HttpDelete("{meetingCommentId}/likes")]
+        [HasPermission(MeetingsPermissions.UnlikeMeetingComment)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> UnlikeComment([FromRoute] Guid meetingCommentId)
+        {
+            await _meetingModule.ExecuteCommandAsync(
+                new RemoveMeetingCommentLikeCommand(meetingCommentId));
 
             return Ok();
         }

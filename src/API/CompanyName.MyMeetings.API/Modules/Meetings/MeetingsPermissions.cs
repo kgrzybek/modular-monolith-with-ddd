@@ -21,9 +21,10 @@
         public const string LeaveMeetingGroup = "LeaveMeetingGroup";
         public const string AddMeetingComment = "AddMeetingComment";
         public const string EditMeetingComment = "EditMeetingComment";
-        public const string DeleteMeetingComment = "DeleteMeetingComment";
+        public const string RemoveMeetingComment = "RemoveMeetingComment";
         public const string AddMeetingCommentReply = "AddMeetingCommentReply";
         public const string LikeMeetingComment = "LikeMeetingComment";
+        public const string UnlikeMeetingComment = "UnlikeMeetingComment";
         public const string EnableMeetingCommenting = "EnableMeetingCommenting";
         public const string DisableMeetingCommenting = "DisableMeetingCommenting";
         public const string GetAuthenticatedMemberMeetingGroups = "GetAuthenticatedMemberMeetingGroups";
