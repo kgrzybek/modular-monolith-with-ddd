@@ -13,7 +13,7 @@ using NUnit.Framework;
 namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommentLikes
 {
     [TestFixture]
-    public class UnlikeMeetingCommentTests : TestBase
+    public class RemoveMeetingCommentLikeTests : TestBase
     {
         [Test]
         public async Task UnlikeMeetingComment_WhenDataIsValid_IsSuccessful()
@@ -36,7 +36,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
             await MeetingsModule.ExecuteCommandAsync(new AddMeetingCommentLikeCommand(meetingCommentId));
 
             // Act
-            await MeetingsModule.ExecuteCommandAsync(new UnlikeMeetingCommentCommand(meetingCommentId));
+            await MeetingsModule.ExecuteCommandAsync(new RemoveMeetingCommentLikeCommand(meetingCommentId));
 
             // Assert
             var meetingCommentLikers = await MeetingsModule.ExecuteQueryAsync(new GetMeetingCommentLikersQuery(meetingCommentId));
@@ -54,7 +54,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
             Assert.CatchAsync<InvalidCommandException>(async () =>
             {
                 // Act
-                await MeetingsModule.ExecuteCommandAsync(new UnlikeMeetingCommentCommand(meetingCommentId: Guid.NewGuid()));
+                await MeetingsModule.ExecuteCommandAsync(new RemoveMeetingCommentLikeCommand(meetingCommentId: Guid.NewGuid()));
             });
         }
 
