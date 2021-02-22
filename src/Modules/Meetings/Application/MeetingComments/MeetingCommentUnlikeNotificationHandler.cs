@@ -6,16 +6,16 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments
 {
-    internal class MeetingCommentLikedNotificationHandler : INotificationHandler<MeetingCommentLikedNotification>
+    public class MeetingCommentUnlikeNotificationHandler : INotificationHandler<MeetingCommentUnlikedNotification>
     {
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
-        public MeetingCommentLikedNotificationHandler(ISqlConnectionFactory sqlConnectionFactory)
+        public MeetingCommentUnlikeNotificationHandler(ISqlConnectionFactory sqlConnectionFactory)
         {
             _sqlConnectionFactory = sqlConnectionFactory;
         }
 
-        public async Task Handle(MeetingCommentLikedNotification notification, CancellationToken cancellationToken)
+        public async Task Handle(MeetingCommentUnlikedNotification notification, CancellationToken cancellationToken)
         {
             var connection = _sqlConnectionFactory.GetOpenConnection();
 

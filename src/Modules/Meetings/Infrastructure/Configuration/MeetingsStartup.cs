@@ -81,6 +81,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration
             domainNotificationsMap.Add("MemberCreatedNotification", typeof(MemberCreatedNotification));
             domainNotificationsMap.Add("MemberSubscriptionExpirationDateChangedNotification", typeof(MemberSubscriptionExpirationDateChangedNotification));
             domainNotificationsMap.Add("MeetingCommentLikedNotification", typeof(MeetingCommentLikedNotification));
+            domainNotificationsMap.Add("MeetingCommentUnlikedNotification", typeof(MeetingCommentUnlikedNotification));
             containerBuilder.RegisterModule(new OutboxModule(domainNotificationsMap));
 
             containerBuilder.RegisterModule(new EmailModule(emailsConfiguration));

@@ -8,6 +8,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingMemberCommentLik
     {
         Task AddAsync(MeetingMemberCommentLike meetingMemberCommentLike);
 
+        Task<MeetingMemberCommentLike> GetAsync(MemberId memberId, MeetingCommentId meetingCommentId);
+
         Task<int> CountMemberCommentLikesAsync(MemberId memberId, MeetingCommentId meetingCommentId);
+
+        void Remove(MeetingMemberCommentLike meetingMemberCommentLike);
     }
 }

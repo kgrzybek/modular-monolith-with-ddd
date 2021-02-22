@@ -101,8 +101,10 @@ INSERT INTO users.[Permissions] ([Code], [Name]) VALUES
 	('LeaveMeetingGroup','LeaveMeetingGroup'),
 	('AddMeetingComment','AddMeetingComment'),
 	('EditMeetingComment','EditMeetingComment'),
-	('DeleteMeetingComment','DeleteMeetingComment'),
+	('RemoveMeetingComment','RemoveMeetingComment'),
+	('AddMeetingCommentReply','AddMeetingCommentReply'),
 	('LikeMeetingComment','LikeMeetingComment'),
+	('UnlikeMeetingComment','UnlikeMeetingComment'),
 	('EnableMeetingCommenting','EnableMeetingCommenting'),
 	('DisableMeetingCommenting','DisableMeetingCommenting'),
 	('MyMeetingGroupsView','MyMeetingGroupsView'),
@@ -147,6 +149,10 @@ INSERT INTO users.RolesToPermissions VALUES ('Member', 'JoinToGroup')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'LeaveMeetingGroup')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'AddMeetingComment')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'EditMeetingComment')
+INSERT INTO users.RolesToPermissions VALUES ('Member', 'RemoveMeetingComment')
+INSERT INTO users.RolesToPermissions VALUES ('Member', 'AddMeetingCommentReply')
+INSERT INTO users.RolesToPermissions VALUES ('Member', 'LikeMeetingComment')
+INSERT INTO users.RolesToPermissions VALUES ('Member', 'UnlikeMeetingComment')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetAuthenticatedMemberMeetingGroups')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetMeetingGroupDetails')
 INSERT INTO users.RolesToPermissions VALUES ('Member', 'GetMeetingDetails')

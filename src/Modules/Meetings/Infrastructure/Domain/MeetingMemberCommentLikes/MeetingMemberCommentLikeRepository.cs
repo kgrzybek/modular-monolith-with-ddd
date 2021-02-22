@@ -4,6 +4,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.Comments;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingMemberCommentLikes;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 using Dapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.MeetingMemberCommentLikes
 {
@@ -23,6 +24,13 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.MeetingM
             await _meetingsContext.MeetingMemberCommentLikes.AddAsync(meetingMemberCommentLike);
         }
 
+        public async Task<MeetingMemberCommentLike> GetAsync(MemberId memberId, MeetingCommentId meetingCommentId)
+        {
+            return await _meetingsContext.MeetingMemberCommentLikes.SingleOrDefaultAsync(l =>
+                EF.Property<MemberId>(l, "_memberId") == memberId
+                && EF.Property<MeetingCommentId>(l, "_meetingCommentId") == meetingCommentId);
+        }
+
         public Task<int> CountMemberCommentLikesAsync(MemberId memberId, MeetingCommentId meetingCommentId)
         {
             var connection = _sqlConnectionFactory.GetOpenConnection();
@@ -39,6 +47,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.MeetingM
                     memberId = memberId.Value,
                     meetingCommentId = meetingCommentId.Value
                 });
+        }
+
+        public void Remove(MeetingMemberCommentLike meetingMemberCommentLike)
+        {
+            _meetingsContext.MeetingMemberCommentLikes.Remove(meetingMemberCommentLike);
         }
     }
 }
