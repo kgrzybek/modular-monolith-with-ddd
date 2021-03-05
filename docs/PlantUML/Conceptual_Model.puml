@@ -1,0 +1,166 @@
+@startuml
+package "User Access" #f3e8f8 {
+object Permission
+object "User Role" as UserRole
+object User
+object "User Registration" as UserRegistration
+enum "User Registration Status" as UserRegistrationStatus
+{
+  WaitingForConfirmation
+  Confirmed
+  Expired
+}
+
+User "1"-->"0..*" UserRole : has
+User --> UserRegistration : created for
+UserRole "1..*"-->"1..*" Permission : has
+UserRegistration --> UserRegistrationStatus : is in
+
+}
+
+package "Administration" #ffeddb {
+
+object Administrator
+object "Meeting Group Proposal" as Administration.MeetingGroupProposal
+enum "Meeting Group Proposal Decision" as MeetingGroupProposalDecision
+{
+  Accept
+  Reject
+}
+enum "Meeting Group Proposal Status" as Administration.MeetingGroupProposalDecisionStatus
+{
+  Accepted
+  InVerification
+  Rejected
+}
+
+Administrator "1"-->"0..*" MeetingGroupProposalDecision : makes
+MeetingGroupProposalDecision --> Administration.MeetingGroupProposal : for
+Administration.MeetingGroupProposal --> Administration.MeetingGroupProposalDecisionStatus: is in
+
+
+Administrator --> User : is a
+
+}
+
+
+package "Meetings" #e4f7e4 {
+
+object "Meeting" as Meeting
+object "Member" as Member
+object "Meeting Group Proposal" as Meeting.MeetingGroupProposal
+object "Meeting Attendee" as MeetingAttendee
+object "Meeting Group" as MeetingGroup
+object "Meeting Not Attendee" as MeetingNotAttendee
+object "Meeting Waitlist Member" as MeetingWaitlistMember
+object "Meeting Location" as MeetingLocation
+object "Member Subscription" as Meeting.MemberSubscription
+enum "Meeting Group Proposal Status" as Meeting.MeetingGroupProposalStatus
+{
+  InVerification
+  Accepted
+  Rejected
+}
+
+Member --> Meeting.MeetingGroupProposal : proposes
+Member "1"-->"0..*" MeetingAttendee : is a
+Member "1"-->"0..*" MeetingNotAttendee : is a
+Member "1"-->"0..*" MeetingWaitlistMember : is a
+Member --> Meeting.MemberSubscription : has
+
+Meeting "1"-->"1..*" MeetingAttendee : attendees
+Meeting "1"-->"0..*" MeetingNotAttendee : not attendees
+Meeting --> MeetingLocation : has
+
+Meeting.MeetingGroupProposal --> Meeting.MeetingGroupProposalStatus : is in
+MeetingGroup "1"-->"0..*" Meetings : orginizes
+MeetingGroup "0..1"-->"1" Meeting.MeetingGroupProposal : created after acceptance of
+
+MeetingWaitlistMember "0..*"-->"1" Meeting : waits for place for
+
+Meeting.MemberSubscription --> MeetingGroup : covers
+
+
+Member --> User: is a
+Meeting.MeetingGroupProposal --> Administration.MeetingGroupProposal : sent to verification
+
+}
+
+
+package "Payments" #ffc1c1 {
+
+object "Payer" as Payer
+object "Meeting Fee" as MeetingFee
+object "Meeting Fee Payment" as MeetingFeePayment
+object "Subscription" as Payments.Subscription
+object "Subscription Payment" as SubscriptionPayment
+object "Subscription Renewal Payment" as SubscriptionRenewalPayment
+object "Price List" as PriceList
+object "Price List Item" as PriceListItem
+
+enum "Subscription Status" as SubscriptionStatus
+{
+  Active
+  Expired
+}
+enum "Subscription Payment Status" as SubscriptionPaymentStatus
+{
+  WaitingForPayment
+  Paid
+  Expired
+}
+enum "Subscription Renewal Payment Status" as SubscriptionRenewalPaymentStatus
+{
+  WaitingForPayment
+  Paid
+  Expired
+}
+enum "Meeting Fee Payment Status" as MeetingFeePaymentStatus
+{
+  WaitingForPayment
+  Paid
+  Expired
+}
+enum "Price List Item Category" as PriceListItemCategory
+{
+  New
+  Renewal
+}
+enum "Subscription Period" as SubscriptionPeriod
+{
+  Month
+  HalfYear
+}
+
+
+
+Payer "1"-->"0..*" MeetingFee : pays for
+Payer "1"--> "0..*" Payments.Subscription : buys
+
+MeetingFeePayment "0..*"-->"1" MeetingFee : for
+MeetingFeePayment --> MeetingFeePaymentStatus : is in
+
+Payments.Subscription "1"-->"0..*" SubscriptionRenewalPayment: extended by
+Payments.Subscription --> SubscriptionStatus : is in
+Payments.Subscription --> SubscriptionPeriod : is for
+
+SubscriptionPayment "1..*"-->"1" Payments.Subscription : is for
+SubscriptionPayment --> SubscriptionPaymentStatus : is in
+SubscriptionPayment --> SubscriptionPeriod : is for
+
+SubscriptionRenewalPayment --> SubscriptionRenewalPaymentStatus: is in
+SubscriptionRenewalPayment --> SubscriptionPeriod : is for
+
+PriceListItem --> SubscriptionPeriod : is for
+PriceListItem "0..*"-->"1" Country: is for
+PriceListItem --> PriceListItemCategory : is for
+
+PriceList "1"-->"1..*" PriceListItem : contains
+
+
+Payer --> Member: is a
+Payer --> User: is a
+
+Payments.Subscription -- Meeting.MemberSubscription
+}
+@enduml

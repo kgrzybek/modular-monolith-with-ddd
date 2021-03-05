@@ -220,7 +220,7 @@ Each `User Role` has set of `Permissions`. A `Permission` defines whether `User`
 
 **Conceptual Model**
 
-![](docs/Images/Conceptual_Model.png)
+![](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/kgrzybek/modular-monolith-with-ddd/master/docs/PlantUML/Conceptual_Model.puml)
 
 ### 2.3 Event Storming
 
