@@ -1752,6 +1752,7 @@ List of technologies, frameworks and libraries used for implementation:
 - [SSDT Database Project](https://docs.microsoft.com/en-us/sql/ssdt/how-to-create-a-new-database-project) (Database structure versioning)
 - [GitHub Actions](https://docs.github.com/en/actions) (Continuous Integration workflows implementation)
 - [StyleCopAnalyzers](https://github.com/DotNetAnalyzers/StyleCopAnalyzers) (Static code analysis library)
+- [PlantUML](https://plantuml.com) (UML diagrams from textual description)
 
 ## 5. How to Run
 
