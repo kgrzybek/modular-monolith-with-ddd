@@ -250,6 +250,7 @@ Note: Event Storming is a light, live workshop. One of the possible outputs of t
 
 **Payments**
 ![](docs/Images/Payments_EventStorming_Design.jpg)
+[Download high resolution file](docs/Images/Payments_EventStorming_Design_HighRes.jpg)
 
 ------
 
