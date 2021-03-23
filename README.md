@@ -220,6 +220,10 @@ Each `User Role` has set of `Permissions`. A `Permission` defines whether `User`
 
 **Conceptual Model**
 
+PlantUML version:
+![](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/kgrzybek/modular-monolith-with-ddd/master/docs/PlantUML/Conceptual_Model.puml)
+
+VisualParadigm version (not maintained, only for demonstration):
 ![](docs/Images/Conceptual_Model.png)
 
 ### 2.3 Event Storming
@@ -1753,6 +1757,7 @@ List of technologies, frameworks and libraries used for implementation:
 - [SSDT Database Project](https://docs.microsoft.com/en-us/sql/ssdt/how-to-create-a-new-database-project) (Database structure versioning)
 - [GitHub Actions](https://docs.github.com/en/actions) (Continuous Integration workflows implementation)
 - [StyleCopAnalyzers](https://github.com/DotNetAnalyzers/StyleCopAnalyzers) (Static code analysis library)
+- [PlantUML](https://plantuml.com) (UML diagrams from textual description)
 
 ## 5. How to Run
 
