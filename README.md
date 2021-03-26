@@ -189,6 +189,8 @@ A `Meeting Attendee` can bring guests to the `Meeting`. The number of guests all
 
 A `Meeting Attendee` can have one of two roles: `Attendee` or `Host`. A `Meeting` must have at least one `Host`. The `Host` is a special role which grants permission to edit `Meeting` information or change the attendees list.
 
+A `Member` can comment `Meetings`. A `Member` can reply to, like other `Comments`. `Organizer` manages commenting of `Meeting` by `Meeting Commenting Configuration`. `Organizer` can delete any `Comment`.
+
 Each `Meeting Group` must have an organizer with active `Subscription`. One organizer can cover 3 `Meeting Groups` by his `Subscription`.
 
 Additionally, Meeting organizer can set an `Event Fee`. Each `Meeting Attendee` is obliged to pay the fee. All guests should be paid by `Meeting Attendee` too.
@@ -225,6 +227,9 @@ PlantUML version:
 
 VisualParadigm version (not maintained, only for demonstration):
 ![](docs/Images/Conceptual_Model.png)
+
+**Conceptual Model of commenting feature**
+![](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/kgrzybek/modular-monolith-with-ddd/master/docs/PlantUML/Commenting_Conceptual_Model.puml)
 
 ### 2.3 Event Storming
 
