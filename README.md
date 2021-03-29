@@ -277,23 +277,23 @@ As can be found on the website of the author of this model ([Simon Brown](https:
 
 #### 3.0.1 C1 System Context
 
-![](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/kgrzybek/modular-monolith-with-ddd/master/docs/C4/c1_system_context.puml)
+![](http://www.plantuml.com/plantuml/png/7OrDgeD048JtxnGl1z0ca5LMGWuYutIZulIqz0_6d3vZDbLG5Dytc2VruF9tMsikWHHQ_XVttPu0cev-Nds9AOmqItMgtcTXs6Rzd1Djm89HadOiLKgxTiSLY0YSp4a19Hky7f3levrjuV77UNk_Nzg1AhR-0W00)
 
 #### 3.0.2 C2 Container
 
-![](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/kgrzybek/modular-monolith-with-ddd/master/docs/C4/c2_container.puml)
+![](http://www.plantuml.com/plantuml/png/5OrDgiCm30RtxnIl1uW5fQkk0Zr8SIoHcDXIq0-XFNtZpVTjXfdPFAj7Rt-togK5KcZxtzmFUm9eFjDQVOibZBG8Ex6d8XtsLR-VXNReWj6oJbrOseLEvnX4X9xDIG6b6BmUKExl8SYLITCnYZCnNly3)
 
 #### 3.0.3 C3 Component (high-level)
 
-![](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/kgrzybek/modular-monolith-with-ddd/master/docs/C4/c3_components.puml)
+![](http://www.plantuml.com/plantuml/png/5OqxZiCm30NxFSNc01QBf4fb80S9P96m3Kkam0-CvFIHc_UQ6SnidjMZrR_RpgK6KcZztzoxFG4qdsdTVOibZBG8Ex6d8WsELR-VXGveWb6pJarOwa2dynf4X9RDIG6b6BmUKExl8NPXOhVKh-HCZED_)
 
 #### 3.0.4 C3 Component (module-level)
 
-![](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/kgrzybek/modular-monolith-with-ddd/master/docs/C4/c3_components_module.puml)
+![](http://www.plantuml.com/plantuml/png/7OqzheCm48JxTugN0y0MIPKAAGT1nhi2XBrhxOzGSlgOD3FDVFDDvaazQlcxxPnB88MM_yszsHD0qpckks-nX95cOIVsCKk5OzNFUw43gc2Kf4CLbjAdmta58a9DvgI0aWrU3yZtkODDk5_O_CDeR9Tv8iRUNm00)
 
 #### 3.0.5 C4 Code (meeting group aggregate)
 
-![](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/kgrzybek/modular-monolith-with-ddd/master/docs/C4/c4_class.puml)
+![](http://www.plantuml.com/plantuml/png/5OqxheD0303xTugN0x1kg58XvI3HObk0yAwHFqB9wGFDJ3FIJ1xL8flyFRQEaiHfyhz67Fu4i7gMPOirvtGsr1xSew0ss1VxVcRUeIcbL1kQTfKh7SuRH0IjUh01AJgyHi3nZLBTot7V9kvq-GS0)
 
 ### 3.1 High Level View
 
