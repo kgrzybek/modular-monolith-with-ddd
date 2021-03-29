@@ -1,4 +1,6 @@
 @startuml
+scale max 2000 width
+
 package "User Access" #f3e8f8 {
 object Permission
 object "User Role" as UserRole
