@@ -277,7 +277,7 @@ As can be found on the website of the author of this model ([Simon Brown](https:
 
 #### 3.0.1 C1 System Context
 
-![](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/kgrzybek/modular-monolith-with-ddd/master/docs/C4/c1_system_context.puml)
+![](http://www.plantuml.com/plantuml/uml/7OrDgeD048JtxnGl1z0ca5LMGWuYutIZulIqz0_6d3vZDbLG5Dytc2VruF9tMsikWHHQ_XVttPu0cev-Nds9AOmqItMgtcTXs6Rzd1Djm89HadOiLKgxTiSLY0YSp4a19Hky7f3levrjuV77UNk_Nzg1AhR-0W00)
 
 #### 3.0.2 C2 Container
 
