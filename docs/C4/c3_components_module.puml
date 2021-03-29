@@ -1,0 +1,54 @@
+@startuml C3 Components Module (zoom-in)
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+AddTagSupport("meetings", $bgColor="#4ce065")
+AddTagSupport("administration", $bgColor="#e3b868")
+AddTagSupport("eventsBus", $bgColor="#29118a", $fontColor="#ffffff")
+
+System_Boundary(c1, "My Meetings System") {
+    Boundary(myMeetingsApi, "My Meetings API") {
+        Component(api, "API", ".NET Core API")
+        
+        Boundary(meetingsModule, "Meetings Module") {
+            Component(meetingsInfrastructure, "Meetings.Infrastructure", ".NET Library", $tags="meetings")
+            Component(meetingsApplication, "Meetings.Application", ".NET Library", $tags="meetings")
+            Component(meetingsDomain, "Meetings.Domain", ".NET Library", $tags="meetings")
+            Component(meetingsIntegrationEvents, "Meetings.IntegrationEvents", ".NET Library", $tags="meetings")
+            ComponentDb(meetingsData, "Meetings data", "schema", $tags="meetings")
+        }
+
+        Boundary(administrationModule, "Administration Module") {
+            Component(administrationInfrastructure, "Administration.Infrastructure", ".NET Library", $tags="administration")
+            Component(administrationApplication, "Administration.Application", ".NET Library", $tags="administration")
+            Component(administrationDomain, "Administration.Domain", ".NET Library", $tags="administration")
+            Component(administrationIntegrationEvents, "Administration.IntegrationEvents", ".NET Library", $tags="administration")
+            ComponentDb(administrationData, "Administration data", "schema", $tags="administration")
+        }
+
+        ComponentQueue(eventsBus, "Events Bus", "In memory", $tags="eventsBus")
+    }
+}
+
+
+Rel(api, meetingsInfrastructure, "Uses")
+Rel(api, meetingsApplication, "Uses")
+Rel(meetingsInfrastructure, meetingsApplication, "Uses")
+Rel(meetingsInfrastructure, meetingsDomain, "Uses")
+Rel(meetingsApplication, meetingsDomain, "Uses")
+Rel(meetingsApplication, meetingsIntegrationEvents, "Uses")
+Rel(meetingsInfrastructure, meetingsData, "Uses")
+Rel(meetingsInfrastructure, eventsBus, "Uses")
+
+Rel(api, administrationInfrastructure, "Uses")
+Rel(api, administrationApplication, "Uses")
+Rel(administrationInfrastructure, administrationApplication, "Uses")
+Rel(administrationInfrastructure, administrationDomain, "Uses")
+Rel(administrationApplication, administrationDomain, "Uses")
+Rel(administrationApplication, administrationIntegrationEvents, "Uses")
+Rel(administrationInfrastructure, administrationData, "Uses")
+Rel(administrationInfrastructure, eventsBus, "Uses")
+
+Rel(administrationApplication, meetingsIntegrationEvents, "Uses")
+Rel(meetingsApplication, administrationIntegrationEvents, "Uses")
+
+@enduml

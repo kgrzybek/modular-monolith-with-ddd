@@ -1,0 +1,61 @@
+@startuml C4  Code
+
+package "Meeting Groups Aggregate" <<Rectangle>> {
+
+    class "MeetingGroupId" << VO >> {   
+
+    }
+    
+    class "MeetingGroup" << Entity, AR >> {
+        -string: _description
+        -DateTime: _createDate
+        -DateTime: _paymentDateTo
+        {static} MeetingGroup CreateBasedOnProposal()
+        Meeting CreateMeeting(..)
+        void SetExpirationDate(DateTime dateTo)
+        void JoinToGroupMember(MemberId memberId)
+        void LeaveGroup(MemberId memberId)
+        void EditGeneralAttributes(...)
+        bool IsMemberOfGroup(MemberId attendeeId)
+        bool IsOrganizer(MemberId memberId)
+    }
+
+    class "MeetingGroupLocation" << VO >> {
+        string City
+        string CountryCode
+        {static} MeetingGroupLocation Create(...)
+
+    }
+
+    class "MeetingGroupMember" << Entity >> {
+        ~DateTime JoinedDate
+        -bool _isActive
+        -DateTime? _leaveDate
+        {static} MeetingGroupMember CreateNew(...)
+        void Leave()
+        ~bool IsMember(MemberId memberId)
+        ~bool IsOrganizer(MemberId memberId)
+    }
+
+    class "MemberId" << VO >> {
+
+    }
+
+    class "MeetingGroupMemberRole" << VO >> {
+        string Value
+    }
+}
+
+class "Member" << Entity, AR >> {
+
+}
+
+"MeetingGroup" *-- "MeetingGroupId" : of
+"MeetingGroup" *-- "MeetingGroupLocation" : for
+"MeetingGroup" "1" *-- "0..*" "MeetingGroupMember" : member of
+"MeetingGroupMember" *-- "MemberId" : assigned to
+"MeetingGroupMemberRole" --* "MeetingGroupMember" : is assigned to
+
+"Member" o-- "MemberId" : of
+
+@enduml

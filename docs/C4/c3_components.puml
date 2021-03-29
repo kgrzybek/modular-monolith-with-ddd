@@ -1,0 +1,41 @@
+@startuml C3 Components
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+System_Boundary(c1, "My Meetings System") {
+    Container(spa, "SPA", "ReactJS", "GUI for the application")
+    
+    Boundary(myMeetingsApi, "My Meetings API") {
+        Component(api, "API", ".NET Core API")
+        Component(meetingsModule, "Meetings", ".NET Libraries")
+        Component(administrationModule, "Administration", ".NET Libraries")
+        Component(userAccessModule, "User Access", ".NET Libraries")
+        Component(paymentsModule, "Payments", ".NET Libraries")
+        ComponentQueue(eventsBus, "Events Bus", "In memory")
+        
+        Boundary(database, "Database") {
+            ComponentDb(meetingsModuleData, "Meetings data", "schema")
+            ComponentDb(administrationData, "Administration data", "schema")
+            ComponentDb(userAccessData, "User Access data", "schema")
+            ComponentDb(paymentsData, "Payments data", "schema")
+        }
+    }
+}
+
+Rel(spa, api, "Uses", "HTTP")
+Rel(api, meetingsModule, "Uses")
+Rel(api, administrationModule, "Uses")
+Rel(api, userAccessModule, "Uses")
+Rel(api, paymentsModule, "Uses")
+Rel(meetingsModule, eventsBus, "Publishes event to / subscribes")
+Rel(administrationModule, eventsBus, "Publishes event to / subscribes")
+Rel(userAccessModule, eventsBus, "Publishes event to / subscribes")
+Rel(paymentsModule, eventsBus, "Publishes event to / subscribes")
+
+Rel(meetingsModule, meetingsModuleData, "Store / retrieve")
+Rel(administrationModule, administrationData, "Store / retrieve")
+Rel(userAccessModule, userAccessData, "Store / retrieve")
+Rel(paymentsModule, paymentsData, "Store / retrieve")
+
+LAYOUT_WITH_LEGEND()
+
+@enduml

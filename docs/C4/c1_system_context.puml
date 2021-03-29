@@ -1,0 +1,21 @@
+@startuml C1 System Context
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+Person(memberPerson, "Member", "Organizer of meeting groups, meetings, member of group, meeting attendee")
+Person(adminPerson, "Administrator", "Administrator of the system")
+
+System(myMeetingsSystem, "My Meetings")
+System_Ext(emailSystem, "Email Service")
+System_Ext(paymentGatewaySystem, "Payment Gateway")
+
+Rel(memberPerson, myMeetingsSystem, "Organize meeting groups and participate in meetings")
+Rel(adminPerson, myMeetingsSystem, "Manage members, meeting groups, meetings")
+Rel(myMeetingsSystem, emailSystem, "Request email send")
+Rel(emailSystem, memberPerson, "Send email")
+Rel(emailSystem, adminPerson, "Send email")
+Rel(myMeetingsSystem, paymentGatewaySystem, "Delegate the payment")
+Rel(paymentGatewaySystem, myMeetingsSystem , "Return info about payment")
+Rel(memberPerson, paymentGatewaySystem , "Pay in")
+
+LAYOUT_WITH_LEGEND()
+@enduml

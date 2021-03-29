@@ -36,6 +36,8 @@ FrontEnd application : [Modular Monolith With DDD: FrontEnd React application](h
 
 [3. Architecture](#3-Architecture)
 
+&nbsp;&nbsp;[3.0 C4 Model](#30-c4-model)
+
 &nbsp;&nbsp;[3.1 High Level View](#31-high-level-view)
 
 &nbsp;&nbsp;[3.2 Module Level View](#32-module-level-view)
@@ -104,6 +106,8 @@ This is a list of the main goals of this repository:
 - Presentation of the implementation of **Unit Tests** for Domain Model (Testable Design in mind)
 - Presentation of the implementation of **Integration Tests**
 - Presentation of the implementation of **Event Sourcing**
+- Presentation of **C4 Model**
+- Presentation of **diagram as text** approach
 
 ### 1.2 Out of Scope
 
@@ -260,6 +264,36 @@ Note: Event Storming is a light, live workshop. One of the possible outputs of t
 
 
 ## 3. Architecture
+
+### 3.0 C4 Model
+
+[C4 model](https://c4model.com/) is a lean graphical notation technique for modelling the architecture of software systems. <br>
+
+As can be found on the website of the author of this model ([Simon Brown](https://simonbrown.je/)): *The C4 model was created as a way to help software development teams describe and communicate software architecture, both during up-front design sessions and when retrospectively documenting an existing codebase* <br>
+
+*Model C4* defines 4 levels (views) of the system architecture: *System Context*, *Container*, *Component* and *Code*. Below are examples of each of these levels that describe the architecture of this system. <br>
+
+*Note: The [PlantUML](https://plantuml.com/) (diagram as text) component was used to describe all C4 model levels. Additionally, for levels C1-C3, a [C4-PlantUML](https://github.com/plantuml-stdlib/C4-PlantUML) plug-in connecting PlantUML with the C4 model was used*.
+
+#### 3.0.1 C1 System Context
+
+![](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/kgrzybek/modular-monolith-with-ddd/master/docs/C4/c1_system_context.puml)
+
+#### 3.0.2 C2 Container
+
+![](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/kgrzybek/modular-monolith-with-ddd/master/docs/C4/c2_container.puml)
+
+#### 3.0.3 C3 Component (high-level)
+
+![](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/kgrzybek/modular-monolith-with-ddd/master/docs/C4/c3_components.puml)
+
+#### 3.0.4 C3 Component (module-level)
+
+![](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/kgrzybek/modular-monolith-with-ddd/master/docs/C4/c3_components_module.puml)
+
+#### 3.0.5 C4 Code (meeting group aggregate)
+
+![](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/kgrzybek/modular-monolith-with-ddd/master/docs/C4/c4_class.puml)
 
 ### 3.1 High Level View
 
@@ -1757,7 +1791,9 @@ List of technologies, frameworks and libraries used for implementation:
 - [SSDT Database Project](https://docs.microsoft.com/en-us/sql/ssdt/how-to-create-a-new-database-project) (Database structure versioning)
 - [GitHub Actions](https://docs.github.com/en/actions) (Continuous Integration workflows implementation)
 - [StyleCopAnalyzers](https://github.com/DotNetAnalyzers/StyleCopAnalyzers) (Static code analysis library)
-- [PlantUML](https://plantuml.com) (UML diagrams from textual description)
+- [PlantUML](https://plantuml.com) (UML diagrams from textual description, diagrams as text)
+- [C4 Model](https://c4model.com/) (Model for visualising software architecture)
+- [C4-PlantUML](https://github.com/plantuml-stdlib/C4-PlantUML) (C4 Model for PlantUML plugin)
 
 ## 5. How to Run
 
@@ -1858,6 +1894,8 @@ List of features/tasks/approaches to add:
 | StyleCop Static Code Analysis      | Completed  | 2020-09-05   |
 | FrontEnd SPA application | Completed |  2020-11-08  |
 | Docker support | Completed |  2020-11-26  |
+| PlantUML Conceptual Model | Completed |  2021-03-22  |
+| C4 Model | Completed |  2021-03-29  |
 | Meeting comments feature |    |    |
 | Notifications feature |     |    |
 | Messages feature |     |    |

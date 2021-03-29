@@ -1,0 +1,25 @@
+@startuml C2 Containers
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(memberPerson, "Member", "Organizer of meeting groups, meetings, member of group, meeting attendee")
+Person(adminPerson, "Administrator", "Administrator of the system")
+
+System_Boundary(c1, "My Meetings System") {
+    Container(spa, "SPA", "ReactJS", "GUI for the application")
+    Container(api, "My Meetings API", ".NET Core", "Backend")
+    ContainerDb(database, "Database", "Microsoft SQL", "Data about meeting groups, members, meetings etc", "msql_server")
+}
+System_Ext(emailSystem, "Email System", "3rd party SMTP server")
+System_Ext(paymentGateway, "Payment Gateway", "3rd party payment service")
+
+Rel(memberPerson, spa, "Uses", "HTTP")
+Rel(adminPerson, spa, "Uses", "HTTP")
+Rel(spa, api, "Uses", "HTTP")
+Rel_R(api, database, "Reads/Writes", "SQL")
+Rel_L(api, emailSystem, "Sends email using", "SMTP")
+Rel_D(api, paymentGateway, "Delegate the payment", "HTTP")
+Rel(memberPerson, paymentGateway, "Make payment via", "HTTP")
+
+LAYOUT_WITH_LEGEND()
+
+@enduml
