@@ -233,7 +233,7 @@ VisualParadigm version (not maintained, only for demonstration):
 ![](docs/Images/Conceptual_Model.png)
 
 **Conceptual Model of commenting feature**
-![](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/kgrzybek/modular-monolith-with-ddd/master/docs/PlantUML/Commenting_Conceptual_Model.puml)
+![](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/kgrzybek/modular-monolith-with-ddd/master/docs/PlantUML/Commenting_Conceptual_Model.puml)
 
 ### 2.3 Event Storming
 
