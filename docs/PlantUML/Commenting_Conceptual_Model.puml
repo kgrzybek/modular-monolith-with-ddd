@@ -1,0 +1,17 @@
+@startuml
+
+object "Meeting" as Meeting
+object "Member" as Member
+object "Meeting Commenting Configuration" as MeetingCommentingConfiguration
+object "Meeting Comment" as MeetingComment
+object "Meeting Member Comment Like" as MeetingMemberCommentLike
+
+Meeting "1"-->"0..*" MeetingComment : has
+MeetingCommentingConfiguration "1"-->"1" Meeting : enables\ncommenting\nof
+MeetingComment "1"-->"0..*" MeetingMemberCommentLike : has
+MeetingComment "1"-->"0..*" MeetingComment : is reply to
+Member --> Meeting : comments
+Member --> MeetingComment : replies to,\nlikes
+Member --> MeetingCommentingConfiguration : configures
+
+@enduml
