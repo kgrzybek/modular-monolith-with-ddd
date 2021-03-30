@@ -82,7 +82,7 @@ FrontEnd application : [Modular Monolith With DDD: FrontEnd React application](h
 
 [7. Roadmap](#7-roadmap)
 
-[8. Author](#8-author)
+[8. Authors](#8-authors)
 
 [9. License](#9-license)
 
@@ -1901,14 +1901,11 @@ List of features/tasks/approaches to add:
 | Docker support | Completed |  2020-11-26  |
 | PlantUML Conceptual Model | Completed |  2021-03-22  |
 | C4 Model | Completed |  2021-03-29  |
-| Meeting comments feature |    |    |
-| Notifications feature |     |    |
-| Messages feature |     |    |
-
+| Meeting comments featurel | Completed |  2021-03-30  |
 
 NOTE: Please don't hesitate to suggest something else or a change to the existing code. All proposals will be considered.
 
-## 8. Author
+## 8. Authors
 
 Kamil Grzybek
 
@@ -1919,6 +1916,10 @@ Twitter: [https://twitter.com/kamgrzybek](https://twitter.com/kamgrzybek)
 LinkedIn: [https://www.linkedin.com/in/kamilgrzybek/](https://www.linkedin.com/in/kamilgrzybek/)
 
 GitHub: [https://github.com/kgrzybek](https://github.com/kgrzybek)
+
+### 8.1 Main contributors
+
+- [Andrei Ganichev](https://github.com/AndreiGanichev)
 
 ## 9. License
 
