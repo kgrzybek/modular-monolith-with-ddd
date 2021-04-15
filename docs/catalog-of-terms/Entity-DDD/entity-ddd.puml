@@ -1,0 +1,18 @@
+@startuml Entity
+
+class "MeetingGroup" << Entity >> {
+    MeetingGroupId: Id
+    -string: _description
+    -DateTime: _createDate
+    -DateTime: _paymentDateTo
+    {static} MeetingGroup CreateBasedOnProposal()
+    Meeting CreateMeeting(..)
+    void SetExpirationDate(DateTime dateTo)
+    void JoinToGroupMember(MemberId memberId)
+    void LeaveGroup(MemberId memberId)
+    void EditGeneralAttributes(...)
+    bool IsMemberOfGroup(MemberId attendeeId)
+    bool IsOrganizer(MemberId memberId)
+}
+
+@enduml
