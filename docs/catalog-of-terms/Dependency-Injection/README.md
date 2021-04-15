@@ -10,6 +10,8 @@ Source: [Wikipedia](https://en.wikipedia.org/wiki/Dependency_injection)
 
 ### Model
 
+![](http://www.plantuml.com/plantuml/png/HSun3i8m30NGdLF00LBlJ1rOE4PgcpOqiIl7KLLEJpeWbl-bfp_yiNeqRoLVRaamD-9c-RguR_KEO74VvkHBcrfbGnLdyG6rm3hRvvXuXQBKShHGL3JtQTZF828eiJeRa685Z1wppa5VeLkfyE2DXLZm24zvCtfI0VfZ-k6mdUV6xhs_)
+
 ### Code
 
 ```csharp
