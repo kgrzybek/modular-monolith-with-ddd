@@ -10,6 +10,8 @@ Source: [Domain-Driven Design: Tackling Complexity in the Heart of Software, Eri
 
 ### Model
 
+![](http://www.plantuml.com/plantuml/png/FOx13i8m34FlV0LyG9Sxfo7rHx8cTDFQPaeJJV3rT1SkjcpPqfkxePhNSdjiBHKdTYttrUpeJm35SygRhRvuPqtIZ9jDIIhiMR-VXNUeGbvGGvKcPKp3UGaHGSLkh42IEYGqB9A3lCFeQeTNpiePZKEC4V2Vnd4wBfoP6mt_0G00)
+
 ### Code
 
 ```csharp

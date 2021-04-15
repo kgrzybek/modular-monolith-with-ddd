@@ -1,7 +1,5 @@
 @startuml Aggregate
 
-@startuml C4  Code
-
 package "Meeting Groups Aggregate" <<Rectangle>> {
 
     class "MeetingGroupId" << VO >> {   
@@ -59,7 +57,5 @@ class "Member" << Entity, AR >> {
 "MeetingGroupMemberRole" --* "MeetingGroupMember" : is assigned to
 
 "Member" o-- "MemberId" : of
-
-@enduml
 
 @enduml
