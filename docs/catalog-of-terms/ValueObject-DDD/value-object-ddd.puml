@@ -1,0 +1,8 @@
+@startuml ValueObject
+
+class "MeetingGroup" << ValueObject >> {
+    decimal: Value {readonly}
+    string: Currency {readonly}
+}
+
+@enduml
