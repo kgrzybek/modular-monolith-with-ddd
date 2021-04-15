@@ -1,5 +1,82 @@
 # Catalog of terms
 
+- Act/Arrange/Assert
+- Actor (Event Storming)
+- API
+- Application Layer
 - [Aggregate (DDD)](Aggregate-DDD/)
+- Architecture Decision Record (ADR)
+- Architecture Test
+- Asynchronous Communication
+- Audit Log/Trail
+- Authentication
+- Authorization
+- Bounded Context (DDD)
+- C4 Model
+- Chain Of Command Pattern
+- Command
+- Composition Root
+- Continuous Integration
+- Contract
+- CQRS
+- Database Change Management
+- Decorator Pattern
+- [Dependency Injection](Dependency-Injection/)
+- Dependency Inversion
+- Diagram as text
+- Domain Centric Architecture
+- Domain Event
+- Domain Layer
+- Domain Model
+- Domain Primitive
+- Domain Services (DDD)
+- Don't Repeat Yourself Principle
+- Encapsulation
 - [Entity (DDD)](Entity-DDD/)
+- Event
+- Eventual Consistency
+- Event Driven Architecture
+- Event Sourcing
+- Event Storming
+- Events Stream
+- External System (Event Storming)
+- Facade Pattern
+- Factory Pattern
+- Given When Then
+- Layered Architecture
+- Mediator Pattern
+- Message (Messaging)
+- Mock
+- Modularity
+- Module
+- Monolith
+- Idempotency
+- Immediate Consistency
+- Immutability
+- Infrastructure Layer
+- Interface
+- Interface Segregation Principle
+- Inversion Of Control
+- Integration Test
+- Outbox Pattern (aka Store And Forward)
+- Parameter Object Pattern
+- Persistence Ignorance
+- POCO
+- Policy (EventStorming)
+- Projection (EventSourcing)
+- Pure Function
+- Rich Domain Model
+- Role-based Access Control
+- Query
+- Read Model
+- Repositories (DDD)
+- Single Responsibility Principle
+- Strategy Pattern
+- Stub
+- Synchronous Communication
+- Transaction (Database)
+- Ubiquitous Language (DDD)
+- Unit Of Work Pattern
+- Unit Test
+- Write Model
 - [ValueObject (DDD)](ValueObject-DDD/)

@@ -1,0 +1,18 @@
+@startuml Dependency Injection
+
+class "CancelMeetingCommandHandler" {
+CancelMeetingCommandHandler(IMeetingRepository meetingRepository, IMemberContext memberContext)
+}
+
+interface "IMeetingRepository" {
+
+}
+
+interface "IMemberContext" {
+
+}
+
+"CancelMeetingCommandHandler" -> "IMeetingRepository" : uses
+"CancelMeetingCommandHandler" -> "IMemberContext" : uses
+
+@enduml
