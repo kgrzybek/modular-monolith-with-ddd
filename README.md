@@ -858,7 +858,7 @@ public async Task<IActionResult> ProposeMeetingGroup(ProposeMeetingGroupRequest 
 **Attributes of good unit test**
 
 - Automated
-- Maitainable
+- Maintainable
 - Runs very fast (in ms)
 - Consistent, Deterministic (always the same result)
 - Isolated from other tests
