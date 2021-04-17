@@ -2,7 +2,7 @@
 
 ## Definition
 
-*In object-oriented programming, the decorator pattern is a design pattern that allows behavior to be added to an individual object, dynamically, without affecting the behavior of other objects from the same class. The decorator pattern is often useful for adhering to the [Single Responsibility Principle](./Single-Responsibility-Principle/), as it allows functionality to be divided between classes with unique areas of concern.*
+*In object-oriented programming, the decorator pattern is a design pattern that allows behavior to be added to an individual object, dynamically, without affecting the behavior of other objects from the same class. The decorator pattern is often useful for adhering to the [Single Responsibility Principle](../Single-Responsibility-Principle/), as it allows functionality to be divided between classes with unique areas of concern.*
 
 Source: [Wikipedia](https://en.wikipedia.org/wiki/Decorator_pattern)
 
@@ -101,11 +101,11 @@ The Logging decorator logs execution, arguments and processing of each Command. 
 
 A unique trade of a decorator is that it does both:
 * It implements  `ICommandHandler<T>` (known also as the *component*).
-* It accepts an <u>implementation</u> of `ICommandHandler<T>` (known also as the *concrete component*). Usually that is done via [Dependency Injection](./Dependency-Injection/).
+* It accepts an <u>implementation</u> of `ICommandHandler<T>` (known also as the *concrete component*). Usually that is done via [Dependency Injection](../Dependency-Injection/).
 
 The decorator builds on top of existing functionality provided by the injected `ICommandHandler<T>`, but it does not change the behavior of it.
 
 ---
 
-Decorator should not be confused with [Strategy](./Strategy-Pattern/)!!!
+Decorator should not be confused with [Strategy](../Strategy-Pattern/)!!!
 *A decorator lets you change the skin of an object, while Strategy lets you change the guts.*
