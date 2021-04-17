@@ -1,0 +1,52 @@
+@startuml
+class MeetingsController {
+ +AddMeetingAttendee()
+ +RemoveMeetingAttendee()
+}
+
+class AddMeetingAttendeeCommand
+class RemoveMeetingAttendeeCommand
+
+class Mediator {
+ +Send()
+}
+
+interface ICommandHandler<in TCommand> {
+ +Handle(TCommand, CancellationToken)
+}
+
+~class AddMeetingAttendeeCommandHandler {
+ +Handle(AddMeetingAttendeeCommand, CancellationToken)
+}
+
+~class RemoveMeetingAttendeeCommandHandler {
+ +Handle(RemoveMeetingAttendeeCommand, CancellationToken)
+}
+
+~class LoggingCommandHandlerDecorator<T> {
+ +Handle(T, CancellationToken)
+ -Log() 
+}
+
+note left of LoggingCommandHandlerDecorator::Log
+  Performs logging, but doesn't
+  change how Handle operates
+end note
+
+hide empty members
+
+MeetingsController -down-> Mediator: informs
+MeetingsController -down-> Mediator: informs
+
+Mediator -down-> AddMeetingAttendeeCommand: sends
+Mediator -down-> RemoveMeetingAttendeeCommand: sends
+
+AddMeetingAttendeeCommandHandler -up-> AddMeetingAttendeeCommand: handles
+RemoveMeetingAttendeeCommandHandler -up-> RemoveMeetingAttendeeCommand: handles
+
+AddMeetingAttendeeCommandHandler .right.|> ICommandHandler: implements 
+RemoveMeetingAttendeeCommandHandler .right.|> ICommandHandler: implements 
+
+LoggingCommandHandlerDecorator ..|> ICommandHandler: implements
+LoggingCommandHandlerDecorator *..|> ICommandHandler: decorates
+@enduml

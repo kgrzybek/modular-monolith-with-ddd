@@ -20,7 +20,7 @@
 - Contract
 - CQRS
 - Database Change Management
-- Decorator Pattern
+- [Decorator Pattern](Decorator-Pattern/)
 - [Dependency Injection](Dependency-Injection/)
 - Dependency Inversion
 - Diagram as text
