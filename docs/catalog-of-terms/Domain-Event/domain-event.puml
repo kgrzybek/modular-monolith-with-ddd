@@ -1,0 +1,19 @@
+@startuml
+class SubscriptionPaymentCreatedDomainEvent {
+ +SubscriptionPaymentId
+ +PayerId
+ +SubscriptionPeriodCode
+ +CountryCode
+ +Status
+ +Value
+ +Currency
+}
+class DomainEventBase
+interface IDomainEvent {
+ +Id
+ +OccurredOn
+}
+
+IDomainEvent <|-- DomainEventBase: implements
+DomainEventBase <|-- SubscriptionPaymentCreatedDomainEvent: extends
+@enduml

@@ -25,7 +25,7 @@
 - Dependency Inversion
 - Diagram as text
 - Domain Centric Architecture
-- Domain Event
+- [Domain Event](Domain-Event/)
 - Domain Layer
 - Domain Model
 - Domain Primitive
