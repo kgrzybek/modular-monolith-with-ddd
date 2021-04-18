@@ -12,14 +12,14 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.RemoveMeetingComment
 {
-    public class RemoveMeetingCommentCommandHandler : ICommandHandler<RemoveMeetingCommentCommand, Unit>
+    internal class RemoveMeetingCommentCommandHandler : ICommandHandler<RemoveMeetingCommentCommand, Unit>
     {
         private readonly IMeetingCommentRepository _meetingCommentRepository;
         private readonly IMeetingRepository _meetingRepository;
         private readonly IMeetingGroupRepository _meetingGroupRepository;
         private readonly IMemberContext _memberContext;
 
-        public RemoveMeetingCommentCommandHandler(IMeetingCommentRepository meetingCommentRepository, IMeetingRepository meetingRepository, IMeetingGroupRepository meetingGroupRepository, IMemberContext memberContext)
+        internal RemoveMeetingCommentCommandHandler(IMeetingCommentRepository meetingCommentRepository, IMeetingRepository meetingRepository, IMeetingGroupRepository meetingGroupRepository, IMemberContext memberContext)
         {
             _meetingCommentRepository = meetingCommentRepository;
             _meetingRepository = meetingRepository;

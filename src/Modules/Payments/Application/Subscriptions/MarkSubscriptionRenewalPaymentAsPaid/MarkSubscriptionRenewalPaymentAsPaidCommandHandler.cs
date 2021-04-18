@@ -7,12 +7,12 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.MarkSubscriptionRenewalPaymentAsPaid
 {
-    public class MarkSubscriptionRenewalPaymentAsPaidCommandHandler
+    internal class MarkSubscriptionRenewalPaymentAsPaidCommandHandler
         : ICommandHandler<MarkSubscriptionRenewalPaymentAsPaidCommand, Unit>
     {
         private readonly IAggregateStore _aggregateStore;
 
-        public MarkSubscriptionRenewalPaymentAsPaidCommandHandler(IAggregateStore aggregateStore)
+        internal MarkSubscriptionRenewalPaymentAsPaidCommandHandler(IAggregateStore aggregateStore)
         {
             _aggregateStore = aggregateStore;
         }
