@@ -1,13 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using CompanyName.MyMeetings.ArchTests.SeedWork;
+using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupProposals;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure;
+using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure;
+using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFees;
-using CompanyName.MyMeetings.Modules.Payments.Infrastructure;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration;
+using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
 using CompanyName.MyMeetings.Modules.UserAccess.Domain.Users;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure;
 using MediatR;
@@ -28,7 +31,7 @@ namespace CompanyName.MyMeetings.ArchTests.Modules
             };
             List<Assembly> administrationAssemblies = new List<Assembly>
             {
-                typeof(AdministrationModule).Assembly,
+                typeof(IAdministrationModule).Assembly,
                 typeof(MeetingGroupLocation).Assembly,
                 typeof(AdministrationContext).Assembly
             };
@@ -54,7 +57,7 @@ namespace CompanyName.MyMeetings.ArchTests.Modules
             };
             List<Assembly> meetingsAssemblies = new List<Assembly>
             {
-                typeof(MeetingsModule).Assembly,
+                typeof(IMeetingsModule).Assembly,
                 typeof(Meeting).Assembly,
                 typeof(MeetingsContext).Assembly
             };
@@ -80,7 +83,7 @@ namespace CompanyName.MyMeetings.ArchTests.Modules
             };
             List<Assembly> paymentsAssemblies = new List<Assembly>
             {
-                typeof(PaymentsModule).Assembly,
+                typeof(IPaymentsModule).Assembly,
                 typeof(MeetingFee).Assembly,
                 typeof(PaymentsStartup).Assembly
             };
@@ -106,7 +109,7 @@ namespace CompanyName.MyMeetings.ArchTests.Modules
             };
             List<Assembly> userAccessAssemblies = new List<Assembly>
             {
-                typeof(UserAccessModule).Assembly,
+                typeof(IUserAccessModule).Assembly,
                 typeof(User).Assembly,
                 typeof(UserAccessContext).Assembly
             };
