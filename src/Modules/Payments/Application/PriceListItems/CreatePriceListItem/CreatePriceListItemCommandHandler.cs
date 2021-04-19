@@ -8,11 +8,11 @@ using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.CreatePriceListItem
 {
-    public class CreatePriceListItemHandler : ICommandHandler<CreatePriceListItemCommand, Guid>
+    internal class CreatePriceListItemCommandHandler : ICommandHandler<CreatePriceListItemCommand, Guid>
     {
         private readonly IAggregateStore _aggregateStore;
 
-        public CreatePriceListItemHandler(IAggregateStore aggregateStore)
+        internal CreatePriceListItemCommandHandler(IAggregateStore aggregateStore)
         {
             _aggregateStore = aggregateStore;
         }

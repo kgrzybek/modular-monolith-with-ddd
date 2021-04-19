@@ -8,11 +8,11 @@ using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.CreateSubscription
 {
-    public class CreateSubscriptionCommandHandler : ICommandHandler<CreateSubscriptionCommand, Guid>
+    internal class CreateSubscriptionCommandHandler : ICommandHandler<CreateSubscriptionCommand, Guid>
     {
         private readonly IAggregateStore _aggregateStore;
 
-        public CreateSubscriptionCommandHandler(
+        internal CreateSubscriptionCommandHandler(
             IAggregateStore aggregateStore)
         {
             _aggregateStore = aggregateStore;

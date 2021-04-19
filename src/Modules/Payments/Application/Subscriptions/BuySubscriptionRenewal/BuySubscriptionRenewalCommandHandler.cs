@@ -16,7 +16,7 @@ using Dapper;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuySubscriptionRenewal
 {
-    public class BuySubscriptionRenewalCommandHandler : ICommandHandler<BuySubscriptionRenewalCommand, Guid>
+    internal class BuySubscriptionRenewalCommandHandler : ICommandHandler<BuySubscriptionRenewalCommand, Guid>
     {
         private readonly IAggregateStore _aggregateStore;
 
@@ -24,7 +24,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuyS
 
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
-        public BuySubscriptionRenewalCommandHandler(
+        internal BuySubscriptionRenewalCommandHandler(
             IAggregateStore aggregateStore,
             IPayerContext payerContext,
             ISqlConnectionFactory sqlConnectionFactory)

@@ -6,7 +6,6 @@ using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands
 using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Queries;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Payments.ArchTests.SeedWork;
-using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration;
 using MediatR;
 using NetArchTest.Rules;
 using Newtonsoft.Json;
@@ -45,6 +44,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.ArchTests.Application
             var result = Types.InAssembly(ApplicationAssembly)
                 .That()
                 .ImplementInterface(typeof(ICommandHandler<>))
+                    .Or()
+                .ImplementInterface(typeof(ICommandHandler<,>))
                 .And()
                 .DoNotHaveNameMatching(".*Decorator.*").Should()
                 .HaveNameEndingWith("CommandHandler")
@@ -74,6 +75,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.ArchTests.Application
                     .ImplementInterface(typeof(IQueryHandler<,>))
                         .Or()
                     .ImplementInterface(typeof(ICommandHandler<>))
+                        .Or()
+                    .ImplementInterface(typeof(ICommandHandler<,>))
                 .Should().NotBePublic().GetResult().FailingTypes;
 
             AssertFailingTypes(types);
@@ -124,10 +127,13 @@ namespace CompanyName.MyMeetings.Modules.Payments.ArchTests.Application
                 bool isCommandHandler = type.GetInterfaces().Any(x =>
                     x.IsGenericType &&
                     x.GetGenericTypeDefinition() == typeof(ICommandHandler<>));
+                bool isCommandWithResultHandler = type.GetInterfaces().Any(x =>
+                    x.IsGenericType &&
+                    x.GetGenericTypeDefinition() == typeof(ICommandHandler<,>));
                 bool isQueryHandler = type.GetInterfaces().Any(x =>
                     x.IsGenericType &&
                     x.GetGenericTypeDefinition() == typeof(IQueryHandler<,>));
-                if (!isCommandHandler && !isQueryHandler)
+                if (!isCommandHandler && !isCommandWithResultHandler && !isQueryHandler)
                 {
                     failingTypes.Add(type);
                 }

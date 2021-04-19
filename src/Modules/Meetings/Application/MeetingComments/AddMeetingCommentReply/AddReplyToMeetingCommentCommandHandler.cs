@@ -13,7 +13,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddCommentReply
 {
-    public class AddReplyToMeetingCommentCommandHandler : ICommandHandler<AddReplyToMeetingCommentCommand, Guid>
+    internal class AddReplyToMeetingCommentCommandHandler : ICommandHandler<AddReplyToMeetingCommentCommand, Guid>
     {
         private readonly IMeetingCommentRepository _meetingCommentRepository;
         private readonly IMeetingRepository _meetingRepository;
@@ -21,7 +21,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ad
         private readonly IMeetingCommentingConfigurationRepository _meetingCommentingConfigurationRepository;
         private readonly IMemberContext _memberContext;
 
-        public AddReplyToMeetingCommentCommandHandler(IMeetingCommentRepository meetingCommentRepository, IMeetingRepository meetingRepository, IMeetingGroupRepository meetingGroupRepository, IMeetingCommentingConfigurationRepository meetingCommentingConfigurationRepository, IMemberContext memberContext)
+        internal AddReplyToMeetingCommentCommandHandler(IMeetingCommentRepository meetingCommentRepository, IMeetingRepository meetingRepository, IMeetingGroupRepository meetingGroupRepository, IMeetingCommentingConfigurationRepository meetingCommentingConfigurationRepository, IMemberContext memberContext)
         {
             _meetingCommentRepository = meetingCommentRepository;
             _meetingRepository = meetingRepository;
