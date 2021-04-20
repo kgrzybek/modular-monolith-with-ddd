@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
+using CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems.PricingStrategies;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments.Rules;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions;
@@ -11,14 +11,21 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems
     {
         private readonly List<PriceListItemData> _items;
 
-        private PriceList(List<PriceListItemData> items)
+        private readonly IPricingStrategy _pricingStrategy;
+
+        private PriceList(
+            List<PriceListItemData> items,
+            IPricingStrategy pricingStrategy)
         {
             _items = items;
+            _pricingStrategy = pricingStrategy;
         }
 
-        public static PriceList CreateFromItems(List<PriceListItemData> items)
+        public static PriceList Create(
+            List<PriceListItemData> items,
+            IPricingStrategy pricingStrategy)
         {
-            return new PriceList(items);
+            return new PriceList(items, pricingStrategy);
         }
 
         public MoneyValue GetPrice(
@@ -28,11 +35,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems
         {
             CheckRule(new PriceForSubscriptionMustBeDefinedRule(countryCode, subscriptionPeriod, _items, category));
 
-            var priceListItem = _items.Single(x =>
-                x.CountryCode == countryCode && x.SubscriptionPeriod == subscriptionPeriod &&
-                x.Category == category);
-
-            return priceListItem.Value;
+            return _pricingStrategy.GetPrice(countryCode, subscriptionPeriod, category);
         }
     }
 }

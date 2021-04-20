@@ -31,7 +31,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuyS
 
         public async Task<Guid> Handle(BuySubscriptionCommand command, CancellationToken cancellationToken)
         {
-            var priceList = await PriceListProvider.GetPriceList(_sqlConnectionFactory.GetOpenConnection());
+            var priceList = await PriceListFactory.CreatePriceList(_sqlConnectionFactory.GetOpenConnection());
 
             var subscription = SubscriptionPayment.Buy(
                 _payerContext.PayerId,
