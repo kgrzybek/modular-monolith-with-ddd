@@ -1,0 +1,57 @@
+@startuml
+package "Generic" #DDDDDD {
+class Client {
+ - context
+}
+
+class Context {
+ + setStrategy(strategy)
+}
+
+interface Strategy {
+ + execute()
+}
+
+class ConcreteStrategyA {
+ + execute()
+}
+
+class ConcreteStrategyB {
+ + execute()
+}
+}
+
+package "MeetingComment" #DDDDDD {
+class AddMeetingCommentLikeCommandHandler {
+ - meetingComment
+}
+
+class MeetingComment {
+ + CheckRule(businessRule)
+}
+
+interface IBusinessRule {
+ + IsBroken()
+}
+
+class CommentCanBeLikedOnlyByMeetingGroupMemberRule {
+ + IsBroken()
+}
+
+class CommentCannotBeLikedByTheSameMemberMoreThanOnceRule {
+ + IsBroken()
+}
+}
+
+hide empty members
+
+Client -down-|> Context
+Context *-- Strategy
+Strategy <|-- ConcreteStrategyA
+Strategy <|-- ConcreteStrategyB
+
+AddMeetingCommentLikeCommandHandler -down-|> MeetingComment
+MeetingComment *-- IBusinessRule
+IBusinessRule <|-- CommentCanBeLikedOnlyByMeetingGroupMemberRule
+IBusinessRule <|-- CommentCannotBeLikedByTheSameMemberMoreThanOnceRule
+@enduml
