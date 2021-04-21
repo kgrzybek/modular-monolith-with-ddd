@@ -11,7 +11,7 @@ using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuySubscription
 {
-    public class BuySubscriptionCommandHandler : ICommandHandler<BuySubscriptionCommand, Guid>
+    internal class BuySubscriptionCommandHandler : ICommandHandler<BuySubscriptionCommand, Guid>
     {
         private readonly IAggregateStore _aggregateStore;
 
@@ -19,7 +19,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuyS
 
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
-        public BuySubscriptionCommandHandler(
+        internal BuySubscriptionCommandHandler(
             IAggregateStore aggregateStore,
             IPayerContext payerContext,
             ISqlConnectionFactory sqlConnectionFactory)
@@ -31,7 +31,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuyS
 
         public async Task<Guid> Handle(BuySubscriptionCommand command, CancellationToken cancellationToken)
         {
-            var priceList = await PriceListProvider.GetPriceList(_sqlConnectionFactory.GetOpenConnection());
+            var priceList = await PriceListFactory.CreatePriceList(_sqlConnectionFactory.GetOpenConnection());
 
             var subscription = SubscriptionPayment.Buy(
                 _payerContext.PayerId,

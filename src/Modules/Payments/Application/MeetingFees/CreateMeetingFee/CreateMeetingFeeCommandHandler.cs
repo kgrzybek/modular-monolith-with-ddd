@@ -8,11 +8,11 @@ using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.CreateMeetingFee
 {
-    public class CreateMeetingFeeCommandHandler : ICommandHandler<CreateMeetingFeeCommand, Guid>
+    internal class CreateMeetingFeeCommandHandler : ICommandHandler<CreateMeetingFeeCommand, Guid>
     {
         private readonly IAggregateStore _aggregateStore;
 
-        public CreateMeetingFeeCommandHandler(
+        internal CreateMeetingFeeCommandHandler(
             IAggregateStore aggregateStore)
         {
             _aggregateStore = aggregateStore;

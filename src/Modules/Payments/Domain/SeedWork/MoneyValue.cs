@@ -37,5 +37,12 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork
         public static bool operator >=(MoneyValue left, decimal right) => left.Value >= right;
 
         public static bool operator <=(MoneyValue left, decimal right) => left.Value <= right;
+
+        public static MoneyValue operator -(MoneyValue left, MoneyValue right)
+        {
+            CheckRule(new MoneyMustHaveTheSameCurrencyRule(left, right));
+
+            return Of(left.Value - right.Value, left.Currency);
+        }
     }
 }

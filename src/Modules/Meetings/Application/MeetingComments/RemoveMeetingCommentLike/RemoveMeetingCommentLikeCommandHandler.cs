@@ -10,12 +10,12 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.RemoveMeetingCommentLike
 {
-    public class RemoveMeetingCommentLikeCommandHandler : ICommandHandler<RemoveMeetingCommentLikeCommand, Unit>
+    internal class RemoveMeetingCommentLikeCommandHandler : ICommandHandler<RemoveMeetingCommentLikeCommand, Unit>
     {
         private readonly IMeetingMemberCommentLikesRepository _meetingMemberCommentLikesRepository;
         private readonly IMemberContext _memberContext;
 
-        public RemoveMeetingCommentLikeCommandHandler(IMeetingMemberCommentLikesRepository meetingMemberCommentLikesRepository, IMemberContext memberContext)
+        internal RemoveMeetingCommentLikeCommandHandler(IMeetingMemberCommentLikesRepository meetingMemberCommentLikesRepository, IMemberContext memberContext)
         {
             _meetingMemberCommentLikesRepository = meetingMemberCommentLikesRepository;
             _memberContext = memberContext;

@@ -11,13 +11,13 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.EditMeetingComment
 {
-    public class EditMeetingCommentCommandHandler : ICommandHandler<EditMeetingCommentCommand, Unit>
+    internal class EditMeetingCommentCommandHandler : ICommandHandler<EditMeetingCommentCommand, Unit>
     {
         private readonly IMeetingCommentRepository _meetingCommentRepository;
         private readonly IMeetingCommentingConfigurationRepository _meetingCommentingConfigurationRepository;
         private readonly IMemberContext _memberContext;
 
-        public EditMeetingCommentCommandHandler(
+        internal EditMeetingCommentCommandHandler(
             IMeetingCommentRepository meetingCommentRepository,
             IMeetingCommentingConfigurationRepository meetingCommentingConfigurationRepository,
             IMemberContext memberContext)
