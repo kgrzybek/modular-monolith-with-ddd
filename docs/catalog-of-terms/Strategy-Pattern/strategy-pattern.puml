@@ -1,0 +1,76 @@
+@startuml
+package "Generic" #DDDDDD {
+class Client {
+ - context
+}
+
+class Context {
+ - strategy
+ + setStrategy(strategy)
+ + do()
+}
+
+interface Strategy {
+ + execute()
+}
+
+class ConcreteStrategyA {
+ + execute()
+}
+
+class ConcreteStrategyB {
+ + execute()
+}
+}
+
+package "BuySubscription" #DDDDDD {
+class BuySubscriptionCommandHandler {
+ - connection
+ - PriceListFactory.CreatePriceList(connection)
+}
+
+class PriceList {
+ - _pricingStrategy
+ + Create(items, pricingStrategy)
+ + GetPrice(countryCode, subscriptionPeriod, category)
+}
+
+interface IPricingStrategy {
+ + GetPrice(countryCode, subscriptionPeriod, category)
+}
+
+class DirectValueFromPriceListPricingStrategy {
+ + GetPrice(countryCode, subscriptionPeriod, category)
+}
+
+class DirectValuePricingStrategy {
+ + GetPrice(countryCode, subscriptionPeriod, category)
+}
+
+class DiscountedValueFromPriceListPricingStrategy {
+ + GetPrice(countryCode, subscriptionPeriod, category)
+}
+}
+
+hide empty members
+
+Client -down-|> Context
+Context *-- Strategy
+Strategy <|-- ConcreteStrategyA
+Strategy <|-- ConcreteStrategyB
+
+note left of Context::do 
+ Calls <b>strategy.execute()</b>
+end note
+
+
+BuySubscriptionCommandHandler -down-> PriceList
+PriceList *-- IPricingStrategy
+IPricingStrategy <|-- DirectValueFromPriceListPricingStrategy
+IPricingStrategy <|-- DirectValuePricingStrategy
+IPricingStrategy <|-- DiscountedValueFromPriceListPricingStrategy
+
+note left of PriceList::GetPrice 
+ Calls <b>_pricingStrategy.GetPrice(...)</b>
+end note
+@enduml

@@ -71,7 +71,7 @@
 - Read Model
 - Repositories (DDD)
 - Single Responsibility Principle
-- Strategy Pattern
+- [Strategy Pattern](Strategy-Pattern/)
 - Stub
 - Synchronous Communication
 - Transaction (Database)
