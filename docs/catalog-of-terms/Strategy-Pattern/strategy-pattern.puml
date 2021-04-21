@@ -5,7 +5,9 @@ class Client {
 }
 
 class Context {
+ - strategy
  + setStrategy(strategy)
+ + do()
 }
 
 interface Strategy {
@@ -21,25 +23,32 @@ class ConcreteStrategyB {
 }
 }
 
-package "MeetingComment" #DDDDDD {
-class AddMeetingCommentLikeCommandHandler {
- - meetingComment
+package "BuySubscription" #DDDDDD {
+class BuySubscriptionCommandHandler {
+ - connection
+ - PriceListFactory.CreatePriceList(connection)
 }
 
-class MeetingComment {
- + CheckRule(businessRule)
+class PriceList {
+ - _pricingStrategy
+ + Create(items, pricingStrategy)
+ + GetPrice(countryCode, subscriptionPeriod, category)
 }
 
-interface IBusinessRule {
- + IsBroken()
+interface IPricingStrategy {
+ + GetPrice(countryCode, subscriptionPeriod, category)
 }
 
-class CommentCanBeLikedOnlyByMeetingGroupMemberRule {
- + IsBroken()
+class DirectValueFromPriceListPricingStrategy {
+ + GetPrice(countryCode, subscriptionPeriod, category)
 }
 
-class CommentCannotBeLikedByTheSameMemberMoreThanOnceRule {
- + IsBroken()
+class DirectValuePricingStrategy {
+ + GetPrice(countryCode, subscriptionPeriod, category)
+}
+
+class DiscountedValueFromPriceListPricingStrategy {
+ + GetPrice(countryCode, subscriptionPeriod, category)
 }
 }
 
@@ -50,8 +59,18 @@ Context *-- Strategy
 Strategy <|-- ConcreteStrategyA
 Strategy <|-- ConcreteStrategyB
 
-AddMeetingCommentLikeCommandHandler -down-|> MeetingComment
-MeetingComment *-- IBusinessRule
-IBusinessRule <|-- CommentCanBeLikedOnlyByMeetingGroupMemberRule
-IBusinessRule <|-- CommentCannotBeLikedByTheSameMemberMoreThanOnceRule
+note left of Context::do 
+ Calls <b>strategy.execute()</b>
+end note
+
+
+BuySubscriptionCommandHandler -down-> PriceList
+PriceList *-- IPricingStrategy
+IPricingStrategy <|-- DirectValueFromPriceListPricingStrategy
+IPricingStrategy <|-- DirectValuePricingStrategy
+IPricingStrategy <|-- DiscountedValueFromPriceListPricingStrategy
+
+note left of PriceList::GetPrice 
+ Calls <b>_pricingStrategy.GetPrice(...)</b>
+end note
 @enduml

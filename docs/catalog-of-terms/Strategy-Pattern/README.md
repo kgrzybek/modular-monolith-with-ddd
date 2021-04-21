@@ -10,76 +10,188 @@ Source: [Wikipedia](https://en.wikipedia.org/wiki/Strategy_pattern)
 
 ### Model
 
-![](http://www.plantuml.com/plantuml/png/ZLBjQi904Fn_Jt7OFzgIDoX5au8LAaBr1SxBr8JaDdAteORQTw_n4jkh1HC8x6Pc9xCVKyVAScrAiLUwK3l8qHm4c-kHl7i-F_9Jw58v9vCo1_4fbP7K5J4EBBv43_eFBVeW7NZDLZ5spTXrmQJbviImxqf3zhWlm06wPemdWQ2sOFJ4sM1cVCLikPV-bW3dj4igOq1ytUOiJKFAQrwW3HMbBwUtXFKpC07hnqzOxSqa6NJnLfSORskN4vnhapypMSI_C5-tSB6j2b3GhnTE5CLelQKhAfkuwNuxjrMzNy9iOOVAKCMTKjniCgoLWHTOLXQRJD6ADFuNQ-MoF8M4sNCZpRdC2T7TIfHM7nGTd_hp4FsPt4VHvGH47yZ7OnHTB_u67WinP6KNAo5J1Aat5kn119ctC7W3DmM6prvCGMbjocy0)
+![](http://www.plantuml.com/plantuml/png/jLDDQnin4BtFhnZIYzFQsxin9lM6f8KU38PUYooDNL5z66cMPd7wtwlrHifs3Oqfs63GpBpvUBFpxYABm8qrS13ofzWJtZoIew3b3RwxF_tm2DA86B4scXmd4sSelMDwOlWDETWx-cZa89ZsBU07ZCIR5tEI_RTTGFd9RPUlKsBO2KcOSNZiulH4ic7gGQM93CIKWPykHgxEaGbREA-QTjDiempwmDgxS-uZGEsj5KvzJdz3eQp4aUoYdRKEMj9N7Vb1IFQXhUf0Wgcu9w_mmTWbt9VyVaYsTllDO9zzdObcid6A1J1Ox2FngKvgqJWERUqLJJ4EnbzJq5vDKNP9QRZHT_Yo_hig7l-tR25shmD9_YPCGm_1syBpgfskKJoUqaXTbKhgzqChGh87Rj6ItLA802y2d2d_oysUbrbpaBNtVZOh6e8on-8vkS-KyqPy1U0y4nhQCVfTRZMVAu-0jJ0cucAxp8AkYh0M7xTB8AUmImU0Vmkdfx9ylNl8hvxD-19Xw2ZJltLTbsTVc73v5OpMM63pURwCuJh7Ug_A-LHLDLhjNNerrlm1)
 
 ### Code
 
 ```csharp
-// Note: code has been abbreviated for simplicitiy's sake.
 
-internal class AddMeetingCommentLikeCommandHandler : ICommandHandler<AddMeetingCommentLikeCommand>
-{
-	...
-	public async Task<Unit> Handle(AddMeetingCommentLikeCommand request, CancellationToken cancellationToken)
+internal class BuySubscriptionCommandHandler : ICommandHandler<BuySubscriptionCommand, Guid>
     {
-        var meetingComment = await _meetingCommentRepository.GetByIdAsync(new MeetingCommentId(request.MeetingCommentId));
-        var like = meetingComment.Like(_memberContext.MemberId, likerMeetingGroupMemberData, meetingMemeberCommentLikesCount);
-    }
-    ...
-}
+        private readonly IAggregateStore _aggregateStore;
 
-public abstract class Entity
-{
-	...
-	protected void CheckRule(IBusinessRule rule)
-    {
-        if (rule.IsBroken())
+        private readonly IPayerContext _payerContext;
+
+        private readonly ISqlConnectionFactory _sqlConnectionFactory;
+
+        internal BuySubscriptionCommandHandler(
+            IAggregateStore aggregateStore,
+            IPayerContext payerContext,
+            ISqlConnectionFactory sqlConnectionFactory)
         {
-            throw new BusinessRuleValidationException(rule);
+            _aggregateStore = aggregateStore;
+            _payerContext = payerContext;
+            _sqlConnectionFactory = sqlConnectionFactory;
+        }
+
+        public async Task<Guid> Handle(BuySubscriptionCommand command, CancellationToken cancellationToken)
+        {
+            var priceList = await PriceListFactory.CreatePriceList(_sqlConnectionFactory.GetOpenConnection());
+
+            var subscription = SubscriptionPayment.Buy(
+                _payerContext.PayerId,
+                SubscriptionPeriod.Of(command.SubscriptionTypeCode),
+                command.CountryCode,
+                MoneyValue.Of(command.Value, command.Currency),
+                priceList);
+
+            _aggregateStore.AppendChanges(subscription);
+
+            return subscription.Id;
         }
     }
-	...
-}
 
-public class MeetingComment : Entity, IAggregateRoot
-{
-	...
-	 public MeetingMemberCommentLike Like(MemberId likerId,
-            MeetingGroupMemberData likerMeetingGroupMember,
-            int meetingMemberCommentLikesCount)
-     {
-         this.CheckRule(new CommentCanBeLikedOnlyByMeetingGroupMemberRule(likerMeetingGroupMember));
-         this.CheckRule(new CommentCannotBeLikedByTheSameMemberMoreThanOnceRule(meetingMemberCommentLikesCount));
-     }
-     ...
-}
+public static class PriceListFactory
+    {
+        public static async Task<PriceList> CreatePriceList(IDbConnection connection)
+        {
+            var priceListItemList = await GetPriceListItems(connection);
 
-public class CommentCanBeLikedOnlyByMeetingGroupMemberRule : IBusinessRule
-{
-	...
-    public bool IsBroken() => _likerMeetingGroupMember == null;
-    ...
-}
+            var priceListItems = priceListItemList
+                .Select(x =>
+                    new PriceListItemData(
+                        x.CountryCode,
+                        SubscriptionPeriod.Of(x.SubscriptionPeriodCode),
+                        MoneyValue.Of(x.MoneyValue, x.MoneyCurrency),
+                        PriceListItemCategory.Of(x.CategoryCode)))
+                .ToList();
 
-public class CommentCannotBeLikedByTheSameMemberMoreThanOnceRule : IBusinessRule
-{
-	...
-    public bool IsBroken() => _memberCommentLikesCount > 0;
-	...
-}
+            // This is place for selecting pricing strategy based on provided data and the system state.
+            IPricingStrategy pricingStrategy = new DirectValueFromPriceListPricingStrategy(priceListItems);
 
-public interface IBusinessRule
-{
-	...
-    bool IsBroken();
-    ...
-}
+            return PriceList.Create(
+                priceListItems,
+                pricingStrategy);
+        }
+
+        public static async Task<List<PriceListItemDto>> GetPriceListItems(IDbConnection connection)
+        {
+            var priceListItems = await connection.QueryAsync<PriceListItemDto>("SELECT " +
+$"[PriceListItem].[CountryCode] AS [{nameof(PriceListItemDto.CountryCode)}], " +
+$"[PriceListItem].[SubscriptionPeriodCode] AS [{nameof(PriceListItemDto.SubscriptionPeriodCode)}], " +
+$"[PriceListItem].[MoneyValue] AS [{nameof(PriceListItemDto.MoneyValue)}], " +
+$"[PriceListItem].[MoneyCurrency] AS [{nameof(PriceListItemDto.MoneyCurrency)}], " +
+$"[PriceListItem].[CategoryCode] AS [{nameof(PriceListItemDto.CategoryCode)}] " +
+"FROM [payments].[PriceListItems] AS [PriceListItem] " +
+"WHERE [PriceListItem].[IsActive] = 1");
+
+            var priceListItemList = priceListItems.AsList();
+            return priceListItemList;
+        }
+    }
+
+public class PriceList : ValueObject
+    {
+        private readonly List<PriceListItemData> _items;
+
+        private readonly IPricingStrategy _pricingStrategy;
+
+        private PriceList(
+            List<PriceListItemData> items,
+            IPricingStrategy pricingStrategy)
+        {
+            _items = items;
+            _pricingStrategy = pricingStrategy;
+        }
+
+        public static PriceList Create(
+            List<PriceListItemData> items,
+            IPricingStrategy pricingStrategy)
+        {
+            return new PriceList(items, pricingStrategy);
+        }
+
+        public MoneyValue GetPrice(
+            string countryCode,
+            SubscriptionPeriod subscriptionPeriod,
+            PriceListItemCategory category)
+        {
+            CheckRule(new PriceForSubscriptionMustBeDefinedRule(countryCode, subscriptionPeriod, _items, category));
+
+            return _pricingStrategy.GetPrice(countryCode, subscriptionPeriod, category);
+        }
+    }
+
+public interface IPricingStrategy
+    {
+        MoneyValue GetPrice(
+            string countryCode,
+            SubscriptionPeriod subscriptionPeriod,
+            PriceListItemCategory category);
+    }
+
+public class DiscountedValueFromPriceListPricingStrategy : IPricingStrategy
+    {
+        private readonly List<PriceListItemData> _items;
+
+        private readonly MoneyValue _discountValue;
+
+        public DiscountedValueFromPriceListPricingStrategy(
+            List<PriceListItemData> items,
+            MoneyValue discountValue)
+        {
+            _items = items;
+            _discountValue = discountValue;
+        }
+
+        public MoneyValue GetPrice(string countryCode, SubscriptionPeriod subscriptionPeriod, PriceListItemCategory category)
+        {
+            var priceListItem = _items.Single(x =>
+                x.CountryCode == countryCode && x.SubscriptionPeriod == subscriptionPeriod &&
+                x.Category == category);
+
+            return priceListItem.Value - _discountValue;
+        }
+    }
+
+ public class DirectValuePricingStrategy : IPricingStrategy
+    {
+        private readonly MoneyValue _directValue;
+
+        public DirectValuePricingStrategy(MoneyValue directValue)
+        {
+            _directValue = directValue;
+        }
+
+        public MoneyValue GetPrice(string countryCode, SubscriptionPeriod subscriptionPeriod, PriceListItemCategory category)
+        {
+            return _directValue;
+        }
+    }
+
+public class DirectValueFromPriceListPricingStrategy : IPricingStrategy
+    {
+        private readonly List<PriceListItemData> _items;
+
+        public DirectValueFromPriceListPricingStrategy(List<PriceListItemData> items)
+        {
+            _items = items;
+        }
+
+        public MoneyValue GetPrice(
+            string countryCode,
+            SubscriptionPeriod subscriptionPeriod,
+            PriceListItemCategory category)
+        {
+            var priceListItem = _items.Single(x =>
+                x.CountryCode == countryCode && x.SubscriptionPeriod == subscriptionPeriod &&
+                x.Category == category);
+
+            return priceListItem.Value;
+        }
+    }
 ```
 ### Description
-
-Maybe not obvious at first glance, but any class that extends `Entity` and checks for violation of `BusinessRules` is an example of the strategy pattern.
-
----
 
 Let's introduce the concepts of the strategy pattern, so we can understand how the above example fits this pattern.
 
@@ -90,14 +202,16 @@ Let's introduce the concepts of the strategy pattern, so we can understand how t
 
 ---
 
-If we have a close look at our example of adding a 'like' to a `MeetingComment`, we can notice the elements of the strategy pattern.
+If we have a close look at our example of buying a `Subscription`, we can notice the elements of the strategy pattern.
 
-* `AddMeetingCommentLikeCommandHandler` is the calling code, so it represents the **Client**. 
-* `MeetingComment` is the object which maintains a reference to a sets of business rules, so it represents the **Context**. Since `MeetingComment` extends `Entity` it has access to `CheckRule`. This method is used to *set the strategy*, which in this case is any kind of business rule.
-* `IBusinessRule` represents the **Strategy interface**.
-* `CommentCanBeLikedOnlyByMeetingGroupMemberRule` & `CommentCannotBeLikedByTheSameMemberMoreThanOnceRule` are the implementations of `IBusinessRule` so they represent the **Concrete strategies**.
+* `BuySubscriptionCommandHandler` is the calling code! Also the handler, indirectly via the `PriceListFactory` sets the current *strategy* of `PriceList`, so their combined interaction represents the **Client**. 
+* `PriceList` is the object which maintains a reference to a pricing strategy, so it represents the **Context**. 
+* `IPricingStrategy` represents the **Strategy interface**.
+* `DiscountedValueFromPriceListPricingStrategy`, `DirectValueFromPriceListPricingStrategy` and `DirectValuePricingStrategy` are the implementations of `IPricingStrategy` so they represent the **Concrete strategies**.
 
 ---
+
+ The interaction of the `BuySubscriptionCommandHandler` and `PriceListFactory` is a good example of leveraging multiple design patterns. Check out [Factory Pattern](../Factory-Pattern/) to learn more.
 
 Strategy should not be confused with [Decorator](../Decorator-Pattern/)!!!
 *A strategy lets you change the guts of an object, while decorator lets you change the skin.*
