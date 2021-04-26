@@ -33,11 +33,11 @@
 - Don't Repeat Yourself Principle
 - Encapsulation
 - [Entity (DDD)](Entity-DDD/)
-- Event
+- [Event](Event/)
 - Eventual Consistency
-- Event Driven Architecture
-- Event Sourcing
-- Event Storming
+- [Event Driven Architecture](Event-Driven-Architecture/)
+- [Event Sourcing](Event-Sourcing/)
+- [Event Storming](Event-Storming/)
 - Events Stream
 - External System (Event Storming)
 - Facade Pattern
@@ -54,6 +54,7 @@
 - Immediate Consistency
 - Immutability
 - Infrastructure Layer
+- [Integration Event](Integration-Event/)
 - Interface
 - Interface Segregation Principle
 - Inversion Of Control
