@@ -1,0 +1,15 @@
+@startuml Command
+
+class CancelMeetingCommand {
+    MeetingGroupId: Id
+}
+
+note top of CancelMeetingCommand : Command as part of Application Layer
+
+class Meeting {
+    void Cancel(MemberId cancelMemberId)
+}
+
+note top of Meeting : Command defined in Domain Model (on an Aggregate)
+
+@enduml

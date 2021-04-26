@@ -14,7 +14,7 @@
 - Bounded Context (DDD)
 - C4 Model
 - Chain Of Command Pattern
-- Command
+- [Command](Command/)
 - Composition Root
 - Continuous Integration
 - Contract
