@@ -141,5 +141,25 @@ namespace CompanyName.MyMeetings.Modules.Payments.ArchTests.Application
 
             AssertFailingTypes(failingTypes);
         }
+
+        [Test]
+        public void Command_With_Result_Should_Not_Return_Unit()
+        {
+            IEnumerable<Type> types = Types.InAssembly(ApplicationAssembly)
+                .That().ImplementInterface(typeof(ICommandHandler<,>))
+                .GetTypes().ToList();
+
+            var failingTypes = new List<Type>();
+            foreach (Type type in types)
+            {
+                var interfaceType = type.GetInterfaces().FirstOrDefault(i => i.Name.StartsWith("ICommandHandler"));
+                if (interfaceType?.GenericTypeArguments[1] == typeof(Unit))
+                {
+                    failingTypes.Add(type);
+                }
+            }
+
+            AssertFailingTypes(failingTypes);
+        }
     }
 }
