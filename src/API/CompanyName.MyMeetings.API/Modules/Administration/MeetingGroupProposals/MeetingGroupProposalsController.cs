@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.API.Configuration.Authorization;
 using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.AcceptMeetingGroupProposal;
+using CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.GetMeetingGroupProposal;
 using CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.GetMeetingGroupProposals;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyName.MyMeetings.API.Modules.Administration.MeetingGroupProposals
@@ -21,6 +24,7 @@ namespace CompanyName.MyMeetings.API.Modules.Administration.MeetingGroupProposal
 
         [HttpGet("")]
         [HasPermission(AdministrationPermissions.AcceptMeetingGroupProposal)]
+        [ProducesResponseType(typeof(List<MeetingGroupProposalDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMeetingGroupProposals()
         {
             var meetingGroupProposals =
@@ -31,6 +35,7 @@ namespace CompanyName.MyMeetings.API.Modules.Administration.MeetingGroupProposal
 
         [HttpPatch("{meetingGroupProposalId}/accept")]
         [HasPermission(AdministrationPermissions.AcceptMeetingGroupProposal)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> AcceptMeetingGroupProposal(Guid meetingGroupProposalId)
         {
             await _administrationModule.ExecuteCommandAsync(

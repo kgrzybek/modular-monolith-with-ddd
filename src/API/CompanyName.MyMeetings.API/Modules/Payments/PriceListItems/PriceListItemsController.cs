@@ -7,6 +7,7 @@ using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.Activat
 using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.CreatePriceListItem;
 using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.DeactivatePriceListItem;
 using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.GetPriceListItem;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyName.MyMeetings.API.Modules.Payments.PriceListItems
@@ -24,6 +25,7 @@ namespace CompanyName.MyMeetings.API.Modules.Payments.PriceListItems
 
         [HttpGet]
         [HasPermission(PaymentsPermissions.GetPriceListItem)]
+        [ProducesResponseType(typeof(PriceListItemMoneyValueDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetPriceListItem([FromQuery] GetPriceListItemRequest request)
         {
             var priceListItem = await _paymentsModule.ExecuteQueryAsync(new GetPriceListItemQuery(
@@ -36,6 +38,7 @@ namespace CompanyName.MyMeetings.API.Modules.Payments.PriceListItems
 
         [HttpPost]
         [HasPermission(PaymentsPermissions.CreatePriceListItem)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> CreatePriceListItem([FromBody] CreatePriceListItemRequest request)
         {
             await _paymentsModule.ExecuteCommandAsync(new CreatePriceListItemCommand(
@@ -50,6 +53,7 @@ namespace CompanyName.MyMeetings.API.Modules.Payments.PriceListItems
 
         [HttpPatch("{priceListItemId}/activate")]
         [HasPermission(PaymentsPermissions.ActivatePriceListItem)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> ActivatePriceListItem([FromRoute] Guid priceListItemId)
         {
             await _paymentsModule.ExecuteCommandAsync(new ActivatePriceListItemCommand(priceListItemId));
@@ -59,6 +63,7 @@ namespace CompanyName.MyMeetings.API.Modules.Payments.PriceListItems
 
         [HttpPatch("{priceListItemId}/deactivate")]
         [HasPermission(PaymentsPermissions.DeactivatePriceListItem)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> DeactivatePriceListItem([FromRoute] Guid priceListItemId)
         {
             await _paymentsModule.ExecuteCommandAsync(new DeactivatePriceListItemCommand(priceListItemId));
@@ -68,6 +73,7 @@ namespace CompanyName.MyMeetings.API.Modules.Payments.PriceListItems
 
         [HttpPut]
         [HasPermission(PaymentsPermissions.ChangePriceListItemAttributes)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> ChangePriceListItemAttributes(
             [FromBody] ChangePriceListItemAttributesRequest request)
         {

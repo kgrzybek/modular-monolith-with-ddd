@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.API.Configuration.Authorization;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
@@ -18,6 +17,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SetMeetingAtt
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SetMeetingHostRole;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SignOffMemberFromWaitlist;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SignUpMemberToWaitlist;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
@@ -35,7 +35,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
 
         [HttpGet("")]
         [HasPermission(MeetingsPermissions.GetAuthenticatedMemberMeetings)]
-        [ProducesResponseType(typeof(MeetingDetailsDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(List<MemberMeetingDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAuthenticatedMemberMeetings()
         {
             var meetings = await _meetingsModule.ExecuteQueryAsync(new GetAuthenticatedMemberMeetingsQuery());
@@ -45,7 +45,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
 
         [HttpGet("{meetingId}")]
         [HasPermission(MeetingsPermissions.GetMeetingDetails)]
-        [ProducesResponseType(typeof(MeetingDetailsDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(MeetingDetailsDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMeetingDetails(Guid meetingId)
         {
             var meetingDetails = await _meetingsModule.ExecuteQueryAsync(new GetMeetingDetailsQuery(meetingId));
@@ -55,6 +55,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
 
         [HttpPost("")]
         [HasPermission(MeetingsPermissions.CreateNewMeeting)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateNewMeeting([FromBody] CreateMeetingRequest request)
         {
             await _meetingsModule.ExecuteCommandAsync(new CreateMeetingCommand(
@@ -80,6 +81,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
 
         [HttpPut("{meetingId}")]
         [HasPermission(MeetingsPermissions.EditMeeting)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> EditMeeting(
             [FromRoute] Guid meetingId,
             [FromBody] ChangeMeetingMainAttributesRequest mainAttributesRequest)
@@ -106,7 +108,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
 
         [HttpGet("{meetingId}/attendees")]
         [HasPermission(MeetingsPermissions.GetMeetingAttendees)]
-        [ProducesResponseType(typeof(List<MeetingAttendeeDto>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(List<MeetingAttendeeDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMeetingAttendees(Guid meetingId)
         {
             var meetingAttendees = await _meetingsModule.ExecuteQueryAsync(new GetMeetingAttendeesQuery(meetingId));
@@ -116,6 +118,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
 
         [HttpPost("{meetingId}/attendees")]
         [HasPermission(MeetingsPermissions.AddMeetingAttendee)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> AddMeetingAttendee(
             [FromRoute] Guid meetingId,
             [FromBody] AddMeetingAttendeeRequest attendeeRequest)
@@ -129,6 +132,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
 
         [HttpDelete("{meetingId}/attendees/{attendeeId}")]
         [HasPermission(MeetingsPermissions.RemoveMeetingAttendee)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> RemoveMeetingAttendee(
             Guid meetingId,
             Guid attendeeId,
@@ -142,6 +146,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
 
         [HttpPost("{meetingId}/notAttendees")]
         [HasPermission(MeetingsPermissions.AddNotAttendee)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> AddNotAttendee(Guid meetingId)
         {
             await _meetingsModule.ExecuteCommandAsync(new AddMeetingNotAttendeeCommand(meetingId));
@@ -151,6 +156,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
 
         [HttpDelete("{meetingId}/notAttendees")]
         [HasPermission(MeetingsPermissions.ChangeNotAttendeeDecision)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> ChangeNotAttendeeDecision(Guid meetingId)
         {
             await _meetingsModule.ExecuteCommandAsync(new ChangeNotAttendeeDecisionCommand(meetingId));
@@ -160,6 +166,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
 
         [HttpPost("{meetingId}/waitlistMembers")]
         [HasPermission(MeetingsPermissions.SignUpMemberToWaitlist)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> SignUpMemberToWaitlist(Guid meetingId)
         {
             await _meetingsModule.ExecuteCommandAsync(new SignUpMemberToWaitlistCommand(meetingId));
@@ -169,6 +176,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
 
         [HttpDelete("{meetingId}/waitlistMembers")]
         [HasPermission(MeetingsPermissions.SignOffMemberFromWaitlist)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> SignOffMemberFromWaitlist(Guid meetingId)
         {
             await _meetingsModule.ExecuteCommandAsync(new SignOffMemberFromWaitlistCommand(meetingId));
@@ -178,6 +186,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
 
         [HttpPost("{meetingId}/hosts")]
         [HasPermission(MeetingsPermissions.SetMeetingHostRole)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> SetMeetingHostRole(Guid meetingId, SetMeetingHostRequest request)
         {
             await _meetingsModule.ExecuteCommandAsync(new SetMeetingHostRoleCommand(request.AttendeeId, meetingId));
@@ -187,6 +196,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
 
         [HttpPost("{meetingId}/attendees/attendeeRole")]
         [HasPermission(MeetingsPermissions.SetMeetingAttendeeRole)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> SetMeetingAttendeeRole(Guid meetingId, SetMeetingHostRequest request)
         {
             await _meetingsModule.ExecuteCommandAsync(new SetMeetingAttendeeRoleCommand(request.AttendeeId, meetingId));
@@ -196,6 +206,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
 
         [HttpPatch("{meetingId}/cancel")]
         [HasPermission(MeetingsPermissions.CancelMeeting)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> CancelMeeting(Guid meetingId)
         {
             await _meetingsModule.ExecuteCommandAsync(new CancelMeetingCommand(meetingId));
