@@ -86,7 +86,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.ArchTests.Application
         public void InternalCommand_Should_Have_Constructor_With_JsonConstructorAttribute()
         {
             var types = Types.InAssembly(ApplicationAssembly)
-                .That().Inherit(typeof(InternalCommandBase)).GetTypes();
+                .That()
+                .Inherit(typeof(InternalCommandBase))
+                .Or()
+                .Inherit(typeof(InternalCommandBase<>))
+                .GetTypes();
 
             var failingTypes = new List<Type>();
 
