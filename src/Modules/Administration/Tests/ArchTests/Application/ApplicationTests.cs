@@ -152,7 +152,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.ArchTests.Application
             var failingTypes = new List<Type>();
             foreach (Type type in types)
             {
-                var interfaceType = type.GetInterfaces().FirstOrDefault(i => i.Name.StartsWith("ICommandHandler"));
+                Type interfaceType = type.GetInterface(typeof(ICommandHandler<,>).Name);
                 if (interfaceType?.GenericTypeArguments[1] == typeof(Unit))
                 {
                     failingTypes.Add(type);
