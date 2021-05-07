@@ -2,7 +2,7 @@
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals.ProposeMeetingGroup
 {
-    public class ProposeMeetingGroupCommandValidator : AbstractValidator<ProposeMeetingGroupCommand>
+    internal class ProposeMeetingGroupCommandValidator : AbstractValidator<ProposeMeetingGroupCommand>
     {
         public ProposeMeetingGroupCommandValidator()
         {
