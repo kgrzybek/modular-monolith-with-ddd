@@ -11,7 +11,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.EditMeetingComment
 {
-    internal class EditMeetingCommentCommandHandler : ICommandHandler<EditMeetingCommentCommand, Unit>
+    internal class EditMeetingCommentCommandHandler : ICommandHandler<EditMeetingCommentCommand>
     {
         private readonly IMeetingCommentRepository _meetingCommentRepository;
         private readonly IMeetingCommentingConfigurationRepository _meetingCommentingConfigurationRepository;

@@ -1,10 +1,9 @@
 ﻿using System;
 using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
-using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.AcceptMeetingGroupProposal
 {
-    public class AcceptMeetingGroupProposalCommand : CommandBase<Unit>
+    public class AcceptMeetingGroupProposalCommand : CommandBase
     {
         public AcceptMeetingGroupProposalCommand(Guid meetingGroupProposalId)
         {

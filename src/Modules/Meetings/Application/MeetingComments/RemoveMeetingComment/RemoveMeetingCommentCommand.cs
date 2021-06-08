@@ -1,11 +1,9 @@
 ﻿using System;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
-using CompanyName.MyMeetings.Modules.Meetings.Domain.Comments;
-using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.RemoveMeetingComment
 {
-    public class RemoveMeetingCommentCommand : CommandBase<Unit>
+    public class RemoveMeetingCommentCommand : CommandBase
     {
         public Guid MeetingCommentId { get; }
 

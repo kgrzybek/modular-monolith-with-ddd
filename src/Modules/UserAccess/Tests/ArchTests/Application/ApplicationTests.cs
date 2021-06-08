@@ -20,10 +20,18 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.ArchTests.Application
         public void Command_Should_Be_Immutable()
         {
             var types = Types.InAssembly(ApplicationAssembly)
-                .That().Inherit(typeof(CommandBase))
-                .Or().Inherit(typeof(InternalCommandBase))
-                .Or().ImplementInterface(typeof(ICommand))
-                .Or().ImplementInterface(typeof(ICommand<>))
+                .That()
+                .Inherit(typeof(CommandBase))
+                .Or()
+                .Inherit(typeof(CommandBase<>))
+                .Or()
+                .Inherit(typeof(InternalCommandBase))
+                .Or()
+                .Inherit(typeof(InternalCommandBase<>))
+                .Or()
+                .ImplementInterface(typeof(ICommand))
+                .Or()
+                .ImplementInterface(typeof(ICommand<>))
                 .GetTypes();
 
             AssertAreImmutable(types);
@@ -134,6 +142,27 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.ArchTests.Application
                     x.IsGenericType &&
                     x.GetGenericTypeDefinition() == typeof(IQueryHandler<,>));
                 if (!isCommandHandler && !isCommandWithResultHandler && !isQueryHandler)
+                {
+                    failingTypes.Add(type);
+                }
+            }
+
+            AssertFailingTypes(failingTypes);
+        }
+
+        [Test]
+        public void Command_With_Result_Should_Not_Return_Unit()
+        {
+            Type commandWithResultHandlerType = typeof(ICommandHandler<,>);
+            IEnumerable<Type> types = Types.InAssembly(ApplicationAssembly)
+                .That().ImplementInterface(commandWithResultHandlerType)
+                .GetTypes().ToList();
+
+            var failingTypes = new List<Type>();
+            foreach (Type type in types)
+            {
+                Type interfaceType = type.GetInterface(commandWithResultHandlerType.Name);
+                if (interfaceType?.GenericTypeArguments[1] == typeof(Unit))
                 {
                     failingTypes.Add(type);
                 }
