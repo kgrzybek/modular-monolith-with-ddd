@@ -6,6 +6,7 @@ using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Comman
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Queries;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
 using CompanyName.MyMeetings.Modules.UserAccess.ArchTests.SeedWork;
+using FluentValidation;
 using MediatR;
 using NetArchTest.Rules;
 using Newtonsoft.Json;
@@ -85,6 +86,30 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.ArchTests.Application
                     .ImplementInterface(typeof(ICommandHandler<>))
                         .Or()
                     .ImplementInterface(typeof(ICommandHandler<,>))
+                .Should().NotBePublic().GetResult().FailingTypes;
+
+            AssertFailingTypes(types);
+        }
+
+        [Test]
+        public void Validator_Should_Have_Name_EndingWith_Validator()
+        {
+            var result = Types.InAssembly(ApplicationAssembly)
+                .That()
+                .Inherit(typeof(AbstractValidator<>))
+                .Should()
+                .HaveNameEndingWith("Validator")
+                .GetResult();
+
+            AssertArchTestResult(result);
+        }
+
+        [Test]
+        public void Validators_Should_Not_Be_Public()
+        {
+            var types = Types.InAssembly(ApplicationAssembly)
+                .That()
+                .Inherit(typeof(AbstractValidator<>))
                 .Should().NotBePublic().GetResult().FailingTypes;
 
             AssertFailingTypes(types);
