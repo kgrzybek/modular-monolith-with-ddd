@@ -2,7 +2,7 @@
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.EditMeetingComment
 {
-    public class EditMeetingCommentCommandValidator : AbstractValidator<EditMeetingCommentCommand>
+    internal class EditMeetingCommentCommandValidator : AbstractValidator<EditMeetingCommentCommand>
     {
         public EditMeetingCommentCommandValidator()
         {

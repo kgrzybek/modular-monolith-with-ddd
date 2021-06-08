@@ -31,6 +31,10 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
                 .InstancePerLifetimeScope();
 
             builder.RegisterGenericDecorator(
+                typeof(UnitOfWorkCommandHandlerDecorator<>),
+                typeof(ICommandHandler<>));
+
+            builder.RegisterGenericDecorator(
                 typeof(UnitOfWorkCommandHandlerWithResultDecorator<,>),
                 typeof(ICommandHandler<,>));
 

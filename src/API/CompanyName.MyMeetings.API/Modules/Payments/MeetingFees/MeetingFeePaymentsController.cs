@@ -4,6 +4,7 @@ using CompanyName.MyMeetings.API.Configuration.Authorization;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.CreateMeetingFeePayment;
 using CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.MarkMeetingFeePaymentAsPaid;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyName.MyMeetings.API.Modules.Payments.MeetingFees
@@ -21,6 +22,7 @@ namespace CompanyName.MyMeetings.API.Modules.Payments.MeetingFees
 
         [HttpPost]
         [HasPermission(PaymentsPermissions.RegisterPayment)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateMeetingFeePayment(CreateMeetingFeePaymentRequest request)
         {
             await _meetingsModule.ExecuteCommandAsync(new CreateMeetingFeePaymentCommand(request.MeetingFeeId));
@@ -31,6 +33,7 @@ namespace CompanyName.MyMeetings.API.Modules.Payments.MeetingFees
         [HttpPut]
         [Route("{meetingFeePaymentId}/purchased")]
         [HasPermission(PaymentsPermissions.RegisterPayment)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> RegisterMeetingFeePayment(
             Guid meetingFeePaymentId)
         {

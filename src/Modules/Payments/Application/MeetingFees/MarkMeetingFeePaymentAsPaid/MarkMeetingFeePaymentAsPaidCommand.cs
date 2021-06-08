@@ -1,10 +1,9 @@
 ﻿using System;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
-using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.MarkMeetingFeePaymentAsPaid
 {
-    public class MarkMeetingFeePaymentAsPaidCommand : CommandBase<Unit>
+    public class MarkMeetingFeePaymentAsPaidCommand : CommandBase
     {
         public MarkMeetingFeePaymentAsPaidCommand(Guid meetingFeePaymentId)
         {

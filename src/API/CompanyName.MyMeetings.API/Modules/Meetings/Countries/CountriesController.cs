@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.API.Configuration.Authorization;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Countries;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyName.MyMeetings.API.Modules.Meetings.Countries
@@ -21,7 +21,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.Countries
 
         [HttpGet("")]
         [HasPermission(MeetingsPermissions.GetMeetingGroupProposals)]
-        [ProducesResponseType(typeof(List<CountryDto>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(List<CountryDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllCountries(int? page, int? perPage)
         {
             var countries = await _meetingsModule.ExecuteQueryAsync(

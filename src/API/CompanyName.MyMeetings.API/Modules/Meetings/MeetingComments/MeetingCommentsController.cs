@@ -64,7 +64,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingComments
 
         [HttpPost("{meetingCommentId}/replies")]
         [HasPermission(MeetingsPermissions.AddMeetingCommentReply)]
-        [ProducesResponseType(typeof(Guid), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> AddReply([FromRoute] Guid meetingCommentId, [FromBody] string reply)
         {
             await _meetingModule.ExecuteCommandAsync(new AddReplyToMeetingCommentCommand(meetingCommentId, reply));

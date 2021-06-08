@@ -6,6 +6,7 @@ using CompanyName.MyMeetings.Modules.Administration.Application.Configuration.Co
 using CompanyName.MyMeetings.Modules.Administration.Application.Configuration.Queries;
 using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Administration.ArchTests.SeedWork;
+using FluentValidation;
 using MediatR;
 using NetArchTest.Rules;
 using Newtonsoft.Json;
@@ -20,10 +21,18 @@ namespace CompanyName.MyMeetings.Modules.Administration.ArchTests.Application
         public void Command_Should_Be_Immutable()
         {
             var types = Types.InAssembly(ApplicationAssembly)
-                .That().Inherit(typeof(CommandBase<>))
-                .Or().Inherit(typeof(InternalCommandBase<>))
-                .Or().ImplementInterface(typeof(ICommand))
-                .Or().ImplementInterface(typeof(ICommand<>))
+                .That()
+                .Inherit(typeof(CommandBase))
+                .Or()
+                .Inherit(typeof(CommandBase<>))
+                .Or()
+                .Inherit(typeof(InternalCommandBase))
+                .Or()
+                .Inherit(typeof(InternalCommandBase<>))
+                .Or()
+                .ImplementInterface(typeof(ICommand))
+                .Or()
+                .ImplementInterface(typeof(ICommand<>))
                 .GetTypes();
 
             AssertAreImmutable(types);
@@ -77,6 +86,30 @@ namespace CompanyName.MyMeetings.Modules.Administration.ArchTests.Application
                     .ImplementInterface(typeof(ICommandHandler<>))
                         .Or()
                     .ImplementInterface(typeof(ICommandHandler<,>))
+                .Should().NotBePublic().GetResult().FailingTypes;
+
+            AssertFailingTypes(types);
+        }
+
+        [Test]
+        public void Validator_Should_Have_Name_EndingWith_Validator()
+        {
+            var result = Types.InAssembly(ApplicationAssembly)
+                .That()
+                .Inherit(typeof(AbstractValidator<>))
+                .Should()
+                .HaveNameEndingWith("Validator")
+                .GetResult();
+
+            AssertArchTestResult(result);
+        }
+
+        [Test]
+        public void Validators_Should_Not_Be_Public()
+        {
+            var types = Types.InAssembly(ApplicationAssembly)
+                .That()
+                .Inherit(typeof(AbstractValidator<>))
                 .Should().NotBePublic().GetResult().FailingTypes;
 
             AssertFailingTypes(types);
@@ -138,6 +171,27 @@ namespace CompanyName.MyMeetings.Modules.Administration.ArchTests.Application
                     x.IsGenericType &&
                     x.GetGenericTypeDefinition() == typeof(IQueryHandler<,>));
                 if (!isCommandHandler && !isCommandWithResultHandler && !isQueryHandler)
+                {
+                    failingTypes.Add(type);
+                }
+            }
+
+            AssertFailingTypes(failingTypes);
+        }
+
+        [Test]
+        public void Command_With_Result_Should_Not_Return_Unit()
+        {
+            Type commandWithResultHandlerType = typeof(ICommandHandler<,>);
+            IEnumerable<Type> types = Types.InAssembly(ApplicationAssembly)
+                .That().ImplementInterface(commandWithResultHandlerType)
+                .GetTypes().ToList();
+
+            var failingTypes = new List<Type>();
+            foreach (Type type in types)
+            {
+                Type interfaceType = type.GetInterface(commandWithResultHandlerType.Name);
+                if (interfaceType?.GenericTypeArguments[1] == typeof(Unit))
                 {
                     failingTypes.Add(type);
                 }

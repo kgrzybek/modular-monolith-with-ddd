@@ -7,6 +7,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Comm
     {
         public Guid Id { get; }
 
+        protected InternalCommandBase()
+        {
+            this.Id = Guid.NewGuid();
+        }
+
         protected InternalCommandBase(Guid id)
         {
             this.Id = id;
