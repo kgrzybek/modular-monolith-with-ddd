@@ -2,6 +2,7 @@
 using CompanyName.MyMeetings.API.Configuration.Authorization;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.MarkSubscriptionPaymentAsPaid;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyName.MyMeetings.API.Modules.Payments.Subscriptions
@@ -19,6 +20,7 @@ namespace CompanyName.MyMeetings.API.Modules.Payments.Subscriptions
 
         [HttpPost]
         [HasPermission(PaymentsPermissions.RegisterPayment)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> RegisterSubscriptionPayment(RegisterSubscriptionPaymentRequest request)
         {
             await _meetingsModule.ExecuteCommandAsync(new MarkSubscriptionPaymentAsPaidCommand(request.PaymentId));

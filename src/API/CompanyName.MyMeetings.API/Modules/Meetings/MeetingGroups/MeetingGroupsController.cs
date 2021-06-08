@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Net;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.API.Configuration.Authorization;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
@@ -9,6 +9,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.GetAuthe
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.GetMeetingGroupDetails;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.JoinToGroup;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.LeaveMeetingGroup;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingGroups
@@ -26,6 +27,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingGroups
 
         [HttpGet("")]
         [HasPermission(MeetingsPermissions.GetAuthenticatedMemberMeetingGroups)]
+        [ProducesResponseType(typeof(List<MemberMeetingGroupDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAuthenticatedMemberMeetingGroups()
         {
             var meetingGroups = await _meetingsModule.ExecuteQueryAsync(
@@ -36,7 +38,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingGroups
 
         [HttpGet("{meetingGroupId}")]
         [HasPermission(MeetingsPermissions.GetMeetingGroupDetails)]
-        [ProducesResponseType(typeof(MeetingGroupDetailsDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(MeetingGroupDetailsDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMeetingGroupDetails(Guid meetingGroupId)
         {
             var meetingGroupDetails = await _meetingsModule.ExecuteQueryAsync(
@@ -47,6 +49,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingGroups
 
         [HttpGet("all")]
         [HasPermission(MeetingsPermissions.GetAllMeetingGroups)]
+        [ProducesResponseType(typeof(List<MeetingGroupDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllMeetingGroups()
         {
             var meetingGroups = await _meetingsModule.ExecuteQueryAsync(new GetAllMeetingGroupsQuery());
@@ -56,6 +59,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingGroups
 
         [HttpPut("{meetingGroupId}")]
         [HasPermission(MeetingsPermissions.EditMeetingGroupGeneralAttributes)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> EditMeetingGroupGeneralAttributes(
             [FromRoute] Guid meetingGroupId,
             [FromBody] EditMeetingGroupGeneralAttributesRequest request)
@@ -72,6 +76,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingGroups
 
         [HttpPost("{meetingGroupId}/members")]
         [HasPermission(MeetingsPermissions.JoinToGroup)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> JoinToGroup(Guid meetingGroupId)
         {
             await _meetingsModule.ExecuteCommandAsync(new JoinToGroupCommand(meetingGroupId));
@@ -81,6 +86,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingGroups
 
         [HttpDelete("{meetingGroupId}/members")]
         [HasPermission(MeetingsPermissions.LeaveMeetingGroup)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> LeaveMeetingGroup(Guid meetingGroupId)
         {
             await _meetingsModule.ExecuteCommandAsync(new LeaveMeetingGroupCommand(meetingGroupId));
