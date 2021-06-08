@@ -119,7 +119,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.ArchTests.Application
         public void InternalCommand_Should_Have_JsonConstructorAttribute()
         {
             var types = Types.InAssembly(ApplicationAssembly)
-                .That().Inherit(typeof(InternalCommandBase)).GetTypes();
+                .That()
+                .Inherit(typeof(InternalCommandBase))
+                .Or()
+                .Inherit(typeof(InternalCommandBase<>))
+                .GetTypes();
 
             var failingTypes = new List<Type>();
 
