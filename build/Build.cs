@@ -33,6 +33,7 @@ partial class Build : NukeBuild
         .Before(Restore)
         .Executes(() =>
         {
+            EnsureCleanDirectory(WorkingDirectory);
         });
 
     Target Restore => _ => _
@@ -46,6 +47,10 @@ partial class Build : NukeBuild
         .DependsOn(Restore)
         .Executes(() =>
         {
+            DotNetBuild(s => s
+                .SetProjectFile(Solution)
+                .SetConfiguration(Configuration)
+                .EnableNoRestore());
         });
 
     Target UnitTests => _ => _
