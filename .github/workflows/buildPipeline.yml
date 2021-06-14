@@ -18,65 +18,19 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.301
-    - name: Install dependencies
-      run: dotnet restore
-      working-directory: ./src
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
-      working-directory: ./src
-    - name: Run Unit Tests
-      run: dotnet test --configuration Release --no-build --verbosity minimal --filter UnitTests
-      working-directory: ./src
-    - name: Run Architecture Tests
-      run: dotnet test --configuration Release --no-build --verbosity minimal --filter ArchTests
-      working-directory: ./src
+    - name: Run build
+      run: ./build.sh BuildAndUnitTests --configuration Release
 
   integration:
     name: Build and run Integration Tests
     needs: [build]
     runs-on: ubuntu-latest
-    env:
-      ASPNETCORE_MyMeetings_IntegrationTests_ConnectionString: "Server=localhost;Database=MyMeetings;User=sa;Password=61cD4gE6!"
-    services:
-      sql-server-db:
-        image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
-        env:
-          ACCEPT_EULA: Y
-          SA_PASSWORD: 61cD4gE6!
-          MSSQL_PID: Express
-        ports: 
-          - 1433:1433
-        options: --name db
           
     steps:
     - uses: actions/checkout@v2
-    - name: Wait For SQL Server
-      run: sleep 30s
-    - name: Copy Create File
-      run: docker cp ./src/Database/CompanyName.MyMeetings.Database/Scripts/CreateDatabase_Linux.sql db:/
-    - name: Create Database
-      run: docker exec -i db sh -c '/opt/mssql-tools/bin/sqlcmd -d master -i /CreateDatabase_Linux.sql -U sa -P 61cD4gE6!'
-
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.301
-    - name: Install dependencies
-      run: dotnet restore
-      working-directory: ./src
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
-      working-directory: ./src
-    - name: Run database migrations
-      run: dotnet "src/Database/DatabaseMigrator/bin/Release/netcoreapp3.1/DatabaseMigrator.dll" $ASPNETCORE_MyMeetings_IntegrationTests_ConnectionString "src/Database/CompanyName.MyMeetings.Database/Scripts/Migrations"
-
-    - name: Run Administration Integration Tests
-      run: dotnet test --configuration Release --no-build --verbosity normal src/Modules/Administration/Tests/IntegrationTests/CompanyName.MyMeetings.Modules.Administration.IntegrationTests.csproj
-    - name: Run Meetings Integration Tests
-      run: dotnet test --configuration Release --no-build --verbosity normal src/Modules/Meetings/Tests/IntegrationTests/CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.csproj
-    - name: Run Payments Integration Tests
-      run: dotnet test --configuration Release --no-build --verbosity normal src/Modules/Payments/Tests/IntegrationTests/CompanyName.MyMeetings.Modules.Payments.IntegrationTests.csproj
-    - name: Run UserAccess Integration Tests
-      run: dotnet test --configuration Release --no-build --verbosity normal src/Modules/UserAccess/Tests/IntegrationTests/CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.csproj  
-    - name: Run Between Modules Integration Tests
-      run: dotnet test --configuration Release --no-build --verbosity normal src/Tests/IntegrationTests/CompanyName.MyMeetings.IntegrationTests.csproj     
+    - name: Run build
+      run: ./build.sh RunAllIntegrationTests

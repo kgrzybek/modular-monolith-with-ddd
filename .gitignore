@@ -271,3 +271,6 @@ pub/
 #Ignore uploaded files folder
 UploadedFiles
 /src/CompanyName.MyMeetings.v3.ncrunchsolution
+
+#Nuke working directory
+.nuke-working-directory
