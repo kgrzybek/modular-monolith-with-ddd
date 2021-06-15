@@ -1721,7 +1721,9 @@ The entire solution is described in detail in the following articles:
 As defined on [Martin Fowler's website](https://martinfowler.com/articles/continuousIntegration.html):
 > *Continuous Integration is a software development practice where members of a team integrate their work frequently, usually each person integrates at least daily - leading to multiple integrations per day. Each integration is verified by an automated build (including test) to detect integration errors as quickly as possible.*
 
-#### Implementation
+#### YAML Implementation [OBSOLETE]
+
+*Originally the build was implemented using yaml and GitHub Actions functionality. Currently, the build is implemented with NUKE (see next section). See [buildPipeline.yml](.github/workflows/buildPipeline.yml)* file history.
 
 ##### Pipeline description
 
@@ -1755,6 +1757,110 @@ Example workflow output:
 ![](docs/Images/ci_job1.png)
 
 ![](docs/Images/ci_job2.png)
+
+#### NUKE
+
+[Nuke](https://nuke.build/) is *the cross-platform build automation solution for .NET with C# DSL.*
+
+The 2 main advantages of its use over pure yaml defined in GitHub actions are as follows:
+- You run the same code on local machine and in the build server. See [buildPipeline.yml](.github/workflows/buildPipeline.yml)
+- You use C# with all the goodness (debugging, compilation, packages, refactoring and so on)
+
+This is how one of the stage definition looks like (execute Build, Unit Tests, Architecture Tests) [Build.cs](build/Build.cs):
+```csharp
+partial class Build : NukeBuild
+{
+    /// Support plugins are available for:
+    ///   - JetBrains ReSharper        https://nuke.build/resharper
+    ///   - JetBrains Rider            https://nuke.build/rider
+    ///   - Microsoft VisualStudio     https://nuke.build/visualstudio
+    ///   - Microsoft VSCode           https://nuke.build/vscode
+
+    public static int Main () => Execute<Build>(x => x.Compile);
+
+    [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
+    readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
+
+    [Solution] readonly Solution Solution;
+
+    Target Clean => _ => _
+        .Before(Restore)
+        .Executes(() =>
+        {
+            EnsureCleanDirectory(WorkingDirectory);
+        });
+
+    Target Restore => _ => _
+        .Executes(() =>
+        {
+            DotNetRestore(s => s
+                .SetProjectFile(Solution));
+        });
+
+    Target Compile => _ => _
+        .DependsOn(Restore)
+        .Executes(() =>
+        {
+            DotNetBuild(s => s
+                .SetProjectFile(Solution)
+                .SetConfiguration(Configuration)
+                .EnableNoRestore());
+        });
+
+    Target UnitTests => _ => _
+        .DependsOn(Compile)
+        .Executes(() =>
+        {
+            DotNetTest(s => s
+                .SetProjectFile(Solution)
+                .SetFilter("UnitTests")
+                .SetConfiguration(Configuration)
+                .EnableNoRestore()
+                .EnableNoBuild());
+        });
+
+    Target ArchitectureTests => _ => _
+        .DependsOn(UnitTests)
+        .Executes(() =>
+        {
+            DotNetTest(s => s
+                .SetProjectFile(Solution)
+                .SetFilter("ArchTests")
+                .SetConfiguration(Configuration)
+                .EnableNoRestore()
+                .EnableNoBuild());
+        });
+
+    Target BuildAndUnitTests => _ => _
+        .Triggers(ArchitectureTests)
+        .Executes(() =>
+        {
+        });
+}
+
+```
+
+If you want to see more complex scenario when integration tests are executed (with SQL Server database creation using docker) see [BuildIntegrationTests.cs](build/BuildIntegrationTests.cs) file.
+
+#### SQL Server database project build
+
+Currently, compilation of database projects is not supported by the .NET Core and dotnet tool. For this reason, the [MSBuild.Sdk.SqlProj](https://github.com/rr-wfm/MSBuild.Sdk.SqlProj/) library was used. In order to do that, you need to create .NET standard library, change SDK and create links to scripts folders. Final [database project](src/Database/CompanyName.MyMeetings.Database.Build/CompanyName.MyMeetings.Database.Build.csproj) looks as follows:
+```xml
+<Project Sdk="MSBuild.Sdk.SqlProj/1.6.0">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+    <ItemGroup>
+        <Content Include="..\CompanyName.MyMeetings.Database\administration\**\*.sql" />
+        <Content Include="..\CompanyName.MyMeetings.Database\app\**\*.sql" />
+        <Content Include="..\CompanyName.MyMeetings.Database\meetings\**\*.sql" />
+        <Content Include="..\CompanyName.MyMeetings.Database\payments\**\*.sql" />
+        <Content Include="..\CompanyName.MyMeetings.Database\users\**\*.sql" />
+        <Content Include="..\CompanyName.MyMeetings.Database\Security\**\*.sql" />
+    </ItemGroup>
+</Project>
+```
+
 
 ### 3.18 Static code analysis
 
@@ -1799,6 +1905,8 @@ List of technologies, frameworks and libraries used for implementation:
 - [PlantUML](https://plantuml.com) (UML diagrams from textual description, diagrams as text)
 - [C4 Model](https://c4model.com/) (Model for visualising software architecture)
 - [C4-PlantUML](https://github.com/plantuml-stdlib/C4-PlantUML) (C4 Model for PlantUML plugin)
+- [NUKE](https://nuke.build/) (Build automation system)
+- [MSBuild.Sdk.SqlProj](https://github.com/rr-wfm/MSBuild.Sdk.SqlProj/) (Database project compilation)
 
 ## 5. How to Run
 
@@ -1843,7 +1951,6 @@ Example config setting in appsettings.json for a database called `ModularMonolit
 - `client_secret = secret` **(this is literally the value - not a statement that this value is secret!)**
 - `scope = myMeetingsAPI openid profile`
 - `grant_type = password`
-  
 
 Include the credentials of a test user created in the [SeedDatabase.sql](src/Database/CompanyName.MyMeetings.Database/Scripts/SeedDatabase.sql) script - for example:
 - `username = testMember@mail.com`
@@ -1901,7 +2008,9 @@ List of features/tasks/approaches to add:
 | Docker support | Completed |  2020-11-26  |
 | PlantUML Conceptual Model | Completed |  2021-03-22  |
 | C4 Model | Completed |  2021-03-29  |
-| Meeting comments featurel | Completed |  2021-03-30  |
+| Meeting comments feature | Completed |  2021-03-30  |
+| NUKE build automation | Completed |  2021-06-15  |
+| Database project compilation on CI | Completed |  2021-06-15  |
 
 NOTE: Please don't hesitate to suggest something else or a change to the existing code. All proposals will be considered.
 
