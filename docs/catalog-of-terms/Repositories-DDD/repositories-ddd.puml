@@ -1,0 +1,18 @@
+@startuml
+
+package Domain {
+    interface IMeetingRepository
+}
+
+package Application {
+    class AddReplyToMeetingCommentCommandHandler
+}
+
+package Infrastructure {
+    class MeetingRepository
+}
+
+AddReplyToMeetingCommentCommandHandler -right-> IMeetingRepository
+MeetingRepository -up-|> IMeetingRepository
+
+@enduml
