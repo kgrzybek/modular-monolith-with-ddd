@@ -78,4 +78,4 @@ public class MeetingCommentRepository : IMeetingCommentRepository
 1. [Domain-Driven Design: Tackling Complexity in the Heart of Software, Eric Evans](https://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215)
 1. [Patterns of Enterprise Application Architecture Catalog](https://martinfowler.com/eaaCatalog/repository.html)
 1. [DDD: The Generic Repository, Greg Young](http://codebetter.com/gregyoung/2009/01/16/ddd-the-generic-repository/)
-1. [DDD Quickly]()
+1. [DDD Quickly](https://www.infoq.com/minibooks/domain-driven-design-quickly/)
