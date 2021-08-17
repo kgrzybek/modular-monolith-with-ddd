@@ -75,7 +75,7 @@ Meeting "1"-->"0..*" MeetingNotAttendee : not attendees
 Meeting --> MeetingLocation : has
 
 Meeting.MeetingGroupProposal --> Meeting.MeetingGroupProposalStatus : is in
-MeetingGroup "1"-->"0..*" Meetings : orginizes
+MeetingGroup "1"-->"0..*" Meetings : organizes
 MeetingGroup "0..1"-->"1" Meeting.MeetingGroupProposal : created after acceptance of
 
 MeetingWaitlistMember "0..*"-->"1" Meeting : waits for place for
