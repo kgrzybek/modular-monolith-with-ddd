@@ -1,0 +1,16 @@
+﻿### Register a new user
+POST {{baseUrl}}/userAccess/UserRegistrations
+Content-Type: application/json
+
+{
+  "Login": "login",
+  "Password": "password",
+  "Email": "email@mail.com",
+  "FirstName": "John",
+  "LastName": "Doe",
+  "ConfirmLink": "Abc"
+}
+
+
+### User registration confirmation
+PATCH {{baseUrl}}/userAccess/UserRegistrations/e80985c5-bf97-4bb3-b178-9423d70ef87b/confirm
