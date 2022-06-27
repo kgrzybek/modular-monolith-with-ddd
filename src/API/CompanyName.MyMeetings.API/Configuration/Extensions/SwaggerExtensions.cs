@@ -20,7 +20,8 @@ namespace CompanyName.MyMeetings.API.Configuration.Extensions
                     Version = "v1",
                     Description = "MyMeetings API for modular monolith .NET application."
                 });
-
+                options.CustomSchemaIds(t => t.ToString());
+                
                 var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 var commentsFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var commentsFile = Path.Combine(baseDirectory, commentsFileName);
