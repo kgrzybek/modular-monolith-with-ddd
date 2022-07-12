@@ -3,11 +3,6 @@
         <TargetFramework>netstandard2.0</TargetFramework>
     </PropertyGroup>
     <ItemGroup>
-        <Content Include="..\CompanyName.MyMeetings.Database\administration\**\*.sql" />
-        <Content Include="..\CompanyName.MyMeetings.Database\app\**\*.sql" />
-        <Content Include="..\CompanyName.MyMeetings.Database\meetings\**\*.sql" />
-        <Content Include="..\CompanyName.MyMeetings.Database\payments\**\*.sql" />
-        <Content Include="..\CompanyName.MyMeetings.Database\users\**\*.sql" />
-        <Content Include="..\CompanyName.MyMeetings.Database\Security\**\*.sql" />
+        <Content Include="..\CompanyName.MyMeetings.Database\Structure\**\*.sql" />
     </ItemGroup>
 </Project>
