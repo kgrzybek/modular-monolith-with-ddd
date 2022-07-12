@@ -18,6 +18,10 @@
           "type": "boolean",
           "description": "Indicates to continue a previously failed build attempt"
         },
+        "DatabaseConnectionString": {
+          "type": "string",
+          "description": "Modular Monolith database connection string"
+        },
         "Help": {
           "type": "boolean",
           "description": "Shows the help text for this build assembly"
@@ -74,7 +78,9 @@
               "Clean",
               "Compile",
               "CompileDbUpMigrator",
+              "CompileDbUpMigratorForIntegrationTests",
               "CreateDatabase",
+              "MigrateDatabase",
               "PrepareInputFiles",
               "PrepareSqlServer",
               "Restore",
@@ -109,7 +115,9 @@
               "Clean",
               "Compile",
               "CompileDbUpMigrator",
+              "CompileDbUpMigratorForIntegrationTests",
               "CreateDatabase",
+              "MigrateDatabase",
               "PrepareInputFiles",
               "PrepareSqlServer",
               "Restore",

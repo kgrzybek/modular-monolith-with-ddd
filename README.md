@@ -1931,15 +1931,13 @@ List of technologies, frameworks and libraries used for implementation:
 ### Create database
 - Download and install MS SQL Server Express or other
 - Create an empty database using [CreateDatabase_Windows.sql](src/Database/CompanyName.MyMeetings.Database/Scripts/CreateDatabase_Windows.sql) or [CreateDatabase_Linux.sql](src/Database/CompanyName.MyMeetings.Database/Scripts/CreateDatabase_Linux.sql). Script adds **app** schema which is needed for migrations journal table. Change database file path if needed.
-- Build [DatabaseMigrator](src/Database/DatabaseMigrator) application
-- run database migrations:
+- Run database migrations using **MigrateDatabase** NUKE target:
 
 ```shell
-dotnet DatabaseMigrator.dll "connection_string" "scripts_directory_path"
+.\build MigrateDatabase "connection_string"
 ```
 
-*"connection_string"* - connection string to your database <br/>
-*"scripts_directory_path"* - [path to migration scripts](src/Database/CompanyName.MyMeetings.Database/Scripts/Migrations)
+*"connection_string"* - connection string to your database
 
 ### Seed database
 
@@ -1998,6 +1996,14 @@ It will create following services: <br/>
 - MS SQL Server Database
 - Database Migrator
 - Application
+
+### Run Integration Tests in Docker
+
+You can run all Integration Tests in Docker (exactly the same process is executed on CI) using **RunAllIntegrationTests** NUKE target:
+
+```shell
+.\build RunAllIntegrationTests
+```
 
 ## 6. Contribution
 

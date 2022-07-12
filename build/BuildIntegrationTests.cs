@@ -70,7 +70,7 @@ public partial class Build
                 .SetArgs("-c", $"./opt/mssql-tools/bin/sqlcmd -d master -i ./{InputFilesDirectoryName}/{CreateDatabaseScriptName} -U {SqlServerUser} -P {SqlServerPassword}"));
         });
 
-    Target CompileDbUpMigrator => _ => _
+    Target CompileDbUpMigratorForIntegrationTests => _ => _
         .DependsOn(CreateDatabase)
         .Executes(() =>
         {
@@ -87,7 +87,7 @@ public partial class Build
     readonly string MyMeetingsDatabaseConnectionString = $"Server=127.0.0.1,{SqlServerPort};Database=MyMeetings;User={SqlServerUser};Password={SqlServerPassword}";
 
     Target RunDatabaseMigrations => _ => _
-        .DependsOn(CompileDbUpMigrator)
+        .DependsOn(CompileDbUpMigratorForIntegrationTests)
         .Executes(() =>
         {
             AbsolutePath migrationsPath = DatabaseDirectory / "Migrations";
@@ -233,8 +233,12 @@ public partial class Build
         });
 
     Target RunAllIntegrationTests => _ => _
-        .DependsOn(RunAdministrationModuleIntegrationTests, RunMeetingsModuleIntegrationTests,
-            RunPaymentsModuleIntegrationTests, RunUserAccessModuleIntegrationTests, RunSystemIntegrationTests)
+        .DependsOn(
+            RunAdministrationModuleIntegrationTests,
+            RunMeetingsModuleIntegrationTests,
+            RunPaymentsModuleIntegrationTests,
+            RunUserAccessModuleIntegrationTests,
+            RunSystemIntegrationTests)
         .Executes(() =>
         {
 
