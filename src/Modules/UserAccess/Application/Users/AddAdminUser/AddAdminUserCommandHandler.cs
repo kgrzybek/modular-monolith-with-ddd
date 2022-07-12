@@ -7,7 +7,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Users.AddAdminUser
 {
-    public class AddAdminUserCommandHandler : ICommandHandler<AddAdminUserCommand>
+    internal class AddAdminUserCommandHandler : ICommandHandler<AddAdminUserCommand>
     {
         private readonly IUserRepository _userRepository;
 
