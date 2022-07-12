@@ -6,6 +6,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.Users
     {
         public static UserRole Member => new UserRole(nameof(Member));
 
+        public static UserRole Administrator => new UserRole(nameof(Administrator));
+
         public string Value { get; }
 
         private UserRole(string value)

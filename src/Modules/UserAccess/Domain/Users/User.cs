@@ -31,14 +31,56 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.Users
             // Only for EF.
         }
 
-        internal static User CreateFromUserRegistration(UserRegistrationId userRegistrationId, string login, string password, string email, string firstName, string lastName, string name)
+        public static User CreateAdmin(
+            string login,
+            string password,
+            string email,
+            string firstName,
+            string lastName,
+            string name)
         {
-            return new User(userRegistrationId, login, password, email, firstName, lastName, name);
+            return new User(
+                Guid.NewGuid(),
+                login,
+                password,
+                email,
+                firstName,
+                lastName,
+                name,
+                UserRole.Administrator);
         }
 
-        private User(UserRegistrationId userRegistrationId, string login, string password, string email, string firstName, string lastName, string name)
+        internal static User CreateFromUserRegistration(
+            UserRegistrationId userRegistrationId,
+            string login,
+            string password,
+            string email,
+            string firstName,
+            string lastName,
+            string name)
         {
-            this.Id = new UserId(userRegistrationId.Value);
+            return new User(
+                userRegistrationId.Value,
+                login,
+                password,
+                email,
+                firstName,
+                lastName,
+                name,
+                UserRole.Member);
+        }
+
+        private User(
+            Guid id,
+            string login,
+            string password,
+            string email,
+            string firstName,
+            string lastName,
+            string name,
+            UserRole role)
+        {
+            this.Id = new UserId(id);
             _login = login;
             _password = password;
             _email = email;
@@ -49,7 +91,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.Users
             _isActive = true;
 
             _roles = new List<UserRole>();
-            _roles.Add(UserRole.Member);
+            _roles.Add(role);
 
             this.AddDomainEvent(new UserCreatedDomainEvent(this.Id));
         }

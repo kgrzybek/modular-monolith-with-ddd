@@ -83,6 +83,7 @@
               "MigrateDatabase",
               "PrepareInputFiles",
               "PrepareSqlServer",
+              "PrepareSUT",
               "Restore",
               "RunAdministrationModuleIntegrationTests",
               "RunAllIntegrationTests",
@@ -98,6 +99,10 @@
         "Solution": {
           "type": "string",
           "description": "Path to a solution file that is automatically loaded"
+        },
+        "SUTTestName": {
+          "type": "string",
+          "description": "SUT creator test name to execute"
         },
         "Target": {
           "type": "array",
@@ -120,6 +125,7 @@
               "MigrateDatabase",
               "PrepareInputFiles",
               "PrepareSqlServer",
+              "PrepareSUT",
               "Restore",
               "RunAdministrationModuleIntegrationTests",
               "RunAllIntegrationTests",
