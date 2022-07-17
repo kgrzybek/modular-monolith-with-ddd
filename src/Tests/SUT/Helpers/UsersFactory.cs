@@ -1,6 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
+using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.ConfirmUserRegistration;
+using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.RegisterNewUser;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Users.AddAdminUser;
+using CompanyName.MyMeetings.SUT.SeedWork;
 
 namespace CompanyName.MyMeetings.SUT.Helpers
 {
@@ -23,6 +27,31 @@ namespace CompanyName.MyMeetings.SUT.Helpers
                 name,
                 email
             ));
+        }
+        
+        public static async Task<Guid> GivenUser(
+            IUserAccessModule userAccessModule,
+            string connectionString,
+            string login,
+            string password,
+            string firstName,
+            string lastName,
+            string email)
+        {
+            var userRegistrationId = await userAccessModule.ExecuteCommandAsync(new RegisterNewUserCommand(
+                login,
+                password,
+                email,
+                firstName,
+                lastName,
+                email
+            ));
+
+            await userAccessModule.ExecuteCommandAsync(new ConfirmUserRegistrationCommand(userRegistrationId));
+
+            await AsyncOperationsHelper.WaitForProcessing(connectionString);
+
+            return userRegistrationId;
         }
     }
 }

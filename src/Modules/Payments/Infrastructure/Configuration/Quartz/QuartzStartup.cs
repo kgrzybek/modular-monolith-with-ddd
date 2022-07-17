@@ -1,4 +1,5 @@
-﻿using System.Collections.Specialized;
+﻿using System;
+using System.Collections.Specialized;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Processing.Inbox;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Processing.InternalCommands;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Processing.Outbox;
@@ -19,7 +20,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Q
             _scheduler.Shutdown();
         }
 
-        internal static void Initialize(ILogger logger)
+        internal static void Initialize(ILogger logger, long? internalProcessingPoolingInterval)
         {
             logger.Information("Quartz starting...");
 
@@ -33,11 +34,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Q
 
             _scheduler.Start().GetAwaiter().GetResult();
 
-            ScheduleProcessOutboxJob(_scheduler);
+            ScheduleProcessOutboxJob(_scheduler, internalProcessingPoolingInterval);
 
-            ScheduleProcessInboxJob(_scheduler);
+            ScheduleProcessInboxJob(_scheduler, internalProcessingPoolingInterval);
 
-            ScheduleProcessInternalCommandsJob(_scheduler);
+            ScheduleProcessInternalCommandsJob(_scheduler, internalProcessingPoolingInterval);
 
             ScheduleExpireSubscriptionsJob(_scheduler);
 
@@ -72,42 +73,93 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Q
             scheduler.ScheduleJob(expireSubscriptionsJob, triggerCommandsProcessing).GetAwaiter().GetResult();
         }
 
-        private static void ScheduleProcessInternalCommandsJob(IScheduler scheduler)
+        private static void ScheduleProcessInternalCommandsJob(
+            IScheduler scheduler,
+            long? internalProcessingPoolingInterval)
         {
             var processInternalCommandsJob = JobBuilder.Create<ProcessInternalCommandsJob>().Build();
-            var triggerCommandsProcessing =
-                TriggerBuilder
-                    .Create()
-                    .StartNow()
-                    .WithCronSchedule("0/2 * * ? * *")
-                    .Build();
+
+            ITrigger triggerCommandsProcessing;
+            if (internalProcessingPoolingInterval.HasValue)
+            {
+                triggerCommandsProcessing =
+                    TriggerBuilder
+                        .Create()
+                        .StartNow()
+                        .WithSimpleSchedule(x =>
+                            x.WithInterval(TimeSpan.FromMilliseconds(internalProcessingPoolingInterval.Value))
+                                .RepeatForever())
+                        .Build();
+            }
+            else
+            {
+                triggerCommandsProcessing =
+                    TriggerBuilder
+                        .Create()
+                        .StartNow()
+                        .WithCronSchedule("0/2 * * ? * *")
+                        .Build();
+            }
+
             scheduler.ScheduleJob(processInternalCommandsJob, triggerCommandsProcessing).GetAwaiter().GetResult();
         }
 
-        private static void ScheduleProcessInboxJob(IScheduler scheduler)
+        private static void ScheduleProcessInboxJob(IScheduler scheduler, long? internalProcessingPoolingInterval)
         {
             var processInboxJob = JobBuilder.Create<ProcessInboxJob>().Build();
-            var processInboxTrigger =
-                TriggerBuilder
-                    .Create()
-                    .StartNow()
-                    .WithCronSchedule("0/2 * * ? * *")
-                    .Build();
+
+            ITrigger processInboxTrigger;
+            if (internalProcessingPoolingInterval.HasValue)
+            {
+                processInboxTrigger =
+                    TriggerBuilder
+                        .Create()
+                        .StartNow()
+                        .WithSimpleSchedule(x =>
+                            x.WithInterval(TimeSpan.FromMilliseconds(internalProcessingPoolingInterval.Value))
+                                .RepeatForever())
+                        .Build();
+            }
+            else
+            {
+                processInboxTrigger =
+                    TriggerBuilder
+                        .Create()
+                        .StartNow()
+                        .WithCronSchedule("0/2 * * ? * *")
+                        .Build();
+            }
 
             scheduler
                 .ScheduleJob(processInboxJob, processInboxTrigger)
                 .GetAwaiter().GetResult();
         }
 
-        private static void ScheduleProcessOutboxJob(IScheduler scheduler)
+        private static void ScheduleProcessOutboxJob(IScheduler scheduler, long? internalProcessingPoolingInterval)
         {
             var processOutboxJob = JobBuilder.Create<ProcessOutboxJob>().Build();
-            var trigger =
-                TriggerBuilder
-                    .Create()
-                    .StartNow()
-                    .WithCronSchedule("0/2 * * ? * *")
-                    .Build();
+
+            ITrigger trigger;
+            if (internalProcessingPoolingInterval.HasValue)
+            {
+                trigger =
+                    TriggerBuilder
+                        .Create()
+                        .StartNow()
+                        .WithSimpleSchedule(x =>
+                            x.WithInterval(TimeSpan.FromMilliseconds(internalProcessingPoolingInterval.Value))
+                                .RepeatForever())
+                        .Build();
+            }
+            else
+            {
+                trigger =
+                    TriggerBuilder
+                        .Create()
+                        .StartNow()
+                        .WithCronSchedule("0/2 * * ? * *")
+                        .Build();
+            }
 
             scheduler
                 .ScheduleJob(processOutboxJob, trigger)

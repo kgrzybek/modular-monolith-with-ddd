@@ -6,7 +6,23 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.CreateMee
 {
     public class CreateMeetingCommand : CommandBase<Guid>
     {
-        public CreateMeetingCommand(Guid meetingGroupId, string title, DateTime termStartDate, DateTime termEndDate, string description, string meetingLocationName, string meetingLocationAddress, string meetingLocationPostalCode, string meetingLocationCity, int? attendeesLimit, int guestsLimit, DateTime? rsvpTermStartDate, DateTime? rsvpTermEndDate, decimal? eventFeeValue, string eventFeeCurrency, List<Guid> hostMemberIds)
+        public CreateMeetingCommand(
+            Guid meetingGroupId,
+            string title,
+            DateTime termStartDate,
+            DateTime termEndDate,
+            string description,
+            string meetingLocationName,
+            string meetingLocationAddress,
+            string meetingLocationPostalCode,
+            string meetingLocationCity,
+            int? attendeesLimit,
+            int guestsLimit,
+            DateTime? rsvpTermStartDate,
+            DateTime? rsvpTermEndDate,
+            decimal? eventFeeValue,
+            string eventFeeCurrency,
+            List<Guid> hostMemberIds)
         {
             MeetingGroupId = meetingGroupId;
             Title = title;

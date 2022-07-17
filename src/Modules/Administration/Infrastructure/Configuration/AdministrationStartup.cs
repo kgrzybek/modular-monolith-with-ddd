@@ -28,13 +28,14 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             string connectionString,
             IExecutionContextAccessor executionContextAccessor,
             ILogger logger,
-            IEventsBus eventsBus)
+            IEventsBus eventsBus,
+            long? internalProcessingPoolingInterval = null)
         {
             var moduleLogger = logger.ForContext("Module", "Administration");
 
             ConfigureContainer(connectionString, executionContextAccessor, moduleLogger, eventsBus);
 
-            QuartzStartup.Initialize(moduleLogger);
+            QuartzStartup.Initialize(moduleLogger, internalProcessingPoolingInterval);
 
             EventsBusStartup.Initialize(moduleLogger);
         }

@@ -34,7 +34,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration
             IExecutionContextAccessor executionContextAccessor,
             ILogger logger,
             EmailsConfiguration emailsConfiguration,
-            IEventsBus eventsBus)
+            IEventsBus eventsBus,
+            long? internalProcessingPoolingInterval = null)
         {
             var moduleLogger = logger.ForContext("Module", "Meetings");
 
@@ -45,7 +46,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration
                 emailsConfiguration,
                 eventsBus);
 
-            QuartzStartup.Initialize(moduleLogger);
+            QuartzStartup.Initialize(moduleLogger, internalProcessingPoolingInterval);
 
             EventsBusStartup.Initialize(moduleLogger);
         }

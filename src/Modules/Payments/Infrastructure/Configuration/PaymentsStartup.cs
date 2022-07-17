@@ -37,7 +37,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration
             ILogger logger,
             EmailsConfiguration emailsConfiguration,
             IEventsBus eventsBus,
-            bool runQuartz = true)
+            bool runQuartz = true,
+            long? internalProcessingPoolingInterval = null)
         {
             var moduleLogger = logger.ForContext("Module", "Payments");
 
@@ -45,7 +46,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration
 
             if (runQuartz)
             {
-                QuartzStartup.Initialize(moduleLogger);
+                QuartzStartup.Initialize(moduleLogger, internalProcessingPoolingInterval);
             }
 
             EventsBusStartup.Initialize(moduleLogger);

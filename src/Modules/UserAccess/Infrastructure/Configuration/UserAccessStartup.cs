@@ -4,6 +4,7 @@ using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
+using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.RegisterNewUser;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.DataAccess;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Domain;
@@ -30,7 +31,9 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
             ILogger logger,
             EmailsConfiguration emailsConfiguration,
             string textEncryptionKey,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IEventsBus eventsBus,
+            long? internalProcessingPoolingInterval = null)
         {
             var moduleLogger = logger.ForContext("Module", "UserAccess");
 
@@ -40,9 +43,10 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
                 logger,
                 emailsConfiguration,
                 textEncryptionKey,
-                emailSender);
+                emailSender,
+                eventsBus);
 
-            QuartzStartup.Initialize(moduleLogger);
+            QuartzStartup.Initialize(moduleLogger, internalProcessingPoolingInterval);
 
             EventsBusStartup.Initialize(moduleLogger);
         }
@@ -53,7 +57,8 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
             ILogger logger,
             EmailsConfiguration emailsConfiguration,
             string textEncryptionKey,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IEventsBus eventsBus)
         {
             var containerBuilder = new ContainerBuilder();
 
@@ -63,7 +68,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
             containerBuilder.RegisterModule(new DataAccessModule(connectionString, loggerFactory));
             containerBuilder.RegisterModule(new DomainModule());
             containerBuilder.RegisterModule(new ProcessingModule());
-            containerBuilder.RegisterModule(new EventsBusModule());
+            containerBuilder.RegisterModule(new EventsBusModule(eventsBus));
             containerBuilder.RegisterModule(new MediatorModule());
 
             var domainNotificationsMap = new BiDictionary<string, Type>();

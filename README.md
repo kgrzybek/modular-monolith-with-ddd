@@ -89,6 +89,8 @@ FrontEnd application : [Modular Monolith With DDD: FrontEnd React application](h
 
 &nbsp;&nbsp;[3.18 Static code analysis](#318-static-code-analysis)
 
+&nbsp;&nbsp;[3.19 System Under Test SUT](#319-system-under-test-sut)
+
 [4. Technology](#4-technology)
 
 [5. How to Run](#5-how-to-run)
@@ -1889,6 +1891,105 @@ Using this library is trivial - it is just added as a NuGet package to all proje
 2. The rules are checked during the project build process as part of Continuous Integration
 3. The rules are set to *help your system grow*. **Static analysis is not a value in itself.** Some rules may not make complete sense and should be turned off. Other rules may have higher priority. It all depends on the project, company standards and people involved in the project. Be pragmatic.
 
+### 3.19 System Under Test SUT
+
+There is always a need to prepare the entire system in a specific state, e.g. for manual, exploratory, UX / UI tests. The fact that the tests are performed manually does not mean that we cannot automate the preparation phase (Given / Arrange). Thanks to the automation of system state preparation ([System Under Test](https://en.wikipedia.org/wiki/System_under_test)), we are able to recreate exactly the same state in any environment. In addition, such automation can be used later to automate the entire test (e.g. through an [3.13 Integration Tests](#313-integration-tests)).<br/>
+
+The implementation of such automation based on the use of NUKE and the test framework is presented below. As in the case of integration testing, we use the public API of modules.
+
+![](docs/Images/sut-preparation.jpg)
+
+Below is a SUT whose task is to go through the whole process - from setting up a *Meeting Group*, through its *Payment*, adding a new *Meeting* and signing up for it by another user.
+
+```csharp
+public class CreateMeeting : TestBase
+{
+    protected override bool PerformDatabaseCleanup => true;
+
+    [Test]
+    public async Task Prepare()
+    {
+        await UsersFactory.GivenAdmin(
+            UserAccessModule,
+            "testAdmin@mail.com",
+            "testAdminPass",
+            "Jane Doe",
+            "Jane",
+            "Doe",
+            "testAdmin@mail.com");
+
+        var userId = await UsersFactory.GivenUser(
+            UserAccessModule,
+            ConnectionString,
+            "adamSmith@mail.com",
+            "adamSmithPass",
+            "Adam",
+            "Smith",
+            "adamSmith@mail.com");
+
+        ExecutionContextAccessor.SetUserId(userId);
+
+        var meetingGroupId = await MeetingGroupsFactory.GivenMeetingGroup(
+            MeetingsModule,
+            AdministrationModule,
+            ConnectionString,
+            "Software Craft",
+            "Group for software craft passionates",
+            "Warsaw",
+            "PL");
+
+        await TestPriceListManager.AddPriceListItems(PaymentsModule, ConnectionString);
+
+        await TestPaymentsManager.BuySubscription(
+            PaymentsModule,
+            ExecutionContextAccessor);
+        
+        SetDate(new DateTime(2022, 7, 1, 10, 0, 0));
+
+        var meetingId = await TestMeetingFactory.GivenMeeting(
+            MeetingsModule,
+            meetingGroupId,
+            "Tactical DDD",
+            new DateTime(2022, 7, 10, 18, 0, 0),
+            new DateTime(2022, 7, 10, 20, 0, 0),
+            "Meeting about Tactical DDD patterns",
+            "Location Name",
+            "Location Address",
+            "01-755",
+            "Warsaw",
+            50,
+            0,
+            null,
+            null,
+            0,
+            null,
+            new List<Guid>()
+        );
+        
+        var attendeeUserId = await UsersFactory.GivenUser(
+            UserAccessModule,
+            ConnectionString,
+            "rickmorty@mail.com",
+            "rickmortyPass",
+            "Rick",
+            "Morty",
+            "rickmorty@mail.com");
+        
+        ExecutionContextAccessor.SetUserId(attendeeUserId);
+
+        await TestMeetingGroupManager.JoinToGroup(MeetingsModule, meetingGroupId);
+
+        await TestMeetingManager.AddAttendee(MeetingsModule, meetingId, guestsNumber: 1);
+    }
+}
+```
+
+You can create this SUT using following *NUKE* target providing connection string and particular test name:
+
+```shell
+ .\build PrepareSUT --DatabaseConnectionString "connection_string" --SUTTestName CreateMeeting
+```
+
 ## 4. Technology
 
 List of technologies, frameworks and libraries used for implementation:
@@ -2013,25 +2114,26 @@ This project is still under analysis and development. I assume its maintenance f
 
 List of features/tasks/approaches to add:
 
-| Name                     | Status | Release date |
-| ------------------------ | -------- | -------- |
-| Domain Model Unit Tests |Completed | 2019-09-10 |
-| Architecture Decision Log update |  Completed | 2019-11-09 |
-| Integration automated tests      | Completed | 2020-02-24 |
-| Migration to .NET Core 3.1 |Completed  |  2020-03-04  |
-| System Integration Testing | Completed  |  2020-03-28  |
-| More advanced Payments module | Completed  |  2020-07-11  |
-| Event Sourcing implementation | Completed  |  2020-07-11  |
-| Database Change Management | Completed  |  2020-08-23  |
-| Continuous Integration      | Completed  | 2020-09-01   |
+| Name                               | Status | Release date |
+|------------------------------------| -------- |--------------|
+| Domain Model Unit Tests            |Completed | 2019-09-10   |
+| Architecture Decision Log update   |  Completed | 2019-11-09   |
+| Integration automated tests        | Completed | 2020-02-24   |
+| Migration to .NET Core 3.1         |Completed  | 2020-03-04   |
+| System Integration Testing         | Completed  | 2020-03-28   |
+| More advanced Payments module      | Completed  | 2020-07-11   |
+| Event Sourcing implementation      | Completed  | 2020-07-11   |
+| Database Change Management         | Completed  | 2020-08-23   |
+| Continuous Integration             | Completed  | 2020-09-01   |
 | StyleCop Static Code Analysis      | Completed  | 2020-09-05   |
-| FrontEnd SPA application | Completed |  2020-11-08  |
-| Docker support | Completed |  2020-11-26  |
-| PlantUML Conceptual Model | Completed |  2021-03-22  |
-| C4 Model | Completed |  2021-03-29  |
-| Meeting comments feature | Completed |  2021-03-30  |
-| NUKE build automation | Completed |  2021-06-15  |
-| Database project compilation on CI | Completed |  2021-06-15  |
+| FrontEnd SPA application           | Completed | 2020-11-08   |
+| Docker support                     | Completed | 2020-11-26   |
+| PlantUML Conceptual Model          | Completed | 2021-03-22   |
+| C4 Model                           | Completed | 2021-03-29   |
+| Meeting comments feature           | Completed | 2021-03-30   |
+| NUKE build automation              | Completed | 2021-06-15   |
+| Database project compilation on CI | Completed | 2021-06-15   |
+| System Under Test implementation   | Completed | 2022-07-17   |
 
 NOTE: Please don't hesitate to suggest something else or a change to the existing code. All proposals will be considered.
 

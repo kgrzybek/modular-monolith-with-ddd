@@ -20,7 +20,8 @@ public partial class Build
     readonly IDictionary<string, string> TestCasesMap = new Dictionary<string, string>
     {
         {"CleanDatabase", "CompanyName.MyMeetings.SUT.TestCases.CleanDatabaseTestCase.Prepare"},
-        {"OnlyAdmin", "CompanyName.MyMeetings.SUT.TestCases.OnlyAdminTestCase.Prepare"}
+        {"OnlyAdmin", "CompanyName.MyMeetings.SUT.TestCases.OnlyAdminTestCase.Prepare"},
+        {"CreateMeeting", "CompanyName.MyMeetings.SUT.TestCases.CreateMeeting.Prepare"}
     };
     
     Target PrepareSUT => _ => _

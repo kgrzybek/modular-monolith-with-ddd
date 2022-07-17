@@ -53,7 +53,8 @@ namespace CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.SeedWork
                 Logger,
                 new EmailsConfiguration("from@email.com"),
                 "key",
-                EmailSender);
+                EmailSender,
+                null);
 
             UserAccessModule = new UserAccessModule();
         }

@@ -190,6 +190,7 @@ namespace CompanyName.MyMeetings.API
                 _logger,
                 emailsConfiguration,
                 _configuration["Security:TextEncryptionKey"],
+                null,
                 null);
 
             PaymentsStartup.Initialize(
