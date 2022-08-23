@@ -17,7 +17,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.301
+        dotnet-version: 7.0.102
     - name: Run build
       run: ./build.sh BuildAndUnitTests --configuration Release
 
@@ -31,6 +31,6 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.301
+        dotnet-version: 7.0.102
     - name: Run build
       run: ./build.sh RunAllIntegrationTests
