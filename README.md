@@ -91,6 +91,8 @@ FrontEnd application : [Modular Monolith With DDD: FrontEnd React application](h
 
 &nbsp;&nbsp;[3.19 System Under Test SUT](#319-system-under-test-sut)
 
+&nbsp;&nbsp;[3.20 Mutation Testing](#320-mutation-testing)
+
 [4. Technology](#4-technology)
 
 [5. How to Run](#5-how-to-run)
@@ -1990,6 +1992,32 @@ You can create this SUT using following *NUKE* target providing connection strin
  .\build PrepareSUT --DatabaseConnectionString "connection_string" --SUTTestName CreateMeeting
 ```
 
+### 3.20 Mutation Testing
+
+#### Description
+
+Mutation testing is an approach to test and evaluate our existing tests. During mutation testing a special framework modifies pieces of our code and runs our tests. These modifications are called *mutations* or *mutants*. If a given *mutation* does not cause a failure of at least once test, it means that the mutant has *survived* so our tests are probably not sufficient.
+
+#### Example
+
+In this repository, the [Stryker.NET](https://stryker-mutator.io/docs/stryker-net/Introduction) framework was used for mutation testing. In the simplest use, after installation, all you need to do is enter the directory of tests that you want to mutate and run the following command:
+
+```shell
+dotnet stryker
+```
+
+The result of this command is the *mutation report file*. Assuming we want to test the unit tests of the Meetings module, such a [report](docs/mutation-tests-reports/mutation-report.html) has been generated. This is its first page:
+
+![](docs/Images/mutation_testing_report.png)
+
+Let us analyze one of the places where the mutant survived. This is the *AddNotAttendee* method of the *Meeting* class. This method is used to add a *Member* to the list of people who have decided not to attend the meeting. According to the logic, if the same person previously indicated that he was going to the *Meeting* and later changed his mind, then if there is someone on the *Waiting List*, he should be added to the attendees. Based on requirements, this should be the person who signed up on the *Waiting List* **first** (based on **SignUpDate**). 
+
+![](docs/Images/mutation_testing_example.png)
+
+As you can see, the mutation framework changed our sorting in linq query (from default ascending to descending). However, each test was successful, so it means that mutant survived so we don't have a test that checks the correct sort based on *SignUpDate*.
+
+From the example above, one more important thing can be deduced - **code coverage is insufficient**. In the given example, this code is covered, but our tests do not check the given requirement, therefore our code may have errors. Mutation testing allow to detect such situations. Of course, as with any tool, we should use it wisely, as not every case requires our attention.
+
 ## 4. Technology
 
 List of technologies, frameworks and libraries used for implementation:
@@ -2023,6 +2051,7 @@ List of technologies, frameworks and libraries used for implementation:
 - [C4-PlantUML](https://github.com/plantuml-stdlib/C4-PlantUML) (C4 Model for PlantUML plugin)
 - [NUKE](https://nuke.build/) (Build automation system)
 - [MSBuild.Sdk.SqlProj](https://github.com/rr-wfm/MSBuild.Sdk.SqlProj/) (Database project compilation)
+- [Stryker.NET](https://stryker-mutator.io/docs/stryker-net/Introduction) (Mutation Testing framework)
 
 ## 5. How to Run
 
@@ -2134,6 +2163,7 @@ List of features/tasks/approaches to add:
 | NUKE build automation              | Completed | 2021-06-15   |
 | Database project compilation on CI | Completed | 2021-06-15   |
 | System Under Test implementation   | Completed | 2022-07-17   |
+| Mutation Testing                   | Completed | 2022-08-23   |
 
 NOTE: Please don't hesitate to suggest something else or a change to the existing code. All proposals will be considered.
 
