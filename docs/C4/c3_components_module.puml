@@ -1,9 +1,9 @@
 @startuml C3 Components Module (zoom-in)
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
 
-AddTagSupport("meetings", $bgColor="#4ce065")
-AddTagSupport("administration", $bgColor="#e3b868")
-AddTagSupport("eventsBus", $bgColor="#29118a", $fontColor="#ffffff")
+AddComponentTag("meetings", $bgColor="#4ce065")
+AddComponentTag("administration", $bgColor="#e3b868")
+AddComponentTag("eventsBus", $bgColor="#29118a", $fontColor="#ffffff")
 
 System_Boundary(c1, "My Meetings System") {
     Boundary(myMeetingsApi, "My Meetings API") {
