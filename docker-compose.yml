@@ -7,7 +7,7 @@ services:
     build:
       context: ./src/
     ports:
-      - "5001:80"
+      - "5000:80"
     networks:
       - starfish-crm-network
     environment:
