@@ -23,11 +23,11 @@ Putin, idi nachuj.
 
 ## FrontEnd application
 
-FrontEnd application : [Modular Monolith With DDD: FrontEnd React application](https://github.com/kgrzybek/modular-monolith-with-ddd-fe-react) 
+FrontEnd application : [Modular Monolith With DDD: FrontEnd React application](https://github.com/kgrzybek/modular-monolith-with-ddd-fe-react)
 
 ## Table of contents
 
-[1. Introduction](#1-Introduction)
+[1. Introduction](#1-introduction)
 
 &nbsp;&nbsp;[1.1 Purpose of this Repository](#11-purpose-of-this-repository)
 
@@ -41,7 +41,7 @@ FrontEnd application : [Modular Monolith With DDD: FrontEnd React application](h
 
 &nbsp;&nbsp;[1.6 Share It](#16-share-it)
 
-[2. Domain](#2-Domain)
+[2. Domain](#2-domain)
 
 &nbsp;&nbsp;[2.1 Description](#21-description)
 
@@ -49,7 +49,7 @@ FrontEnd application : [Modular Monolith With DDD: FrontEnd React application](h
 
 &nbsp;&nbsp;[2.3 Event Storming](#23-event-storming)
 
-[3. Architecture](#3-Architecture)
+[3. Architecture](#3-architecture)
 
 &nbsp;&nbsp;[3.0 C4 Model](#30-c4-model)
 
@@ -131,6 +131,7 @@ This is a list of the main goals of this repository:
 ### 1.2 Out of Scope
 
 This is a list of subjects which are out of scope for this repository:
+
 - Business requirements gathering and analysis
 - System analysis
 - Domain exploration
@@ -149,6 +150,7 @@ This is a list of subjects which are out of scope for this repository:
 ### 1.3 Reason
 
 The reason for creating this repository is the lack of something similar. Most sample applications on GitHub have at least one of the following issues:
+
 - Very, very simple - few entities and use cases implemented
 - Not finished (for example there is no authentication, logging, etc..)
 - Poorly designed (in my opinion)
@@ -236,7 +238,6 @@ Each `User` is assigned one or more `User Role`.
 
 Each `User Role` has set of `Permissions`. A `Permission` defines whether `User` can invoke a particular action.
 
-
 ### 2.2 Conceptual Model
 
 **Definition:**
@@ -285,7 +286,6 @@ Note: Event Storming is a light, live workshop. One of the possible outputs of t
 [Download high resolution file](docs/Images/Payments_EventStorming_Design_HighRes.jpg)
 
 ------
-
 
 ## 3. Architecture
 
@@ -481,6 +481,7 @@ internal class GetAllMeetingGroupsQueryHandler : IQueryHandler<GetAllMeetingGrou
 - Supports Loose Coupling by use of the [Mediator pattern](https://en.wikipedia.org/wiki/Mediator_pattern) - separates invoker of request from handler of request
 
 **Disadvantage:**
+
 - Mediator pattern introduces extra indirection and is harder to reason about which class handles the request
 
 For more information: [Simple CQRS implementation with raw SQL and DDD](https://www.kamilgrzybek.com/design/simple-cqrs-implementation-with-raw-sql-and-ddd/)
@@ -868,6 +869,7 @@ public async Task<IActionResult> ProposeMeetingGroup(ProposeMeetingGroupRequest 
     return Ok();
 }
 ```
+
 ### 3.10 Unit Tests
 
 **Definition:**
@@ -1058,6 +1060,7 @@ More information about architecture unit tests here: [https://blogs.oracle.com/j
 "Integration Test" term is blurred. It can mean test between classes, modules, services, even systems - see [this](https://martinfowler.com/bliki/IntegrationTest.html) article (by Martin Fowler). </br>
 
 For this reason, the definition of integration test in this project is as follows:</br>
+
 - it verifies how system works in integration with "out-of-process" dependencies - database, messaging system, file system or external API
 - it tests particular use case
 - it can be slow (as opposed to Unit Test)
@@ -1112,6 +1115,7 @@ public async Task BeforeEachTest()
     PaymentsModule = new PaymentsModule();
 }
 ```
+
 After preparation, test is performed on clear database. Usually, it is the execution of some (or many) Commands and: </br>
 a) running a Query or/and  </br>
 b) verifying mocks </br>
@@ -1146,13 +1150,14 @@ Each Command/Query processing is a separate execution (with different object gra
 ### 3.14 System Integration Testing
 
 #### Definition
+
 [System Integration Testing (SIT)](https://en.wikipedia.org/wiki/System_integration_testing) is performed to verify the interactions between the modules of a software system. It involves the overall testing of a complete system of many subsystem components or elements.
 
 #### Implementation
 
 Implementation of system integration tests is based on approach of integration testing of modules in isolation (invoking commands and queries) described in the previous section.
 
-The problem is that in this case we are dealing with **asynchronous communication**. Due to asynchrony, our **test must wait for the result** at certain times. 
+The problem is that in this case we are dealing with **asynchronous communication**. Due to asynchrony, our **test must wait for the result** at certain times.
 
 To correctly implement such tests, the **Sampling** technique and implementation described in the [Growing Object-Oriented Software, Guided by Tests](https://www.amazon.com/Growing-Object-Oriented-Software-Guided-Tests/dp/0321503627) book was used:
 
@@ -1161,6 +1166,7 @@ To correctly implement such tests, the **Sampling** technique and implementation
 ![](docs/Images/SystemIntegrationTests.jpg)
 
 Test below:
+
 1. Creates Meeting Group Proposal in Meetings module
 2. Waits until Meeting Group Proposal to verification will be available in Administration module with 10 seconds timeout
 3. Accepts Meeting Group Proposal in Administration module
@@ -1311,11 +1317,12 @@ public class Poller
 
 #### Theory
 
-During the implementation of the Payment module, *Event Sourcing* was used. *Event Sourcing* is a way of preserving the state of our system by recording a sequence of events. No less, no more. 
+During the implementation of the Payment module, *Event Sourcing* was used. *Event Sourcing* is a way of preserving the state of our system by recording a sequence of events. No less, no more.
 
 It is important here to really restore the state of our application from events. If we collect events only for auditing purposes, it is an [Audit Log/Trail](https://en.wikipedia.org/wiki/Audit_trail) - not the *Event Sourcing*.
 
 The main elements of *Event Sourcing* are as follows:
+
 - Events Stream
 - Objects that are restored based on events. There are 2 types of such objects depending on the purpose:
 -- Objects responsible for the change of state. In Domain-Driven Design they will be *Aggregates*.
@@ -1332,8 +1339,9 @@ In order not to reinvent the wheel, the *SQL Stream Store* library was used. As 
 *SQL Stream Store is a .NET library to assist with developing applications that use event sourcing or wish to use stream based patterns over a relational database and existing operational infrastructure.*
 
 Like every library, it has its limitations and assumptions (I recommend the linked documentation chapter "Things you need to know before adopting"). For me, the most important 2 points from this chapter are:
+
 1. *"Subscriptions (and thus projections) are **eventually consistent** and always will be."* This means that there will always be an inconsistency time from saving the event to the stream and processing the event by the projector(s).
-2. *"No support for ambient System.Transaction scopes enforcing the concept of the stream as the consistency and transactional boundary."* This means that if we save the event to a events stream and want to save something **in the same transaction**, we must use [TransactionScope](https://docs.microsoft.com/en-us/dotnet/api/system.transactions.transactionscope?view=netcore-3.1). If we cannot use *TransactionScope* for some reason, we must accept the Eventual Consistency also in this case.
+2. *"No support for ambient System.Transaction scopes enforcing the concept of the stream as the consistency and transactional boundary."* This means that if we save the event to a events stream and want to save something **in the same transaction**, we must use [TransactionScope](https://learn.microsoft.com/en-us/dotnet/api/system.transactions.transactionscope?view=net-7.0). If we cannot use *TransactionScope* for some reason, we must accept the Eventual Consistency also in this case.
 
 Other popular tools:
 
@@ -1343,6 +1351,7 @@ Other popular tools:
 #### Implementation
 
 There are 2 main "flows" to handle:
+
 - Command handling: change of state - adding new events to stream (writing)
 - Projection of events to create read models
 
@@ -1355,7 +1364,6 @@ The whole process looks like this:
 1. We create / update an aggregate by creating an event
 2. We add changes to the Aggregate Store. This is the class responsible for writing / loading our aggregates. We are not saving changes yet.
 3. As part of Unit Of Work  a) Aggregate Store adds events to the stream b) messages are added to the Outbox
-
 
 Command Handler:
 
@@ -1500,6 +1508,7 @@ public abstract class AggregateRoot
 }
 
 ```
+
 Aggregate Store implementation with SQL Stream Store library usage:
 
 ```csharp
@@ -1705,9 +1714,11 @@ internal class SubscriptionDetailsProjector : ProjectorBase, IProjector
 }
 
 ```
+
 #### Sample view of Event Store
 
 Sample *Event Store* view after execution of SubscriptionLifecycleTests Integration Test which includes following steps:
+
 1. Creating Price List
 2. Buying Subscription
 3. Renewing Subscription
@@ -1730,6 +1741,7 @@ dotnet DatabaseMigrator.dll "connection_string" "scripts_directory_path"
 ```
 
 The entire solution is described in detail in the following articles:
+
 1. [Database change management](https://www.kamilgrzybek.com/database/database-change-management/) (theory)
 2. [Using database project and DbUp for database management](https://www.kamilgrzybek.com/database/using-database-project-and-dbup-for-database-management/) (implementation)
 
@@ -1746,7 +1758,8 @@ As defined on [Martin Fowler's website](https://martinfowler.com/articles/contin
 
 ##### Pipeline description
 
-CI was implemented using [GitHub Actions](https://docs.github.com/en/actions/getting-started-with-github-actions/about-github-actions). For this purpose, one workflow, which triggers on Pull Request to *master* branch or Push to *master* branch was created. It contains 2 jobs: 
+CI was implemented using [GitHub Actions](https://docs.github.com/en/actions/getting-started-with-github-actions/about-github-actions). For this purpose, one workflow, which triggers on Pull Request to *master* branch or Push to *master* branch was created. It contains 2 jobs:
+
 - build test, execute Unit Tests and Architecture Tests
 - execute Integration Tests
 
@@ -1782,10 +1795,12 @@ Example workflow output:
 [Nuke](https://nuke.build/) is *the cross-platform build automation solution for .NET with C# DSL.*
 
 The 2 main advantages of its use over pure yaml defined in GitHub actions are as follows:
+
 - You run the same code on local machine and in the build server. See [buildPipeline.yml](.github/workflows/buildPipeline.yml)
 - You use C# with all the goodness (debugging, compilation, packages, refactoring and so on)
 
 This is how one of the stage definition looks like (execute Build, Unit Tests, Architecture Tests) [Build.cs](build/Build.cs):
+
 ```csharp
 partial class Build : NukeBuild
 {
@@ -1864,6 +1879,7 @@ If you want to see more complex scenario when integration tests are executed (wi
 #### SQL Server database project build
 
 Currently, compilation of database projects is not supported by the .NET Core and dotnet tool. For this reason, the [MSBuild.Sdk.SqlProj](https://github.com/rr-wfm/MSBuild.Sdk.SqlProj/) library was used. In order to do that, you need to create .NET standard library, change SDK and create links to scripts folders. Final [database project](src/Database/CompanyName.MyMeetings.Database.Build/CompanyName.MyMeetings.Database.Build.csproj) looks as follows:
+
 ```xml
 <Project Sdk="MSBuild.Sdk.SqlProj/1.6.0">
     <PropertyGroup>
@@ -1879,7 +1895,6 @@ Currently, compilation of database projects is not supported by the .NET Core an
     </ItemGroup>
 </Project>
 ```
-
 
 ### 3.18 Static code analysis
 
@@ -2010,7 +2025,7 @@ The result of this command is the *mutation report file*. Assuming we want to te
 
 ![](docs/Images/mutation_testing_report.png)
 
-Let us analyze one of the places where the mutant survived. This is the *AddNotAttendee* method of the *Meeting* class. This method is used to add a *Member* to the list of people who have decided not to attend the meeting. According to the logic, if the same person previously indicated that he was going to the *Meeting* and later changed his mind, then if there is someone on the *Waiting List*, he should be added to the attendees. Based on requirements, this should be the person who signed up on the *Waiting List* **first** (based on **SignUpDate**). 
+Let us analyze one of the places where the mutant survived. This is the *AddNotAttendee* method of the *Meeting* class. This method is used to add a *Member* to the list of people who have decided not to attend the meeting. According to the logic, if the same person previously indicated that he was going to the *Meeting* and later changed his mind, then if there is someone on the *Waiting List*, he should be added to the attendees. Based on requirements, this should be the person who signed up on the *Waiting List* **first** (based on **SignUpDate**).
 
 ![](docs/Images/mutation_testing_example.png)
 
@@ -2022,9 +2037,9 @@ From the example above, one more important thing can be deduced - **code coverag
 
 List of technologies, frameworks and libraries used for implementation:
 
-- [.NET Core 3.1](https://dotnet.microsoft.com/download) (platform). Note for Visual Studio users: **VS 2019** is required.
+- [.NET 7.0](https://dotnet.microsoft.com/download) (platform). Note for Visual Studio users: **VS 2019** is required.
 - [MS SQL Server Express](https://www.microsoft.com/en-us/sql-server/sql-server-editions-express) (database)
-- [Entity Framework Core 3.1](https://docs.microsoft.com/en-us/ef/core/) (ORM Write Model implementation for DDD)
+- [Entity Framework Core 7.0](https://docs.microsoft.com/en-us/ef/core/) (ORM Write Model implementation for DDD)
 - [Autofac](https://autofac.org/) (Inversion of Control Container)
 - [IdentityServer4](http://docs.identityserver.io) (Authentication and Authorization)
 - [Serilog](https://serilog.net/) (structured logging)
@@ -2055,10 +2070,12 @@ List of technologies, frameworks and libraries used for implementation:
 
 ## 5. How to Run
 
-### Install .NET Core 3.1
-- Download and install .NET Core 3.1 SDK
+### Install .NET 7.0
+
+- [Download](https://dotnet.microsoft.com/en-us/download/dotnet/7.0) and install .NET 7.0 SDK
 
 ### Create database
+
 - Download and install MS SQL Server Express or other
 - Create an empty database using [CreateDatabase_Windows.sql](src/Database/CompanyName.MyMeetings.Database/Scripts/CreateDatabase_Windows.sql) or [CreateDatabase_Linux.sql](src/Database/CompanyName.MyMeetings.Database/Scripts/CreateDatabase_Linux.sql). Script adds **app** schema which is needed for migrations journal table. Change database file path if needed.
 - Run database migrations using **MigrateDatabase** NUKE target:
@@ -2079,12 +2096,15 @@ List of technologies, frameworks and libraries used for implementation:
 Set a database connection string called `MeetingsConnectionString` in the root of the API project's appsettings.json or use [Secrets](https://blogs.msdn.microsoft.com/mihansen/2017/09/10/managing-secrets-in-net-core-2-0-apps/)
 
 Example config setting in appsettings.json for a database called `ModularMonolith`:
+
 ```json
 {
-	"MeetingsConnectionString": "Server=(localdb)\\mssqllocaldb;Database=ModularMonolith;Trusted_Connection=True;"
+ "MeetingsConnectionString": "Server=(localdb)\\mssqllocaldb;Database=ModularMonolith;Trusted_Connection=True;"
 }
 ```
+
 ### Configure startup in IDE
+
 - Set the Startup Item in your IDE to the API Project, not IIS Express
 
 ### Authenticate
@@ -2096,10 +2116,12 @@ Example config setting in appsettings.json for a database called `ModularMonolit
 - `grant_type = password`
 
 Include the credentials of a test user created in the [SeedDatabase.sql](src/Database/CompanyName.MyMeetings.Database/Scripts/SeedDatabase.sql) script - for example:
+
 - `username = testMember@mail.com`
 - `password = testMemberPass`
 
 **Example HTTP Request for an Access Token:**
+
 ```http
 POST /connect/token HTTP/1.1
 Host: localhost:5000
@@ -2118,11 +2140,13 @@ If you use a tool such as Postman to test your API, the token can be fetched and
 ### Run using Docker Compose
 
 You can run whole application using [docker compose](https://docs.docker.com/compose/) from root folder:
+
 ```shell
 docker-compose up
 ```
 
 It will create following services: <br/>
+
 - MS SQL Server Database
 - Database Migrator
 - Application
@@ -2190,6 +2214,7 @@ The project is under [MIT license](https://opensource.org/licenses/MIT).
 ## 10. Inspirations and Recommendations
 
 ### Modular Monolith
+
 - ["Modular Monolith: A Primer"](https://www.kamilgrzybek.com/design/modular-monolith-primer/) Modular Monolith architecture article series, Kamil Grzybek
 - ["Modular Monolith Architecture: One to rule them all"](https://www.youtube.com/watch?v=njDSXUWeik0) presentation, Kamil Grzybek
 - ["Modular Monoliths"](https://www.youtube.com/watch?v=5OjqD-ow8GE) presentation, Simon Brown
@@ -2199,6 +2224,7 @@ The project is under [MIT license](https://opensource.org/licenses/MIT).
 - ["Pattern: Monolithic Architecture"](https://microservices.io/patterns/monolithic.html) pattern description, Chris Richardson
 
 ### Domain-Driven Design
+
 - ["Domain-Driven Design: Tackling Complexity in the Heart of Software"](https://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215) book, Eric Evans
 - ["Implementing Domain-Driven Design"](https://www.amazon.com/Implementing-Domain-Driven-Design-Vaughn-Vernon/dp/0321834577) book, Vaughn Vernon
 - ["Domain-Driven Design Distilled"](https://www.amazon.com/dp/0134434420) book, Vaughn Vernon
@@ -2212,6 +2238,7 @@ The project is under [MIT license](https://opensource.org/licenses/MIT).
 - ["Awesome Domain-Driven Design"](https://github.com/heynickc/awesome-ddd) GH repository, Nick Chamberlain
 
 ### Application Architecture
+
 - ["Patterns of Enterprise Application Architecture"](https://martinfowler.com/books/eaa.html) book, Martin Fowler
 - ["Dependency Injection Principles, Practices, and Patterns"](https://www.manning.com/books/dependency-injection-principles-practices-patterns) book, Steven van Deursen, Mark Seemann
 - ["Clean Architecture: A Craftsman's Guide to Software Structure and Design (Robert C. Martin Series"](https://www.amazon.com/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164) book, Robert C. Martin
@@ -2221,6 +2248,7 @@ The project is under [MIT license](https://opensource.org/licenses/MIT).
 - ["DDD, Hexagonal, Onion, Clean, CQRS, … How I put it all together"](https://herbertograca.com/2017/11/16/explicit-architecture-01-ddd-hexagonal-onion-clean-cqrs-how-i-put-it-all-together/) article, Herberto Graca
 
 ### Software Architecture
+
 - ["Software Architecture in Practice (3rd Edition)"](https://www.amazon.com/Software-Architecture-Practice-3rd-Engineering/dp/0321815734) book, Len Bass, Paul Clements, Rick Kazman
 - ["Software Architecture for Developers Vol 1 & 2"](https://softwarearchitecturefordevelopers.com/) book, Simon Brown
 - ["Just Enough Software Architecture: A Risk-Driven Approach"](https://www.amazon.com/Just-Enough-Software-Architecture-Risk-Driven/dp/0984618104) book, George H. Fairbanks
@@ -2228,34 +2256,40 @@ The project is under [MIT license](https://opensource.org/licenses/MIT).
 - ["Design It!: From Programmer to Software Architect (The Pragmatic Programmers)"](https://www.amazon.com/Design-Programmer-Architect-Pragmatic-Programmers/dp/1680502093) book, Michael Keeling
 
 ### System Architecture
+
 - ["Enterprise Integration Patterns : Designing, Building, and Deploying Messaging Solutions"](https://www.enterpriseintegrationpatterns.com/) book and catalogue, Gregor Hohpe, Bobby Woolf
 - ["Designing Data-Intensive Applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems "](https://www.amazon.com/Designing-Data-Intensive-Applications-Reliable-Maintainable/dp/1449373321) book, Martin Kleppman
 - ["Building Evolutionary Architectures: Support Constant Change"](https://www.amazon.com/Building-Evolutionary-Architectures-Support-Constant/dp/1491986360) book, Neal Ford
 - ["Building Microservices: Designing Fine-Grained Systems"](https://www.amazon.com/Building-Microservices-Designing-Fine-Grained-Systems/dp/1491950358) book, Sam Newman
 
 ### Design
+
 - ["Refactoring: Improving the Design of Existing Code"](https://www.amazon.com/Refactoring-Improving-Design-Existing-Code/dp/0201485672) book, Martin Fowler, Kent Beck, John Brant, William Opdyke, Don Roberts
 - ["Clean Code: A Handbook of Agile Software Craftsmanship"](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882) book, Robert C. Martin
 - ["Agile Principles, Patterns, and Practices in C#"](https://www.amazon.com/Agile-Principles-Patterns-Practices-C/dp/0131857258) book, Robert C. Martin
 - ["Applying UML and Patterns: An Introduction to Object-Oriented Analysis and Design and Iterative Development (3rd Edition)"](https://www.amazon.com/Applying-UML-Patterns-Introduction-Object-Oriented/dp/0131489062) book, Craig Larman
-- ["Working Effectively with Legacy Code"](https://www.amazon.com/Working-Effectively-Legacy-Michael-Feathers/dp/0131177052) book, Michael Feathers 
+- ["Working Effectively with Legacy Code"](https://www.amazon.com/Working-Effectively-Legacy-Michael-Feathers/dp/0131177052) book, Michael Feathers
 - ["Code Complete: A Practical Handbook of Software Construction, Second Edition"](https://www.amazon.com/Code-Complete-Practical-Handbook-Construction/dp/0735619670) book, Steve McConnell
 - ["Design Patterns: Elements of Reusable Object-Oriented Software"](https://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612) book, Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides
 
 ### Craftsmanship
+
 - ["The Clean Coder: A Code of Conduct for Professional Programmers"](https://www.amazon.com/Clean-Coder-Conduct-Professional-Programmers/dp/0137081073) book, Robert C. Martin
 - ["The Pragmatic Programmer: From Journeyman to Master"](https://www.amazon.com/Pragmatic-Programmer-Journeyman-Master/dp/020161622X) book, Andrew Hunt
 
 ### Testing
+
 - ["The Art of Unit Testing: with examples in C#"](https://www.amazon.com/Art-Unit-Testing-examples/dp/1617290890) book, Roy Osherove
 - ["Unit Test Your Architecture with ArchUnit"](https://blogs.oracle.com/javamagazine/unit-test-your-architecture-with-archunit) article, Jonas Havers
 - ["Unit Testing Principles, Practices, and Patterns"](https://www.amazon.com/Unit-Testing-Principles-Practices-Patterns/dp/1617296279) book, Vladimir Khorikov
 - ["Growing Object-Oriented Software, Guided by Tests"](https://www.amazon.com/Growing-Object-Oriented-Software-Guided-Tests/dp/0321503627) book, Steve Freeman, Nat Pryce
 
 ### UML
+
 - ["UML Distilled: A Brief Guide to the Standard Object Modeling Language (3rd Edition)"](https://www.amazon.com/UML-Distilled-Standard-Modeling-Language/dp/0321193687) book, Martin Fowler
 
 ### Event Storming
+
 - ["Introducing EventStorming"](https://leanpub.com/introducing_eventstorming) book, Alberto Brandolini
 - ["Awesome EventStorming"](https://github.com/mariuszgil/awesome-eventstorming) GH repository, Mariusz Gil
 
