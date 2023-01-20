@@ -11,17 +11,17 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\net7.0\CompanyName.MyMeetings.API\CompanyName.MyMeetings.API.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\net7.0\CompanyName.MyMeetings.API\CompanyName.MyMeetings.APIx.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Production|AnyCPU'">
-    <DocumentationFile>bin\Production\net7.0\CompanyName.MyMeetings.API\CompanyName.MyMeetings.API.xml</DocumentationFile>
+    <DocumentationFile>bin\Production\net7.0\CompanyName.MyMeetings.API\CompanyName.MyMeetings.APIx.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\net7.0\CompanyName.MyMeetings.API.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\net7.0\CompanyName.MyMeetings.APIx.xml</DocumentationFile>
       <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
