@@ -1767,7 +1767,7 @@ CI was implemented using [GitHub Actions](https://docs.github.com/en/actions/get
 
 **Steps description**<br/>
 a) Checkout repository - clean checkout of git repository <br/>
-b) Setup .NET Core - install .NET Core SDK<br/>
+b) Setup .NET - install .NET 7.0 SDK<br/>
 c) Install dependencies - resolve NuGet packages<br/>
 d) Build - build solution<br/>
 e) Run Unit Tests - run automated Unit Tests (see section 3.10)<br/>
