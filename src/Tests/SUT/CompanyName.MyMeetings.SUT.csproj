@@ -13,7 +13,7 @@
         <PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
         <PackageReference Include="Serilog" Version="2.9.0" />
-        <PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
+        <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
     </ItemGroup>
 
     <ItemGroup>
