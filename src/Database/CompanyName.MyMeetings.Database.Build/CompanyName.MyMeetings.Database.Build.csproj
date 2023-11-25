@@ -1,6 +1,6 @@
-<Project Sdk="MSBuild.Sdk.SqlProj/2.3.0">
+<Project Sdk="MSBuild.Sdk.SqlProj/2.6.1">
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <SqlServerVersion>Sql130</SqlServerVersion>
         <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
     </PropertyGroup>
