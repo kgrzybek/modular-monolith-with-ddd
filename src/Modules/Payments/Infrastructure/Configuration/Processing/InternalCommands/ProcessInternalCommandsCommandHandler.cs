@@ -20,7 +20,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
             _sqlConnectionFactory = sqlConnectionFactory;
         }
 
-        public async Task<Unit> Handle(ProcessInternalCommandsCommand command, CancellationToken cancellationToken)
+        public async Task Handle(ProcessInternalCommandsCommand command, CancellationToken cancellationToken)
         {
             var connection = this._sqlConnectionFactory.GetOpenConnection();
 
@@ -64,8 +64,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
                         });
                 }
             }
-
-            return Unit.Value;
         }
 
         private async Task ProcessCommand(

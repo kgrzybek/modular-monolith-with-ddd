@@ -17,7 +17,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Mark
             _aggregateStore = aggregateStore;
         }
 
-        public async Task<Unit> Handle(MarkSubscriptionRenewalPaymentAsPaidCommand command, CancellationToken cancellationToken)
+        public async Task Handle(MarkSubscriptionRenewalPaymentAsPaidCommand command, CancellationToken cancellationToken)
         {
             var subscriptionRenewalPayment =
                 await _aggregateStore.Load(
@@ -26,8 +26,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Mark
             subscriptionRenewalPayment.MarkRenewalAsPaid();
 
             _aggregateStore.AppendChanges(subscriptionRenewalPayment);
-
-            return Unit.Value;
         }
     }
 }

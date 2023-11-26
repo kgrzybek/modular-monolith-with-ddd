@@ -15,7 +15,7 @@ using Serilog.Events;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Processing.Outbox
 {
-    internal class ProcessOutboxCommandHandler : ICommandHandler<ProcessOutboxCommand, Unit>
+    internal class ProcessOutboxCommandHandler : ICommandHandler<ProcessOutboxCommand>
     {
         private readonly IMediator _mediator;
 
@@ -33,7 +33,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             _domainNotificationsMapper = domainNotificationsMapper;
         }
 
-        public async Task<Unit> Handle(ProcessOutboxCommand command, CancellationToken cancellationToken)
+        public async Task Handle(ProcessOutboxCommand command, CancellationToken cancellationToken)
         {
             var connection = this._sqlConnectionFactory.GetOpenConnection();
             string sql = "SELECT " +
@@ -69,8 +69,6 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
                     }
                 }
             }
-
-            return Unit.Value;
         }
 
         private class OutboxMessageContextEnricher : ILogEventEnricher

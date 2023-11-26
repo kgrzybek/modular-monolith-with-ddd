@@ -15,9 +15,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupPropos
             _eventsBus = eventsBus;
         }
 
-        public Task Handle(MeetingGroupProposedNotification notification, CancellationToken cancellationToken)
+        public async Task Handle(MeetingGroupProposedNotification notification, CancellationToken cancellationToken)
         {
-            _eventsBus.Publish(new MeetingGroupProposedIntegrationEvent(
+            await _eventsBus.Publish(new MeetingGroupProposedIntegrationEvent(
                 notification.Id,
                 notification.DomainEvent.OccurredOn,
                 notification.DomainEvent.MeetingGroupProposalId.Value,
@@ -27,8 +27,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupPropos
                 notification.DomainEvent.LocationCountryCode,
                 notification.DomainEvent.ProposalUserId.Value,
                 notification.DomainEvent.ProposalDate));
-
-            return Task.CompletedTask;
         }
     }
 }

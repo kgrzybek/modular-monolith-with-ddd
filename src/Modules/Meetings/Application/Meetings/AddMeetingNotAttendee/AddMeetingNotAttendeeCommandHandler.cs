@@ -18,13 +18,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.AddMeetin
             _meetingRepository = meetingRepository;
         }
 
-        public async Task<Unit> Handle(AddMeetingNotAttendeeCommand request, CancellationToken cancellationToken)
+        public async Task Handle(AddMeetingNotAttendeeCommand request, CancellationToken cancellationToken)
         {
             var meeting = await _meetingRepository.GetByIdAsync(new MeetingId(request.MeetingId));
 
             meeting.AddNotAttendee(_memberContext.MemberId);
-
-            return Unit.Value;
         }
     }
 }

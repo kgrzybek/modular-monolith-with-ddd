@@ -21,7 +21,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
                 "SELECT " +
                 "[SubscriptionCheckpoint].Position " +
                 "FROM [payments].[SubscriptionCheckpoints] AS [SubscriptionCheckpoint] " +
-                "WHERE [Code] = @Code", new
+                "WHERE [Code] = @Code",
+                new
                 {
                     Code = subscriptionCode
                 });

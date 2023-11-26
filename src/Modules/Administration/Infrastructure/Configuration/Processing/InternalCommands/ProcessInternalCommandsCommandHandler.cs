@@ -11,7 +11,7 @@ using Polly;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Processing.InternalCommands
 {
-    internal class ProcessInternalCommandsCommandHandler : ICommandHandler<ProcessInternalCommandsCommand, Unit>
+    internal class ProcessInternalCommandsCommandHandler : ICommandHandler<ProcessInternalCommandsCommand>
     {
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
@@ -25,7 +25,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             _internalCommandsMapper = internalCommandsMapper;
         }
 
-        public async Task<Unit> Handle(ProcessInternalCommandsCommand command, CancellationToken cancellationToken)
+        public async Task Handle(ProcessInternalCommandsCommand command, CancellationToken cancellationToken)
         {
             var connection = this._sqlConnectionFactory.GetOpenConnection();
 
@@ -70,8 +70,6 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
                         });
                 }
             }
-
-            return Unit.Value;
         }
 
         private async Task ProcessCommand(

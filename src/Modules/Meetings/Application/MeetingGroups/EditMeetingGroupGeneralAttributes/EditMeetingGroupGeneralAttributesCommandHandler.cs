@@ -18,7 +18,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.Edit
             _meetingGroupRepository = meetingGroupRepository;
         }
 
-        public async Task<Unit> Handle(EditMeetingGroupGeneralAttributesCommand request, CancellationToken cancellationToken)
+        public async Task Handle(EditMeetingGroupGeneralAttributesCommand request, CancellationToken cancellationToken)
         {
             MeetingGroup meetingGroup =
                 await _meetingGroupRepository.GetByIdAsync(new MeetingGroupId(request.MeetingGroupId));
@@ -26,8 +26,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.Edit
             meetingGroup.EditGeneralAttributes(request.Name, request.Description, MeetingGroupLocation.CreateNew(request.LocationCity, request.LocationCountry));
 
             await _meetingGroupRepository.Commit();
-
-            return Unit.Value;
         }
     }
 }

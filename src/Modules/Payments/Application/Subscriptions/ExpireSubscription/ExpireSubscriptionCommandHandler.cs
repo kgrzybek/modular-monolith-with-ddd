@@ -16,15 +16,13 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Expi
             _aggregateStore = aggregateStore;
         }
 
-        public async Task<Unit> Handle(ExpireSubscriptionCommand command, CancellationToken cancellationToken)
+        public async Task Handle(ExpireSubscriptionCommand command, CancellationToken cancellationToken)
         {
             var subscription = await _aggregateStore.Load(new SubscriptionId(command.SubscriptionId));
 
             subscription.Expire();
 
             _aggregateStore.AppendChanges(subscription);
-
-            return Unit.Value;
         }
     }
 }

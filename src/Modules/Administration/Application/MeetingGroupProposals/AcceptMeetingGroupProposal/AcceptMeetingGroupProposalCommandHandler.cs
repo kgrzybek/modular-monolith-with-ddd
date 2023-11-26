@@ -18,13 +18,11 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroup
             _userContext = userContext;
         }
 
-        public async Task<Unit> Handle(AcceptMeetingGroupProposalCommand request, CancellationToken cancellationToken)
+        public async Task Handle(AcceptMeetingGroupProposalCommand request, CancellationToken cancellationToken)
         {
             var meetingGroupProposal = await _meetingGroupProposalRepository.GetByIdAsync(new MeetingGroupProposalId(request.MeetingGroupProposalId));
 
             meetingGroupProposal.Accept(_userContext.UserId);
-
-            return Unit.Value;
         }
     }
 }

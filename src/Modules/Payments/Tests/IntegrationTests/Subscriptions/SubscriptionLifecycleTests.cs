@@ -73,7 +73,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
                     subscriptionId,
                     x => x.SubscriptionId == subscriptionId &&
                          x.Status == SubscriptionStatus.Active.Code &&
-                         x.Period == SubscriptionPeriod.Month.Code), 5000);
+                         x.Period == SubscriptionPeriod.Month.Code),
+                5000);
 
             Assert.That(subscriptionPayments[0].Status, Is.EqualTo(SubscriptionPaymentStatus.Paid.Code));
             Assert.That(subscription.ExpirationDate, Is.EqualTo(referenceDate.AddMonths(1)));
@@ -117,7 +118,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions
                     subscriptionId,
                     x => x.SubscriptionId == subscriptionId &&
                          x.Period == SubscriptionPeriod.GetName(SubscriptionPeriod.HalfYear.Code) &&
-                         x.Status == SubscriptionStatus.Active.Code), 5000);
+                         x.Status == SubscriptionStatus.Active.Code),
+                5000);
 
             Assert.That(renewalPayment.Status, Is.EqualTo(SubscriptionRenewalPaymentStatus.Paid.Code));
             Assert.That(subscription.ExpirationDate, Is.EqualTo(referenceDate.AddMonths(7)));

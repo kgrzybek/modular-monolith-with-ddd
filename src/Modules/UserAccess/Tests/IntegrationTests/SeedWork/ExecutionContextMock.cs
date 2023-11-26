@@ -15,7 +15,7 @@ namespace CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.SeedWork
         public Guid CorrelationId { get; }
 
         public bool IsAvailable { get; }
-        
+
         public void SetUserId(Guid userId)
         {
             this.UserId = userId;

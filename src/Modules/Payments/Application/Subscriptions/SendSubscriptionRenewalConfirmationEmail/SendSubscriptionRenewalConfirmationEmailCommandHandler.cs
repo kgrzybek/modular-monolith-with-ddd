@@ -15,15 +15,14 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Send
             _emailSender = emailSender;
         }
 
-        public Task<Unit> Handle(SendSubscriptionRenewalConfirmationEmailCommand request, CancellationToken cancellationToken)
+        public async Task Handle(SendSubscriptionRenewalConfirmationEmailCommand request, CancellationToken cancellationToken)
         {
             var emailMessage = new EmailMessage(
                 request.Email,
                 "MyMeetings - Subscription renewed",
                 $"Subscription {request.SubscriptionId.Value} was successfully paid and renewed with ❤ for you!");
 
-            _emailSender.SendEmail(emailMessage);
-            return Unit.Task;
+            await _emailSender.SendEmail(emailMessage);
         }
     }
 }

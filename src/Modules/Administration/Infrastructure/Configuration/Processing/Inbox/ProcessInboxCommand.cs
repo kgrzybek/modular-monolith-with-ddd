@@ -3,7 +3,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Processing.Inbox
 {
-    public class ProcessInboxCommand : CommandBase<Unit>, IRecurringCommand
+    public class ProcessInboxCommand : CommandBase, IRecurringCommand
     {
     }
 }

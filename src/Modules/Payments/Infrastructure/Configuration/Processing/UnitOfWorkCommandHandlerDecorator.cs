@@ -23,7 +23,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Unit> Handle(T command, CancellationToken cancellationToken)
+        public async Task Handle(T command, CancellationToken cancellationToken)
         {
             await this._decorated.Handle(command, cancellationToken);
 
@@ -34,8 +34,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
             }
 
             await this._unitOfWork.CommitAsync(cancellationToken, internalCommandId);
-
-            return Unit.Value;
         }
     }
 }

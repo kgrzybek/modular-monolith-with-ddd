@@ -25,7 +25,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
             _decorated = decorated;
         }
 
-        public Task<Unit> Handle(T command, CancellationToken cancellationToken)
+        public async Task Handle(T command, CancellationToken cancellationToken)
         {
             var errors = _validators
                 .Select(v => v.Validate(command))
@@ -38,7 +38,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
                 throw new InvalidCommandException(errors.Select(x => x.ErrorMessage).ToList());
             }
 
-            return _decorated.Handle(command, cancellationToken);
+            await _decorated.Handle(command, cancellationToken);
         }
     }
 }

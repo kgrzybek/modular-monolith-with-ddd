@@ -16,7 +16,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.MarkMe
             _aggregateStore = aggregateStore;
         }
 
-        public async Task<Unit> Handle(MarkMeetingFeeAsPaidCommand command, CancellationToken cancellationToken)
+        public async Task Handle(MarkMeetingFeeAsPaidCommand command, CancellationToken cancellationToken)
         {
             var meetingFee =
                 await _aggregateStore.Load(new MeetingFeeId(command.MeetingFeeId));
@@ -24,8 +24,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.MarkMe
             meetingFee.MarkAsPaid();
 
             _aggregateStore.AppendChanges(meetingFee);
-
-            return Unit.Value;
         }
     }
 }

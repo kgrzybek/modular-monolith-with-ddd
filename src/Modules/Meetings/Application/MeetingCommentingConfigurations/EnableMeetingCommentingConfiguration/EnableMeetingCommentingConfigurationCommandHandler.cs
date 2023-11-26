@@ -30,7 +30,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingCommentingC
             _memberContext = memberContext;
         }
 
-        public async Task<Unit> Handle(EnableMeetingCommentingConfigurationCommand command, CancellationToken cancellationToken)
+        public async Task Handle(EnableMeetingCommentingConfigurationCommand command, CancellationToken cancellationToken)
         {
             var meetingCommentingConfiguration = await _meetingCommentingConfigurationRepository.GetByMeetingIdAsync(new MeetingId(command.MeetingId));
             if (meetingCommentingConfiguration == null)
@@ -43,8 +43,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingCommentingC
             var meetingGroup = await _meetingGroupRepository.GetByIdAsync(meeting.GetMeetingGroupId());
 
             meetingCommentingConfiguration.EnableCommenting(_memberContext.MemberId, meetingGroup);
-
-            return Unit.Value;
         }
     }
 }

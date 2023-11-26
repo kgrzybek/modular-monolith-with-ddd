@@ -32,7 +32,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ad
             _meetingMemberCommentLikesRepository = meetingMemberCommentLikesRepository;
         }
 
-        public async Task<Unit> Handle(AddMeetingCommentLikeCommand request, CancellationToken cancellationToken)
+        public async Task Handle(AddMeetingCommentLikeCommand request, CancellationToken cancellationToken)
         {
             var meetingComment = await _meetingCommentRepository.GetByIdAsync(new MeetingCommentId(request.MeetingCommentId));
             if (meetingComment == null)
@@ -50,8 +50,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ad
             var like = meetingComment.Like(_memberContext.MemberId, likerMeetingGroupMemberData, meetingMemeberCommentLikesCount);
 
             await _meetingMemberCommentLikesRepository.AddAsync(like);
-
-            return Unit.Value;
         }
     }
 }

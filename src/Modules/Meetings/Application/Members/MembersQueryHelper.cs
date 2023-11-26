@@ -19,7 +19,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Members
                 "[Member].[Login], " +
                 "[Member].[Email] " +
                 "FROM [meetings].[v_Members] AS [Member] " +
-                "WHERE [Member].[Id] = @Id", new
+                "WHERE [Member].[Id] = @Id",
+                new
                 {
                     Id = memberId.Value
                 });

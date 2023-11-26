@@ -1,7 +1,9 @@
-﻿namespace CompanyName.MyMeetings.BuildingBlocks.Application.Emails
+﻿using System.Threading.Tasks;
+
+namespace CompanyName.MyMeetings.BuildingBlocks.Application.Emails
 {
     public interface IEmailSender
     {
-        void SendEmail(EmailMessage message);
+        Task SendEmail(EmailMessage message);
     }
 }

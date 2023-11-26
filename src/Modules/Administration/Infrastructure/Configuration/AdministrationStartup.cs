@@ -55,7 +55,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
 
             containerBuilder.RegisterModule(new LoggingModule(logger));
 
-            var loggerFactory = new SerilogLoggerFactory(logger);
+            var loggerFactory = new Serilog.Extensions.Logging.SerilogLoggerFactory(logger);
             containerBuilder.RegisterModule(new DataAccessModule(connectionString, loggerFactory));
 
             containerBuilder.RegisterModule(new ProcessingModule());

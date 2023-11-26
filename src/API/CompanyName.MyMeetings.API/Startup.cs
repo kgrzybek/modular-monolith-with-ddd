@@ -135,7 +135,7 @@ namespace CompanyName.MyMeetings.API
                 .WriteTo.Console(
                     outputTemplate:
                     "[{Timestamp:HH:mm:ss} {Level:u3}] [{Module}] [{Context}] {Message:lj}{NewLine}{Exception}")
-                .WriteTo.RollingFile(new CompactJsonFormatter(), "logs/logs")
+                .WriteTo.File(new CompactJsonFormatter(), "logs/logs")
                 .CreateLogger();
 
             _loggerForApi = _logger.ForContext("Module", "API");

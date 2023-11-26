@@ -45,11 +45,11 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             builder.RegisterGeneric(typeof(RequestPostProcessorBehavior<,>)).As(typeof(IPipelineBehavior<,>));
             builder.RegisterGeneric(typeof(RequestPreProcessorBehavior<,>)).As(typeof(IPipelineBehavior<,>));
 
-            builder.Register<ServiceFactory>(ctx =>
-            {
-                var c = ctx.Resolve<IComponentContext>();
-                return t => c.Resolve(t);
-            }).InstancePerLifetimeScope();
+            // builder.Register<ServiceFactory>(ctx =>
+            // {
+            //     var c = ctx.Resolve<IComponentContext>();
+            //     return t => c.Resolve(t);
+            // }).InstancePerLifetimeScope();
         }
 
         private class ScopedContravariantRegistrationSource : IRegistrationSource

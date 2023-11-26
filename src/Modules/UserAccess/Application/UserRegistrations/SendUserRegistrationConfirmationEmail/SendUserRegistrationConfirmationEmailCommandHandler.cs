@@ -17,7 +17,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistration
             _emailSender = emailSender;
         }
 
-        public Task<Unit> Handle(SendUserRegistrationConfirmationEmailCommand command, CancellationToken cancellationToken)
+        public async Task Handle(SendUserRegistrationConfirmationEmailCommand command, CancellationToken cancellationToken)
         {
             string link = $"<a href=\"{command.ConfirmLink}{command.UserRegistrationId.Value}\">link</a>";
 
@@ -28,9 +28,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistration
                 "MyMeetings - Please confirm your registration",
                 content);
 
-            _emailSender.SendEmail(emailMessage);
-
-            return Unit.Task;
+            await _emailSender.SendEmail(emailMessage);
         }
     }
 }

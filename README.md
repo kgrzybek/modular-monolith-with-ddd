@@ -428,7 +428,7 @@ internal class CreateNewMeetingGroupCommandHandler : ICommandHandler<CreateNewMe
         _meetingGroupProposalRepository = meetingGroupProposalRepository;
     }
 
-    public async Task<Unit> Handle(CreateNewMeetingGroupCommand request, CancellationToken cancellationToken)
+    public async Task Handle(CreateNewMeetingGroupCommand request, CancellationToken cancellationToken)
     {
         var meetingGroupProposal = await _meetingGroupProposalRepository.GetByIdAsync(request.MeetingGroupProposalId);
 
@@ -436,7 +436,7 @@ internal class CreateNewMeetingGroupCommandHandler : ICommandHandler<CreateNewMe
 
         await _meetingGroupRepository.AddAsync(meetingGroup);
 
-        return Unit.Value;
+        
     }
 }
 ```
@@ -598,7 +598,7 @@ internal class LoggingCommandHandlerDecorator<T> : ICommandHandler<T> where T:IC
         _executionContextAccessor = executionContextAccessor;
         _decorated = decorated;
     }
-    public async Task<Unit> Handle(T command, CancellationToken cancellationToken)
+    public async Task Handle(T command, CancellationToken cancellationToken)
     {
         if (command is IRecurringCommand)
         {
@@ -727,7 +727,7 @@ public class UnitOfWorkCommandHandlerDecorator<T> : ICommandHandler<T> where T:I
         _meetingContext = meetingContext;
     }
 
-    public async Task<Unit> Handle(T command, CancellationToken cancellationToken)
+    public async Task Handle(T command, CancellationToken cancellationToken)
     {
         await this._decorated.Handle(command, cancellationToken);
 
@@ -745,7 +745,7 @@ public class UnitOfWorkCommandHandlerDecorator<T> : ICommandHandler<T> where T:I
 
         await this._unitOfWork.CommitAsync(cancellationToken);
 
-        return Unit.Value;
+        
     }
 }
 ```
@@ -793,7 +793,7 @@ internal abstract class InternalCommandBase : ICommand
 This is important because the `UnitOfWorkCommandHandlerDecorator` must mark an internal Command as processed during committing:
 
 ```csharp
-public async Task<Unit> Handle(T command, CancellationToken cancellationToken)
+public async Task Handle(T command, CancellationToken cancellationToken)
 {
     await this._decorated.Handle(command, cancellationToken);
 
@@ -811,7 +811,7 @@ public async Task<Unit> Handle(T command, CancellationToken cancellationToken)
 
     await this._unitOfWork.CommitAsync(cancellationToken);
 
-    return Unit.Value;
+    
 }
 ```
 

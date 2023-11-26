@@ -15,15 +15,13 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Crea
             _eventsBus = eventsBus;
         }
 
-        public Task Handle(SubscriptionCreatedNotification notification, CancellationToken cancellationToken)
+        public async Task Handle(SubscriptionCreatedNotification notification, CancellationToken cancellationToken)
         {
-            _eventsBus.Publish(new SubscriptionExpirationDateChangedIntegrationEvent(
+            await _eventsBus.Publish(new SubscriptionExpirationDateChangedIntegrationEvent(
                 notification.Id,
                 notification.DomainEvent.OccurredOn,
                 notification.DomainEvent.PayerId,
                 notification.DomainEvent.ExpirationDate));
-
-            return Task.CompletedTask;
         }
     }
 }

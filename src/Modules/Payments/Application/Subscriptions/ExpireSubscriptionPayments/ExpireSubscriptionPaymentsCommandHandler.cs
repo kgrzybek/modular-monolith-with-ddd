@@ -26,7 +26,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Expi
             _commandsScheduler = commandsScheduler;
         }
 
-        public async Task<Unit> Handle(ExpireSubscriptionPaymentsCommand request, CancellationToken cancellationToken)
+        public async Task Handle(ExpireSubscriptionPaymentsCommand request, CancellationToken cancellationToken)
         {
             const string sql = "SELECT " +
                                "[SubscriptionPayment].PaymentId " +
@@ -53,8 +53,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Expi
                 await _commandsScheduler.EnqueueAsync(
                     new ExpireSubscriptionPaymentCommand(subscriptionPaymentId));
             }
-
-            return Unit.Value;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Users.AddAdminUs
             _userRepository = userRepository;
         }
 
-        public async Task<Unit> Handle(AddAdminUserCommand command, CancellationToken cancellationToken)
+        public async Task Handle(AddAdminUserCommand command, CancellationToken cancellationToken)
         {
             var password = PasswordManager.HashPassword(command.Password);
 
@@ -29,8 +29,6 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Users.AddAdminUs
                 command.Name);
 
             await _userRepository.AddAsync(user);
-
-            return Unit.Value;
         }
     }
 }

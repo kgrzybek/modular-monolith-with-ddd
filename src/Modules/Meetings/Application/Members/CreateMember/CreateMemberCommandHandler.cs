@@ -15,13 +15,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Members.CreateMemb
             _memberRepository = memberRepository;
         }
 
-        public async Task<Unit> Handle(CreateMemberCommand request, CancellationToken cancellationToken)
+        public async Task Handle(CreateMemberCommand request, CancellationToken cancellationToken)
         {
             var member = Member.Create(request.MemberId, request.Login, request.Email, request.FirstName, request.LastName, request.Name);
 
             await _memberRepository.AddAsync(member);
-
-            return Unit.Value;
         }
     }
 }

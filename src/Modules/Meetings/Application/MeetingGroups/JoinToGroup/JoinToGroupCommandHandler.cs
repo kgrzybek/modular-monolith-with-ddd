@@ -20,13 +20,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.Join
             _memberContext = memberContext;
         }
 
-        public async Task<Unit> Handle(JoinToGroupCommand request, CancellationToken cancellationToken)
+        public async Task Handle(JoinToGroupCommand request, CancellationToken cancellationToken)
         {
             var meetingGroup = await _meetingGroupRepository.GetByIdAsync(new MeetingGroupId(request.MeetingGroupId));
 
             meetingGroup.JoinToGroupMember(_memberContext.MemberId);
-
-            return Unit.Value;
         }
     }
 }

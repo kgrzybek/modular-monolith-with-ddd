@@ -20,13 +20,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.Leav
             _memberContext = memberContext;
         }
 
-        public async Task<Unit> Handle(LeaveMeetingGroupCommand request, CancellationToken cancellationToken)
+        public async Task Handle(LeaveMeetingGroupCommand request, CancellationToken cancellationToken)
         {
             var meetingGroup = await _meetingGroupRepository.GetByIdAsync(new MeetingGroupId(request.MeetingGroupId));
 
             meetingGroup.LeaveGroup(_memberContext.MemberId);
-
-            return Unit.Value;
         }
     }
 }

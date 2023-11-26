@@ -3,7 +3,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Processing.Outbox
 {
-    public class ProcessOutboxCommand : CommandBase<Unit>, IRecurringCommand
+    public class ProcessOutboxCommand : CommandBase, IRecurringCommand
     {
     }
 }

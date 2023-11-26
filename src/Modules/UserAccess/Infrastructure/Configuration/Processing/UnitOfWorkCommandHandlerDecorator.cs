@@ -27,7 +27,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
             _userAccessContext = userAccessContext;
         }
 
-        public async Task<Unit> Handle(T command, CancellationToken cancellationToken)
+        public async Task Handle(T command, CancellationToken cancellationToken)
         {
             await this._decorated.Handle(command, cancellationToken);
 
@@ -42,8 +42,6 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
             }
 
             await this._unitOfWork.CommitAsync(cancellationToken);
-
-            return Unit.Value;
         }
     }
 }

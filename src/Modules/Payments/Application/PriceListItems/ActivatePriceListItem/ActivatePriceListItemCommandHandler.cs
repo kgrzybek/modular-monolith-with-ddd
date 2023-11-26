@@ -18,7 +18,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.Act
             _aggregateStore = aggregateStore;
         }
 
-        public async Task<Unit> Handle(ActivatePriceListItemCommand command, CancellationToken cancellationToken)
+        public async Task Handle(ActivatePriceListItemCommand command, CancellationToken cancellationToken)
         {
             var priceListItem = await _aggregateStore.Load(new PriceListItemId(command.PriceListItemId));
 
@@ -30,8 +30,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.Act
             priceListItem.Activate();
 
             _aggregateStore.AppendChanges(priceListItem);
-
-            return Unit.Value;
         }
     }
 }

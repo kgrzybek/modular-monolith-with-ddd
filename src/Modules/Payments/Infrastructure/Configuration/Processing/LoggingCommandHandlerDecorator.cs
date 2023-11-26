@@ -29,11 +29,11 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
             _decorated = decorated;
         }
 
-        public async Task<Unit> Handle(T command, CancellationToken cancellationToken)
+        public async Task Handle(T command, CancellationToken cancellationToken)
         {
             if (command is IRecurringCommand)
             {
-                return await _decorated.Handle(command, cancellationToken);
+                await _decorated.Handle(command, cancellationToken);
             }
 
             using (
@@ -47,11 +47,9 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
                         "Executing command {Command}",
                         command.GetType().Name);
 
-                    var result = await _decorated.Handle(command, cancellationToken);
+                    await _decorated.Handle(command, cancellationToken);
 
                     this._logger.Information("Command {Command} processed successful", command.GetType().Name);
-
-                    return result;
                 }
                 catch (Exception exception)
                 {

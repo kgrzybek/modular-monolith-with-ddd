@@ -18,13 +18,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SignOffMe
             _meetingRepository = meetingRepository;
         }
 
-        public async Task<Unit> Handle(SignOffMemberFromWaitlistCommand request, CancellationToken cancellationToken)
+        public async Task Handle(SignOffMemberFromWaitlistCommand request, CancellationToken cancellationToken)
         {
             var meeting = await _meetingRepository.GetByIdAsync(new MeetingId(request.MeetingId));
 
             meeting.SignOffMemberFromWaitlist(_memberContext.MemberId);
-
-            return Unit.Value;
         }
     }
 }

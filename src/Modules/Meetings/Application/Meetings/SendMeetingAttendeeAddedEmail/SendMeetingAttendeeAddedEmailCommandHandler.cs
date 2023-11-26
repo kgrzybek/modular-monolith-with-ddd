@@ -23,7 +23,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SendMeeti
             _emailSender = emailSender;
         }
 
-        public async Task<Unit> Handle(SendMeetingAttendeeAddedEmailCommand request, CancellationToken cancellationToken)
+        public async Task Handle(SendMeetingAttendeeAddedEmailCommand request, CancellationToken cancellationToken)
         {
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
@@ -36,9 +36,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SendMeeti
                 $"You joined to {meeting.Title} meeting.",
                 $"You joined to {meeting.Title} title at {meeting.TermStartDate.ToShortDateString()} - {meeting.TermEndDate.ToShortDateString()}, location {meeting.LocationAddress}, {meeting.LocationPostalCode}, {meeting.LocationCity}");
 
-            _emailSender.SendEmail(email);
-
-            return Unit.Value;
+            await _emailSender.SendEmail(email);
         }
     }
 }

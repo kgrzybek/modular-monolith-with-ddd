@@ -27,7 +27,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Re
             _memberContext = memberContext;
         }
 
-        public async Task<Unit> Handle(RemoveMeetingCommentCommand command, CancellationToken cancellationToken)
+        public async Task Handle(RemoveMeetingCommentCommand command, CancellationToken cancellationToken)
         {
             var meetingComment = await _meetingCommentRepository.GetByIdAsync(new MeetingCommentId(command.MeetingCommentId));
             if (meetingComment == null)
@@ -39,8 +39,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Re
             var meetingGroup = await _meetingGroupRepository.GetByIdAsync(meeting.GetMeetingGroupId());
 
             meetingComment.Remove(_memberContext.MemberId, meetingGroup, command.Reason);
-
-            return Unit.Value;
         }
     }
 }

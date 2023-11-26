@@ -60,5 +60,10 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
         {
             throw new NotImplementedException();
         }
+
+        public IDisposable OpenMappedContext(string key, object value, bool destructure = false)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

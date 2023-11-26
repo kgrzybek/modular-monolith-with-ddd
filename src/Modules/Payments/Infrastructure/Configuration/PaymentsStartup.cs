@@ -70,7 +70,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration
 
             containerBuilder.RegisterModule(new LoggingModule(logger));
 
-            var loggerFactory = new SerilogLoggerFactory(logger);
+            var loggerFactory = new Serilog.Extensions.Logging.SerilogLoggerFactory(logger);
             containerBuilder.RegisterModule(new DataAccessModule(connectionString, loggerFactory));
 
             containerBuilder.RegisterModule(new ProcessingModule());

@@ -16,13 +16,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings
             _meetingRepository = meetingRepository;
         }
 
-        public async Task<Unit> Handle(MarkMeetingAttendeeFeeAsPayedCommand command, CancellationToken cancellationToken)
+        public async Task Handle(MarkMeetingAttendeeFeeAsPayedCommand command, CancellationToken cancellationToken)
         {
             var meeting = await _meetingRepository.GetByIdAsync(new MeetingId(command.MeetingId));
 
             meeting.MarkAttendeeFeeAsPayed(new MemberId(command.MemberId));
-
-            return Unit.Value;
         }
     }
 }

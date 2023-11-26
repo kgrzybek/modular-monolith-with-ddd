@@ -15,7 +15,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MemberSubscription
             _memberSubscriptionRepository = memberSubscriptionRepository;
         }
 
-        public async Task<Unit> Handle(ChangeSubscriptionExpirationDateForMemberCommand command, CancellationToken cancellationToken)
+        public async Task Handle(ChangeSubscriptionExpirationDateForMemberCommand command, CancellationToken cancellationToken)
         {
             MemberSubscription memberSubscription = await _memberSubscriptionRepository.GetByIdOptionalAsync(new MemberSubscriptionId(command.MemberId.Value));
 
@@ -28,8 +28,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MemberSubscription
             {
                 memberSubscription.ChangeExpirationDate(command.ExpirationDate);
             }
-
-            return Unit.Value;
         }
     }
 }

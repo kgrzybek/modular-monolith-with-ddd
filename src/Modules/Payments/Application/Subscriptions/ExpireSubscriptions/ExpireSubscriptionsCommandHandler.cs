@@ -24,7 +24,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Expi
             _commandsScheduler = commandsScheduler;
         }
 
-        public async Task<Unit> Handle(ExpireSubscriptionsCommand request, CancellationToken cancellationToken)
+        public async Task Handle(ExpireSubscriptionsCommand request, CancellationToken cancellationToken)
         {
             const string sql = "SELECT " +
                                "[SubscriptionDetails].Id " +
@@ -48,8 +48,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Expi
                         Guid.NewGuid(),
                         subscriptionId));
             }
-
-            return Unit.Value;
         }
     }
 }

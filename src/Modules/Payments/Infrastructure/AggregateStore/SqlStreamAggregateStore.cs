@@ -27,8 +27,8 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
             _appendedChanges = new List<IDomainEvent>();
 
             _streamStore =
-                new MsSqlStreamStore(
-                    new MsSqlStreamStoreSettings(sqlConnectionFactory.GetConnectionString())
+                new MsSqlStreamStoreV3(
+                    new MsSqlStreamStoreV3Settings(sqlConnectionFactory.GetConnectionString())
                     {
                         Schema = DatabaseSchema.Name
                     });
