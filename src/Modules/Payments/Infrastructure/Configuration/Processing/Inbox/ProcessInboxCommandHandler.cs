@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
-using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands;
 using Dapper;
 using MediatR;
 using Newtonsoft.Json;

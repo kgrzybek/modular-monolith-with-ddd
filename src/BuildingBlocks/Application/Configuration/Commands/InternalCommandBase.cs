@@ -1,13 +1,13 @@
 ﻿using System;
-using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
 
-namespace CompanyName.MyMeetings.Modules.Administration.Application.Configuration.Commands
+namespace CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands
 {
     public abstract class InternalCommandBase : ICommand
     {
         protected InternalCommandBase(Guid id)
         {
-            this.Id = id;
+            Id = id;
         }
 
         public Guid Id { get; }
@@ -17,12 +17,12 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.Configuratio
     {
         protected InternalCommandBase()
         {
-            this.Id = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
 
         protected InternalCommandBase(Guid id)
         {
-            this.Id = id;
+            Id = id;
         }
 
         public Guid Id { get; }

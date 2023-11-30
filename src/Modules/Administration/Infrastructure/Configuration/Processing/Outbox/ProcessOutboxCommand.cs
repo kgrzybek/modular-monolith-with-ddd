@@ -1,5 +1,4 @@
-﻿using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
-using MediatR;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Processing.Outbox
 {

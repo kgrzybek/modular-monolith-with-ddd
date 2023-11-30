@@ -5,6 +5,8 @@ using System.Reflection;
 using Autofac;
 using Autofac.Core;
 using Autofac.Features.Variance;
+using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands;
 using FluentValidation;
 using MediatR;
 using MediatR.Pipeline;
@@ -15,28 +17,35 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.M
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<ServiceProviderWrapper>()
+            .As<IServiceProvider>()
+            .InstancePerDependency()
+            .IfNotRegistered(typeof(IServiceProvider));
+
             builder.RegisterAssemblyTypes(typeof(IMediator).GetTypeInfo().Assembly)
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterSource(new ScopedContravariantRegistrationSource(
-                typeof(IRequestHandler<,>),
-                typeof(IRequestHandler<>),
-                typeof(INotificationHandler<>),
-                typeof(IValidator<>)));
-
             var mediatorOpenTypes = new[]
             {
                 typeof(IRequestHandler<,>),
-                typeof(IRequestHandler<>),
                 typeof(INotificationHandler<>),
-                typeof(IValidator<>)
+                typeof(IValidator<>),
+                typeof(IRequestPreProcessor<>),
+                typeof(IRequestHandler<>),
+                typeof(IStreamRequestHandler<,>),
+                typeof(IRequestPostProcessor<,>),
+                typeof(IRequestExceptionHandler<,,>),
+                typeof(IRequestExceptionAction<,>),
+                typeof(ICommandHandler<>),
+                typeof(ICommandHandler<,>),
             };
-
+            builder.RegisterSource(new ScopedContravariantRegistrationSource(
+                mediatorOpenTypes));
             foreach (var mediatorOpenType in mediatorOpenTypes)
             {
                 builder
-                    .RegisterAssemblyTypes(ThisAssembly, Assemblies.Application)
+                    .RegisterAssemblyTypes(Assemblies.Application, ThisAssembly)
                     .AsClosedTypesOf(mediatorOpenType)
                     .AsImplementedInterfaces()
                     .FindConstructorsWith(new AllConstructorFinder());
@@ -44,25 +53,16 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.M
 
             builder.RegisterGeneric(typeof(RequestPostProcessorBehavior<,>)).As(typeof(IPipelineBehavior<,>));
             builder.RegisterGeneric(typeof(RequestPreProcessorBehavior<,>)).As(typeof(IPipelineBehavior<,>));
-
-            // builder.Register<ServiceFactory>(ctx =>
-            // {
-            //     var c = ctx.Resolve<IComponentContext>();
-            //     return t => c.Resolve(t);
-            // }).InstancePerLifetimeScope();
         }
 
         private class ScopedContravariantRegistrationSource : IRegistrationSource
         {
-            private readonly IRegistrationSource _source = new ContravariantRegistrationSource();
-            private readonly List<Type> _types = new List<Type>();
+            private readonly ContravariantRegistrationSource _source = new();
+            private readonly List<Type> _types = [];
 
             public ScopedContravariantRegistrationSource(params Type[] types)
             {
-                if (types == null)
-                {
-                    throw new ArgumentNullException(nameof(types));
-                }
+                ArgumentNullException.ThrowIfNull(types);
 
                 if (!types.All(x => x.IsGenericTypeDefinition))
                 {
@@ -74,7 +74,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.M
 
             public IEnumerable<IComponentRegistration> RegistrationsFor(
                 Service service,
-                Func<Service, IEnumerable<IComponentRegistration>> registrationAccessor)
+                Func<Service, IEnumerable<ServiceRegistration>> registrationAccessor)
             {
                 var components = _source.RegistrationsFor(service, registrationAccessor);
                 foreach (var c in components)

@@ -3,10 +3,9 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Commands;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands;
 using Dapper;
+using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Authentication.Authenticate
 {

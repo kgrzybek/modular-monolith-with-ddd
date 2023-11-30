@@ -37,7 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
-   <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="5.0.1" />
+   <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="FluentValidation" Version="11.8.1" />
     <PackageReference Include="Hellang.Middleware.ProblemDetails" Version="4.2.0" />
     <PackageReference Include="IdentityServer4" Version="3.1.2" />

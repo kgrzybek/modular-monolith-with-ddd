@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.GetMeetingFees
+﻿namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.GetMeetingFees
 {
     public class MeetingFeeDto
     {

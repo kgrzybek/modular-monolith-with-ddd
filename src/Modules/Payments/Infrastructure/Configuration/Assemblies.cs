@@ -1,10 +1,10 @@
 ﻿using System.Reflection;
-using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
+using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration
 {
     internal static class Assemblies
     {
-        public static readonly Assembly Application = typeof(InternalCommandBase).Assembly;
+        public static readonly Assembly Application = typeof(IPaymentsModule).Assembly;
     }
 }

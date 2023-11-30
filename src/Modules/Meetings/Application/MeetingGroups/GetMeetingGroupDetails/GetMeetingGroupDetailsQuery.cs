@@ -1,5 +1,5 @@
-﻿using System;
-using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Queries;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
+using System;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.GetMeetingGroupDetails
 {

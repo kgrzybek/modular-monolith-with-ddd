@@ -1,7 +1,7 @@
-﻿using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
 using MediatR;
 
-namespace CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands
+namespace CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands
 {
     public interface ICommandHandler<in TCommand> : IRequestHandler<TCommand>
         where TCommand : ICommand

@@ -1,7 +1,5 @@
 ﻿using System;
-using CompanyName.MyMeetings.Modules.Administration.Application.Configuration.Commands;
-using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
-using MediatR;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands;
 using Newtonsoft.Json;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Application.Members

@@ -2,8 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Queries;
 using Dapper;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Authorization.GetUserPermissions

@@ -1,4 +1,4 @@
-﻿using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Users.AddAdminUser
 {

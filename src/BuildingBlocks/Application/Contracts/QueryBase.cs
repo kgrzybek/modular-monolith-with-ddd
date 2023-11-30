@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CompanyName.MyMeetings.Modules.Payments.Application.Contracts
+namespace CompanyName.MyMeetings.BuildingBlocks.Application.Contracts
 {
     public abstract class QueryBase<TResult> : IQuery<TResult>
     {

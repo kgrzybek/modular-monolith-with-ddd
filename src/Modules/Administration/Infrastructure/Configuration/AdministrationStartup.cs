@@ -16,7 +16,6 @@ using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Processing.Outbox;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Quartz;
 using Serilog;
-using Serilog.AspNetCore;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CompanyName.MyMeetings.Modules.Administration.Application.Contracts
+namespace CompanyName.MyMeetings.BuildingBlocks.Application.Contracts
 {
     public abstract class CommandBase : ICommand
     {
@@ -8,12 +8,12 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.Contracts
 
         protected CommandBase()
         {
-            this.Id = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
 
         protected CommandBase(Guid id)
         {
-            this.Id = id;
+            Id = id;
         }
     }
 
@@ -21,12 +21,12 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.Contracts
     {
         protected CommandBase()
         {
-            this.Id = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
 
         protected CommandBase(Guid id)
         {
-            this.Id = id;
+            Id = id;
         }
 
         public Guid Id { get; }

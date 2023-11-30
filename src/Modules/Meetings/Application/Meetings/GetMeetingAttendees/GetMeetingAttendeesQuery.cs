@@ -1,6 +1,6 @@
-﻿using System;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
+using System;
 using System.Collections.Generic;
-using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Queries;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.GetMeetingAttendees
 {

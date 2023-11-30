@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using Dapper;
 

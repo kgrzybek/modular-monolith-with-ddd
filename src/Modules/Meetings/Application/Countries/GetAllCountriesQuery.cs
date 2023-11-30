@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Queries;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.Countries
 {

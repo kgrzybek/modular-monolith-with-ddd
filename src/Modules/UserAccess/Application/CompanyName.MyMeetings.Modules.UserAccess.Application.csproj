@@ -3,6 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <Configurations>Debug;Release;Production</Configurations>
+		<ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
     <ItemGroup>
@@ -36,4 +37,9 @@
         <ProjectReference Include="..\IntegrationEvents\CompanyName.MyMeetings.Modules.UserAccess.IntegrationEvents.csproj" PrivateAssets="All" />
     </ItemGroup>
 
+	<ItemGroup>
+		<Using Include="CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands" />
+		<Using Include="CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Queries" />
+		<Using Include="CompanyName.MyMeetings.BuildingBlocks.Application.Contracts" />
+	</ItemGroup>
 </Project>

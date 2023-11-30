@@ -22,18 +22,20 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
         private readonly List<AggregateToSave> _aggregatesToSave;
 
         public SqlStreamAggregateStore(
-            ISqlConnectionFactory sqlConnectionFactory)
+            ISqlConnectionFactory sqlConnectionFactory, IStreamStore streamStore)
         {
             _appendedChanges = new List<IDomainEvent>();
 
-            _streamStore =
-                new MsSqlStreamStoreV3(
-                    new MsSqlStreamStoreV3Settings(sqlConnectionFactory.GetConnectionString())
-                    {
-                        Schema = DatabaseSchema.Name
-                    });
+            //_streamStore =
+            //    new MsSqlStreamStoreV3(
+            //        new MsSqlStreamStoreV3Settings(sqlConnectionFactory.GetConnectionString())
+            //        {
+            //            Schema = DatabaseSchema.Name
+            //        });
+
 
             _aggregatesToSave = new List<AggregateToSave>();
+            _streamStore = streamStore;
         }
 
         public async Task Save()

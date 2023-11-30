@@ -17,7 +17,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
                 targetType,
                 t => t.GetTypeInfo().DeclaredConstructors.ToArray());
 
-            return result.Length > 0 ? result : throw new NoConstructorsFoundException(targetType);
+            return result.Length > 0 ? result : throw new NoConstructorsFoundException(targetType, this);
         }
     }
 }

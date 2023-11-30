@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CompanyName.MyMeetings.Modules.Payments.Application.Payers.GetPayer
+﻿namespace CompanyName.MyMeetings.Modules.Payments.Application.Payers.GetPayer
 {
     public class PayerDto
     {

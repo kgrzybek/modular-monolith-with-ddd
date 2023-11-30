@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Runtime.InteropServices.ComTypes;
+using System.Dynamic;
 using MediatR;
 
-namespace CompanyName.MyMeetings.Modules.Meetings.Application.Contracts
+namespace CompanyName.MyMeetings.BuildingBlocks.Application.Contracts
 {
     public interface ICommand<out TResult> : IRequest<TResult>
     {

@@ -31,12 +31,12 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.D
                 .WithParameter("connectionString", _databaseConnectionString)
                 .InstancePerLifetimeScope();
 
-            IStreamStore streamStore = new MsSqlStreamStoreV3(new MsSqlStreamStoreV3Settings(_databaseConnectionString)
+            builder.Register(a =>
+            new MsSqlStreamStoreV3(new MsSqlStreamStoreV3Settings(_databaseConnectionString)
             {
                 Schema = DatabaseSchema.Name
-            });
-
-            builder.RegisterInstance(streamStore);
+            }))
+                .As<IStreamStore>();
 
             builder.RegisterType<SqlStreamAggregateStore>()
                 .As<IAggregateStore>()

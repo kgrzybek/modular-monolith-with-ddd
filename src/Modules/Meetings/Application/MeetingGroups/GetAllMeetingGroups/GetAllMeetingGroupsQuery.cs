@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
-using MediatR;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.GetAllMeetingGroups
 {

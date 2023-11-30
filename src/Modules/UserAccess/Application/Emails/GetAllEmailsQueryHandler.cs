@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Queries;
 using Dapper;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Emails

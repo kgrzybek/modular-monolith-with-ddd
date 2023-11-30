@@ -1,4 +1,5 @@
-﻿using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Processing.InternalCommands
 {

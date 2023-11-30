@@ -1,13 +1,6 @@
-﻿using System.Threading.Tasks;
-
-namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts
+﻿namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts
 {
-    public interface IUserAccessModule
+    public interface IUserAccessModule : IModule
     {
-        Task<TResult> ExecuteCommandAsync<TResult>(ICommand<TResult> command);
-
-        Task ExecuteCommandAsync(ICommand command);
-
-        Task<TResult> ExecuteQueryAsync<TResult>(IQuery<TResult> query);
     }
 }
