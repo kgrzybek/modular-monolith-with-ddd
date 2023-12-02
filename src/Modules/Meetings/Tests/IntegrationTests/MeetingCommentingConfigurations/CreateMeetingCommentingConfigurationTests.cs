@@ -17,7 +17,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
 
             // Assert
             var meetingCommentingConfiguration = await MeetingsModule.ExecuteQueryAsync(new GetMeetingCommentingConfigurationQuery(meetingId));
-            Assert.NotNull(meetingCommentingConfiguration);
+            Assert.That(meetingCommentingConfiguration, Is.Not.Null);
         }
     }
 }

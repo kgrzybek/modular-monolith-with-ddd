@@ -25,8 +25,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
 
             // Assert
             var meetingConfiguration = await MeetingsModule.ExecuteQueryAsync(new GetMeetingCommentingConfigurationQuery(meetingId));
-            Assert.NotNull(meetingConfiguration);
-            Assert.True(meetingConfiguration.IsCommentingEnabled);
+            Assert.That(meetingConfiguration, Is.Not.Null);
+            Assert.That(meetingConfiguration.IsCommentingEnabled, Is.True);
         }
 
         [Test]

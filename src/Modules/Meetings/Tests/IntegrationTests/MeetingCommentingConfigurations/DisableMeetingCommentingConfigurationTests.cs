@@ -23,8 +23,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
 
             // Assert
             var meetingConfiguration = await MeetingsModule.ExecuteQueryAsync(new GetMeetingCommentingConfigurationQuery(meetingId));
-            Assert.NotNull(meetingConfiguration);
-            Assert.False(meetingConfiguration.IsCommentingEnabled);
+            Assert.That(meetingConfiguration, Is.Not.Null);
+            Assert.That(meetingConfiguration.IsCommentingEnabled, Is.False);
         }
 
         [Test]
