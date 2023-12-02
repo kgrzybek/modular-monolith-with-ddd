@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+FROM mcr.microsoft.com/mssql/server:2022-latest
 
 COPY ./CompanyName.MyMeetings.Database/Scripts/CreateDatabase_Linux.sql /scripts/
 

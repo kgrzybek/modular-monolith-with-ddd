@@ -12,11 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup .NET
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 7.0.102
+          dotnet-version: 8.0.x
       - name: Run build
         run: ./build.sh BuildAndUnitTests --configuration Release
 
@@ -26,10 +26,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup .NET
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 7.0.102
+          dotnet-version: 8.0.x
       - name: Run build
         run: ./build.sh RunAllIntegrationTests

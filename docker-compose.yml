@@ -7,11 +7,11 @@ services:
     build:
       context: ./src/
     ports:
-      - "5000:80"
+      - "5000:8080"
     networks:
       - starfish-crm-network
     environment:
-      - Meetings_MeetingsConnectionString=Server=mymeetingsdb,1433;Database=MyMeetings;User=sa;Password=Test@12345
+      - Meetings_MeetingsConnectionString=Server=mymeetingsdb,1433;Database=MyMeetings;User=sa;Password=Test@12345;Encrypt=False;
     depends_on:
       - migrator
     restart: on-failure
@@ -31,7 +31,7 @@ services:
     networks:
       - starfish-crm-network
     environment:
-      - ASPNETCORE_MyMeetings_IntegrationTests_ConnectionString=Server=mymeetingsdb,1433;Database=MyMeetings;User=sa;Password=Test@12345
+      - ASPNETCORE_MyMeetings_IntegrationTests_ConnectionString=Server=mymeetingsdb,1433;Database=MyMeetings;User=sa;Password=Test@12345;Encrypt=False;
     command:
       [
         "./wait-for-it.sh",
