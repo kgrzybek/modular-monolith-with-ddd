@@ -14,7 +14,7 @@
     <PackageReference Include="Quartz" Version="3.8.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
     <PackageReference Include="Serilog.Formatting.Compact" Version="2.0.0" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="5.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.507">
       <PrivateAssets>all</PrivateAssets>
