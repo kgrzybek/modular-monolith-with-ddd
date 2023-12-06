@@ -11,7 +11,7 @@
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.24" />
     <PackageReference Include="NSubstitute" Version="5.1.0" />
-    <PackageReference Include="nunit" Version="4.0.0" />
+    <PackageReference Include="nunit" Version="4.0.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="Serilog" Version="3.1.1" />
