@@ -11,8 +11,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
     <PackageReference Include="Polly" Version="8.2.0" />
-    <PackageReference Include="SqlStreamStore" Version="1.2.0" />
-    <PackageReference Include="SqlStreamStore.MsSql" Version="1.2.0" />
+    <PackageReference Include="SqlStreamStore.MsSql" Version="1.1.3" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.507">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

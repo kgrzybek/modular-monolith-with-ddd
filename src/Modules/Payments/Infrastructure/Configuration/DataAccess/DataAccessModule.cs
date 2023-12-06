@@ -32,7 +32,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.D
                 .InstancePerLifetimeScope();
 
             builder.Register(a =>
-            new MsSqlStreamStoreV3(new MsSqlStreamStoreV3Settings(_databaseConnectionString)
+            new MsSqlStreamStore(new MsSqlStreamStoreSettings(_databaseConnectionString)
             {
                 Schema = DatabaseSchema.Name
             }))
