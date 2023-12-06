@@ -123,6 +123,7 @@ namespace CompanyName.MyMeetings.API
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
@@ -147,7 +148,7 @@ namespace CompanyName.MyMeetings.API
         {
             services.AddIdentityServer()
                 .AddInMemoryIdentityResources(IdentityServerConfig.GetIdentityResources())
-                .AddInMemoryApiResources(IdentityServerConfig.GetApis())
+                .AddInMemoryApiScopes(IdentityServerConfig.GetApis())
                 .AddInMemoryClients(IdentityServerConfig.GetClients())
                 .AddInMemoryPersistedGrants()
                 .AddProfileService<ProfileService>()

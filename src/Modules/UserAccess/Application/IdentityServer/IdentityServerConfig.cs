@@ -7,11 +7,11 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.IdentityServer
 {
     public class IdentityServerConfig
     {
-        public static IEnumerable<ApiResource> GetApis()
+        public static IEnumerable<ApiScope> GetApis()
         {
-            return new List<ApiResource>
+            return new List<ApiScope>
             {
-                new ApiResource("myMeetingsAPI", "My Meetings API")
+                new("myMeetingsAPI", "My Meetings API")
             };
         }
 
