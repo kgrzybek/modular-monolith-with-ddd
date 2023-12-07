@@ -13,7 +13,7 @@ using static Nuke.Common.IO.PathConstruction;
 using Nuke.Common.Tools.DotNet;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
-[CheckBuildProjectConfigurations]
+
 partial class Build : NukeBuild
 {
     /// Support plugins are available for:
@@ -33,7 +33,7 @@ partial class Build : NukeBuild
         .Before(Restore)
         .Executes(() =>
         {
-            EnsureCleanDirectory(WorkingDirectory);
+            AbsolutePath.Create(WorkingDirectory).CreateOrCleanDirectory();
         });
 
     Target Restore => _ => _

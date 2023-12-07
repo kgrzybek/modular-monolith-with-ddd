@@ -40,7 +40,7 @@ public partial class Build
            
             DotNetTest(s => s
                 .SetProjectFile(sutTestProject)
-                .SetLogger("console;verbosity=detailed")
+                
                 .SetFilter($"FullyQualifiedName={fullyQualifiedName}"));
         });
 }
