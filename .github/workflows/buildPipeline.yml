@@ -2,35 +2,34 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
-
   build:
     name: Build and run Unit and Architecture Tests
     runs-on: ubuntu-latest
- 
+
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.301
-    - name: Run build
-      run: ./build.sh BuildAndUnitTests --configuration Release
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 7.0.102
+      - name: Run build
+        run: ./build.sh BuildAndUnitTests --configuration Release
 
   integration:
     name: Build and run Integration Tests
     needs: [build]
     runs-on: ubuntu-latest
-          
+
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.301
-    - name: Run build
-      run: ./build.sh RunAllIntegrationTests
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 7.0.102
+      - name: Run build
+        run: ./build.sh RunAllIntegrationTests
