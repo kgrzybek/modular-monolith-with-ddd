@@ -8,6 +8,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.SeedWork;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
@@ -26,9 +27,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
             var meetingGroupGeneralAttributesEdited =
                 AssertPublishedDomainEvent<MeetingGroupGeneralAttributesEditedDomainEvent>(meetingGroup);
 
-            Assert.That(meetingGroupGeneralAttributesEdited.NewName, Is.EqualTo("newName"));
-            Assert.That(meetingGroupGeneralAttributesEdited.NewDescription, Is.EqualTo("newDescription"));
-            Assert.That(meetingGroupGeneralAttributesEdited.NewLocation, Is.EqualTo(meetingGroupLocation));
+            meetingGroupGeneralAttributesEdited.NewName.Should().Be("newName");
+            meetingGroupGeneralAttributesEdited.NewDescription.Should().Be("newDescription");
+            meetingGroupGeneralAttributesEdited.NewLocation.Should().Be(meetingGroupLocation);
         }
 
         [Test]
@@ -41,9 +42,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
 
             var newMeetingGroupMemberJoined = AssertPublishedDomainEvent<NewMeetingGroupMemberJoinedDomainEvent>(meetingGroup);
 
-            Assert.That(newMeetingGroupMemberJoined.MeetingGroupId, Is.EqualTo(meetingGroup.Id));
-            Assert.That(newMeetingGroupMemberJoined.MemberId, Is.EqualTo(newMemberId));
-            Assert.That(newMeetingGroupMemberJoined.Role, Is.EqualTo(MeetingGroupMemberRole.Member));
+            newMeetingGroupMemberJoined.MeetingGroupId.Should().Be(meetingGroup.Id);
+            newMeetingGroupMemberJoined.MemberId.Should().Be(newMemberId);
+            newMeetingGroupMemberJoined.Role.Should().Be(MeetingGroupMemberRole.Member);
         }
 
         [Test]
@@ -71,7 +72,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
 
             var meetingGroupMemberLeft = AssertPublishedDomainEvent<MeetingGroupMemberLeftGroupDomainEvent>(meetingGroup);
 
-            Assert.That(meetingGroupMemberLeft.MemberId, Is.EqualTo(newMemberId));
+            meetingGroupMemberLeft.MemberId.Should().Be(newMemberId);
         }
 
         [Test]
@@ -90,14 +91,14 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
         public void UpdatePaymentDateTo_IsSuccessful()
         {
             var meetingGroup = CreateMeetingGroup();
-            DateTime dateTo = DateTime.UtcNow;
+            var dateTo = DateTime.UtcNow;
 
             meetingGroup.SetExpirationDate(dateTo);
 
             var meetingGroupPaymentInfoUpdated = AssertPublishedDomainEvent<MeetingGroupPaymentInfoUpdatedDomainEvent>(meetingGroup);
 
-            Assert.That(meetingGroupPaymentInfoUpdated.MeetingGroupId, Is.EqualTo(meetingGroup.Id));
-            Assert.That(meetingGroupPaymentInfoUpdated.PaymentDateTo, Is.EqualTo(dateTo));
+            meetingGroupPaymentInfoUpdated.MeetingGroupId.Should().Be(meetingGroup.Id);
+            meetingGroupPaymentInfoUpdated.PaymentDateTo.Should().Be(dateTo);
         }
 
         [Test]
@@ -178,11 +179,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
                 definedProposalMemberId);
 
             var meetingAttendeeAddedEvents = AssertPublishedDomainEvents<MeetingAttendeeAddedDomainEvent>(meeting);
-            Assert.That(meetingAttendeeAddedEvents.Count, Is.EqualTo(2));
-            Assert.That(meetingAttendeeAddedEvents[0].AttendeeId, Is.EqualTo(hostOne));
-            Assert.That(meetingAttendeeAddedEvents[0].Role, Is.EqualTo(MeetingAttendeeRole.Host.Value));
-            Assert.That(meetingAttendeeAddedEvents[1].AttendeeId, Is.EqualTo(hostTwo));
-            Assert.That(meetingAttendeeAddedEvents[1].Role, Is.EqualTo(MeetingAttendeeRole.Host.Value));
+
+            meetingAttendeeAddedEvents.Should().HaveCount(2);
+            meetingAttendeeAddedEvents[0].AttendeeId.Should().Be(hostOne);
+            meetingAttendeeAddedEvents[0].Role.Should().Be(MeetingAttendeeRole.Host.Value);
+            meetingAttendeeAddedEvents[1].AttendeeId.Should().Be(hostTwo);
+            meetingAttendeeAddedEvents[1].Role.Should().Be(MeetingAttendeeRole.Host.Value);
         }
 
         [Test]

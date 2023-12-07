@@ -2,6 +2,7 @@ using System;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.SeedWork;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Members
@@ -12,7 +13,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Members
         [Test]
         public void CreateMember_IsSuccessful()
         {
-            MemberId memberId = new MemberId(Guid.NewGuid());
+            var memberId = new MemberId(Guid.NewGuid());
             var member = Member.Create(
                 memberId.Value,
                 "memberLogin",
@@ -23,7 +24,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Members
 
             var memberCreated = AssertPublishedDomainEvent<MemberCreatedDomainEvent>(member);
 
-            Assert.That(memberCreated.MemberId, Is.EqualTo(memberId));
+            memberCreated.MemberId.Should().Be(memberId);
         }
     }
 }

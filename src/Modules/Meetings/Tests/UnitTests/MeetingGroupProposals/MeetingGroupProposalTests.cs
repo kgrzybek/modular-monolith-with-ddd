@@ -4,8 +4,10 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals.Event
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals.Rules;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups.Events;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.SeedWork;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroupProposals
@@ -26,7 +28,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroupP
 
             var meetingGroupProposed = AssertPublishedDomainEvent<MeetingGroupProposedDomainEvent>(meetingProposal);
 
-            Assert.That(meetingGroupProposed.MeetingGroupProposalId, Is.EqualTo(meetingProposal.Id));
+            meetingGroupProposed.MeetingGroupProposalId.Should().Be(meetingProposal.Id);
         }
 
         [Test]
@@ -42,9 +44,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroupP
 
             meetingProposal.Accept();
 
-            var meetingGroupProposalAccepted = AssertPublishedDomainEvent<MeetingGroupProposalAcceptedDomainEvent>(meetingProposal);
+            var meetingGroupProposalAccepted =
+                AssertPublishedDomainEvent<MeetingGroupProposalAcceptedDomainEvent>(meetingProposal);
 
-            Assert.That(meetingGroupProposalAccepted.MeetingGroupProposalId, Is.EqualTo(meetingProposal.Id));
+            meetingGroupProposalAccepted.MeetingGroupProposalId.Should().Be(meetingProposal.Id);
         }
 
         [Test]
@@ -60,10 +63,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroupP
 
             meetingProposal.Accept();
 
-            AssertBrokenRule<MeetingGroupProposalCannotBeAcceptedMoreThanOnceRule>(() =>
-            {
-                meetingProposal.Accept();
-            });
+            AssertBrokenRule<MeetingGroupProposalCannotBeAcceptedMoreThanOnceRule>(() => { meetingProposal.Accept(); });
         }
 
         [Test]
@@ -82,11 +82,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroupP
             var meetingGroup = meetingProposal.CreateMeetingGroup();
 
             var meetingGroupCreated = AssertPublishedDomainEvent<MeetingGroupCreatedDomainEvent>(meetingGroup);
-            var newMeetingGroupMemberJoined = AssertPublishedDomainEvent<NewMeetingGroupMemberJoinedDomainEvent>(meetingGroup);
+            var newMeetingGroupMemberJoined =
+                AssertPublishedDomainEvent<NewMeetingGroupMemberJoinedDomainEvent>(meetingGroup);
 
-            Assert.That(meetingGroupCreated.MeetingGroupId, Is.EqualTo(meetingProposal.Id));
-            Assert.That(newMeetingGroupMemberJoined.MemberId, Is.EqualTo(proposalMemberId));
-            Assert.That(newMeetingGroupMemberJoined.Role, Is.EqualTo(MeetingGroupMemberRole.Organizer));
+            meetingGroupCreated.MeetingGroupId.Should().Be(meetingProposal.Id);
+            newMeetingGroupMemberJoined.MemberId.Should().Be(proposalMemberId);
+            newMeetingGroupMemberJoined.Role.Should().Be(MeetingGroupMemberRole.Organizer);
         }
     }
 }

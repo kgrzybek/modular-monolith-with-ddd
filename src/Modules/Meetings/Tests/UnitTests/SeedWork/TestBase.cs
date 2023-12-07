@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.SeedWork
@@ -50,7 +51,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.SeedWork
             var businessRuleValidationException = Assert.Catch<BusinessRuleValidationException>(testDelegate, message);
             if (businessRuleValidationException != null)
             {
-                Assert.That(businessRuleValidationException.BrokenRule, Is.TypeOf<TRule>(), message);
+                businessRuleValidationException.BrokenRule.Should().BeOfType<TRule>();
             }
         }
 

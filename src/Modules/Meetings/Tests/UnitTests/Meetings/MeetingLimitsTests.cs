@@ -1,5 +1,6 @@
 ﻿using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
@@ -12,8 +13,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
         {
             var meetingLimits = MeetingLimits.Create(15, 5);
 
-            Assert.That(meetingLimits.AttendeesLimit, Is.EqualTo(15));
-            Assert.That(meetingLimits.GuestsLimit, Is.EqualTo(5));
+            meetingLimits.AttendeesLimit.Should().Be(15);
+            meetingLimits.GuestsLimit.Should().Be(5);
         }
 
         [Test]
@@ -30,8 +31,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
         {
             var meetingLimits = MeetingLimits.Create(null, 5);
 
-            Assert.That(meetingLimits.AttendeesLimit, Is.EqualTo(null));
-            Assert.That(meetingLimits.GuestsLimit, Is.EqualTo(5));
+            meetingLimits.AttendeesLimit.Should().BeNull();
+            meetingLimits.GuestsLimit.Should().Be(5);
         }
 
         [Test]

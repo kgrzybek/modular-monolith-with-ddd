@@ -4,6 +4,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
@@ -41,9 +42,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             meetingTestData.Meeting.Cancel(creatorId);
 
             var meetingCanceled = AssertPublishedDomainEvent<MeetingCanceledDomainEvent>(meetingTestData.Meeting);
-            Assert.That(meetingCanceled.MeetingId, Is.EqualTo(meetingTestData.Meeting.Id));
-            Assert.That(meetingCanceled.CancelMemberId, Is.EqualTo(creatorId));
-            Assert.That(meetingCanceled.CancelDate, Is.EqualTo(date));
+            meetingCanceled.MeetingId.Should().Be(meetingTestData.Meeting.Id);
+            meetingCanceled.CancelMemberId.Should().Be(creatorId);
+            meetingCanceled.CancelDate.Should().Be(date);
         }
 
         [Test]
@@ -94,9 +95,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             meetingTestData.Meeting.RemoveAttendee(attendeeToRemoveId, creatorId, reason);
 
             var meetingAttendeeRemoved = AssertPublishedDomainEvent<MeetingAttendeeRemovedDomainEvent>(meetingTestData.Meeting);
-            Assert.That(meetingAttendeeRemoved.MemberId, Is.EqualTo(attendeeToRemoveId));
-            Assert.That(meetingAttendeeRemoved.MeetingId, Is.EqualTo(meetingTestData.Meeting.Id));
-            Assert.That(meetingAttendeeRemoved.Reason, Is.EqualTo(reason));
+            meetingAttendeeRemoved.MemberId.Should().Be(attendeeToRemoveId);
+            meetingAttendeeRemoved.MeetingId.Should().Be(meetingTestData.Meeting.Id);
+            meetingAttendeeRemoved.Reason.Should().Be(reason);
         }
 
         [Test]

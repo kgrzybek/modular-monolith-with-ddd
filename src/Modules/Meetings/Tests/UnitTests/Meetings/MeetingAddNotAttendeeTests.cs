@@ -4,6 +4,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
@@ -57,7 +58,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             meetingTestData.Meeting.AddNotAttendee(memberId);
 
             var meetingNotAttendeeAdded = AssertPublishedDomainEvent<MeetingNotAttendeeAddedDomainEvent>(meetingTestData.Meeting);
-            Assert.That(meetingNotAttendeeAdded.MemberId, Is.EqualTo(memberId));
+            meetingNotAttendeeAdded.MemberId.Should().Be(memberId);
         }
 
         [Test]
@@ -75,7 +76,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             meetingTestData.Meeting.AddNotAttendee(newMemberId);
 
             var meetingAttendeeChangedDecision = AssertPublishedDomainEvent<MeetingAttendeeChangedDecisionDomainEvent>(meetingTestData.Meeting);
-            Assert.That(meetingAttendeeChangedDecision.MemberId, Is.EqualTo(newMemberId));
+            meetingAttendeeChangedDecision.MemberId.Should().Be(newMemberId);
         }
 
         [Test]
@@ -128,7 +129,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             meetingTestData.Meeting.ChangeNotAttendeeDecision(newMemberId);
 
             var meetingNotAttendeeChangedDecision = AssertPublishedDomainEvent<MeetingNotAttendeeChangedDecisionDomainEvent>(meetingTestData.Meeting);
-            Assert.That(meetingNotAttendeeChangedDecision.MemberId, Is.EqualTo(newMemberId));
+            meetingNotAttendeeChangedDecision.MemberId.Should().Be(newMemberId);
         }
     }
 }
