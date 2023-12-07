@@ -51,5 +51,14 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
                 MeetingLimits.Create(20, -9);
             });
         }
+
+        [Test]
+        public void CreateMeetingLimits_WhenAttendeesLimitIsEqualToGuestsLimit_BreaksMeetingAttendeesLimitMustBeGreaterThanGuestsLimitRule()
+        {
+            AssertBrokenRule<MeetingAttendeesLimitMustBeGreaterThanGuestsLimitRule>(() =>
+            {
+                MeetingLimits.Create(5, 5);
+            });
+        }
     }
 }
