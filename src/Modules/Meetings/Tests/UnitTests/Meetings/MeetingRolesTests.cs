@@ -4,6 +4,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.SeedWork;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
@@ -62,7 +63,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             meetingTestData.Meeting.SetHostRole(meetingTestData.MeetingGroup, creatorId, newOrganizerId);
 
             var newMeetingHostSet = AssertPublishedDomainEvent<NewMeetingHostSetDomainEvent>(meetingTestData.Meeting);
-            Assert.That(newMeetingHostSet.HostId, Is.EqualTo(newOrganizerId));
+            newMeetingHostSet.HostId.Should().Be(newOrganizerId);
         }
 
         [Test]
@@ -85,7 +86,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             meetingTestData.Meeting.SetHostRole(meetingTestData.MeetingGroup, settingMemberId, newOrganizerId);
 
             var newMeetingHostSetEvent = AssertPublishedDomainEvent<NewMeetingHostSetDomainEvent>(meetingTestData.Meeting);
-            Assert.That(newMeetingHostSetEvent.HostId, Is.EqualTo(newOrganizerId));
+            newMeetingHostSetEvent.HostId.Should().Be(newOrganizerId);
         }
 
         [Test]
@@ -140,7 +141,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             meetingTestData.Meeting.SetAttendeeRole(meetingTestData.MeetingGroup, creatorId, newOrganizerId);
 
             var newMeetingHostSet = AssertPublishedDomainEvent<MemberSetAsAttendeeDomainEvent>(meetingTestData.Meeting);
-            Assert.That(newMeetingHostSet.HostId, Is.EqualTo(newOrganizerId));
+            newMeetingHostSet.HostId.Should().Be(newOrganizerId);
         }
 
         [Test]

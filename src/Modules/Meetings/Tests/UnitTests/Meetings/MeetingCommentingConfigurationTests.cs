@@ -2,6 +2,7 @@
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingCommentingConfigurations.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingCommentingConfigurations.Rules;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
@@ -20,8 +21,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
 
             // Assert
             var meetingCommentingConfigurationCreatedEvent = AssertPublishedDomainEvent<MeetingCommentingConfigurationCreatedDomainEvent>(meetingCommentingConfiguration);
-            Assert.That(meetingCommentingConfigurationCreatedEvent.MeetingId, Is.EqualTo(meeting.Meeting.Id));
-            Assert.That(meetingCommentingConfigurationCreatedEvent.IsEnabled, Is.True);
+            meetingCommentingConfigurationCreatedEvent.MeetingId.Should().Be(meeting.Meeting.Id);
+            meetingCommentingConfigurationCreatedEvent.IsEnabled.Should().BeTrue();
         }
 
         [Test]
@@ -39,11 +40,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
 
             // Assert
             var meetingCommentingDisabledEvent = AssertPublishedDomainEvent<MeetingCommentingDisabledDomainEvent>(meetingCommentingConfiguration);
-            Assert.That(meetingCommentingDisabledEvent.MeetingId, Is.EqualTo(meeting.Meeting.Id));
+            meetingCommentingDisabledEvent.MeetingId.Should().Be(meeting.Meeting.Id);
         }
 
         [Test]
-        public void DisableCommenting_WhenMemberIsNotGroupOrginizer_BreakMeetingCommentingCanBeDisabledOnlyByGroupOrganizerRule()
+        public void DisableCommenting_WhenMemberIsNotGroupOrganizer_BreakMeetingCommentingCanBeDisabledOnlyByGroupOrganizerRule()
         {
             // Arrange
             var meeting = CreateMeetingTestData(new MeetingTestDataOptions());
@@ -89,11 +90,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
 
             // Assert
             var meetingCommentingEnabledEvent = AssertPublishedDomainEvent<MeetingCommentingEnabledDomainEvent>(meetingCommentingConfiguration);
-            Assert.That(meetingCommentingEnabledEvent.MeetingId, Is.EqualTo(meeting.Meeting.Id));
+            meetingCommentingEnabledEvent.MeetingId.Should().Be(meeting.Meeting.Id);
         }
 
         [Test]
-        public void EnableCommenting_WhenMemberIsNotGroupOrginizer_BreakMeetingCommentingCanBeEnabledOnlyByGroupOrganizerRule()
+        public void EnableCommenting_WhenMemberIsNotGroupOrganizer_BreakMeetingCommentingCanBeEnabledOnlyByGroupOrganizerRule()
         {
             // Arrange
             var organizerId = new MemberId(Guid.NewGuid());

@@ -12,6 +12,7 @@
     <PackageReference Include="NSubstitute" Version="5.1.0" />
     <PackageReference Include="nunit" Version="4.0.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0">
+    <PackageReference Include="FluentAssertions" Version="6.12.0" />
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

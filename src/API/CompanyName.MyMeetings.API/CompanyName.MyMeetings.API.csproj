@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <UserSecretsId>2b9855d3-f073-44d2-aa45-b15e896794b9</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
@@ -11,17 +11,17 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\net8.0\CompanyName.MyMeetings.API\CompanyName.MyMeetings.APIx.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\net7.0\CompanyName.MyMeetings.API\CompanyName.MyMeetings.APIx.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Production|AnyCPU'">
-    <DocumentationFile>bin\Production\net8.0\CompanyName.MyMeetings.API\CompanyName.MyMeetings.APIx.xml</DocumentationFile>
+    <DocumentationFile>bin\Production\net7.0\CompanyName.MyMeetings.API\CompanyName.MyMeetings.APIx.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\net8.0\CompanyName.MyMeetings.APIx.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\net7.0\CompanyName.MyMeetings.APIx.xml</DocumentationFile>
       <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 

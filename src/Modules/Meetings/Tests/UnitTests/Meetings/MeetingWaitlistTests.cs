@@ -3,6 +3,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
@@ -92,7 +93,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             meetingTestData.Meeting.SignUpMemberToWaitlist(meetingTestData.MeetingGroup, memberId);
 
             var meetingWaitlistMemberAdded = AssertPublishedDomainEvent<MeetingWaitlistMemberAddedDomainEvent>(meetingTestData.Meeting);
-            Assert.That(meetingWaitlistMemberAdded.MemberId, Is.EqualTo(memberId));
+            meetingWaitlistMemberAdded.MemberId.Should().Be(memberId);
         }
 
         [Test]
@@ -144,7 +145,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             meetingTestData.Meeting.SignOffMemberFromWaitlist(memberId);
 
             var memberSignedOffFromMeetingWaitlist = AssertPublishedDomainEvent<MemberSignedOffFromMeetingWaitlistDomainEvent>(meetingTestData.Meeting);
-            Assert.That(memberSignedOffFromMeetingWaitlist.MemberId, Is.EqualTo(memberId));
+            memberSignedOffFromMeetingWaitlist.MemberId.Should().Be(memberId);
         }
     }
 }

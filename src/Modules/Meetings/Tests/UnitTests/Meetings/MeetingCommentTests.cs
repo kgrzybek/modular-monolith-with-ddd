@@ -3,6 +3,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.Comments.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments.Rules;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingMemberCommentLikes.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
@@ -23,9 +24,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
 
             // Assert
             var meetingCommentCreatedEvent = AssertPublishedDomainEvent<MeetingCommentAddedDomainEvent>(meetingComment);
-            Assert.That(meetingCommentCreatedEvent.MeetingCommentId, Is.EqualTo(meetingComment.Id));
-            Assert.That(meetingCommentCreatedEvent.MeetingId, Is.EqualTo(meetingTestData.Meeting.Id));
-            Assert.That(meetingCommentCreatedEvent.Comment, Is.EqualTo(comment));
+            meetingCommentCreatedEvent.MeetingCommentId.Should().Be(meetingComment.Id);
+            meetingCommentCreatedEvent.MeetingId.Should().Be(meetingTestData.Meeting.Id);
+            meetingCommentCreatedEvent.Comment.Should().Be(comment);
         }
 
         [Test]
@@ -95,8 +96,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
 
             // Assert
             var meetingCommentEditedEvent = AssertPublishedDomainEvent<MeetingCommentEditedDomainEvent>(meetingComment);
-            Assert.That(meetingCommentEditedEvent.MeetingCommentId, Is.EqualTo(meetingComment.Id));
-            Assert.That(meetingCommentEditedEvent.EditedComment, Is.EqualTo(editedComment));
+            meetingCommentEditedEvent.MeetingCommentId.Should().Be(meetingComment.Id);
+            meetingCommentEditedEvent.EditedComment.Should().Be(editedComment);
         }
 
         [Test]
@@ -178,7 +179,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
 
             // Assert
             var meetingCommentRemovedEvent = AssertPublishedDomainEvent<MeetingCommentRemovedDomainEvent>(meetingComment);
-            Assert.That(meetingCommentRemovedEvent.MeetingCommentId, Is.EqualTo(meetingComment.Id));
+            meetingCommentRemovedEvent.MeetingCommentId.Should().Be(meetingComment.Id);
         }
 
         [Test]
@@ -244,9 +245,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
 
             // Assert
             var replyToMeetingCommentAddedEvent = AssertPublishedDomainEvent<ReplyToMeetingCommentAddedDomainEvent>(replyToComment);
-            Assert.That(replyToMeetingCommentAddedEvent.MeetingCommentId, Is.EqualTo(replyToComment.Id));
-            Assert.That(replyToMeetingCommentAddedEvent.InReplyToCommentId, Is.EqualTo(meetingComment.Id));
-            Assert.That(replyToMeetingCommentAddedEvent.Reply, Is.EqualTo(reply));
+            replyToMeetingCommentAddedEvent.MeetingCommentId.Should().Be(replyToComment.Id);
+            replyToMeetingCommentAddedEvent.InReplyToCommentId.Should().Be(meetingComment.Id);
+            replyToMeetingCommentAddedEvent.Reply.Should().Be(reply);
         }
 
         [Test]
@@ -326,8 +327,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
 
             // Assert
             var meetingCommentLikedEvent = AssertPublishedDomainEvent<MeetingCommentLikedDomainEvent>(like);
-            Assert.That(meetingCommentLikedEvent.MeetingCommentId, Is.EqualTo(meetingComment.Id));
-            Assert.That(meetingCommentLikedEvent.LikerId, Is.EqualTo(likerId));
+            meetingCommentLikedEvent.MeetingCommentId.Should().Be(meetingComment.Id);
+            meetingCommentLikedEvent.LikerId.Should().Be(likerId);
         }
 
         [Test]
@@ -393,8 +394,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
 
             // Assert
             var meetingCommentUnlikedEvent = AssertPublishedDomainEvent<MeetingCommentUnlikedDomainEvent>(commentLike);
-            Assert.That(meetingCommentUnlikedEvent.MeetingCommentId, Is.EqualTo(meetingComment.Id));
-            Assert.That(meetingCommentUnlikedEvent.LikerId, Is.EqualTo(likerId));
+            meetingCommentUnlikedEvent.MeetingCommentId.Should().Be(meetingComment.Id);
+            meetingCommentUnlikedEvent.LikerId.Should().Be(likerId);
         }
     }
 }

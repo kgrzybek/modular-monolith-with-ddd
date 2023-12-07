@@ -4,6 +4,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings.Rules;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
@@ -135,11 +136,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
 
             var meetingAttendeesAddedEvents =
                 AssertPublishedDomainEvents<MeetingAttendeeAddedDomainEvent>(meetingTestData.Meeting);
-            Assert.That(meetingAttendeesAddedEvents.Count, Is.EqualTo(2));
-            Assert.That(meetingAttendeesAddedEvents[0].AttendeeId, Is.EqualTo(creatorId));
-            Assert.That(meetingAttendeesAddedEvents[0].Role, Is.EqualTo(MeetingAttendeeRole.Host.Value));
-            Assert.That(meetingAttendeesAddedEvents[1].AttendeeId, Is.EqualTo(newMemberId));
-            Assert.That(meetingAttendeesAddedEvents[1].Role, Is.EqualTo(MeetingAttendeeRole.Attendee.Value));
+
+            meetingAttendeesAddedEvents.Should().HaveCount(2);
+            meetingAttendeesAddedEvents[0].AttendeeId.Should().Be(creatorId);
+            meetingAttendeesAddedEvents[0].Role.Should().Be(MeetingAttendeeRole.Host.Value);
+            meetingAttendeesAddedEvents[1].AttendeeId.Should().Be(newMemberId);
+            meetingAttendeesAddedEvents[1].Role.Should().Be(MeetingAttendeeRole.Attendee.Value);
         }
 
         [Test]
@@ -157,7 +159,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.Meetings
             meetingTestData.Meeting.AddAttendee(meetingTestData.MeetingGroup, newMemberId, 0);
 
             var meetingNotAttendeeChangedDecision = AssertPublishedDomainEvent<MeetingNotAttendeeChangedDecisionDomainEvent>(meetingTestData.Meeting);
-            Assert.That(meetingNotAttendeeChangedDecision.MemberId, Is.EqualTo(newMemberId));
+            meetingNotAttendeeChangedDecision.MemberId.Should().Be(newMemberId);
         }
     }
 }
