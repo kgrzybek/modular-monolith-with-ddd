@@ -84,7 +84,7 @@ public partial class Build
 
     AbsolutePath DbUpMigratorPath => OutputDbUbMigratorBuildDirectory / "DatabaseMigrator.dll";
 
-    readonly string MyMeetingsDatabaseConnectionString = $"Server=127.0.0.1,{SqlServerPort};Database=MyMeetings;User={SqlServerUser};Password={SqlServerPassword}";
+    readonly string MyMeetingsDatabaseConnectionString = $"Server=127.0.0.1,{SqlServerPort};Database=MyMeetings;User={SqlServerUser};Password={SqlServerPassword};TrustServerCertificate=True";
 
     Target RunDatabaseMigrations => _ => _
         .DependsOn(CompileDbUpMigratorForIntegrationTests)
