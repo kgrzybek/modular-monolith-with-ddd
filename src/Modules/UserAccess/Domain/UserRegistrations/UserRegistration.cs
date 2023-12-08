@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations.Events;
 using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations.Rules;

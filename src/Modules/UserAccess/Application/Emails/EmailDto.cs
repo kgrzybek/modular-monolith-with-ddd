@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Emails
+﻿namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Emails
 {
     public class EmailDto
     {

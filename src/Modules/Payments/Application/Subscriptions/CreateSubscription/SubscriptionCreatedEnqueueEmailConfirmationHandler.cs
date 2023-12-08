@@ -1,4 +1,3 @@
-using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.Modules.Payments.Application.Payers.GetPayerEmail;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.SendSubscriptionCreationConfirmationEmail;

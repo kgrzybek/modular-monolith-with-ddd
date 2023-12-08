@@ -2,8 +2,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
-using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Members;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Comments;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments;

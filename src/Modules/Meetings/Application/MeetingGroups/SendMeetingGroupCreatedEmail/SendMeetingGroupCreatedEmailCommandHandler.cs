@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
-using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.GetAllMeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Members;
 using Dapper;
@@ -32,7 +32,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.Send
                                   "[MeetingGroup].[LocationCountryCode], " +
                                   "[MeetingGroup].[LocationCity] " +
                                   "FROM [meetings].[v_MeetingGroups] AS [MeetingGroup] " +
-                                  "WHERE [MeetingGroup].[Id] = @Id", 
+                                  "WHERE [MeetingGroup].[Id] = @Id",
                 new
                                   {
                                       Id = request.MeetingGroupId.Value

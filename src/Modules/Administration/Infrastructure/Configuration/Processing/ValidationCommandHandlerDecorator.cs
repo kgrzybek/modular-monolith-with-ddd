@@ -6,7 +6,6 @@ using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
 using FluentValidation;
-using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Processing
 {

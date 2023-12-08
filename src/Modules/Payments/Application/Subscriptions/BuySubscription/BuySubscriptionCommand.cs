@@ -1,6 +1,4 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
-
-namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuySubscription
+﻿namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuySubscription
 {
     public class BuySubscriptionCommand : CommandBase<Guid>
     {

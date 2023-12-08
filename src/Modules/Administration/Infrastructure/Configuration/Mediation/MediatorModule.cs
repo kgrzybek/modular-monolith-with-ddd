@@ -58,7 +58,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
         private class ScopedContravariantRegistrationSource : IRegistrationSource
         {
             private readonly ContravariantRegistrationSource _source = new();
-            private readonly List<Type> _types = [];
+            private readonly List<Type> _types = new();
 
             public ScopedContravariantRegistrationSource(params Type[] types)
             {

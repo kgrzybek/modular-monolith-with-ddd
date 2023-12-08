@@ -20,7 +20,6 @@ using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Media
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Processing;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Processing.Outbox;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Quartz;
-using Serilog.AspNetCore;
 using ILogger = Serilog.ILogger;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration

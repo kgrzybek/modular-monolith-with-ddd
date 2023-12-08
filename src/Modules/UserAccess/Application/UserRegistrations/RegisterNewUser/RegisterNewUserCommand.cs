@@ -1,7 +1,4 @@
-﻿using System;
-using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
-
-namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.RegisterNewUser
+﻿namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.RegisterNewUser
 {
     public class RegisterNewUserCommand : CommandBase<Guid>
     {

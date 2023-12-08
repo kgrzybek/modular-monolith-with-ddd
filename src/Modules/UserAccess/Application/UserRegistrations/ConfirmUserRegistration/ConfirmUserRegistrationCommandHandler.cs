@@ -1,7 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands;
-using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations;
+﻿using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.ConfirmUserRegistration
 {

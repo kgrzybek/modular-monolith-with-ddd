@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Authentication

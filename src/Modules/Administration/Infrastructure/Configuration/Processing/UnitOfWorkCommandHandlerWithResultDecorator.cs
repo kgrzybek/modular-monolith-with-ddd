@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Processing

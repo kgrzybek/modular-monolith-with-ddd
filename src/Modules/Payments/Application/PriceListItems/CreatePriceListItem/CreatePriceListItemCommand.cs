@@ -1,6 +1,4 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
-
-namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.CreatePriceListItem
+﻿namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.CreatePriceListItem
 {
     public class CreatePriceListItemCommand : CommandBase<Guid>
     {

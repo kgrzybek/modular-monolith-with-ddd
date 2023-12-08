@@ -1,7 +1,5 @@
 ﻿using Autofac;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands;
-using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Queries;
-using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Events;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispatching;

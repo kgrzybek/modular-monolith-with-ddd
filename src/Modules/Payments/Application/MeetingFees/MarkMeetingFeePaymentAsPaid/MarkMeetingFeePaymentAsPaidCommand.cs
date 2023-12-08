@@ -1,6 +1,4 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
-
-namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.MarkMeetingFeePaymentAsPaid
+﻿namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.MarkMeetingFeePaymentAsPaid
 {
     public class MarkMeetingFeePaymentAsPaidCommand : CommandBase
     {

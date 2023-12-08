@@ -30,7 +30,7 @@ namespace CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.UserRegist
                 "MyMeetings - Please confirm your registration",
                 content);
 
-            EmailSender.Received(Quantity.Exactly(1)).SendEmail(email);
+            await EmailSender.Received(Quantity.Exactly(1)).SendEmail(email);
         }
     }
 }

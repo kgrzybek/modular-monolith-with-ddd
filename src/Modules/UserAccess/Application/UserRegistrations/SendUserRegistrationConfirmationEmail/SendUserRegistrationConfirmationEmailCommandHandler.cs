@@ -1,7 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
-using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.SendUserRegistrationConfirmationEmail
 {

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Dynamic;
 using MediatR;
 
 namespace CompanyName.MyMeetings.BuildingBlocks.Application.Contracts

@@ -14,7 +14,6 @@ using MediatR;
 using NSubstitute;
 using NUnit.Framework;
 using Serilog;
-using Serilog.Formatting.Compact;
 
 namespace CompanyName.MyMeetings.Modules.Administration.IntegrationTests.SeedWork
 {

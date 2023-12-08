@@ -1,4 +1,3 @@
-using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions;
 using Newtonsoft.Json;
 

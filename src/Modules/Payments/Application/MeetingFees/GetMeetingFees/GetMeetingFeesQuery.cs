@@ -1,6 +1,4 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
-
-namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.GetMeetingFees
+﻿namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.GetMeetingFees
 {
     public class GetMeetingFeesQuery : QueryBase<List<MeetingFeeDto>>
     {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
-
-namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Authorization.GetUserPermissions
+﻿namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Authorization.GetUserPermissions
 {
     public class GetUserPermissionsQuery : QueryBase<List<UserPermissionDto>>
     {

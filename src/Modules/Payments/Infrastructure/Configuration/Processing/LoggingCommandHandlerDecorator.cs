@@ -2,10 +2,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
-using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
-using MediatR;
 using Serilog;
 using Serilog.Context;
 using Serilog.Core;

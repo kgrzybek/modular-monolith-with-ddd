@@ -1,7 +1,4 @@
-using System.Threading;
-using System.Threading.Tasks;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Authentication;
-using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.UserAccess.Domain.Users;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Users.AddAdminUser

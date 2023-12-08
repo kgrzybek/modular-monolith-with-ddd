@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
+﻿using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
 using IdentityServer4;
 using IdentityServer4.Models;
 

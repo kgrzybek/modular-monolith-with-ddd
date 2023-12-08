@@ -17,7 +17,6 @@ using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Pro
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Quartz;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Security;
 using Serilog;
-using Serilog.AspNetCore;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
 {

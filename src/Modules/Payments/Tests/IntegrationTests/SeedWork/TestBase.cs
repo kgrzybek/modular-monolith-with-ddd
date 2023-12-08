@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
 using CompanyName.MyMeetings.BuildingBlocks.IntegrationTests;
 using CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;

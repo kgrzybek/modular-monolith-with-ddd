@@ -1,6 +1,4 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
-
-namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.GetPriceListItem
+﻿namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.GetPriceListItem
 {
     public class GetPriceListItemQuery : QueryBase<PriceListItemMoneyValueDto>
     {

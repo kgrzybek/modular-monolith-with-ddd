@@ -1,6 +1,4 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
-
-namespace CompanyName.MyMeetings.Modules.Payments.Application.Payers.GetPayer
+﻿namespace CompanyName.MyMeetings.Modules.Payments.Application.Payers.GetPayer
 {
     public class GetPayerQuery : QueryBase<PayerDto>
     {

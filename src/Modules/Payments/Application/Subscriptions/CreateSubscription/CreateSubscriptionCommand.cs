@@ -1,5 +1,4 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.CreateSubscription
 {

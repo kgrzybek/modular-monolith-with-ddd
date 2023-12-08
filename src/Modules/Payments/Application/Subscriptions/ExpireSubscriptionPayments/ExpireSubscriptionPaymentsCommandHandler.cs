@@ -1,5 +1,4 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands;
-using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.ExpireSubscriptionPayment;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.ExpireSubscriptionPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;

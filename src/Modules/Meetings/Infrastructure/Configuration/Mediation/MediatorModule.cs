@@ -5,8 +5,8 @@ using System.Reflection;
 using Autofac;
 using Autofac.Core;
 using Autofac.Features.Variance;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands;
+using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using FluentValidation;
 using MediatR;
 using MediatR.Pipeline;
@@ -58,7 +58,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.M
         private class ScopedContravariantRegistrationSource : IRegistrationSource
         {
             private readonly ContravariantRegistrationSource _source = new();
-            private readonly List<Type> _types = [];
+            private readonly List<Type> _types = new();
 
             public ScopedContravariantRegistrationSource(params Type[] types)
             {

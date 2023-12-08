@@ -16,7 +16,6 @@ using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.IdentityServer;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration;
 using Hellang.Middleware.ProblemDetails;
 using IdentityServer4.AccessTokenValidation;

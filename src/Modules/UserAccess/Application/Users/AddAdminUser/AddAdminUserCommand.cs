@@ -1,6 +1,4 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
-
-namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Users.AddAdminUser
+﻿namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Users.AddAdminUser
 {
     public class AddAdminUserCommand : CommandBase
     {

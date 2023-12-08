@@ -7,6 +7,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments.Rules
     {
         private readonly MeetingGroupMemberData _likerMeetingGroupMember;
 
+        #nullable enable
         public CommentCanBeLikedOnlyByMeetingGroupMemberRule(MeetingGroupMemberData? likerMeetingGroupMember)
         {
             _likerMeetingGroupMember = likerMeetingGroupMember;

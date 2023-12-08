@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
-using MediatR;
+using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Processing
 {

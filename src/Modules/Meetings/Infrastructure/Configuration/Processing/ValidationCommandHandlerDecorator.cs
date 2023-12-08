@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
 using FluentValidation;
-using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Processing
 {

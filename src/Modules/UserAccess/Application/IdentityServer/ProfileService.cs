@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
+﻿using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 

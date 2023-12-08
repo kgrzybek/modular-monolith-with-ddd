@@ -1,11 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Nuke.Common;
-using Nuke.Common.IO;
-using Nuke.Common.Tools.Docker;
 using Nuke.Common.Tools.DotNet;
-using Utils;
-using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 public partial class Build

@@ -1,5 +1,4 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
-using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetSubscriptionDetails;
+﻿using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetSubscriptionDetails;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetPayerSubscription
 {

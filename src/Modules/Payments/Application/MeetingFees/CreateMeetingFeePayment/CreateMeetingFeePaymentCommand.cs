@@ -1,6 +1,4 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
-
-namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.CreateMeetingFeePayment
+﻿namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.CreateMeetingFeePayment
 {
     public class CreateMeetingFeePaymentCommand : CommandBase<Guid>
     {

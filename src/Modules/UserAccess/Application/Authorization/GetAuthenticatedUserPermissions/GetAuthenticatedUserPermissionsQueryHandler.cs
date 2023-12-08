@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using CompanyName.MyMeetings.BuildingBlocks.Application;
-using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Queries;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Authorization.GetUserPermissions;
 using Dapper;

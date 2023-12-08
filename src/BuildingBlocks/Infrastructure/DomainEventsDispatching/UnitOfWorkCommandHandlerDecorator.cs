@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using MediatR;
 
 namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispatching

@@ -5,7 +5,6 @@ using System.Reflection;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Queries;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
-using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Administration.ArchTests.SeedWork;
 using FluentValidation;
 using MediatR;

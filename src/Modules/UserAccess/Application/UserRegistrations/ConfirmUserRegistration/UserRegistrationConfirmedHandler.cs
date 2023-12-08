@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations;
+﻿using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations;
 using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations.Events;
 using CompanyName.MyMeetings.Modules.UserAccess.Domain.Users;
 using MediatR;

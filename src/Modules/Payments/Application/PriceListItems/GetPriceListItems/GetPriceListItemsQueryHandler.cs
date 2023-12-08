@@ -1,5 +1,4 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Queries;
-using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.GetPriceListItems
 {

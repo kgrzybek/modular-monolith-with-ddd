@@ -20,7 +20,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings
                                                                 "[Meeting].TermStartDate, " +
                                                                 "[Meeting].TermEndDate " +
                                                                 "FROM [meetings].[v_Meetings] AS [Meeting] " +
-                                                                "WHERE [Meeting].[Id] = @Id", 
+                                                                "WHERE [Meeting].[Id] = @Id",
                 new
                                                                 {
                                                                     Id = meetingId.Value

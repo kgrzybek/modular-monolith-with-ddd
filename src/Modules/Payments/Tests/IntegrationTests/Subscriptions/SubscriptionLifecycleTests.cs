@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing;
@@ -8,7 +7,6 @@ using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuySubsc
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuySubscriptionRenewal;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.ExpireSubscriptions;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetSubscriptionDetails;
-using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetSubscriptionPayments;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.MarkSubscriptionPaymentAsPaid;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.MarkSubscriptionRenewalPaymentAsPaid;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;

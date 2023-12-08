@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Projections;
-using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration;
 using Newtonsoft.Json;
 using SqlStreamStore;

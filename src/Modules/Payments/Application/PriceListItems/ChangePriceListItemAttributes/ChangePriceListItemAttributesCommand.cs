@@ -1,6 +1,4 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
-
-namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems
+﻿namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems
 {
     public class ChangePriceListItemAttributesCommand : CommandBase
     {

@@ -1,7 +1,4 @@
-﻿using System;
-using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
-
-namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.GetUserRegistration
+﻿namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.GetUserRegistration
 {
     public class GetUserRegistrationQuery : QueryBase<UserRegistrationDto>
     {
