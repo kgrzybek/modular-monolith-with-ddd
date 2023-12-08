@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands;
-using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Serialization;
+using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
+using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 using Dapper;
 using Newtonsoft.Json;
 

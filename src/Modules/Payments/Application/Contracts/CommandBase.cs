@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CompanyName.MyMeetings.BuildingBlocks.Application.Contracts
+namespace CompanyName.MyMeetings.Modules.Payments.Application.Contracts
 {
     public abstract class CommandBase : ICommand
     {

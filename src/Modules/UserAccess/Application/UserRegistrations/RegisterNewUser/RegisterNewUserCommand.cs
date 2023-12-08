@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.RegisterNewUser
+﻿using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
+
+namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.RegisterNewUser
 {
     public class RegisterNewUserCommand : CommandBase<Guid>
     {

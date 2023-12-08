@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
+using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
 
-namespace CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands
+namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Commands
 {
     public interface ICommandsScheduler
     {

@@ -36,10 +36,4 @@
         <ProjectReference Include="..\Domain\CompanyName.MyMeetings.Modules.UserAccess.Domain.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\IntegrationEvents\CompanyName.MyMeetings.Modules.UserAccess.IntegrationEvents.csproj" PrivateAssets="All" />
     </ItemGroup>
-
-	<ItemGroup>
-		<Using Include="CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands" />
-		<Using Include="CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Queries" />
-		<Using Include="CompanyName.MyMeetings.BuildingBlocks.Application.Contracts" />
-	</ItemGroup>
 </Project>

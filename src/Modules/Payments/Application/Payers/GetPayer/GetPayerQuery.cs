@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.Modules.Payments.Application.Payers.GetPayer
+﻿using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
+
+namespace CompanyName.MyMeetings.Modules.Payments.Application.Payers.GetPayer
 {
     public class GetPayerQuery : QueryBase<PayerDto>
     {

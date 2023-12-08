@@ -1,4 +1,5 @@
-﻿using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.CreateSubscription;
+﻿using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
+using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.CreateSubscription;
 using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.MarkSubscriptionPaymentAsPaid

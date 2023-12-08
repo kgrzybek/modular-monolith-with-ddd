@@ -1,4 +1,5 @@
 ﻿using CompanyName.MyMeetings.Modules.Meetings.IntegrationEvents;
+using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.CreateMeetingFee;
 using MediatR;
 

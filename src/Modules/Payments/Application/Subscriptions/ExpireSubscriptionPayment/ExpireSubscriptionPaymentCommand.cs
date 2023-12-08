@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.ExpireSubscriptionPayment
+﻿using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
+
+namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.ExpireSubscriptionPayment
 {
     public class ExpireSubscriptionPaymentCommand : CommandBase
     {

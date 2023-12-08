@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.MarkSubscriptionPaymentAsPaid
+﻿using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
+
+namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.MarkSubscriptionPaymentAsPaid
 {
     public class MarkSubscriptionPaymentAsPaidCommand : CommandBase
     {

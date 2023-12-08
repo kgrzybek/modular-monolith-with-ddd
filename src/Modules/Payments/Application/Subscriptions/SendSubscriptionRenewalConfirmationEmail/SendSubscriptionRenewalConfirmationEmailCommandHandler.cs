@@ -1,4 +1,5 @@
 using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
+using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.SendSubscriptionRenewalConfirmationEmail
 {

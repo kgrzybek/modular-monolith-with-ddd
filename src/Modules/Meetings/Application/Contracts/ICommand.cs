@@ -1,7 +1,7 @@
 ﻿using System;
 using MediatR;
 
-namespace CompanyName.MyMeetings.BuildingBlocks.Application.Contracts
+namespace CompanyName.MyMeetings.Modules.Meetings.Application.Contracts
 {
     public interface ICommand<out TResult> : IRequest<TResult>
     {

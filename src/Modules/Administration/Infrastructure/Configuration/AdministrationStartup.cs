@@ -5,7 +5,7 @@ using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
 using CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.AcceptMeetingGroupProposal;
 using CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.RequestMeetingGroupProposalVerification;
-using CompanyName.MyMeetings.Modules.Administration.Application.Members;
+using CompanyName.MyMeetings.Modules.Administration.Application.Members.CreateMember;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Authentication;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.DataAccess;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.EventsBus;

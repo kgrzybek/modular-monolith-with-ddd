@@ -1,4 +1,5 @@
-﻿using CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.MarkMeetingFeeAsPaid;
+﻿using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
+using CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.MarkMeetingFeeAsPaid;
 using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFeePayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 using MediatR;

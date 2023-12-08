@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Users.GetUser
+﻿using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
+
+namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Users.GetUser
 {
     public class GetUserQuery : QueryBase<UserDto>
     {

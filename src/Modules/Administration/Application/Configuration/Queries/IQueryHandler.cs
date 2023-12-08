@@ -1,7 +1,7 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
+﻿using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
 using MediatR;
 
-namespace CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Queries
+namespace CompanyName.MyMeetings.Modules.Administration.Application.Configuration.Queries
 {
     public interface IQueryHandler<in TQuery, TResult> :
         IRequestHandler<TQuery, TResult>

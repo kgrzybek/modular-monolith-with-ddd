@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.CreateMeetingFeePayment
+﻿using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
+
+namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.CreateMeetingFeePayment
 {
     public class CreateMeetingFeePaymentCommand : CommandBase<Guid>
     {

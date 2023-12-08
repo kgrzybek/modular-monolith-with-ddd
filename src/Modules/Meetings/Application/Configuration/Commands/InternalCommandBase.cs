@@ -1,7 +1,7 @@
 ﻿using System;
-using CompanyName.MyMeetings.BuildingBlocks.Application.Contracts;
+using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
 
-namespace CompanyName.MyMeetings.BuildingBlocks.Application.Configuration.Commands
+namespace CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands
 {
     public abstract class InternalCommandBase : ICommand
     {
