@@ -1341,7 +1341,7 @@ In order not to reinvent the wheel, the *SQL Stream Store* library was used. As 
 Like every library, it has its limitations and assumptions (I recommend the linked documentation chapter "Things you need to know before adopting"). For me, the most important 2 points from this chapter are:
 
 1. *"Subscriptions (and thus projections) are **eventually consistent** and always will be."* This means that there will always be an inconsistency time from saving the event to the stream and processing the event by the projector(s).
-2. *"No support for ambient System.Transaction scopes enforcing the concept of the stream as the consistency and transactional boundary."* This means that if we save the event to a events stream and want to save something **in the same transaction**, we must use [TransactionScope](https://learn.microsoft.com/en-us/dotnet/api/system.transactions.transactionscope?view=net-7.0). If we cannot use *TransactionScope* for some reason, we must accept the Eventual Consistency also in this case.
+2. *"No support for ambient System.Transaction scopes enforcing the concept of the stream as the consistency and transactional boundary."* This means that if we save the event to a events stream and want to save something **in the same transaction**, we must use [TransactionScope](https://learn.microsoft.com/en-us/dotnet/api/system.transactions.transactionscope?view=net-8.0). If we cannot use *TransactionScope* for some reason, we must accept the Eventual Consistency also in this case.
 
 Other popular tools:
 
@@ -1767,7 +1767,7 @@ CI was implemented using [GitHub Actions](https://docs.github.com/en/actions/get
 
 **Steps description**<br/>
 a) Checkout repository - clean checkout of git repository <br/>
-b) Setup .NET - install .NET 7.0 SDK<br/>
+b) Setup .NET - install .NET 8.0 SDK<br/>
 c) Install dependencies - resolve NuGet packages<br/>
 d) Build - build solution<br/>
 e) Run Unit Tests - run automated Unit Tests (see section 3.10)<br/>
@@ -2037,9 +2037,9 @@ From the example above, one more important thing can be deduced - **code coverag
 
 List of technologies, frameworks and libraries used for implementation:
 
-- [.NET 7.0](https://dotnet.microsoft.com/download) (platform). Note for Visual Studio users: **VS 2019** is required.
+- [.NET 8.0](https://dotnet.microsoft.com/download) (platform). Note for Visual Studio users: **VS 2019** is required.
 - [MS SQL Server Express](https://www.microsoft.com/en-us/sql-server/sql-server-editions-express) (database)
-- [Entity Framework Core 7.0](https://docs.microsoft.com/en-us/ef/core/) (ORM Write Model implementation for DDD)
+- [Entity Framework Core 8.0](https://docs.microsoft.com/en-us/ef/core/) (ORM Write Model implementation for DDD)
 - [Autofac](https://autofac.org/) (Inversion of Control Container)
 - [IdentityServer4](http://docs.identityserver.io) (Authentication and Authorization)
 - [Serilog](https://serilog.net/) (structured logging)
@@ -2070,9 +2070,9 @@ List of technologies, frameworks and libraries used for implementation:
 
 ## 5. How to Run
 
-### Install .NET 7.0
+### Install .NET 8.0 SDK
 
-- [Download](https://dotnet.microsoft.com/en-us/download/dotnet/7.0) and install .NET 7.0 SDK
+- [Download](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) and install .NET 8.0 SDK
 
 ### Create database
 
@@ -2188,6 +2188,7 @@ List of features/tasks/approaches to add:
 | Database project compilation on CI | Completed | 2021-06-15   |
 | System Under Test implementation   | Completed | 2022-07-17   |
 | Mutation Testing                   | Completed | 2022-08-23   |
+| Migration to .NET 8.0              | Completed | 2023-12-09   |
 
 NOTE: Please don't hesitate to suggest something else or a change to the existing code. All proposals will be considered.
 
@@ -2206,6 +2207,8 @@ GitHub: [https://github.com/kgrzybek](https://github.com/kgrzybek)
 ### 8.1 Main contributors
 
 - [Andrei Ganichev](https://github.com/AndreiGanichev)
+- [Bela Istok](https://github.com/bistok)
+- [Almar Aubel](https://github.com/AlmarAubel)
 
 ## 9. License
 
@@ -2283,6 +2286,7 @@ The project is under [MIT license](https://opensource.org/licenses/MIT).
 - ["Unit Test Your Architecture with ArchUnit"](https://blogs.oracle.com/javamagazine/unit-test-your-architecture-with-archunit) article, Jonas Havers
 - ["Unit Testing Principles, Practices, and Patterns"](https://www.amazon.com/Unit-Testing-Principles-Practices-Patterns/dp/1617296279) book, Vladimir Khorikov
 - ["Growing Object-Oriented Software, Guided by Tests"](https://www.amazon.com/Growing-Object-Oriented-Software-Guided-Tests/dp/0321503627) book, Steve Freeman, Nat Pryce
+- [Automated Tests](https://www.kamilgrzybek.com/blog/series/automated-tests) article series, Kamil Grzybek
 
 ### UML
 
