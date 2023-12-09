@@ -1,10 +1,8 @@
 ﻿using System;
 using CompanyName.MyMeetings.Modules.Administration.Application.Configuration.Commands;
-using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
-using MediatR;
 using Newtonsoft.Json;
 
-namespace CompanyName.MyMeetings.Modules.Administration.Application.Members
+namespace CompanyName.MyMeetings.Modules.Administration.Application.Members.CreateMember
 {
     public class CreateMemberCommand : InternalCommandBase<Guid>
     {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Authentication
@@ -15,7 +14,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Authentication
                 throw new ArgumentNullException(nameof(password));
             }
 
-            using (Rfc2898DeriveBytes bytes = new Rfc2898DeriveBytes(password, 0x10, 0x3e8))
+            using (Rfc2898DeriveBytes bytes = new Rfc2898DeriveBytes(password, 0x10, 0x3e8, HashAlgorithmName.SHA256))
             {
                 salt = bytes.Salt;
                 buffer2 = bytes.GetBytes(0x20);
@@ -50,7 +49,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Authentication
             Buffer.BlockCopy(src, 1, dst, 0, 0x10);
             byte[] buffer3 = new byte[0x20];
             Buffer.BlockCopy(src, 0x11, buffer3, 0, 0x20);
-            using (Rfc2898DeriveBytes bytes = new Rfc2898DeriveBytes(password, dst, 0x3e8))
+            using (Rfc2898DeriveBytes bytes = new Rfc2898DeriveBytes(password, dst, 0x3e8, HashAlgorithmName.SHA256))
             {
                 buffer4 = bytes.GetBytes(0x20);
             }

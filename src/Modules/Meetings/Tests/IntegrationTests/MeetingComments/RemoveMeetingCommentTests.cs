@@ -29,7 +29,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
 
             // Assert
             var meetingComments = await MeetingsModule.ExecuteQueryAsync(new GetMeetingCommentsQuery(meetingId));
-            Assert.IsEmpty(meetingComments);
+            Assert.That(meetingComments, Is.Empty);
         }
 
         [Test]

@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.API.Configuration.Authorization;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
-using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems;
 using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.ActivatePriceListItem;
+using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.ChangePriceListItemAttributes;
 using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.CreatePriceListItem;
 using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.DeactivatePriceListItem;
 using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.GetPriceListItem;

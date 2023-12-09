@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <UserSecretsId>2b9855d3-f073-44d2-aa45-b15e896794b9</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
@@ -11,17 +11,17 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\net7.0\CompanyName.MyMeetings.API\CompanyName.MyMeetings.APIx.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\net8.0\CompanyName.MyMeetings.API\CompanyName.MyMeetings.APIx.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Production|AnyCPU'">
-    <DocumentationFile>bin\Production\net7.0\CompanyName.MyMeetings.API\CompanyName.MyMeetings.APIx.xml</DocumentationFile>
+    <DocumentationFile>bin\Production\net8.0\CompanyName.MyMeetings.API\CompanyName.MyMeetings.APIx.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\net7.0\CompanyName.MyMeetings.APIx.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\net8.0\CompanyName.MyMeetings.APIx.xml</DocumentationFile>
       <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
@@ -37,16 +37,16 @@
   </ItemGroup>
 
   <ItemGroup>
-   <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="5.0.1" />
-    <PackageReference Include="FluentValidation" Version="8.6.2" />
-    <PackageReference Include="Hellang.Middleware.ProblemDetails" Version="4.2.0" />
-    <PackageReference Include="IdentityServer4" Version="3.1.2" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
-    <PackageReference Include="Serilog.Formatting.Compact" Version="1.1.0" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
-    <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
+   <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="FluentValidation" Version="11.8.1" />
+    <PackageReference Include="Hellang.Middleware.ProblemDetails" Version="6.5.1" />
+    <PackageReference Include="IdentityServer4" Version="4.1.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+    <PackageReference Include="Serilog.Formatting.Compact" Version="2.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.507" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>

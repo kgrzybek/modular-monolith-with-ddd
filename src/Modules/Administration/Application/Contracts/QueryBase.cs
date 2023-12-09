@@ -1,7 +1,6 @@
 ﻿using System;
-using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
 
-namespace CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Queries
+namespace CompanyName.MyMeetings.Modules.Administration.Application.Contracts
 {
     public abstract class QueryBase<TResult> : IQuery<TResult>
     {
@@ -9,12 +8,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Quer
 
         protected QueryBase()
         {
-            this.Id = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
 
         protected QueryBase(Guid id)
         {
-            this.Id = id;
+            Id = id;
         }
     }
 }

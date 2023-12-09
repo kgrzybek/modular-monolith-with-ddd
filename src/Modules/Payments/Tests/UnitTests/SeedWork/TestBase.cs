@@ -39,7 +39,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SeedWork
             where T : IDomainEvent
         {
             var domainEvent = aggregate.GetDomainEvents().OfType<T>().SingleOrDefault();
-            Assert.Null(domainEvent);
+            Assert.That(domainEvent, Is.Null);
         }
 
         public static List<T> AssertPublishedDomainEvents<T>(Entity aggregate)

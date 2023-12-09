@@ -14,7 +14,7 @@ namespace DatabaseMigrator
 
             ILogger logger = new LoggerConfiguration()
                 .WriteTo.Console()
-                .WriteTo.RollingFile(new CompactJsonFormatter(), logsPath)
+                .WriteTo.File(new CompactJsonFormatter(), logsPath)
                 .CreateLogger();
 
             logger.Information("Logger configured. Starting migration...");

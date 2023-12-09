@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddMeetingComment;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddMeetingCommentLike;
-using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.GetMeetingCommentLikes;
+using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.GetMeetingCommentLikers;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Members.CreateMember;
 using CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork;

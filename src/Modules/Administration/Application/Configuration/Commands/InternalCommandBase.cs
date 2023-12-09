@@ -7,7 +7,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.Configuratio
     {
         protected InternalCommandBase(Guid id)
         {
-            this.Id = id;
+            Id = id;
         }
 
         public Guid Id { get; }
@@ -17,12 +17,12 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.Configuratio
     {
         protected InternalCommandBase()
         {
-            this.Id = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
 
         protected InternalCommandBase(Guid id)
         {
-            this.Id = id;
+            Id = id;
         }
 
         public Guid Id { get; }

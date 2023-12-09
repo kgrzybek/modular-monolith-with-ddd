@@ -5,7 +5,6 @@ using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.InternalCommands;
 using CompanyName.MyMeetings.Modules.Administration.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Processing
@@ -27,9 +26,9 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             _administrationContext = administrationContext;
         }
 
-        public async Task<Unit> Handle(T command, CancellationToken cancellationToken)
+        public async Task Handle(T command, CancellationToken cancellationToken)
         {
-            Unit result = await _decorated.Handle(command, cancellationToken);
+            await _decorated.Handle(command, cancellationToken);
 
             if (command is InternalCommandBase)
             {
@@ -42,8 +41,6 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             }
 
             await _unitOfWork.CommitAsync(cancellationToken);
-
-            return Unit.Value;
         }
     }
 }

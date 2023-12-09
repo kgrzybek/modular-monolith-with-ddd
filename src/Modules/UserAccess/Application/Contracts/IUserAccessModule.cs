@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts
+﻿namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts
 {
     public interface IUserAccessModule
     {

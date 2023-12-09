@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Users.GetUser
+﻿namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Users.GetUser
 {
     public class UserDto
     {

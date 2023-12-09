@@ -2,7 +2,6 @@
 using System.Data.SqlClient;
 using System.IO;
 using System.Threading.Tasks;
-using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.EventBus;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;

@@ -18,7 +18,7 @@ namespace CompanyName.MyMeetings.API.Configuration.ExecutionContext
         {
             var correlationId = Guid.NewGuid();
 
-            context.Request?.Headers.Add(CorrelationHeaderKey, correlationId.ToString());
+            context.Request?.Headers.Append(CorrelationHeaderKey, correlationId.ToString());
 
             await _next.Invoke(context);
         }

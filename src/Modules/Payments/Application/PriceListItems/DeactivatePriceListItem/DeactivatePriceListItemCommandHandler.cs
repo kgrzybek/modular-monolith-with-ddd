@@ -1,11 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using CompanyName.MyMeetings.BuildingBlocks.Application;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
-using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.DeactivatePriceListItem
 {
@@ -18,7 +14,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.Dea
             _aggregateStore = aggregateStore;
         }
 
-        public async Task<Unit> Handle(DeactivatePriceListItemCommand command, CancellationToken cancellationToken)
+        public async Task Handle(DeactivatePriceListItemCommand command, CancellationToken cancellationToken)
         {
             var priceListItem = await _aggregateStore.Load(new PriceListItemId(command.PriceListItemId));
 
@@ -30,8 +26,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.Dea
             priceListItem.Deactivate();
 
             _aggregateStore.AppendChanges(priceListItem);
-
-            return Unit.Value;
         }
     }
 }

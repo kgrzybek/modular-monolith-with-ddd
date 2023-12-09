@@ -8,9 +8,7 @@ using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.CreateP
 using CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.GetPriceListItems;
 using CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions;
-using CompanyName.MyMeetings.Modules.Payments.Infrastructure;
 using CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork;
-using CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Subscriptions;
 
 namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.PriceList
 {

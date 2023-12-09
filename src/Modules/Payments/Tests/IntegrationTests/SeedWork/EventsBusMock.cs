@@ -22,7 +22,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
             where T : IntegrationEvent
         {
             _publishedEvents.Add(@event);
-
             return Task.CompletedTask;
         }
 

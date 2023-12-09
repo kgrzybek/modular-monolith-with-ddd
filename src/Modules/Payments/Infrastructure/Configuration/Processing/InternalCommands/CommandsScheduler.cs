@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Serialization;
 using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 using Dapper;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Processing.InternalCommands
 {

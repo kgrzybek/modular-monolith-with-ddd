@@ -50,7 +50,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork
                 await ClearDatabase(sqlConnection);
             }
 
-            Logger = Substitute.For<ILogger>();
+            Logger = new LoggerConfiguration()
+                .Enrich.FromLogContext()
+                .WriteTo.Console(
+                    outputTemplate:
+                    "[{Timestamp:HH:mm:ss} {Level:u3}] [{Module}] [{Context}] {Message:lj}{NewLine}{Exception}")
+                .CreateLogger();
             EmailSender = Substitute.For<IEmailSender>();
             ExecutionContext = new ExecutionContextMock(Guid.NewGuid());
 
@@ -59,7 +64,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork
                 ExecutionContext,
                 Logger,
                 new EmailsConfiguration("from@email.com"),
-                null);
+                new EventsBusMock());
 
             MeetingsModule = new MeetingsModule();
         }

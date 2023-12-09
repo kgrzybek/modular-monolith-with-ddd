@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using CompanyName.MyMeetings.Modules.Administration.Application.Members;
+using CompanyName.MyMeetings.Modules.Administration.Application.Members.CreateMember;
 using CompanyName.MyMeetings.Modules.Administration.Application.Members.GetMember;
 using CompanyName.MyMeetings.Modules.Administration.IntegrationTests.SeedWork;
 using NUnit.Framework;

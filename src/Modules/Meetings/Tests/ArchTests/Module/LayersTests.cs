@@ -1,8 +1,8 @@
-﻿using CompanyName.MyMeetings.Modules.Meetings.ArchitectureTests.SeedWork;
+﻿using CompanyName.MyMeetings.Modules.Meetings.ArchTests.SeedWork;
 using NetArchTest.Rules;
 using NUnit.Framework;
 
-namespace CompanyName.MyMeetings.Modules.Meetings.ArchitectureTests.Module
+namespace CompanyName.MyMeetings.Modules.Meetings.ArchTests.Module
 {
     [TestFixture]
     public class LayersTests : TestBase

@@ -1,14 +1,9 @@
-﻿using System;
-using System.Data.SqlClient;
-using System.Threading.Tasks;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
+﻿using System.Threading.Tasks;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.ConfirmUserRegistration;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.GetUserRegistration;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.RegisterNewUser;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.SendUserRegistrationConfirmationEmail;
 using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations;
 using CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.SeedWork;
-using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
 
 namespace CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.UserRegistrations

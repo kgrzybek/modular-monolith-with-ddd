@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Data;
 using CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems;
 using CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems.PricingStrategies;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;

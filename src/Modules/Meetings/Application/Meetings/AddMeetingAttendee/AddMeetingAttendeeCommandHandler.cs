@@ -4,7 +4,6 @@ using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
-using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.AddMeetingAttendee
 {
@@ -24,15 +23,13 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.AddMeetin
             _meetingGroupRepository = meetingGroupRepository;
         }
 
-        public async Task<Unit> Handle(AddMeetingAttendeeCommand request, CancellationToken cancellationToken)
+        public async Task Handle(AddMeetingAttendeeCommand request, CancellationToken cancellationToken)
         {
             var meeting = await _meetingRepository.GetByIdAsync(new MeetingId(request.MeetingId));
 
             var meetingGroup = await _meetingGroupRepository.GetByIdAsync(meeting.GetMeetingGroupId());
 
             meeting.AddAttendee(meetingGroup, _memberContext.MemberId, request.GuestsNumber);
-
-            return Unit.Value;
         }
     }
 }

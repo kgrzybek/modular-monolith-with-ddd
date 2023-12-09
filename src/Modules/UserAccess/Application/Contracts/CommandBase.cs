@@ -8,27 +8,27 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts
 
         protected CommandBase()
         {
-            this.Id = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
 
         protected CommandBase(Guid id)
         {
-            this.Id = id;
+            Id = id;
         }
     }
 
     public abstract class CommandBase<TResult> : ICommand<TResult>
     {
-        public Guid Id { get; }
-
         protected CommandBase()
         {
-            this.Id = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
 
         protected CommandBase(Guid id)
         {
-            this.Id = id;
+            Id = id;
         }
+
+        public Guid Id { get; }
     }
 }

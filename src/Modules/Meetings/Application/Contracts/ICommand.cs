@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices.ComTypes;
 using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.Contracts

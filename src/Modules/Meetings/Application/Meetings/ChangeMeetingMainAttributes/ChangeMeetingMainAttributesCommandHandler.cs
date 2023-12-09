@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
-using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.ChangeMeetingMainAttributes
 {
@@ -18,7 +17,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.ChangeMee
             _meetingRepository = meetingRepository;
         }
 
-        public async Task<Unit> Handle(ChangeMeetingMainAttributesCommand request, CancellationToken cancellationToken)
+        public async Task Handle(ChangeMeetingMainAttributesCommand request, CancellationToken cancellationToken)
         {
             var meeting = await _meetingRepository.GetByIdAsync(new MeetingId(request.MeetingId));
 
@@ -31,8 +30,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.ChangeMee
                 Term.CreateNewBetweenDates(request.RSVPTermStartDate, request.RSVPTermEndDate),
                 request.EventFeeValue.HasValue ? MoneyValue.Of(request.EventFeeValue.Value, request.EventFeeCurrency) : MoneyValue.Undefined,
                 _memberContext.MemberId);
-
-            return Unit.Value;
         }
     }
 }

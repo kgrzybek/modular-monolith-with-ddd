@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 using FluentValidation;
-using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Processing
 {
@@ -25,7 +23,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
             _decorated = decorated;
         }
 
-        public Task<Unit> Handle(T command, CancellationToken cancellationToken)
+        public async Task Handle(T command, CancellationToken cancellationToken)
         {
             var errors = _validators
                 .Select(v => v.Validate(command))
@@ -38,7 +36,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
                 throw new InvalidCommandException(errors.Select(x => x.ErrorMessage).ToList());
             }
 
-            return _decorated.Handle(command, cancellationToken);
+            await _decorated.Handle(command, cancellationToken);
         }
     }
 }

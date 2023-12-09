@@ -5,6 +5,8 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.Configuratio
 {
     public interface ICommandsScheduler
     {
+        Task EnqueueAsync(ICommand command);
+
         Task EnqueueAsync<T>(ICommand<T> command);
     }
 }

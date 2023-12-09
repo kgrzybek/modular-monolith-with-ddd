@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CompanyName.MyMeetings.Modules.Administration.Domain.Users
+﻿namespace CompanyName.MyMeetings.Modules.Administration.Domain.Users
 {
     public interface IUserContext
     {

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
-using CompanyName.MyMeetings.Modules.Meetings.ArchitectureTests.SeedWork;
+using CompanyName.MyMeetings.Modules.Meetings.ArchTests.SeedWork;
 using NetArchTest.Rules;
 using NUnit.Framework;
 
-namespace CompanyName.MyMeetings.Modules.Meetings.ArchitectureTests.Domain
+namespace CompanyName.MyMeetings.Modules.Meetings.ArchTests.Domain
 {
     public class DomainTests : TestBase
     {

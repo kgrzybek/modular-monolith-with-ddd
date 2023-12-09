@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
+﻿using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Authorization.GetUserPermissions
 {

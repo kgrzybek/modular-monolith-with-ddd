@@ -1,5 +1,4 @@
-﻿using System;
-using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
+﻿using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
 using Newtonsoft.Json;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.MarkMeetingFeeAsPaid
@@ -8,6 +7,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.MarkMe
     {
         [JsonConstructor]
         public MarkMeetingFeeAsPaidCommand(Guid meetingFeeId)
+            : base(Guid.Empty)
         {
             MeetingFeeId = meetingFeeId;
         }

@@ -1,16 +1,11 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.ExpireSubscriptionPayment;
-using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.ExpireSubscriptionPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments;
 using Dapper;
-using MediatR;
 
-namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.ExpireSubscriptions
+namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.ExpireSubscriptionPayments
 {
     internal class ExpireSubscriptionPaymentsCommandHandler : ICommandHandler<ExpireSubscriptionPaymentsCommand>
     {
@@ -26,7 +21,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Expi
             _commandsScheduler = commandsScheduler;
         }
 
-        public async Task<Unit> Handle(ExpireSubscriptionPaymentsCommand request, CancellationToken cancellationToken)
+        public async Task Handle(ExpireSubscriptionPaymentsCommand request, CancellationToken cancellationToken)
         {
             const string sql = "SELECT " +
                                "[SubscriptionPayment].PaymentId " +
@@ -53,8 +48,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Expi
                 await _commandsScheduler.EnqueueAsync(
                     new ExpireSubscriptionPaymentCommand(subscriptionPaymentId));
             }
-
-            return Unit.Value;
         }
     }
 }

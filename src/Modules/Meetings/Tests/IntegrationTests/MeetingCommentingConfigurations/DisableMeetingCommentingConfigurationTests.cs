@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
-using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingCommentingConfiguration.DisbaleMeetingCommentingConfiguration;
-using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingCommentingConfiguration.GetMeetingCommentingConfiguration;
+using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingCommentingConfigurations.DisableMeetingCommentingConfiguration;
+using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingCommentingConfigurations.GetMeetingCommentingConfiguration;
 using CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork;
 using NUnit.Framework;
@@ -23,8 +23,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingCommen
 
             // Assert
             var meetingConfiguration = await MeetingsModule.ExecuteQueryAsync(new GetMeetingCommentingConfigurationQuery(meetingId));
-            Assert.NotNull(meetingConfiguration);
-            Assert.False(meetingConfiguration.IsCommentingEnabled);
+            Assert.That(meetingConfiguration, Is.Not.Null);
+            Assert.That(meetingConfiguration.IsCommentingEnabled, Is.False);
         }
 
         [Test]

@@ -5,11 +5,9 @@ using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Members;
-using CompanyName.MyMeetings.Modules.Meetings.Domain.Comments;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingMemberCommentLikes;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
-using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddMeetingCommentLike
 {
@@ -32,7 +30,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ad
             _meetingMemberCommentLikesRepository = meetingMemberCommentLikesRepository;
         }
 
-        public async Task<Unit> Handle(AddMeetingCommentLikeCommand request, CancellationToken cancellationToken)
+        public async Task Handle(AddMeetingCommentLikeCommand request, CancellationToken cancellationToken)
         {
             var meetingComment = await _meetingCommentRepository.GetByIdAsync(new MeetingCommentId(request.MeetingCommentId));
             if (meetingComment == null)
@@ -50,8 +48,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ad
             var like = meetingComment.Like(_memberContext.MemberId, likerMeetingGroupMemberData, meetingMemeberCommentLikesCount);
 
             await _meetingMemberCommentLikesRepository.AddAsync(like);
-
-            return Unit.Value;
         }
     }
 }

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions;
-using CompanyName.MyMeetings.Modules.Payments.Infrastructure;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration;
 using NetArchTest.Rules;
 using NUnit.Framework;

@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
-using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.JoinToGroup
 {
@@ -20,13 +19,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.Join
             _memberContext = memberContext;
         }
 
-        public async Task<Unit> Handle(JoinToGroupCommand request, CancellationToken cancellationToken)
+        public async Task Handle(JoinToGroupCommand request, CancellationToken cancellationToken)
         {
             var meetingGroup = await _meetingGroupRepository.GetByIdAsync(new MeetingGroupId(request.MeetingGroupId));
 
             meetingGroup.JoinToGroupMember(_memberContext.MemberId);
-
-            return Unit.Value;
         }
     }
 }

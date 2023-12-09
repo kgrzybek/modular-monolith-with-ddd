@@ -1,5 +1,4 @@
 using CompanyName.MyMeetings.Modules.Payments.Domain.Payers;
-using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionPayments;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionRenewalPayments

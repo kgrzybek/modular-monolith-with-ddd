@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Nuke.Common;
 using Nuke.Common.IO;
 using Nuke.Common.Tools.Docker;
@@ -9,15 +10,15 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 public partial class Build
 {
-    AbsolutePath WorkingDirectory => RootDirectory / ".nuke-working-directory";
+    static AbsolutePath WorkingDirectory => RootDirectory / ".nuke-working-directory";
 
-    AbsolutePath OutputDirectory => WorkingDirectory / "output";
+    static AbsolutePath OutputDirectory => WorkingDirectory / "output";
 
-    AbsolutePath OutputDbUbMigratorBuildDirectory => OutputDirectory / "dbUpMigrator";
+    static AbsolutePath OutputDbUbMigratorBuildDirectory => OutputDirectory / "dbUpMigrator";
 
-    AbsolutePath InputFilesDirectory => WorkingDirectory / "input-files";
+    static AbsolutePath InputFilesDirectory => WorkingDirectory / "input-files";
 
-    AbsolutePath DatabaseDirectory =>
+    static AbsolutePath DatabaseDirectory =>
         RootDirectory / "src" / "Database" / "CompanyName.MyMeetings.Database" / "Scripts";
 
     const string CreateDatabaseScriptName = "CreateDatabase_Linux.sql";
@@ -46,7 +47,7 @@ public partial class Build
             DockerTasks.DockerRun(s => s
                 .EnableRm()
                 .SetName("sql-server-db")
-                .SetImage("mcr.microsoft.com/mssql/server:2019-latest")
+                .SetImage("mcr.microsoft.com/mssql/server")
                 .SetEnv(
                     $"SA_PASSWORD={SqlServerPassword}",
                     "ACCEPT_EULA=Y",
@@ -56,7 +57,7 @@ public partial class Build
                 .EnableDetach());
 
             SqlReadinessChecker.WaitForSqlSever(
-                $"Server=127.0.0.1,{SqlServerPort};Database=master;User={SqlServerUser};Password={SqlServerPassword}");
+                $"Server=127.0.0.1,{SqlServerPort};Database=master;User={SqlServerUser};Password={SqlServerPassword};Encrypt=False;");
         });
 
     Target CreateDatabase => _ => _
@@ -74,7 +75,7 @@ public partial class Build
         .DependsOn(CreateDatabase)
         .Executes(() =>
         {
-            var dbUpMigratorProject = Solution.GetProject("DatabaseMigrator");
+            var dbUpMigratorProject = Solution.GetAllProjects("DatabaseMigrator").First();
             DotNetBuild(s => s
                 .SetProjectFile(dbUpMigratorProject)
                 .SetConfiguration(Configuration)
@@ -84,7 +85,7 @@ public partial class Build
 
     AbsolutePath DbUpMigratorPath => OutputDbUbMigratorBuildDirectory / "DatabaseMigrator.dll";
 
-    readonly string MyMeetingsDatabaseConnectionString = $"Server=127.0.0.1,{SqlServerPort};Database=MyMeetings;User={SqlServerUser};Password={SqlServerPassword};TrustServerCertificate=True";
+    readonly string MyMeetingsDatabaseConnectionString = $"Server=127.0.0.1,{SqlServerPort};Database=MyMeetings;User={SqlServerUser};Password={SqlServerPassword};Encrypt=False;";
 
     Target RunDatabaseMigrations => _ => _
         .DependsOn(CompileDbUpMigratorForIntegrationTests)
@@ -101,7 +102,7 @@ public partial class Build
         .DependsOn(RunDatabaseMigrations)
         .Executes(() =>
         {
-            var integrationTest = Solution.GetProject(MeetingsModuleIntegrationTestsAssemblyName);
+            var integrationTest = Solution.GetAllProjects(MeetingsModuleIntegrationTestsAssemblyName).First();
 
             DotNetBuild(s => s
                 .SetProjectFile(integrationTest)
@@ -114,7 +115,7 @@ public partial class Build
         .DependsOn(BuildMeetingsModuleIntegrationTests)
         .Executes(() =>
         {
-            var integrationTest = Solution.GetProject(MeetingsModuleIntegrationTestsAssemblyName);
+            var integrationTest = Solution.GetAllProjects(MeetingsModuleIntegrationTestsAssemblyName).First();
             Environment.SetEnvironmentVariable(
                 MyMeetingsDatabaseEnvName,
                 MyMeetingsDatabaseConnectionString);
@@ -130,7 +131,7 @@ public partial class Build
         .DependsOn(RunDatabaseMigrations)
         .Executes(() =>
         {
-            var integrationTest = Solution.GetProject(AdministrationModuleIntegrationTestsAssemblyName);
+            var integrationTest = Solution.GetAllProjects(AdministrationModuleIntegrationTestsAssemblyName).First();
 
             DotNetBuild(s => s
                 .SetProjectFile(integrationTest)
@@ -141,7 +142,7 @@ public partial class Build
         .DependsOn(BuildAdministrationModuleIntegrationTests)
         .Executes(() =>
         {
-            var integrationTest = Solution.GetProject(AdministrationModuleIntegrationTestsAssemblyName);
+            var integrationTest = Solution.GetAllProjects(AdministrationModuleIntegrationTestsAssemblyName).First();
             Environment.SetEnvironmentVariable(
                 MyMeetingsDatabaseEnvName,
                 MyMeetingsDatabaseConnectionString);
@@ -157,7 +158,7 @@ public partial class Build
         .DependsOn(RunDatabaseMigrations)
         .Executes(() =>
         {
-            var integrationTest = Solution.GetProject(UserAccessModuleIntegrationTestsAssemblyName);
+            var integrationTest = Solution.GetAllProjects(UserAccessModuleIntegrationTestsAssemblyName).First();
 
             DotNetBuild(s => s
                 .SetProjectFile(integrationTest)
@@ -168,7 +169,7 @@ public partial class Build
         .DependsOn(BuildUserAccessModuleIntegrationTests)
         .Executes(() =>
         {
-            var integrationTest = Solution.GetProject(UserAccessModuleIntegrationTestsAssemblyName);
+            var integrationTest = Solution.GetAllProjects(UserAccessModuleIntegrationTestsAssemblyName).First();
             Environment.SetEnvironmentVariable(
                 MyMeetingsDatabaseEnvName,
                 MyMeetingsDatabaseConnectionString);
@@ -184,7 +185,7 @@ public partial class Build
         .DependsOn(RunDatabaseMigrations)
         .Executes(() =>
         {
-            var integrationTest = Solution.GetProject(PaymentsModuleIntegrationTestsAssemblyName);
+            var integrationTest = Solution.GetAllProjects(PaymentsModuleIntegrationTestsAssemblyName).First();
 
             DotNetBuild(s => s
                 .SetProjectFile(integrationTest)
@@ -195,7 +196,7 @@ public partial class Build
         .DependsOn(BuildPaymentsModuleIntegrationTests)
         .Executes(() =>
         {
-            var integrationTest = Solution.GetProject(PaymentsModuleIntegrationTestsAssemblyName);
+            var integrationTest = Solution.GetAllProjects(PaymentsModuleIntegrationTestsAssemblyName).First();
             Environment.SetEnvironmentVariable(
                 MyMeetingsDatabaseEnvName,
                 MyMeetingsDatabaseConnectionString);
@@ -211,7 +212,7 @@ public partial class Build
         .DependsOn(RunDatabaseMigrations)
         .Executes(() =>
         {
-            var integrationTest = Solution.GetProject(SystemIntegrationTestsAssemblyName);
+            var integrationTest = Solution.GetAllProjects(SystemIntegrationTestsAssemblyName).First();
 
             DotNetBuild(s => s
                 .SetProjectFile(integrationTest)
@@ -222,7 +223,7 @@ public partial class Build
         .DependsOn(BuildSystemIntegrationTests)
         .Executes(() =>
         {
-            var integrationTest = Solution.GetProject(SystemIntegrationTestsAssemblyName);
+            var integrationTest = Solution.GetAllProjects(SystemIntegrationTestsAssemblyName).First();
             Environment.SetEnvironmentVariable(
                 MyMeetingsDatabaseEnvName,
                 MyMeetingsDatabaseConnectionString);

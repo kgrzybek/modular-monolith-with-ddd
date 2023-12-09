@@ -429,60 +429,7 @@ CREATE TABLE [payments].[InboxMessages] (
 
 
 GO
-PRINT N'Creating [payments].[Messages]...';
 
-
-GO
-CREATE TABLE [payments].[Messages] (
-    [StreamIdInternal] INT              NOT NULL,
-    [StreamVersion]    INT              NOT NULL,
-    [Position]         BIGINT           IDENTITY (0, 1) NOT NULL,
-    [Id]               UNIQUEIDENTIFIER NOT NULL,
-    [Created]          DATETIME         NOT NULL,
-    [Type]             NVARCHAR (128)   NOT NULL,
-    [JsonData]         NVARCHAR (MAX)   NOT NULL,
-    [JsonMetadata]     NVARCHAR (MAX)   NULL,
-    CONSTRAINT [PK_Events] PRIMARY KEY NONCLUSTERED ([Position] ASC)
-);
-
-
-GO
-PRINT N'Creating [payments].[Messages].[IX_Messages_Position]...';
-
-
-GO
-CREATE UNIQUE NONCLUSTERED INDEX [IX_Messages_Position]
-    ON [payments].[Messages]([Position] ASC);
-
-
-GO
-PRINT N'Creating [payments].[Messages].[IX_Messages_StreamIdInternal_Id]...';
-
-
-GO
-CREATE UNIQUE NONCLUSTERED INDEX [IX_Messages_StreamIdInternal_Id]
-    ON [payments].[Messages]([StreamIdInternal] ASC, [Id] ASC);
-
-
-GO
-PRINT N'Creating [payments].[Messages].[IX_Messages_StreamIdInternal_Revision]...';
-
-
-GO
-CREATE UNIQUE NONCLUSTERED INDEX [IX_Messages_StreamIdInternal_Revision]
-    ON [payments].[Messages]([StreamIdInternal] ASC, [StreamVersion] ASC);
-
-
-GO
-PRINT N'Creating [payments].[Messages].[IX_Messages_StreamIdInternal_Created]...';
-
-
-GO
-CREATE NONCLUSTERED INDEX [IX_Messages_StreamIdInternal_Created]
-    ON [payments].[Messages]([StreamIdInternal] ASC, [Created] ASC);
-
-
-GO
 PRINT N'Creating [payments].[MeetingFees]...';
 
 
@@ -545,8 +492,6 @@ CREATE TABLE [payments].[SubscriptionCheckpoints] (
 
 GO
 PRINT N'Creating [payments].[SubscriptionDetails]...';
-
-
 GO
 CREATE TABLE [payments].[SubscriptionDetails] (
     [Id]             UNIQUEIDENTIFIER NOT NULL,
@@ -556,31 +501,114 @@ CREATE TABLE [payments].[SubscriptionDetails] (
     [ExpirationDate] DATETIME         NOT NULL,
     CONSTRAINT [PK_payments_SubscriptionDetails_Id] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
-
-
 GO
 PRINT N'Creating [payments].[Streams]...';
-
-
 GO
 CREATE TABLE [payments].[Streams] (
-    [Id]         CHAR (42)       NOT NULL,
-    [IdOriginal] NVARCHAR (1000) NOT NULL,
-    [IdInternal] INT             IDENTITY (1, 1) NOT NULL,
-    [Version]    INT             NOT NULL,
-    [Position]   BIGINT          NOT NULL,
-    CONSTRAINT [PK_Streams] PRIMARY KEY CLUSTERED ([IdInternal] ASC)
+        Id                  CHAR(42)                                NOT NULL,
+        IdOriginal          NVARCHAR(1000)                          NOT NULL,
+        IdInternal          INT                 IDENTITY(1,1)       NOT NULL,
+        [Version]           INT                 NOT NULL,
+        Position            BIGINT              NOT NULL,
+        MaxAge              INT                 DEFAULT(NULL),
+        MaxCount            INT                 DEFAULT(NULL),
+        IdOriginalReversed  AS REVERSE(IdOriginal)
+        CONSTRAINT PK_Streams PRIMARY KEY CLUSTERED (IdInternal)
 );
 
+GO
+PRINT N'Creating [payments].[DF_payments_Streams_Version]...';
 
 GO
+ALTER TABLE [payments].[Streams]
+    ADD CONSTRAINT [DF_payments_Streams_Version] DEFAULT (-1) FOR [Version];
+
+GO
+PRINT N'Creating [payments].[DF_payments_Streams_Position]...';
+
+GO
+ALTER TABLE [payments].[Streams]
+    ADD CONSTRAINT [DF_payments_Streams_Position] DEFAULT (-1) FOR [Position];
+GO
+
 PRINT N'Creating [payments].[Streams].[IX_Streams_Id]...';
-
-
 GO
 CREATE UNIQUE NONCLUSTERED INDEX [IX_Streams_Id]
     ON [payments].[Streams]([Id] ASC);
 
+CREATE NONCLUSTERED INDEX IX_Streams_IdOriginal
+        ON [payments].Streams (IdOriginal);
+
+CREATE NONCLUSTERED INDEX IX_Streams_IdOriginalReversed
+        ON [payments].Streams (IdOriginalReversed);
+GO
+PRINT N'Creating [payments].[Messages]...';
+
+
+GO
+CREATE TABLE [payments].[Messages] (
+    [StreamIdInternal] INT              NOT NULL,
+    [StreamVersion]    INT              NOT NULL,
+    [Position]         BIGINT           IDENTITY (0, 1) NOT NULL,
+    [Id]               UNIQUEIDENTIFIER NOT NULL,
+    [Created]          DATETIME         NOT NULL,
+    [Type]             NVARCHAR (128)   NOT NULL,
+    [JsonData]         NVARCHAR (MAX)   NOT NULL,
+    [JsonMetadata]     NVARCHAR (MAX)   NULL,
+    CONSTRAINT [PK_Events] PRIMARY KEY NONCLUSTERED ([Position] ASC),
+    CONSTRAINT FK_Events_Streams FOREIGN KEY (StreamIdInternal) REFERENCES payments.Streams(IdInternal)
+);
+
+
+GO
+PRINT N'Creating [payments].[Messages] Index...';
+IF NOT EXISTS(
+    SELECT * 
+    FROM sys.indexes
+    WHERE name='IX_Messages_StreamIdInternal_Id' AND object_id = OBJECT_ID('payments.Messages'))
+BEGIN
+    CREATE UNIQUE NONCLUSTERED INDEX IX_Messages_StreamIdInternal_Id ON payments.Messages (StreamIdInternal, Id);
+END
+
+IF NOT EXISTS(
+    SELECT * 
+    FROM sys.indexes
+    WHERE name='IX_Messages_StreamIdInternal_Revision' AND object_id = OBJECT_ID('payments.Messages'))
+BEGIN
+    CREATE UNIQUE NONCLUSTERED INDEX IX_Messages_StreamIdInternal_Revision ON payments.Messages (StreamIdInternal, StreamVersion);
+END
+
+IF NOT EXISTS(
+    SELECT * 
+    FROM sys.indexes
+    WHERE name='IX_Messages_StreamIdInternal_Created' AND object_id = OBJECT_ID('payments.Messages'))
+BEGIN
+    CREATE NONCLUSTERED INDEX IX_Messages_StreamIdInternal_Created ON payments.Messages (StreamIdInternal, Created);
+END
+
+IF NOT EXISTS(
+    SELECT * 
+    FROM sys.table_types tt JOIN sys.schemas s ON tt.schema_id = s.schema_id
+    WHERE s.name + '.' + tt.name='payments.NewStreamMessages')
+BEGIN
+    CREATE TYPE payments.NewStreamMessages AS TABLE (
+        StreamVersion       INT IDENTITY(0,1)                       NOT NULL,
+        Id                  UNIQUEIDENTIFIER                        NOT NULL,
+        Created             DATETIME          DEFAULT(GETUTCDATE()) NOT NULL,
+        [Type]              NVARCHAR(128)                           NOT NULL,
+        JsonData            NVARCHAR(max)                           NULL,
+        JsonMetadata        NVARCHAR(max)                           NULL
+    );
+END
+
+BEGIN
+    IF NOT EXISTS (SELECT NULL FROM SYS.EXTENDED_PROPERTIES WHERE [major_id] = OBJECT_ID('payments.Streams') AND [name] = N'version' AND [minor_id] = 0)
+    EXEC sys.sp_addextendedproperty   
+    @name = N'version',
+    @value = N'3',
+    @level0type = N'SCHEMA', @level0name = 'payments',
+    @level1type = N'TABLE',  @level1name = 'Streams';
+END
 
 GO
 PRINT N'Creating [users].[InboxMessages]...';
@@ -703,33 +731,7 @@ CREATE TABLE [users].[OutboxMessages] (
 
 
 GO
-PRINT N'Creating [payments].[DF_payments_Streams_Version]...';
 
-
-GO
-ALTER TABLE [payments].[Streams]
-    ADD CONSTRAINT [DF_payments_Streams_Version] DEFAULT (-1) FOR [Version];
-
-
-GO
-PRINT N'Creating [payments].[DF_payments_Streams_Position]...';
-
-
-GO
-ALTER TABLE [payments].[Streams]
-    ADD CONSTRAINT [DF_payments_Streams_Position] DEFAULT (-1) FOR [Position];
-
-
-GO
-PRINT N'Creating [payments].[FK_Events_Streams]...';
-
-
-GO
-ALTER TABLE [payments].[Messages] WITH NOCHECK
-    ADD CONSTRAINT [FK_Events_Streams] FOREIGN KEY ([StreamIdInternal]) REFERENCES [payments].[Streams] ([IdInternal]);
-
-
-GO
 PRINT N'Creating [administration].[v_MeetingGroupProposals]...';
 
 

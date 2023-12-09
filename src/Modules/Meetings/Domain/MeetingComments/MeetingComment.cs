@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
-using CompanyName.MyMeetings.Modules.Meetings.Domain.Comments;
-using CompanyName.MyMeetings.Modules.Meetings.Domain.Comments.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingCommentingConfigurations;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments.Rules;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingMemberCommentLikes;
@@ -11,6 +9,7 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
 
+#nullable enable
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
 {
     public class MeetingComment : Entity, IAggregateRoot
@@ -56,7 +55,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
             _editDate = null;
 
             _isRemoved = false;
-            _removedByReason = null;
+            _removedByReason = string.Empty;
 
             if (inReplyToCommentId == null)
             {
@@ -68,7 +67,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
             }
         }
 
+#pragma warning disable CS8618
         private MeetingComment()
+#pragma warning restore CS8618
         {
             // Only for EF.
         }
@@ -85,7 +86,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
             this.AddDomainEvent(new MeetingCommentEditedDomainEvent(this.Id, editedComment));
         }
 
-        public void Remove(MemberId removingMemberId, MeetingGroup meetingGroup, string reason = null)
+        public void Remove(MemberId removingMemberId, MeetingGroup meetingGroup, string reason = "")
         {
             this.CheckRule(new MeetingCommentCanBeRemovedOnlyByAuthorOrGroupOrganizerRule(meetingGroup, this._authorId, removingMemberId));
             this.CheckRule(new RemovingReasonCanBeProvidedOnlyByGroupOrganizerRule(meetingGroup, removingMemberId, reason));

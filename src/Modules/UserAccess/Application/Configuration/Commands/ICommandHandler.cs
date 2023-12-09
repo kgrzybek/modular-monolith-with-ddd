@@ -3,8 +3,7 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Commands
 {
-    public interface ICommandHandler<in TCommand> :
-        IRequestHandler<TCommand>
+    public interface ICommandHandler<in TCommand> : IRequestHandler<TCommand>
         where TCommand : ICommand
     {
     }

@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using Autofac;
+﻿using Autofac;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Projections;
-using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetSubscriptionDetails;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Logging;
 using SqlStreamStore;
 
@@ -31,12 +27,12 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.D
                 .WithParameter("connectionString", _databaseConnectionString)
                 .InstancePerLifetimeScope();
 
-            IStreamStore streamStore = new MsSqlStreamStore(new MsSqlStreamStoreSettings(_databaseConnectionString)
+            builder.Register(a =>
+            new MsSqlStreamStore(new MsSqlStreamStoreSettings(_databaseConnectionString)
             {
                 Schema = DatabaseSchema.Name
-            });
-
-            builder.RegisterInstance(streamStore);
+            }))
+                .As<IStreamStore>();
 
             builder.RegisterType<SqlStreamAggregateStore>()
                 .As<IAggregateStore>()

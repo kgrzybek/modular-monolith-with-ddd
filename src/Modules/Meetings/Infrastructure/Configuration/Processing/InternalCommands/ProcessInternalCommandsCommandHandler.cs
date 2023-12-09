@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands;
-using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
 using Dapper;
-using MediatR;
 using Newtonsoft.Json;
 using Polly;
 
@@ -23,7 +19,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.P
             _sqlConnectionFactory = sqlConnectionFactory;
         }
 
-        public async Task<Unit> Handle(ProcessInternalCommandsCommand command, CancellationToken cancellationToken)
+        public async Task Handle(ProcessInternalCommandsCommand command, CancellationToken cancellationToken)
         {
             var connection = this._sqlConnectionFactory.GetOpenConnection();
 
@@ -66,8 +62,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.P
                         });
                 }
             }
-
-            return Unit.Value;
         }
 
         private async Task ProcessCommand(

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing
@@ -27,7 +25,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
             _userAccessContext = userAccessContext;
         }
 
-        public async Task<Unit> Handle(T command, CancellationToken cancellationToken)
+        public async Task Handle(T command, CancellationToken cancellationToken)
         {
             await this._decorated.Handle(command, cancellationToken);
 
@@ -42,8 +40,6 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
             }
 
             await this._unitOfWork.CommitAsync(cancellationToken);
-
-            return Unit.Value;
         }
     }
 }

@@ -16,7 +16,6 @@ using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.IdentityServer;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration;
 using Hellang.Middleware.ProblemDetails;
 using IdentityServer4.AccessTokenValidation;
@@ -123,6 +122,7 @@ namespace CompanyName.MyMeetings.API
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
@@ -135,7 +135,7 @@ namespace CompanyName.MyMeetings.API
                 .WriteTo.Console(
                     outputTemplate:
                     "[{Timestamp:HH:mm:ss} {Level:u3}] [{Module}] [{Context}] {Message:lj}{NewLine}{Exception}")
-                .WriteTo.RollingFile(new CompactJsonFormatter(), "logs/logs")
+                .WriteTo.File(new CompactJsonFormatter(), "logs/logs")
                 .CreateLogger();
 
             _loggerForApi = _logger.ForContext("Module", "API");
@@ -147,7 +147,7 @@ namespace CompanyName.MyMeetings.API
         {
             services.AddIdentityServer()
                 .AddInMemoryIdentityResources(IdentityServerConfig.GetIdentityResources())
-                .AddInMemoryApiResources(IdentityServerConfig.GetApis())
+                .AddInMemoryApiScopes(IdentityServerConfig.GetApis())
                 .AddInMemoryClients(IdentityServerConfig.GetClients())
                 .AddInMemoryPersistedGrants()
                 .AddProfileService<ProfileService>()

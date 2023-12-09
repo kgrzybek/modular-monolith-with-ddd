@@ -1,8 +1,5 @@
-using System.Threading;
-using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
 using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
-using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.SendSubscriptionCreationConfirmationEmail
 {
@@ -15,15 +12,14 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Send
             _emailSender = emailSender;
         }
 
-        public Task<Unit> Handle(SendSubscriptionCreationConfirmationEmailCommand request, CancellationToken cancellationToken)
+        public async Task Handle(SendSubscriptionCreationConfirmationEmailCommand request, CancellationToken cancellationToken)
         {
             var emailMessage = new EmailMessage(
                 request.Email,
                 "MyMeetings - Subscription purchased",
                 $"Subscription {request.SubscriptionId.Value} was successfully paid and created with ❤ for you!");
 
-            _emailSender.SendEmail(emailMessage);
-            return Unit.Task;
+            await _emailSender.SendEmail(emailMessage);
         }
     }
 }

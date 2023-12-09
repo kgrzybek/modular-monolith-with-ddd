@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
 using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFees;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 using CompanyName.MyMeetings.Modules.Payments.IntegrationEvents;
@@ -26,7 +24,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.MarkMe
 
             var meetingFeeSnapshot = meetingFee.GetSnapshot();
 
-            _eventsBus.Publish(new MeetingFeePaidIntegrationEvent(
+            await _eventsBus.Publish(new MeetingFeePaidIntegrationEvent(
                 notification.Id,
                 notification.DomainEvent.OccurredOn,
                 meetingFeeSnapshot.PayerId,

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel;
 using FluentAssertions;
@@ -28,7 +27,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.SeedWork
             where T : IDomainEvent
         {
             var domainEvent = DomainEventsTestHelper.GetAllDomainEvents(aggregate).OfType<T>().SingleOrDefault();
-            Assert.Null(domainEvent);
+            Assert.That(domainEvent, Is.Null);
         }
 
         public static List<T> AssertPublishedDomainEvents<T>(Entity aggregate)

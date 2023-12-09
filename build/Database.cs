@@ -1,10 +1,6 @@
-﻿using System;
+﻿using System.Linq;
 using Nuke.Common;
-using Nuke.Common.IO;
-using Nuke.Common.Tools.Docker;
 using Nuke.Common.Tools.DotNet;
-using Utils;
-using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 public partial class Build
@@ -12,7 +8,8 @@ public partial class Build
     Target CompileDbUpMigrator => _ => _
         .Executes(() =>
         {
-            var dbUpMigratorProject = Solution.GetProject("DatabaseMigrator");
+            var dbUpMigratorProject = Solution.GetAllProjects("DatabaseMigrator").First();
+           
             DotNetBuild(s => s
                 .SetProjectFile(dbUpMigratorProject)
                 .SetConfiguration(Configuration)

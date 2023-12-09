@@ -32,7 +32,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
             _domainNotificationsMapper = domainNotificationsMapper;
         }
 
-        public async Task<Unit> Handle(ProcessOutboxCommand command, CancellationToken cancellationToken)
+        public async Task Handle(ProcessOutboxCommand command, CancellationToken cancellationToken)
         {
             var connection = this._sqlConnectionFactory.GetOpenConnection();
             string sql = "SELECT " +
@@ -68,8 +68,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
                     }
                 }
             }
-
-            return Unit.Value;
         }
 
         private class OutboxMessageContextEnricher : ILogEventEnricher

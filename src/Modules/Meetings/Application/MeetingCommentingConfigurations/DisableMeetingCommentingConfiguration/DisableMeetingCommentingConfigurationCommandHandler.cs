@@ -7,9 +7,8 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingCommentingConfigurat
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
-using MediatR;
 
-namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingCommentingConfiguration.DisbaleMeetingCommentingConfiguration
+namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingCommentingConfigurations.DisableMeetingCommentingConfiguration
 {
     internal class DisableMeetingCommentingConfigurationCommandHandler : ICommandHandler<DisableMeetingCommentingConfigurationCommand>
     {
@@ -30,7 +29,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingCommentingC
             _memberContext = memberContext;
         }
 
-        public async Task<Unit> Handle(DisableMeetingCommentingConfigurationCommand command, CancellationToken cancellationToken)
+        public async Task Handle(DisableMeetingCommentingConfigurationCommand command, CancellationToken cancellationToken)
         {
             var meetingCommentingConfiguration = await _meetingCommentingConfigurationRepository.GetByMeetingIdAsync(new MeetingId(command.MeetingId));
             if (meetingCommentingConfiguration == null)
@@ -43,8 +42,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingCommentingC
             var meetingGroup = await _meetingGroupRepository.GetByIdAsync(meeting.GetMeetingGroupId());
 
             meetingCommentingConfiguration.DisableCommenting(_memberContext.MemberId, meetingGroup);
-
-            return Unit.Value;
         }
     }
 }

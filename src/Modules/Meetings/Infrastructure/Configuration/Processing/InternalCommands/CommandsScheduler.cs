@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Serialization;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
 using Dapper;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Processing.InternalCommands
 {
@@ -40,6 +35,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.P
                     ContractResolver = new AllPropertiesContractResolver()
                 })
             });
+        }
+
+        public Task EnqueueAsync<T>(ICommand<T> command)
+        {
+            throw new NotImplementedException();
         }
     }
 }

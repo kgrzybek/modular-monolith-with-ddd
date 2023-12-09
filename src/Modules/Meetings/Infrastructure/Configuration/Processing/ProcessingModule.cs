@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Events;
-using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispatching;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands;
@@ -47,11 +46,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.P
 
             builder.RegisterGenericDecorator(
                 typeof(LoggingCommandHandlerDecorator<>),
-                typeof(ICommandHandler<>));
+                typeof(IRequestHandler<>));
 
             builder.RegisterGenericDecorator(
                 typeof(LoggingCommandHandlerWithResultDecorator<,>),
-                typeof(ICommandHandler<,>));
+                typeof(IRequestHandler<,>));
 
             builder.RegisterGenericDecorator(
                 typeof(DomainEventsDispatcherNotificationHandlerDecorator<>),

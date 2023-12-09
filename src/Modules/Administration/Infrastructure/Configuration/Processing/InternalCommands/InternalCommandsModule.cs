@@ -5,7 +5,6 @@ using Autofac;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.InternalCommands;
 using CompanyName.MyMeetings.Modules.Administration.Application.Configuration.Commands;
-using CompanyName.MyMeetings.Modules.Administration.Application.Members;
 using Module = Autofac.Module;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Processing.InternalCommands

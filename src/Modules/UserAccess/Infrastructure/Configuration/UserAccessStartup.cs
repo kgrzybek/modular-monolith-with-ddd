@@ -17,7 +17,6 @@ using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Pro
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Quartz;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Security;
 using Serilog;
-using Serilog.AspNetCore;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
 {
@@ -64,7 +63,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
 
             containerBuilder.RegisterModule(new LoggingModule(logger.ForContext("Module", "UserAccess")));
 
-            var loggerFactory = new SerilogLoggerFactory(logger);
+            var loggerFactory = new Serilog.Extensions.Logging.SerilogLoggerFactory(logger);
             containerBuilder.RegisterModule(new DataAccessModule(connectionString, loggerFactory));
             containerBuilder.RegisterModule(new DomainModule());
             containerBuilder.RegisterModule(new ProcessingModule());

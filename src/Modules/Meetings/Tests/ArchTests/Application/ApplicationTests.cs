@@ -5,7 +5,7 @@ using System.Reflection;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Queries;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
-using CompanyName.MyMeetings.Modules.Meetings.ArchitectureTests.SeedWork;
+using CompanyName.MyMeetings.Modules.Meetings.ArchTests.SeedWork;
 using FluentValidation;
 using MediatR;
 using NetArchTest.Rules;

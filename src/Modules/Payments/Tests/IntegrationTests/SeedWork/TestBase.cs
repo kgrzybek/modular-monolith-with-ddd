@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
 using CompanyName.MyMeetings.BuildingBlocks.IntegrationTests;
 using CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
@@ -53,7 +52,12 @@ namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
                 await ClearDatabase(sqlConnection);
             }
 
-            Logger = Substitute.For<ILogger>();
+            Logger = new LoggerConfiguration()
+                .Enrich.FromLogContext()
+                .WriteTo.Console(
+                    outputTemplate:
+                    "[{Timestamp:HH:mm:ss} {Level:u3}] [{Module}] [{Context}] {Message:lj}{NewLine}{Exception}")
+                .CreateLogger();
             EmailSender = Substitute.For<IEmailSender>();
             EmailsConfiguration = new EmailsConfiguration("from@email.com");
             EventsBus = new EventsBusMock();

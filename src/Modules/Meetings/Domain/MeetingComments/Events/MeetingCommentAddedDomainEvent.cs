@@ -1,7 +1,7 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 
-namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Comments.Events
+namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments.Events
 {
     public class MeetingCommentAddedDomainEvent : DomainEventBase
     {

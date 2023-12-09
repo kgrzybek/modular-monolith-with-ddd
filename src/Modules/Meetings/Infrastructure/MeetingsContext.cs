@@ -8,13 +8,6 @@ using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingMemberCommentLikes;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members.MemberSubscriptions;
-using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.MeetingGroupProposals;
-using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.MeetingGroups;
-using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.Meetings;
-using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.Members;
-using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.Members.MemberSubscriptions;
-using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.InternalCommands;
-using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Outbox;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 

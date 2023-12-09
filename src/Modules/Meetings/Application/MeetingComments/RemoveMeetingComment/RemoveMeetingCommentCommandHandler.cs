@@ -3,12 +3,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands;
-using CompanyName.MyMeetings.Modules.Meetings.Domain.Comments;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
-using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.RemoveMeetingComment
 {
@@ -27,7 +25,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Re
             _memberContext = memberContext;
         }
 
-        public async Task<Unit> Handle(RemoveMeetingCommentCommand command, CancellationToken cancellationToken)
+        public async Task Handle(RemoveMeetingCommentCommand command, CancellationToken cancellationToken)
         {
             var meetingComment = await _meetingCommentRepository.GetByIdAsync(new MeetingCommentId(command.MeetingCommentId));
             if (meetingComment == null)
@@ -39,8 +37,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Re
             var meetingGroup = await _meetingGroupRepository.GetByIdAsync(meeting.GetMeetingGroupId());
 
             meetingComment.Remove(_memberContext.MemberId, meetingGroup, command.Reason);
-
-            return Unit.Value;
         }
     }
 }

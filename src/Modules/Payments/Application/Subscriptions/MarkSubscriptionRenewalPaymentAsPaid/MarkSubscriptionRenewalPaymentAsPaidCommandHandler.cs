@@ -1,9 +1,6 @@
-using System.Threading;
-using System.Threading.Tasks;
 using CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SubscriptionRenewalPayments;
-using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.MarkSubscriptionRenewalPaymentAsPaid
 {
@@ -17,7 +14,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Mark
             _aggregateStore = aggregateStore;
         }
 
-        public async Task<Unit> Handle(MarkSubscriptionRenewalPaymentAsPaidCommand command, CancellationToken cancellationToken)
+        public async Task Handle(MarkSubscriptionRenewalPaymentAsPaidCommand command, CancellationToken cancellationToken)
         {
             var subscriptionRenewalPayment =
                 await _aggregateStore.Load(
@@ -26,8 +23,6 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Mark
             subscriptionRenewalPayment.MarkRenewalAsPaid();
 
             _aggregateStore.AppendChanges(subscriptionRenewalPayment);
-
-            return Unit.Value;
         }
     }
 }

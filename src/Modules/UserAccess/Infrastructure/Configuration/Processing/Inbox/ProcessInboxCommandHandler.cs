@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Commands;
 using Dapper;
 using MediatR;
@@ -22,7 +21,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
             _sqlConnectionFactory = sqlConnectionFactory;
         }
 
-        public async Task<Unit> Handle(ProcessInboxCommand command, CancellationToken cancellationToken)
+        public async Task Handle(ProcessInboxCommand command, CancellationToken cancellationToken)
         {
             var connection = this._sqlConnectionFactory.GetOpenConnection();
             string sql = "SELECT " +
@@ -63,8 +62,6 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
                     message.Id
                 });
             }
-
-            return Unit.Value;
         }
     }
 }

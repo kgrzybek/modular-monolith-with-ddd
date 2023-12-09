@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
 
-namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.GetMeetingCommentLikes
+namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.GetMeetingCommentLikers
 {
     public class GetMeetingCommentLikersQuery : IQuery<List<MeetingCommentLikerDto>>
     {

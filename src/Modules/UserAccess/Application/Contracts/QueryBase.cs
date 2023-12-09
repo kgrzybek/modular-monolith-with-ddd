@@ -8,12 +8,12 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts
 
         protected QueryBase()
         {
-            this.Id = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
 
         protected QueryBase(Guid id)
         {
-            this.Id = id;
+            Id = id;
         }
     }
 }

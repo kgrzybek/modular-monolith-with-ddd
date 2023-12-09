@@ -1,10 +1,6 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Authentication;
+﻿using CompanyName.MyMeetings.Modules.UserAccess.Application.Authentication;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations;
-using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.RegisterNewUser
 {

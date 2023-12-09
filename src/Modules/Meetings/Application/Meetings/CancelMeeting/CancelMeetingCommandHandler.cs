@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
-using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.CancelMeeting
 {
@@ -18,13 +17,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.CancelMee
             _memberContext = memberContext;
         }
 
-        public async Task<Unit> Handle(CancelMeetingCommand request, CancellationToken cancellationToken)
+        public async Task Handle(CancelMeetingCommand request, CancellationToken cancellationToken)
         {
             var meeting = await _meetingRepository.GetByIdAsync(new MeetingId(request.MeetingId));
 
             meeting.Cancel(_memberContext.MemberId);
-
-            return Unit.Value;
         }
     }
 }

@@ -5,7 +5,7 @@ using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
 using CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.AcceptMeetingGroupProposal;
 using CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.RequestMeetingGroupProposalVerification;
-using CompanyName.MyMeetings.Modules.Administration.Application.Members;
+using CompanyName.MyMeetings.Modules.Administration.Application.Members.CreateMember;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Authentication;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.DataAccess;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.EventsBus;
@@ -16,7 +16,6 @@ using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Processing.Outbox;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Quartz;
 using Serilog;
-using Serilog.AspNetCore;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration
 {
@@ -55,7 +54,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
 
             containerBuilder.RegisterModule(new LoggingModule(logger));
 
-            var loggerFactory = new SerilogLoggerFactory(logger);
+            var loggerFactory = new Serilog.Extensions.Logging.SerilogLoggerFactory(logger);
             containerBuilder.RegisterModule(new DataAccessModule(connectionString, loggerFactory));
 
             containerBuilder.RegisterModule(new ProcessingModule());

@@ -2,13 +2,10 @@
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.GetAllMeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Members;
 using Dapper;
-using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.SendMeetingGroupCreatedEmail
 {
@@ -25,7 +22,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.Send
             _emailSender = emailSender;
         }
 
-        public async Task<Unit> Handle(SendMeetingGroupCreatedEmailCommand request, CancellationToken cancellationToken)
+        public async Task Handle(SendMeetingGroupCreatedEmailCommand request, CancellationToken cancellationToken)
         {
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
@@ -35,7 +32,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.Send
                                   "[MeetingGroup].[LocationCountryCode], " +
                                   "[MeetingGroup].[LocationCity] " +
                                   "FROM [meetings].[v_MeetingGroups] AS [MeetingGroup] " +
-                                  "WHERE [MeetingGroup].[Id] = @Id", new
+                                  "WHERE [MeetingGroup].[Id] = @Id",
+                new
                                   {
                                       Id = request.MeetingGroupId.Value
                                   });
@@ -47,9 +45,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.Send
                 $"{meetingGroup.Name} created",
                 $"{meetingGroup.Name} created at {meetingGroup.LocationCity}, {meetingGroup.LocationCountryCode}");
 
-            _emailSender.SendEmail(email);
-
-            return Unit.Value;
+            await _emailSender.SendEmail(email);
         }
     }
 }

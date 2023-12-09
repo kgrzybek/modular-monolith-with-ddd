@@ -6,7 +6,6 @@ using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Serialization;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
-using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration;
 using Newtonsoft.Json;
 using SqlStreamStore;
 using SqlStreamStore.Streams;
@@ -22,18 +21,12 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
         private readonly List<AggregateToSave> _aggregatesToSave;
 
         public SqlStreamAggregateStore(
-            ISqlConnectionFactory sqlConnectionFactory)
+            ISqlConnectionFactory sqlConnectionFactory, IStreamStore streamStore)
         {
             _appendedChanges = new List<IDomainEvent>();
 
-            _streamStore =
-                new MsSqlStreamStore(
-                    new MsSqlStreamStoreSettings(sqlConnectionFactory.GetConnectionString())
-                    {
-                        Schema = DatabaseSchema.Name
-                    });
-
             _aggregatesToSave = new List<AggregateToSave>();
+            _streamStore = streamStore;
         }
 
         public async Task Save()

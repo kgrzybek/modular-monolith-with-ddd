@@ -2,11 +2,8 @@
 using System.Threading.Tasks;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Members;
-using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SendMeetingAttendeeAddedEmail
 {
@@ -23,7 +20,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SendMeeti
             _emailSender = emailSender;
         }
 
-        public async Task<Unit> Handle(SendMeetingAttendeeAddedEmailCommand request, CancellationToken cancellationToken)
+        public async Task Handle(SendMeetingAttendeeAddedEmailCommand request, CancellationToken cancellationToken)
         {
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
@@ -36,9 +33,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SendMeeti
                 $"You joined to {meeting.Title} meeting.",
                 $"You joined to {meeting.Title} title at {meeting.TermStartDate.ToShortDateString()} - {meeting.TermEndDate.ToShortDateString()}, location {meeting.LocationAddress}, {meeting.LocationPostalCode}, {meeting.LocationCity}");
 
-            _emailSender.SendEmail(email);
-
-            return Unit.Value;
+            await _emailSender.SendEmail(email);
         }
     }
 }

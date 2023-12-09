@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
-using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Processing.InternalCommands;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Processing
@@ -28,7 +25,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.P
             _meetingContext = meetingContext;
         }
 
-        public async Task<Unit> Handle(T command, CancellationToken cancellationToken)
+        public async Task Handle(T command, CancellationToken cancellationToken)
         {
             await this._decorated.Handle(command, cancellationToken);
 
@@ -46,8 +43,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.P
             }
 
             await this._unitOfWork.CommitAsync(cancellationToken);
-
-            return Unit.Value;
         }
     }
 }

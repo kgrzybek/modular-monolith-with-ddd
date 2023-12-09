@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
-using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.CreateNewMeetingGroup
 {
@@ -20,15 +19,13 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.Crea
             _meetingGroupProposalRepository = meetingGroupProposalRepository;
         }
 
-        public async Task<Unit> Handle(CreateNewMeetingGroupCommand request, CancellationToken cancellationToken)
+        public async Task Handle(CreateNewMeetingGroupCommand request, CancellationToken cancellationToken)
         {
             var meetingGroupProposal = await _meetingGroupProposalRepository.GetByIdAsync(request.MeetingGroupProposalId);
 
             var meetingGroup = meetingGroupProposal.CreateMeetingGroup();
 
             await _meetingGroupRepository.AddAsync(meetingGroup);
-
-            return Unit.Value;
         }
     }
 }

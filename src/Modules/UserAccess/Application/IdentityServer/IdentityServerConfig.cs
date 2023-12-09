@@ -1,19 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Security.Claims;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
+﻿using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
 using IdentityServer4;
 using IdentityServer4.Models;
-using IdentityServer4.Test;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Application.IdentityServer
 {
     public class IdentityServerConfig
     {
-        public static IEnumerable<ApiResource> GetApis()
+        public static IEnumerable<ApiScope> GetApis()
         {
-            return new List<ApiResource>
+            return new List<ApiScope>
             {
-                new ApiResource("myMeetingsAPI", "My Meetings API")
+                new("myMeetingsAPI", "My Meetings API")
             };
         }
 
