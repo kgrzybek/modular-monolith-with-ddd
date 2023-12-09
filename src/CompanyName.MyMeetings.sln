@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29613.14
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.API", "API\CompanyName.MyMeetings.API\CompanyName.MyMeetings.API.csproj", "{49D08B64-AC8E-4607-820F-8A0B989CFD33}"
 EndProject
@@ -34,8 +34,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.Administration.Application", "Modules\Administration\Application\CompanyName.MyMeetings.Modules.Administration.Application.csproj", "{6F039231-8745-4171-B5CA-8688E4683CFC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.Administration.Infrastructure", "Modules\Administration\Infrastructure\CompanyName.MyMeetings.Modules.Administration.Infrastructure.csproj", "{CD765A37-EB16-4E35-AA03-6E706D70E8A0}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.BuildingBlocks.EventBus", "BuildingBlocks\EventBus\CompanyName.MyMeetings.BuildingBlocks.EventBus.csproj", "{5D177131-B35C-4BB9-B37E-99B7F6973E77}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.Meetings.IntegrationEvents", "Modules\Meetings\IntegrationEvents\CompanyName.MyMeetings.Modules.Meetings.IntegrationEvents.csproj", "{3ED61776-83A0-426C-9B3A-3AB755DA01EF}"
 EndProject
@@ -112,18 +110,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CI", "CI", "{63502820-A1A1-
 		..\.github\workflows\buildPipeline.yml = ..\.github\workflows\buildPipeline.yml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8172C84D-A01E-4B56-8A41-498E5DB9E395}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{8172C84D-A01E-4B56-8A41-498E5DB9E395}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
 		global.json = global.json
 		..\README.md = ..\README.md
+		stylecop.json = stylecop.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseMigrator", "Database\DatabaseMigrator\DatabaseMigrator.csproj", "{9189FC86-116F-49D4-900E-DEC434136C6D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "..\build\_build.csproj", "{866A329C-E942-46D1-AF37-BB617F7F4AC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyName.MyMeetings.Database.Build", "Database\CompanyName.MyMeetings.Database.Build\CompanyName.MyMeetings.Database.Build.csproj", "{165E76B9-DB0C-49B7-B3DC-52DFBEA55A79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Database.Build", "Database\CompanyName.MyMeetings.Database.Build\CompanyName.MyMeetings.Database.Build.csproj", "{165E76B9-DB0C-49B7-B3DC-52DFBEA55A79}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RequestExamples", "RequestExamples", "{00B904C6-D29A-4F26-B7AD-116C701DB73F}"
 	ProjectSection(SolutionItems) = preProject
@@ -132,7 +133,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RequestExamples", "RequestE
 		API\RequestExamples\Users.http = API\RequestExamples\Users.http
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyName.MyMeetings.SUT", "Tests\SUT\CompanyName.MyMeetings.SUT.csproj", "{1853847F-9988-43A1-B3E1-DDBE4B2F3365}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.SUT", "Tests\SUT\CompanyName.MyMeetings.SUT.csproj", "{1853847F-9988-43A1-B3E1-DDBE4B2F3365}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -201,12 +202,6 @@ Global
 		{CD765A37-EB16-4E35-AA03-6E706D70E8A0}.Production|Any CPU.Build.0 = Production|Any CPU
 		{CD765A37-EB16-4E35-AA03-6E706D70E8A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD765A37-EB16-4E35-AA03-6E706D70E8A0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5D177131-B35C-4BB9-B37E-99B7F6973E77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5D177131-B35C-4BB9-B37E-99B7F6973E77}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5D177131-B35C-4BB9-B37E-99B7F6973E77}.Production|Any CPU.ActiveCfg = Production|Any CPU
-		{5D177131-B35C-4BB9-B37E-99B7F6973E77}.Production|Any CPU.Build.0 = Production|Any CPU
-		{5D177131-B35C-4BB9-B37E-99B7F6973E77}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5D177131-B35C-4BB9-B37E-99B7F6973E77}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3ED61776-83A0-426C-9B3A-3AB755DA01EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3ED61776-83A0-426C-9B3A-3AB755DA01EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3ED61776-83A0-426C-9B3A-3AB755DA01EF}.Production|Any CPU.ActiveCfg = Production|Any CPU
@@ -407,7 +402,6 @@ Global
 		{590517F8-686B-460A-97B3-0A09A8BA443C} = {5F398170-87FD-4368-9930-FAAAD2D9FDCC}
 		{6F039231-8745-4171-B5CA-8688E4683CFC} = {5F398170-87FD-4368-9930-FAAAD2D9FDCC}
 		{CD765A37-EB16-4E35-AA03-6E706D70E8A0} = {5F398170-87FD-4368-9930-FAAAD2D9FDCC}
-		{5D177131-B35C-4BB9-B37E-99B7F6973E77} = {E91D4BE3-61FE-441C-A227-29850D414216}
 		{3ED61776-83A0-426C-9B3A-3AB755DA01EF} = {9CD43CAC-C149-41E1-9654-157D578143B7}
 		{396817BD-94A7-4559-A7F1-2FAB8009BCF8} = {5F398170-87FD-4368-9930-FAAAD2D9FDCC}
 		{55E1C531-2B9B-49B1-BDFE-9DE322E7FE00} = {AE6D0618-60E1-40B2-A46F-664A19C9503C}

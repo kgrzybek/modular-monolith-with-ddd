@@ -17,12 +17,13 @@
     <ModelCollation>1033, CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <TargetLanguage>CS</TargetLanguage>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <SqlServerVerification>False</SqlServerVerification>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
@@ -45,6 +46,7 @@
     <DefineTrace>true</DefineTrace>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunSqlCodeAnalysis>True</RunSqlCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
@@ -72,6 +74,21 @@
     <Folder Include="Scripts\Migrations" />
     <Folder Include="Scripts\Seeds" />
     <Folder Include="Scripts\Migrations\1_0_0_0\" />
+    <Folder Include="Structure\administration\" />
+    <Folder Include="Structure\administration\Tables\" />
+    <Folder Include="Structure\administration\Views\" />
+    <Folder Include="Structure\app\" />
+    <Folder Include="Structure\app\Tables\" />
+    <Folder Include="Structure\meetings\" />
+    <Folder Include="Structure\meetings\Tables\" />
+    <Folder Include="Structure\meetings\Views\" />
+    <Folder Include="Structure\payments\" />
+    <Folder Include="Structure\payments\Tables\" />
+    <Folder Include="Structure\payments\Types\" />
+    <Folder Include="Structure\Security\" />
+    <Folder Include="Structure\users\" />
+    <Folder Include="Structure\users\Tables\" />
+    <Folder Include="Structure\users\Views\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Structure\administration\Tables\InboxMessages.sql" />

@@ -1,78 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <UserSecretsId>2b9855d3-f073-44d2-aa45-b15e896794b9</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
-    <Configurations>Debug;Release;Production</Configurations>
-    <AssemblyName>CompanyName.MyMeetings.APIx</AssemblyName>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\net8.0\CompanyName.MyMeetings.API\CompanyName.MyMeetings.APIx.xml</DocumentationFile>
-    <NoWarn>1701;1702;1591</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Production|AnyCPU'">
-    <DocumentationFile>bin\Production\net8.0\CompanyName.MyMeetings.API\CompanyName.MyMeetings.APIx.xml</DocumentationFile>
-    <NoWarn>1701;1702;1591</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\net8.0\CompanyName.MyMeetings.APIx.xml</DocumentationFile>
-      <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="logs\**" />
-    <Content Remove="logs\**" />
-    <EmbeddedResource Remove="logs\**" />
-    <None Remove="logs\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\.editorconfig" Link=".editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
-   <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="FluentValidation" Version="11.8.1" />
     <PackageReference Include="Hellang.Middleware.ProblemDetails" Version="6.5.1" />
-    <PackageReference Include="IdentityServer4" Version="4.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
-    <PackageReference Include="Serilog.Formatting.Compact" Version="2.0.0" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
-    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.507" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\BuildingBlocks\Domain\CompanyName.MyMeetings.BuildingBlocks.Domain.csproj" />
     <ProjectReference Include="..\..\BuildingBlocks\Infrastructure\CompanyName.MyMeetings.BuildingBlocks.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\BuildingBlocks\Application\CompanyName.MyMeetings.BuildingBlocks.Application.csproj" />
-    <ProjectReference Include="..\..\Modules\Administration\Application\CompanyName.MyMeetings.Modules.Administration.Application.csproj" />
     <ProjectReference Include="..\..\Modules\Administration\Infrastructure\CompanyName.MyMeetings.Modules.Administration.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Modules\Meetings\Infrastructure\CompanyName.MyMeetings.Modules.Meetings.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\Modules\Payments\Application\CompanyName.MyMeetings.Modules.Payments.Application.csproj" />
-    <ProjectReference Include="..\..\Modules\Meetings\Application\CompanyName.MyMeetings.Modules.Meetings.Application.csproj" />
     <ProjectReference Include="..\..\Modules\Payments\Infrastructure\CompanyName.MyMeetings.Modules.Payments.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\Modules\UserAccess\Application\CompanyName.MyMeetings.Modules.UserAccess.Application.csproj" />
     <ProjectReference Include="..\..\Modules\UserAccess\Infrastructure\CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Content Update="appsettings.Production.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="appsettings.Development.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
 </Project>
