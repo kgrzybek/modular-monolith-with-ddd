@@ -6,11 +6,22 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.IdentityServer
 {
     public class IdentityServerConfig
     {
-        public static IEnumerable<ApiScope> GetApis()
+        public static IEnumerable<ApiScope> GetApiScopes()
         {
             return new List<ApiScope>
             {
+                new("all", "Can Do All")
+            };
+        }
+
+        public static IEnumerable<ApiResource> GetApis()
+        {
+            return new List<ApiResource>
+            {
                 new("myMeetingsAPI", "My Meetings API")
+                {
+                    Scopes = { "all" }
+                }
             };
         }
 
@@ -42,7 +53,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.IdentityServer
                     },
                     AllowedScopes =
                     {
-                        "myMeetingsAPI",
+                        "all",
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile
                     }
