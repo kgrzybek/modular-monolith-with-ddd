@@ -1,8 +1,6 @@
-﻿using System.Threading.Tasks;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
-using Serilog;
+﻿using Serilog;
 
-namespace CompanyName.MyMeetings.BuildingBlocks.EventBus
+namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus
 {
     public class InMemoryEventBusClient : IEventsBus
     {

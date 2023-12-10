@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="NuspecSettings">
+    <Company>Kamil Grzybek</Company>
+    <Authors>$(Company)</Authors>
+    <Copyright>Copyright © $(Company) $([System.DateTime]::Now.Year)</Copyright>
+    <Trademark>$(Company)™</Trademark>
+    <Product>$(Company) Projects</Product>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Configurations>Debug;Release;Production</Configurations>
+    <NoWarn>1591;1701;1702;8032;NU1701;AD0001;NU5128;NU1603</NoWarn>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Deterministic>true</Deterministic>
+    <RestoreIgnoreFailedSource>true</RestoreIgnoreFailedSource>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+    <RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
+    <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
+    <EnableNETAnalyzers>True</EnableNETAnalyzers>
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.507" />
+  </ItemGroup>
+
+  <PropertyGroup Label="ConfigFiles">
+    <StyleCopFile Condition=" '$(StyleCopFile)' == '' ">$([MSBuild]::GetPathOfFileAbove('stylecop.json',
+      $(MSBuildProjectDirectory)))</StyleCopFile>
+    <EditorConfigFile Condition=" '$(EditorConfigFile)' == '' ">$([MSBuild]::GetPathOfFileAbove('.editorconfig',
+      $(MSBuildProjectDirectory)))</EditorConfigFile>
+  </PropertyGroup>
+
+  <ItemGroup Label="ConfigFiles">
+    <AdditionalFiles Condition="Exists('$(StyleCopFile)')" Include="$(StyleCopFile)" Visible="false" />
+    <None Condition="Exists('$(EditorConfigFile)')" Include="$(EditorConfigFile)" Visible="false" />
+  </ItemGroup>
+</Project>

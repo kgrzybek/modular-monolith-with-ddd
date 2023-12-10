@@ -5,4 +5,4 @@ sleep 60;
 
 echo "Backend starting..."
 
-dotnet CompanyName.MyMeetings.APIx.dll
+dotnet CompanyName.MyMeetings.API.dll

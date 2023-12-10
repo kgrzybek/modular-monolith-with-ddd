@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
-
-namespace CompanyName.MyMeetings.BuildingBlocks.EventBus
+﻿namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus
 {
     public sealed class InMemoryEventBus
     {

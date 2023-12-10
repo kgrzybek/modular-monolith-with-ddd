@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using CompanyName.MyMeetings.BuildingBlocks.EventBus;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.EventsBus
