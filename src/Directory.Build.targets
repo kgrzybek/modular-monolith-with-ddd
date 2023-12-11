@@ -11,42 +11,45 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <BBDomainPath>..\..\..\BuildingBlocks\Domain\CompanyName.MyMeetings.BuildingBlocks.Domain.csproj</BBDomainPath>
-    <BBDomainPath Condition="Exists('..\$(BBDomainPath)')">..\$(BBDomainPath)</BBDomainPath>
-    
-    <BBInfrastructurePath>..\..\BuildingBlocks\Infrastructure\CompanyName.MyMeetings.BuildingBlocks.Infrastructure.csproj</BBInfrastructurePath>
-    <BBInfrastructurePath Condition="Exists('..\$(BBInfrastructurePath)')">..\$(BBInfrastructurePath)</BBInfrastructurePath>
-    <BBInfrastructurePath Condition="Exists('..\..\$(BBInfrastructurePath)')">..\..\$(BBInfrastructurePath)</BBInfrastructurePath>
-    
-    <BBIntegrationTestsPath>..\..\BuildingBlocks\Tests\IntegrationTests\CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.csproj</BBIntegrationTestsPath>
-    <BBIntegrationTestsPath Condition="Exists('..\..\$(BBIntegrationTestsPath)')">..\..\$(BBIntegrationTestsPath)</BBIntegrationTestsPath>
+    <BBDomainPath>$(MSBuildThisFileDirectory)\BuildingBlocks\Domain\*.csproj</BBDomainPath>
+    <BBApplicationPath>$(MSBuildThisFileDirectory)\BuildingBlocks\Application\*.csproj</BBApplicationPath>
+    <BBInfrastructurePath>$(MSBuildThisFileDirectory)\BuildingBlocks\Infrastructure\*.csproj</BBInfrastructurePath>
+    <BBIntegrationTestsPath>$(MSBuildThisFileDirectory)\BuildingBlocks\Tests\IntegrationTests\*.csproj</BBIntegrationTestsPath>
   </PropertyGroup>
 
-  <ItemGroup Condition="$(MSBuildProjectName.EndsWith('.Domain')) and !$(MSBuildProjectName.Contains('BuildingBlocks'))">
+  <ItemGroup Condition="$(MSBuildProjectName.EndsWith('API'))">
+	<ProjectReference Include="..\..\Modules\**\Infrastructure\*.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('BuildingBlocks')) and $(MSBuildProjectName.EndsWith('Application'))">
+    <ProjectReference Include="$(BBDomainPath)" />
+  </ItemGroup>	
+  <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('BuildingBlocks')) and ($(MSBuildProjectName.EndsWith('UnitTests')) or $(MSBuildProjectName.EndsWith('Infrastructure')))">
+    <ProjectReference Include="$(BBApplicationPath)" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('src$([System.IO.Path]::DirectorySeparatorChar)Tests'))">
+    <ProjectReference Include="..\..\API\**\*.csproj" />
+	<ProjectReference Include="$(BBIntegrationTestsPath)" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('Modules')) and $(MSBuildProjectName.EndsWith('Domain'))">
     <ProjectReference Include="$(BBDomainPath)" />
   </ItemGroup>
-  <ItemGroup Condition="$(MSBuildProjectName.EndsWith('Domain.UnitTests')) and !$(MSBuildProjectName.Contains('BuildingBlocks'))">
-    <ProjectReference Include="..\..\Domain\*.csproj" />
-  </ItemGroup>
-  <ItemGroup Condition="$(MSBuildProjectName.EndsWith('.Application'))">
-    <ProjectReference Include="..\Domain\*.csproj" />
-  </ItemGroup>
-  
-  <ItemGroup Condition="$(MSBuildProjectName.EndsWith('.IntegrationTests')) and !$(MSBuildProjectName.Contains('BuildingBlocks'))">
-    <ProjectReference Include="..\..\Infrastructure\*.csproj" />
-    <ProjectReference Include="$(BBIntegrationTestsPath)" />
-  </ItemGroup>
-  <ItemGroup Condition="$(MSBuildProjectName.EndsWith('.ArchTests'))">
-    <ProjectReference Include="..\..\Infrastructure\*.csproj" />
-  </ItemGroup>
-  <ItemGroup Condition="$(MSBuildProjectName.EndsWith('.IntegrationEvents')) and !$(MSBuildProjectName.Contains('BuildingBlocks'))">
+  <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('Modules')) and $(MSBuildProjectName.EndsWith('IntegrationEvents'))">
     <ProjectReference Include="$(BBInfrastructurePath)" />
   </ItemGroup>
-  
-  <ItemGroup Condition="$(MSBuildProjectName.EndsWith('.Application')) and !$(MSBuildProjectName.Contains('BuildingBlocks'))">
+  <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('Modules')) and $(MSBuildProjectName.EndsWith('Application'))">
+    <ProjectReference Include="..\Domain\*.csproj" />
     <ProjectReference Include="..\IntegrationEvents\*.csproj" />
-  </ItemGroup>  
-  <ItemGroup Condition="$(MSBuildProjectName.EndsWith('.Infrastructure'))">
+	<ProjectReference Include="..\..\**\IntegrationEvents\*.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('Modules')) and $(MSBuildProjectName.EndsWith('Infrastructure'))">
     <ProjectReference Include="..\Application\*.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('Modules')) and $(MSBuildProjectName.EndsWith('Tests'))">
+    <ProjectReference Include="..\..\Infrastructure\*.csproj" />
+    <ProjectReference Include="$(BBIntegrationTestsPath)" />
   </ItemGroup>
 </Project>

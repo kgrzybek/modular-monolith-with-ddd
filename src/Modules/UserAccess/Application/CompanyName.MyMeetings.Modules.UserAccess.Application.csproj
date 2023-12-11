@@ -1,5 +1,1 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <ProjectReference Include="..\..\Meetings\IntegrationEvents\CompanyName.MyMeetings.Modules.Meetings.IntegrationEvents.csproj" />
-  </ItemGroup>
-</Project>
+﻿<Project Sdk="Microsoft.NET.Sdk" />
