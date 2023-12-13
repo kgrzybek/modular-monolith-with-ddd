@@ -18,7 +18,7 @@
   </PropertyGroup>
 
   <ItemGroup Condition="$(MSBuildProjectName.EndsWith('API'))">
-	<ProjectReference Include="..\..\Modules\**\Infrastructure\*.csproj" />
+    <ProjectReference Include="..\..\Modules\**\Infrastructure\*.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('BuildingBlocks')) and $(MSBuildProjectName.EndsWith('Application'))">
@@ -30,7 +30,7 @@
 
   <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('src$([System.IO.Path]::DirectorySeparatorChar)Tests'))">
     <ProjectReference Include="..\..\API\**\*.csproj" />
-	<ProjectReference Include="$(BBIntegrationTestsPath)" />
+    <ProjectReference Include="$(BBIntegrationTestsPath)" />
   </ItemGroup>
 
   <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('Modules')) and $(MSBuildProjectName.EndsWith('Domain'))">
@@ -42,7 +42,6 @@
   <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('Modules')) and $(MSBuildProjectName.EndsWith('Application'))">
     <ProjectReference Include="..\Domain\*.csproj" />
     <ProjectReference Include="..\IntegrationEvents\*.csproj" />
-	<ProjectReference Include="..\..\**\IntegrationEvents\*.csproj" />
   </ItemGroup>
   <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('Modules')) and $(MSBuildProjectName.EndsWith('Infrastructure'))">
     <ProjectReference Include="..\Application\*.csproj" />
