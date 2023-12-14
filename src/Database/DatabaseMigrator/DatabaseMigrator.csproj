@@ -2,9 +2,4 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="dbup-sqlserver" Version="5.0.37" />
-    <PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
-  </ItemGroup>
 </Project>
