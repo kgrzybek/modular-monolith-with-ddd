@@ -20,7 +20,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.Dea
 
             if (priceListItem == null)
             {
-                throw new InvalidCommandException(new List<string> { "Pricelist item for deactivation must exist." });
+                throw new InvalidCommandException(["Pricelist item for deactivation must exist."]);
             }
 
             priceListItem.Deactivate();

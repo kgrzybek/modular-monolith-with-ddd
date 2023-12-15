@@ -42,7 +42,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
                 .Where(x => x.GetInterfaces().Contains(typeof(IDomainEventNotification)))
                 .ToList();
 
-            List<Type> notMappedNotifications = new List<Type>();
+            List<Type> notMappedNotifications = [];
             foreach (var domainEventNotification in domainEventNotifications)
             {
                 _domainNotificationsMap.TryGetBySecond(domainEventNotification, out var name);

@@ -34,7 +34,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingCommentingC
             var meetingCommentingConfiguration = await _meetingCommentingConfigurationRepository.GetByMeetingIdAsync(new MeetingId(command.MeetingId));
             if (meetingCommentingConfiguration == null)
             {
-                throw new InvalidCommandException(new List<string> { "Meeting commenting configuration for disabling commenting must exist." });
+                throw new InvalidCommandException(["Meeting commenting configuration for disabling commenting must exist."]);
             }
 
             var meeting = await _meetingRepository.GetByIdAsync(new MeetingId(command.MeetingId));

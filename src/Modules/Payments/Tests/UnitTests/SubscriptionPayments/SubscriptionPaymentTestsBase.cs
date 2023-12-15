@@ -49,7 +49,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SubscriptionP
                 MoneyValue.Of(60, "PLN"),
                 PriceListItemCategory.New);
 
-            var priceListItems = new List<PriceListItemData> { priceListItem };
+            List<PriceListItemData> priceListItems = [priceListItem];
             var priceList = PriceList.Create(priceListItems, new DirectValueFromPriceListPricingStrategy(priceListItems));
 
             return priceList;

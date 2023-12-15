@@ -125,7 +125,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.ArchTests.Application
                 .Inherit(typeof(InternalCommandBase<>))
                 .GetTypes();
 
-            var failingTypes = new List<Type>();
+            List<Type> failingTypes = [];
 
             foreach (var type in types)
             {
@@ -158,7 +158,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.ArchTests.Application
                 .Should().ImplementInterface(typeof(IRequestHandler<>))
                 .GetTypes();
 
-            List<Type> failingTypes = new List<Type>();
+            List<Type> failingTypes = [];
             foreach (var type in types)
             {
                 bool isCommandHandler = type.GetInterfaces().Any(x =>
@@ -187,7 +187,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.ArchTests.Application
                 .That().ImplementInterface(commandWithResultHandlerType)
                 .GetTypes().ToList();
 
-            var failingTypes = new List<Type>();
+            List<Type> failingTypes = [];
             foreach (Type type in types)
             {
                 Type interfaceType = type.GetInterface(commandWithResultHandlerType.Name);

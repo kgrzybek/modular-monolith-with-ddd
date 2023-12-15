@@ -121,7 +121,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
                     0,
                     Term.NoTerm,
                     MoneyValue.Undefined,
-                    new List<MemberId>(),
+                    [],
                     creatorId);
             });
         }
@@ -144,7 +144,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
                 0,
                 Term.NoTerm,
                 MoneyValue.Undefined,
-                new List<MemberId>(),
+                [],
                 definedProposalMemberId);
 
             AssertPublishedDomainEvent<MeetingCreatedDomainEvent>(meeting);
@@ -158,9 +158,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
             meetingGroup.SetExpirationDate(DateTime.UtcNow.AddDays(1));
             var hostOne = new MemberId(Guid.NewGuid());
             var hostTwo = new MemberId(Guid.NewGuid());
-            List<MemberId> hosts = new List<MemberId>();
-            hosts.Add(hostOne);
-            hosts.Add(hostTwo);
+            List<MemberId> hosts =
+            [
+                hostOne,
+                hostTwo
+            ];
             meetingGroup.JoinToGroupMember(hostOne);
             meetingGroup.JoinToGroupMember(hostTwo);
 
@@ -195,9 +197,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
             meetingGroup.SetExpirationDate(DateTime.UtcNow.AddDays(1));
             var hostOne = new MemberId(Guid.NewGuid());
             var hostTwo = new MemberId(Guid.NewGuid());
-            List<MemberId> hosts = new List<MemberId>();
-            hosts.Add(hostOne);
-            hosts.Add(hostTwo);
+            List<MemberId> hosts =
+            [
+                hostOne,
+                hostTwo
+            ];
 
             AssertBrokenRule<MeetingHostMustBeAMeetingGroupMemberRule>(() =>
             {
@@ -238,7 +242,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.MeetingGroups
                     0,
                     Term.NoTerm,
                     MoneyValue.Undefined,
-                    new List<MemberId>(),
+                    [],
                     creatorId);
             });
         }

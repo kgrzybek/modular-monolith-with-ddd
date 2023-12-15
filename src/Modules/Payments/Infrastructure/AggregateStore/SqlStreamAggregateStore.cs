@@ -23,9 +23,9 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
         public SqlStreamAggregateStore(
             ISqlConnectionFactory sqlConnectionFactory, IStreamStore streamStore)
         {
-            _appendedChanges = new List<IDomainEvent>();
+            _appendedChanges = [];
 
-            _aggregatesToSave = new List<AggregateToSave>();
+            _aggregatesToSave = [];
             _streamStore = streamStore;
         }
 
@@ -47,7 +47,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
         {
             var streamId = GetStreamId(aggregateId);
 
-            IList<IDomainEvent> domainEvents = new List<IDomainEvent>();
+            List<IDomainEvent> domainEvents = [];
             ReadStreamPage readStreamPage;
             int position = StreamVersion.Start;
             int take = 100;
@@ -113,7 +113,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
             T aggregate)
             where T : AggregateRoot
         {
-            List<NewStreamMessage> newStreamMessages = new List<NewStreamMessage>();
+            List<NewStreamMessage> newStreamMessages = [];
 
             var domainEvents = aggregate.GetDomainEvents();
 

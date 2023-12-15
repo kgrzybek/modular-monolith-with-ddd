@@ -58,7 +58,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.Meetings
                     null,
                     null,
                     null,
-                    new List<Guid> { executionContext.UserId }));
+                    [executionContext.UserId]));
 
             return meetingId;
         }

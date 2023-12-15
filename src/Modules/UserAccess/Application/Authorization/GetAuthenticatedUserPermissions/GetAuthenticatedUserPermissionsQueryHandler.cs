@@ -24,7 +24,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Authorization.Ge
         {
             if (!_executionContextAccessor.IsAvailable)
             {
-                return new List<UserPermissionDto>();
+                return [];
             }
 
             var connection = _sqlConnectionFactory.GetOpenConnection();

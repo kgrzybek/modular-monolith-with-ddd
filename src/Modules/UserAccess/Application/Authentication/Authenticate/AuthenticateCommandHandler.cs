@@ -51,9 +51,11 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Authentication.A
                 return new AuthenticationResult("Incorrect login or password");
             }
 
-            user.Claims = new List<Claim>();
-            user.Claims.Add(new Claim(CustomClaimTypes.Name, user.Name));
-            user.Claims.Add(new Claim(CustomClaimTypes.Email, user.Email));
+            user.Claims =
+            [
+                new Claim(CustomClaimTypes.Name, user.Name),
+                new Claim(CustomClaimTypes.Email, user.Email)
+            ];
 
             return new AuthenticationResult(user);
         }

@@ -68,7 +68,7 @@ namespace CompanyName.MyMeetings.SUT.TestCases
                 null,
                 0,
                 null,
-                new List<Guid>()
+                []
             );
             
             var attendeeUserId = await UsersFactory.GivenUser(

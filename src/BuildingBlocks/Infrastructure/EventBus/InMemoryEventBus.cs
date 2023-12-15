@@ -28,7 +28,7 @@
                 }
                 else
                 {
-                    _handlersDictionary.Add(eventType, new List<IIntegrationEventHandler> { handler });
+                    _handlersDictionary.Add(eventType, [handler]);
                 }
             }
         }

@@ -49,7 +49,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.ArchTests.Domain
                                               BindingFlags.Instance |
                                               BindingFlags.Static;
 
-            var failingTypes = new List<Type>();
+            List<Type> failingTypes = [];
             foreach (var type in types)
             {
                 var publicFields = type.GetFields(bindingFlags);
@@ -79,7 +79,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.ArchTests.Domain
                                               BindingFlags.NonPublic |
                                               BindingFlags.Instance;
 
-            var failingTypes = new List<Type>();
+            List<Type> failingTypes = [];
             foreach (var type in entityTypes)
             {
                 var fields = type.GetFields(bindingFlags);
@@ -116,7 +116,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.ArchTests.Domain
                 .That()
                 .Inherit(typeof(Entity)).GetTypes();
 
-            var failingTypes = new List<Type>();
+            List<Type> failingTypes = [];
             foreach (var entityType in entityTypes)
             {
                 bool hasPrivateParameterlessConstructor = false;
@@ -148,7 +148,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.ArchTests.Domain
                         .Inherit(typeof(ValueObject))
                 .GetTypes();
 
-            var failingTypes = new List<Type>();
+            List<Type> failingTypes = [];
             foreach (var domainObjectType in domainObjectTypes)
             {
                 var constructors = domainObjectType.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
@@ -167,10 +167,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.ArchTests.Domain
         [Test]
         public void ValueObject_Should_Have_Private_Constructor_With_Parameters_For_His_State()
         {
-            List<Type> excludedFromCheck = new List<Type>
-            {
-                typeof(PriceList)
-            };
+            List<Type> excludedFromCheck = [typeof(PriceList)];
 
             var valueObjects = Types.InAssembly(DomainAssembly)
                 .That()
@@ -179,7 +176,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.ArchTests.Domain
                 .Where(x => !excludedFromCheck.Contains(x))
                 .ToList();
 
-            var failingTypes = new List<Type>();
+            List<Type> failingTypes = [];
             foreach (var entityType in valueObjects)
             {
                 bool hasExpectedConstructor = false;
