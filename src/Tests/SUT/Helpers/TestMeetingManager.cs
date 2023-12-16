@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
+﻿using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.AddMeetingAttendee;
 
 namespace CompanyName.MyMeetings.SUT.Helpers

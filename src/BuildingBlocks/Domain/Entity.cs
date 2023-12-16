@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CompanyName.MyMeetings.BuildingBlocks.Domain
+﻿namespace CompanyName.MyMeetings.BuildingBlocks.Domain
 {
     public abstract class Entity
     {

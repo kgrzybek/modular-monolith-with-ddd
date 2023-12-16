@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel
+﻿namespace CompanyName.MyMeetings.Modules.Meetings.Domain.SharedKernel
 {
     public static class SystemClock
     {

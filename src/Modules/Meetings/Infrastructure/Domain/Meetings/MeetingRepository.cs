@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
+﻿using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.Meetings
 {

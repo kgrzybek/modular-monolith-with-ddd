@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CompanyName.MyMeetings.BuildingBlocks.Application
+﻿namespace CompanyName.MyMeetings.BuildingBlocks.Application
 {
     public interface IExecutionContextAccessor
     {

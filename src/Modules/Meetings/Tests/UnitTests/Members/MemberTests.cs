@@ -1,4 +1,3 @@
-using System;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.UnitTests.SeedWork;

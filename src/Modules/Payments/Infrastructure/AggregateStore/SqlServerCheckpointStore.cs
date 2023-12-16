@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using Dapper;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore

@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Quartz;
+﻿using Quartz;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing.InternalCommands
 {

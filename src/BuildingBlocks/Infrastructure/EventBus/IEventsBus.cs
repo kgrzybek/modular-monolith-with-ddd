@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus
+﻿namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus
 {
     public interface IEventsBus : IDisposable
     {
