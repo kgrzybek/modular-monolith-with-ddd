@@ -40,7 +40,9 @@ namespace CompanyName.MyMeetings.API.Configuration.Authorization
 #if !DEBUG
             return Task.FromResult(true);
 #endif
+#pragma warning disable CS0162 // Unreachable code detected
             return Task.FromResult(permissions.Any(x => x.Code == permission));
+#pragma warning restore CS0162 // Unreachable code detected
         }
     }
 }
