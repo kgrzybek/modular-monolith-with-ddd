@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
+﻿namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
 {
     public interface IMeetingRepository
     {

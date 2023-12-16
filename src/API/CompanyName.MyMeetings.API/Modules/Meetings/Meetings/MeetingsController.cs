@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using CompanyName.MyMeetings.API.Configuration.Authorization;
+﻿using CompanyName.MyMeetings.API.Configuration.Authorization;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.AddMeetingAttendee;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.AddMeetingNotAttendee;
@@ -17,7 +14,6 @@ using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SetMeetingAtt
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SetMeetingHostRole;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SignOffMemberFromWaitlist;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.SignUpMemberToWaitlist;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings

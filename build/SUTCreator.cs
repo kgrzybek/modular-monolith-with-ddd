@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Nuke.Common;
-using Nuke.Common.Tools.Docker;
 using Nuke.Common.Tools.DotNet;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 

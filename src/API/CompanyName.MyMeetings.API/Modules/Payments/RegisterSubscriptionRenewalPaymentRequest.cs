@@ -1,5 +1,3 @@
-using System;
-
 namespace CompanyName.MyMeetings.API.Modules.Payments
 {
     public class RegisterSubscriptionRenewalPaymentRequest

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Payers
+﻿namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.Payers
 {
     public struct PayerSampleData
     {

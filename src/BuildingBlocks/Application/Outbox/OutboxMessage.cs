@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CompanyName.MyMeetings.BuildingBlocks.Application.Outbox
+﻿namespace CompanyName.MyMeetings.BuildingBlocks.Application.Outbox
 {
     public class OutboxMessage
     {

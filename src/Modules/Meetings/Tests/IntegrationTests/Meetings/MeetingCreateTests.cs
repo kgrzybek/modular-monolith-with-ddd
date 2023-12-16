@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.GetMeetingAttendees;
+﻿using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.GetMeetingAttendees;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.GetMeetingDetails;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Members.CreateMember;
 using CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork;

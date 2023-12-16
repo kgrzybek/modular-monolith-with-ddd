@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
+﻿namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
 {
     public class SetMeetingAttendeeRequest
     {

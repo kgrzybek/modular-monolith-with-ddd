@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CompanyName.MyMeetings.BuildingBlocks.Domain
+﻿namespace CompanyName.MyMeetings.BuildingBlocks.Domain
 {
     public class BusinessRuleValidationException : Exception
     {

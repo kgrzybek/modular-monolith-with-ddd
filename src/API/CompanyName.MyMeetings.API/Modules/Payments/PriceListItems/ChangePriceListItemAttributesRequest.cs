@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CompanyName.MyMeetings.API.Modules.Payments.PriceListItems
+﻿namespace CompanyName.MyMeetings.API.Modules.Payments.PriceListItems
 {
     public class ChangePriceListItemAttributesRequest
     {

@@ -1,5 +1,4 @@
-﻿using System;
-using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
+﻿using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing
+﻿namespace CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing
 {
     public class AssertErrorException : Exception
     {

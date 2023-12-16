@@ -1,5 +1,4 @@
-﻿using System;
-using MediatR;
+﻿using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Application.Contracts
 {
