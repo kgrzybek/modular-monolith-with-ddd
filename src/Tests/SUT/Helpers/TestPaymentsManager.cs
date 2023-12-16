@@ -39,7 +39,7 @@ namespace CompanyName.MyMeetings.SUT.Helpers
                     executionContextAccessor.UserId),
                 10000);
         }
-        
+
         private class GetSubscriptionPaymentsProbe : IProbe<List<SubscriptionPaymentDto>>
         {
             private readonly IPaymentsModule _paymentsModule;

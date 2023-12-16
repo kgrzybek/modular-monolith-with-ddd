@@ -30,7 +30,7 @@ namespace CompanyName.MyMeetings.SUT.SeedWork
                     "COUNT(*) " +
                     "FROM [users].[OutboxMessages] AS [OutboxMessage] " +
                     "WHERE [OutboxMessage].[ProcessedDate] IS NULL");
-                
+
                 var internalCommandsCountMeetings = await sqlConnection.ExecuteScalarAsync<int>(
                     "SELECT " +
                     "COUNT(*) " +
@@ -48,7 +48,7 @@ namespace CompanyName.MyMeetings.SUT.SeedWork
                     "COUNT(*) " +
                     "FROM [meetings].[OutboxMessages] AS [OutboxMessage] " +
                     "WHERE [OutboxMessage].[ProcessedDate] IS NULL");
-                
+
                 var internalCommandsCountAdministration = await sqlConnection.ExecuteScalarAsync<int>(
                     "SELECT " +
                     "COUNT(*) " +
@@ -67,16 +67,15 @@ namespace CompanyName.MyMeetings.SUT.SeedWork
                     "FROM [administration].[OutboxMessages] AS [OutboxMessage] " +
                     "WHERE [OutboxMessage].[ProcessedDate] IS NULL");
 
-                if (internalCommandsCountUsers == 0 && 
-                    inboxCountUsers == 0 && 
+                if (internalCommandsCountUsers == 0 &&
+                    inboxCountUsers == 0 &&
                     outboxCountUsers == 0 &&
-                    internalCommandsCountMeetings == 0 && 
-                    inboxCountMeetings == 0 && 
-                    outboxCountMeetings == 0 && 
-                    internalCommandsCountAdministration == 0 && 
-                    inboxCountMeetingsAdministration == 0 && 
-                    outboxCountMeetingsAdministration == 0
-                   )
+                    internalCommandsCountMeetings == 0 &&
+                    inboxCountMeetings == 0 &&
+                    outboxCountMeetings == 0 &&
+                    internalCommandsCountAdministration == 0 &&
+                    inboxCountMeetingsAdministration == 0 &&
+                    outboxCountMeetingsAdministration == 0)
                 {
                     return;
                 }

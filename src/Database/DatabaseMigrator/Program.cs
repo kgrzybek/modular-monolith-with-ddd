@@ -5,9 +5,9 @@ using Serilog.Formatting.Compact;
 
 namespace DatabaseMigrator
 {
-    class Program
+    public class Program
     {
-        static int Main(string[] args)
+        public static int Main(string[] args)
         {
             var logsPath = "logs\\migration-logs";
 
