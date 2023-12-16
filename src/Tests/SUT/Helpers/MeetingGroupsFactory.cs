@@ -18,11 +18,11 @@ namespace CompanyName.MyMeetings.SUT.Helpers
             string locationCountryCode)
         {
             var meetingGroupId = await meetingsModule.ExecuteCommandAsync(new ProposeMeetingGroupCommand(
-                name, 
-                description, 
+                name,
+                description,
                 locationCity,
                 locationCountryCode));
-            
+
             await AsyncOperationsHelper.WaitForProcessing(connectionString);
 
             await administrationModule.ExecuteCommandAsync(new AcceptMeetingGroupProposalCommand(meetingGroupId));

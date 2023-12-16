@@ -45,7 +45,7 @@ namespace CompanyName.MyMeetings.SUT.TestCases
             await TestPaymentsManager.BuySubscription(
                 PaymentsModule,
                 ExecutionContextAccessor);
-            
+
             SetDate(new DateTime(2022, 7, 1, 10, 0, 0));
 
             var meetingId = await TestMeetingFactory.GivenMeeting(
@@ -65,9 +65,8 @@ namespace CompanyName.MyMeetings.SUT.TestCases
                 null,
                 0,
                 null,
-                []
-            );
-            
+                []);
+
             var attendeeUserId = await UsersFactory.GivenUser(
                 UserAccessModule,
                 ConnectionString,
@@ -76,7 +75,7 @@ namespace CompanyName.MyMeetings.SUT.TestCases
                 "Rick",
                 "Morty",
                 "rickmorty@mail.com");
-            
+
             ExecutionContextAccessor.SetUserId(attendeeUserId);
 
             await TestMeetingGroupManager.JoinToGroup(MeetingsModule, meetingGroupId);
