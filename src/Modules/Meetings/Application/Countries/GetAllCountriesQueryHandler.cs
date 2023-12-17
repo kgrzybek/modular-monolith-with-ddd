@@ -18,10 +18,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Countries
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
             return (await connection.QueryAsync<CountryDto>(
-                "SELECT " +
-                $"[Country].[Code] AS [{nameof(CountryDto.Code)}], " +
-                $"[Country].[Name] AS [{nameof(CountryDto.Name)}] " +
-                "FROM [meetings].[v_Countries] AS [Country]")).AsList();
+                $"""
+                 SELECT
+                     [Country].[Code] AS [{nameof(CountryDto.Code)}],
+                     [Country].[Name] AS [{nameof(CountryDto.Name)}]
+                 FROM [meetings].[v_Countries] AS [Country]
+                 """)).AsList();
         }
     }
 }

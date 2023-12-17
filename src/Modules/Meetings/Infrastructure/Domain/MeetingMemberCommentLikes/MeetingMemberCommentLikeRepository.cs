@@ -34,10 +34,12 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.MeetingM
         {
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
-            const string sql = "SELECT " +
-                               "COUNT(*) " +
-                               "FROM [meetings].[MeetingMemberCommentLikes] AS [Likes] " +
-                               "WHERE [Likes].[MemberId] = @MemberId AND [Likes].[MeetingCommentId] = @MeetingCommentId";
+            const string sql = """
+                               SELECT 
+                               COUNT(*) 
+                               FROM [meetings].[MeetingMemberCommentLikes] AS [Likes]
+                               WHERE [Likes].[MemberId] = @MemberId AND [Likes].[MeetingCommentId] = @MeetingCommentId
+                               """;
 
             return connection.QuerySingleAsync<int>(
                 sql,

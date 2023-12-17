@@ -18,15 +18,17 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.GetMeetin
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
             return (await connection.QueryAsync<MeetingAttendeeDto>(
-                "SELECT " +
-                $"[MeetingAttendee].[FirstName] AS [{nameof(MeetingAttendeeDto.FirstName)}], " +
-                $"[MeetingAttendee].[LastName] AS [{nameof(MeetingAttendeeDto.LastName)}], " +
-                $"[MeetingAttendee].[RoleCode] AS [{nameof(MeetingAttendeeDto.RoleCode)}], " +
-                $"[MeetingAttendee].[DecisionDate] AS [{nameof(MeetingAttendeeDto.DecisionDate)}], " +
-                $"[MeetingAttendee].[GuestsNumber] AS [{nameof(MeetingAttendeeDto.GuestsNumber)}], " +
-                $"[MeetingAttendee].[AttendeeId] AS [{nameof(MeetingAttendeeDto.AttendeeId)}] " +
-                "FROM [meetings].[v_MeetingAttendees] AS [MeetingAttendee] " +
-                "WHERE [MeetingAttendee].[MeetingId] = @MeetingId",
+                $"""
+                 SELECT 
+                     [MeetingAttendee].[FirstName] AS [{nameof(MeetingAttendeeDto.FirstName)}], 
+                     [MeetingAttendee].[LastName] AS [{nameof(MeetingAttendeeDto.LastName)}], 
+                     [MeetingAttendee].[RoleCode] AS [{nameof(MeetingAttendeeDto.RoleCode)}], 
+                     [MeetingAttendee].[DecisionDate] AS [{nameof(MeetingAttendeeDto.DecisionDate)}], 
+                     [MeetingAttendee].[GuestsNumber] AS [{nameof(MeetingAttendeeDto.GuestsNumber)}], 
+                     [MeetingAttendee].[AttendeeId] AS [{nameof(MeetingAttendeeDto.AttendeeId)}] 
+                 FROM [meetings].[v_MeetingAttendees] AS [MeetingAttendee] 
+                 WHERE [MeetingAttendee].[MeetingId] = @MeetingId
+                 """,
                 new
                 {
                     query.MeetingId

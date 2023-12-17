@@ -27,12 +27,16 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Members
         public static async Task<MeetingGroupMemberData> GetMeetingGroupMember(MemberId memberId, MeetingId meetingOfGroupId, IDbConnection connection)
         {
             var result = await connection.QuerySingleAsync<MeetingGroupMemberResponse>(
-                "SELECT " +
-                $"[MeetingGroupMember].{nameof(MeetingGroupMemberResponse.MeetingGroupId)}, " +
-                $"[MeetingGroupMember].{nameof(MeetingGroupMemberResponse.MemberId)} " +
-                "FROM [meetings].[v_MeetingGroupMembers] AS [MeetingGroupMember] " +
-                "INNER JOIN [meetings].[Meetings] AS [Meeting] ON [Meeting].[MeetingGroupId] = [MeetingGroupMember].[MeetingGroupId] " +
-                "WHERE [MeetingGroupMember].[MemberId] = @MemberId AND [Meeting].[Id] = @MeetingId",
+                $"""
+                 SELECT 
+                     [MeetingGroupMember].{nameof(MeetingGroupMemberResponse.MeetingGroupId)}, 
+                     [MeetingGroupMember].{nameof(MeetingGroupMemberResponse.MemberId)}
+                 FROM [meetings].[v_MeetingGroupMembers] AS [MeetingGroupMember] 
+                 INNER JOIN [meetings].[Meetings] AS [Meeting] 
+                     ON [Meeting].[MeetingGroupId] = [MeetingGroupMember].[MeetingGroupId] 
+                 WHERE [MeetingGroupMember].[MemberId] = @MemberId 
+                   AND [Meeting].[Id] = @MeetingId
+                 """,
                 new
                 {
                     MemberId = memberId.Value,
