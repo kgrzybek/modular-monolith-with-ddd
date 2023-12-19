@@ -2,13 +2,11 @@
 
 namespace CompanyName.MyMeetings.Modules.Administration.Application.Members.GetMember
 {
-    public class GetMemberQuery : QueryBase<MemberDto>
+    /// <summary>
+    /// Represents a query to retrieve a member by their ID.
+    /// </summary>
+    public class GetMemberQuery(Guid memberId) : QueryBase<MemberDto>
     {
-        public GetMemberQuery(Guid memberId)
-        {
-            MemberId = memberId;
-        }
-
-        public Guid MemberId { get; }
+        public Guid MemberId { get; } = memberId;
     }
 }

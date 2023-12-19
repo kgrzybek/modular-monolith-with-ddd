@@ -6,17 +6,32 @@ using Newtonsoft.Json;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Processing.Inbox
 {
+    /// <summary>
+    /// Handles the processing of inbox messages.
+    /// </summary>
     internal class ProcessInboxCommandHandler : ICommandHandler<ProcessInboxCommand>
     {
         private readonly IMediator _mediator;
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProcessInboxCommandHandler"/> class.
+        /// </summary>
+        /// <param name="mediator">The mediator.</param>
+        /// <param name="sqlConnectionFactory">The SQL connection factory.</param>
         public ProcessInboxCommandHandler(IMediator mediator, ISqlConnectionFactory sqlConnectionFactory)
         {
             _mediator = mediator;
             _sqlConnectionFactory = sqlConnectionFactory;
         }
 
+        /// <summary>
+        /// Handles the <see cref="ProcessInboxCommand"/> by retrieving the inbox messages from the database,
+        /// deserializing them, and publishing them to the mediator.
+        /// </summary>
+        /// <param name="command">The <see cref="ProcessInboxCommand"/> object.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
         public async Task Handle(ProcessInboxCommand command, CancellationToken cancellationToken)
         {
             var connection = this._sqlConnectionFactory.GetOpenConnection();

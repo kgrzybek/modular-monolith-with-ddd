@@ -4,15 +4,23 @@ using Dapper;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.GetMeetingGroupProposal
 {
-    internal class GetMeetingGroupProposalQueryHandler : IQueryHandler<GetMeetingGroupProposalQuery, MeetingGroupProposalDto>
+    /// <summary>
+    /// Handles the query to retrieve a meeting group proposal.
+    /// </summary>
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="GetMeetingGroupProposalQueryHandler"/> class.
+    /// </remarks>
+    /// <param name="sqlConnectionFactory">The SQL connection factory.</param>
+    internal class GetMeetingGroupProposalQueryHandler(ISqlConnectionFactory sqlConnectionFactory) : IQueryHandler<GetMeetingGroupProposalQuery, MeetingGroupProposalDto>
     {
-        private readonly ISqlConnectionFactory _sqlConnectionFactory;
+        private readonly ISqlConnectionFactory _sqlConnectionFactory = sqlConnectionFactory;
 
-        public GetMeetingGroupProposalQueryHandler(ISqlConnectionFactory sqlConnectionFactory)
-        {
-            _sqlConnectionFactory = sqlConnectionFactory;
-        }
-
+        /// <summary>
+        /// Handles the <see cref="GetMeetingGroupProposalQuery"/> by retrieving the meeting group proposal from the database.
+        /// </summary>
+        /// <param name="query">The <see cref="GetMeetingGroupProposalQuery"/> object.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>The <see cref="MeetingGroupProposalDto"/> object representing the retrieved meeting group proposal.</returns>
         public async Task<MeetingGroupProposalDto> Handle(GetMeetingGroupProposalQuery query, CancellationToken cancellationToken)
         {
             var connection = _sqlConnectionFactory.GetOpenConnection();

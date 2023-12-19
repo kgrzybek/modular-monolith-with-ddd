@@ -8,12 +8,19 @@ using Newtonsoft.Json;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Processing.InternalCommands
 {
+    /// <summary>
+    /// Represents a scheduler for enqueueing commands into the internal commands queue.
+    /// </summary>
     public class CommandsScheduler : ICommandsScheduler
     {
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
-
         private readonly IInternalCommandsMapper _internalCommandsMapper;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CommandsScheduler"/> class.
+        /// </summary>
+        /// <param name="sqlConnectionFactory">The SQL connection factory.</param>
+        /// <param name="internalCommandsMapper">The internal commands mapper.</param>
         public CommandsScheduler(
             ISqlConnectionFactory sqlConnectionFactory,
             IInternalCommandsMapper internalCommandsMapper)
@@ -22,6 +29,11 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             _internalCommandsMapper = internalCommandsMapper;
         }
 
+        /// <summary>
+        /// Enqueues a command into the internal commands queue.
+        /// </summary>
+        /// <param name="command">The command to enqueue.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
         public async Task EnqueueAsync(ICommand command)
         {
             var connection = this._sqlConnectionFactory.GetOpenConnection();
@@ -41,6 +53,12 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             });
         }
 
+        /// <summary>
+        /// Enqueues a typed command into the internal commands queue.
+        /// </summary>
+        /// <typeparam name="T">The type of the command.</typeparam>
+        /// <param name="command">The command to enqueue.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
         public async Task EnqueueAsync<T>(ICommand<T> command)
         {
             var connection = this._sqlConnectionFactory.GetOpenConnection();

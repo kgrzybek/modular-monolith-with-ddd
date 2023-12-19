@@ -3,6 +3,9 @@ using Serilog;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Quartz
 {
+    /// <summary>
+    /// Represents a log provider that uses Serilog for logging.
+    /// </summary>
     internal class SerilogLogProvider : ILogProvider
     {
         private readonly ILogger _logger;
@@ -12,6 +15,11 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             _logger = logger;
         }
 
+        /// <summary>
+        /// Gets a logger instance for the specified name.
+        /// </summary>
+        /// <param name="name">The name of the logger.</param>
+        /// <returns>A logger instance.</returns>
         public Logger GetLogger(string name)
         {
             return (level, func, exception, parameters) =>
@@ -50,16 +58,15 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             };
         }
 
+        /// <inheritdoc/>
+        /// <exception cref="NotImplementedException">Always thrown.</exception>
         public IDisposable OpenNestedContext(string message)
         {
             throw new NotImplementedException();
         }
 
-        public IDisposable OpenMappedContext(string key, string value)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <inheritdoc/>
+        /// <exception cref="NotImplementedException">Always thrown.</exception>
         public IDisposable OpenMappedContext(string key, object value, bool destructure = false)
         {
             throw new NotImplementedException();

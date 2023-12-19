@@ -7,9 +7,18 @@ using Newtonsoft.Json;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.EventsBus
 {
+    /// <summary>
+    /// Represents a generic handler for an integration event.
+    /// </summary>
+    /// <typeparam name="T">The type of the integration event.</typeparam>
     internal class IntegrationEventGenericHandler<T> : IIntegrationEventHandler<T>
         where T : IntegrationEvent
     {
+        /// <summary>
+        /// Handles an integration event, saving it to the inbox.
+        /// </summary>
+        /// <param name="event">The integration event to handle.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
         public async Task Handle(T @event)
         {
             using var scope = AdministrationCompositionRoot.BeginLifetimeScope();

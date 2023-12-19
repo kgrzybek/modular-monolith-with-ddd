@@ -5,8 +5,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Domain.MeetingGroupProposals
 {
+    /// <inheritdoc/>
     internal class MeetingGroupProposalEntityTypeConfiguration : IEntityTypeConfiguration<MeetingGroupProposal>
     {
+        /// <inheritdoc/>
         public void Configure(EntityTypeBuilder<MeetingGroupProposal> builder)
         {
             builder.ToTable("MeetingGroupProposals", "administration");

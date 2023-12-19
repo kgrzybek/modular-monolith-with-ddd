@@ -5,15 +5,23 @@ using Dapper;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.GetMeetingGroupProposals
 {
-    internal class GetMeetingGroupProposalsQueryHandler : IQueryHandler<GetMeetingGroupProposalsQuery, List<MeetingGroupProposalDto>>
+    /// <summary>
+    /// Handles the query to get a list of meeting group proposals.
+    /// </summary>
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="GetMeetingGroupProposalsQueryHandler"/> class.
+    /// </remarks>
+    /// <param name="sqlConnectionFactory">The SQL connection factory.</param>
+    internal class GetMeetingGroupProposalsQueryHandler(ISqlConnectionFactory sqlConnectionFactory) : IQueryHandler<GetMeetingGroupProposalsQuery, List<MeetingGroupProposalDto>>
     {
-        private readonly ISqlConnectionFactory _sqlConnectionFactory;
+        private readonly ISqlConnectionFactory _sqlConnectionFactory = sqlConnectionFactory;
 
-        public GetMeetingGroupProposalsQueryHandler(ISqlConnectionFactory sqlConnectionFactory)
-        {
-            _sqlConnectionFactory = sqlConnectionFactory;
-        }
-
+        /// <summary>
+        /// Handles the <see cref="GetMeetingGroupProposalsQuery"/> by retrieving a list of meeting group proposals.
+        /// </summary>
+        /// <param name="query">The query object containing the parameters for the query.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains a list of <see cref="MeetingGroupProposalDto"/> objects.</returns>
         public async Task<List<MeetingGroupProposalDto>> Handle(GetMeetingGroupProposalsQuery query, CancellationToken cancellationToken)
         {
             var connection = _sqlConnectionFactory.GetOpenConnection();

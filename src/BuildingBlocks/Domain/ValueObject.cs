@@ -2,6 +2,11 @@
 
 namespace CompanyName.MyMeetings.BuildingBlocks.Domain
 {
+    /// <summary>
+    /// Represents a base class for value objects in a domain-driven design (DDD) architecture.
+    /// Value objects are immutable objects that are used to encapsulate a group of related attributes or properties.
+    /// Value objects are compared by their attribute values rather than by identity.
+    /// </summary>
     public abstract class ValueObject : IEquatable<ValueObject>
     {
         private List<PropertyInfo> _properties;

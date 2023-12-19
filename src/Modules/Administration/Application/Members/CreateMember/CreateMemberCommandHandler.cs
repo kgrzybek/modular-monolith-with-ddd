@@ -3,15 +3,23 @@ using CompanyName.MyMeetings.Modules.Administration.Domain.Members;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Application.Members.CreateMember
 {
-    internal class CreateMemberCommandHandler : ICommandHandler<CreateMemberCommand, Guid>
+    /// <summary>
+    /// Handles the command to create a new member.
+    /// </summary>
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="CreateMemberCommandHandler"/> class.
+    /// </remarks>
+    /// <param name="memberRepository">The member repository.</param>
+    internal class CreateMemberCommandHandler(IMemberRepository memberRepository) : ICommandHandler<CreateMemberCommand, Guid>
     {
-        private readonly IMemberRepository _memberRepository;
+        private readonly IMemberRepository _memberRepository = memberRepository;
 
-        public CreateMemberCommandHandler(IMemberRepository memberRepository)
-        {
-            _memberRepository = memberRepository;
-        }
-
+        /// <summary>
+        /// Handles the create member command and returns the ID of the newly created member.
+        /// </summary>
+        /// <param name="request">The create member command.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>The ID of the newly created member.</returns>
         public async Task<Guid> Handle(CreateMemberCommand request, CancellationToken cancellationToken)
         {
             var member = Member.Create(

@@ -3,6 +3,9 @@ using CompanyName.MyMeetings.Modules.Administration.Domain.Users;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupProposals
 {
+    /// <summary>
+    /// Represents a decision made on a meeting group proposal.
+    /// </summary>
     public class MeetingGroupProposalDecision : ValueObject
     {
         private MeetingGroupProposalDecision(DateTime? date, UserId userId, string code, string rejectReason)
@@ -13,12 +16,24 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupPropo
             this.RejectReason = rejectReason;
         }
 
+        /// <summary>
+        /// Gets the date associated with the meeting group proposal decision.
+        /// </summary>
         public DateTime? Date { get; }
 
+        /// <summary>
+        /// Gets the user ID associated with the meeting group proposal decision.
+        /// </summary>
         public UserId UserId { get; }
 
+        /// <summary>
+        /// Gets the code of the meeting group proposal decision.
+        /// </summary>
         public string Code { get; }
 
+        /// <summary>
+        /// Gets the reason for rejecting the meeting group proposal.
+        /// </summary>
         public string RejectReason { get; }
 
         internal static MeetingGroupProposalDecision NoDecision =>

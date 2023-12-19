@@ -9,10 +9,18 @@ using Serilog;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Quartz
 {
+    /// <summary>
+    /// Represents the startup class for Quartz scheduler in the Administration module.
+    /// </summary>
     internal static class QuartzStartup
     {
         private static IScheduler _scheduler;
 
+        /// <summary>
+        /// Initializes the Quartz scheduler with the specified logger and internal processing pooling interval.
+        /// </summary>
+        /// <param name="logger">The logger used for logging information.</param>
+        /// <param name="internalProcessingPoolingInterval">The interval at which internal processing should occur, in milliseconds.</param>
         internal static void Initialize(ILogger logger, long? internalProcessingPoolingInterval)
         {
             logger.Information("Quartz starting...");
@@ -79,6 +87,9 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             logger.Information("Quartz started.");
         }
 
+        /// <summary>
+        /// Stops the Quartz scheduler.
+        /// </summary>
         internal static void StopQuartz()
         {
             _scheduler.Shutdown();

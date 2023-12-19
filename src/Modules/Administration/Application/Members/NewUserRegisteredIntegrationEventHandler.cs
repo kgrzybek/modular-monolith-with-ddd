@@ -5,6 +5,9 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Application.Members
 {
+    /// <summary>
+    /// Handles the integration event when a new user is registered.
+    /// </summary>
     internal class NewUserRegisteredIntegrationEventHandler : INotificationHandler<NewUserRegisteredIntegrationEvent>
     {
         private readonly ICommandsScheduler _commandsScheduler;
@@ -14,6 +17,12 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.Members
             _commandsScheduler = commandsScheduler;
         }
 
+        /// <summary>
+        /// Handles the <see cref="NewUserRegisteredIntegrationEvent"/> by enqueueing a <see cref="CreateMemberCommand"/>.
+        /// </summary>
+        /// <param name="notification">The <see cref="NewUserRegisteredIntegrationEvent"/> notification.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
         public async Task Handle(NewUserRegisteredIntegrationEvent notification, CancellationToken cancellationToken)
         {
             await _commandsScheduler.EnqueueAsync(new

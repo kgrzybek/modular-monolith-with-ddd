@@ -7,12 +7,20 @@ using Polly;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Processing.InternalCommands
 {
+    /// <summary>
+    /// Handles the processing of internal commands, which are commands that are not exposed to the outside world.
+    /// </summary>
     internal class ProcessInternalCommandsCommandHandler : ICommandHandler<ProcessInternalCommandsCommand>
     {
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
         private readonly IInternalCommandsMapper _internalCommandsMapper;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProcessInternalCommandsCommandHandler"/> class.
+        /// </summary>
+        /// <param name="sqlConnectionFactory">The SQL connection factory.</param>
+        /// <param name="internalCommandsMapper">The internal commands mapper.</param>
         public ProcessInternalCommandsCommandHandler(
             ISqlConnectionFactory sqlConnectionFactory,
             IInternalCommandsMapper internalCommandsMapper)
@@ -21,6 +29,13 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             _internalCommandsMapper = internalCommandsMapper;
         }
 
+        /// <summary>
+        /// Handles the <see cref="ProcessInternalCommandsCommand"/> by retrieving the internal commands from the database,
+        /// deserializing them, and executing them.
+        /// </summary>
+        /// <param name="command">The <see cref="ProcessInternalCommandsCommand"/> object.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
         public async Task Handle(ProcessInternalCommandsCommand command, CancellationToken cancellationToken)
         {
             var connection = this._sqlConnectionFactory.GetOpenConnection();

@@ -8,8 +8,19 @@ using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Processing
 {
+    /// <summary>
+    /// Represents the Autofac module for configuring the processing module in the Administration module.
+    /// </summary>
     internal class ProcessingModule : Autofac.Module
     {
+        /// <summary>
+        /// Loads the processing module into the Autofac container,
+        /// registering all implementations of the <see cref="ICommandHandler{TCommand}"/>,
+        /// and <see cref="ICommandHandler{TCommand,TResult}"/>,
+        /// and <see cref="INotificationHandler{TNotification}"/>,
+        /// and <see cref="IDomainEventNotification{TDomainEvent}"/> interfaces.
+        /// </summary>
+        /// <param name="builder">The container builder.</param>
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<DomainEventsDispatcher>()

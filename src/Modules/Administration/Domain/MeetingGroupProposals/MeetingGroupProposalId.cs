@@ -2,11 +2,14 @@
 
 namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupProposals
 {
-    public class MeetingGroupProposalId : TypedIdValueBase
+    /// <summary>
+    /// Represents the identifier for a meeting group proposal.
+    /// </summary>
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="MeetingGroupProposalId"/> class.
+    /// </remarks>
+    /// <param name="value">The value of the meeting group proposal identifier.</param>
+    public class MeetingGroupProposalId(Guid value) : TypedIdValueBase(value)
     {
-        public MeetingGroupProposalId(Guid value)
-            : base(value)
-        {
-        }
     }
 }

@@ -3,6 +3,9 @@ using CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProp
 
 namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.GetMeetingGroupProposals
 {
+    /// <summary>
+    /// Represents a query to get a list of meeting group proposals.
+    /// </summary>
     public class GetMeetingGroupProposalsQuery : QueryBase<List<MeetingGroupProposalDto>>
     {
         public GetMeetingGroupProposalsQuery()

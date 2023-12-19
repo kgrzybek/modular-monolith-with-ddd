@@ -5,6 +5,9 @@ using CompanyName.MyMeetings.Modules.Administration.Domain.Users;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupProposals
 {
+    /// <summary>
+    /// Represents a meeting group proposal entity.
+    /// </summary>
     public class MeetingGroupProposal : Entity, IAggregateRoot
     {
         private string _name;
@@ -21,6 +24,15 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupPropo
 
         private MeetingGroupProposalDecision _decision;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MeetingGroupProposal"/> class.
+        /// </summary>
+        /// <param name="id">The ID of the meeting group proposal.</param>
+        /// <param name="name">The name of the meeting group proposal.</param>
+        /// <param name="description">The description of the meeting group proposal.</param>
+        /// <param name="location">The location of the meeting group proposal.</param>
+        /// <param name="proposalUserId">The user ID of the proposal creator.</param>
+        /// <param name="proposalDate">The date of the proposal.</param>
         private MeetingGroupProposal(
             MeetingGroupProposalId id,
             string name,
@@ -42,13 +54,23 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupPropo
             this.AddDomainEvent(new MeetingGroupProposalVerificationRequestedDomainEvent(this.Id));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MeetingGroupProposal"/> class.
+        /// </summary>
         private MeetingGroupProposal()
         {
             _decision = MeetingGroupProposalDecision.NoDecision;
         }
 
+        /// <summary>
+        /// Gets the identifier of the meeting group proposal.
+        /// </summary>
         public MeetingGroupProposalId Id { get; private set; }
 
+        /// <summary>
+        /// Accepts the meeting group proposal.
+        /// </summary>
+        /// <param name="userId">The ID of the user accepting the proposal.</param>
         public void Accept(UserId userId)
         {
             this.CheckRule(new MeetingGroupProposalCanBeVerifiedOnceRule(_decision));
@@ -60,6 +82,11 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupPropo
             this.AddDomainEvent(new MeetingGroupProposalAcceptedDomainEvent(this.Id));
         }
 
+        /// <summary>
+        /// Rejects the meeting group proposal.
+        /// </summary>
+        /// <param name="userId">The ID of the user rejecting the proposal.</param>
+        /// <param name="rejectReason">The reason for rejecting the proposal.</param>
         public void Reject(UserId userId, string rejectReason)
         {
             this.CheckRule(new MeetingGroupProposalCanBeVerifiedOnceRule(_decision));
@@ -72,6 +99,16 @@ namespace CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupPropo
             this.AddDomainEvent(new MeetingGroupProposalRejectedDomainEvent(this.Id));
         }
 
+        /// <summary>
+        /// Represents a meeting group proposal.
+        /// </summary>
+        /// <param name="meetingGroupProposalId">The ID of the meeting group proposal.</param>
+        /// <param name="name">The name of the meeting group proposal.</param>
+        /// <param name="description">The description of the meeting group proposal.</param>
+        /// <param name="location">The location of the meeting group proposal.</param>
+        /// <param name="proposalUserId">The user ID of the proposal creator.</param>
+        /// <param name="proposalDate">The date of the proposal.</param>
+        /// <returns>A new instance of the <see cref="MeetingGroupProposal"/> class.</returns>
         public static MeetingGroupProposal CreateToVerify(
             Guid meetingGroupProposalId,
             string name,

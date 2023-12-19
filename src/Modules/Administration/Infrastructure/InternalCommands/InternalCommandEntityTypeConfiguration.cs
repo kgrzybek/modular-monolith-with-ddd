@@ -4,8 +4,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.InternalCommands
 {
+    /// <inheritdoc/>
     internal class InternalCommandEntityTypeConfiguration : IEntityTypeConfiguration<InternalCommand>
     {
+        /// <inheritdoc/>
         public void Configure(EntityTypeBuilder<InternalCommand> builder)
         {
             builder.ToTable("InternalCommands", "administration");

@@ -2,13 +2,15 @@
 
 namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.AcceptMeetingGroupProposal
 {
-    public class AcceptMeetingGroupProposalCommand : CommandBase
+    /// <summary>
+    /// Represents a command to accept a meeting group proposal.
+    /// </summary>
+    /// <remarks>
+    /// Creates a new instance of the <see cref="AcceptMeetingGroupProposalCommand"/> class.
+    /// </remarks>
+    /// <param name="meetingGroupProposalId">The ID of the meeting group proposal to accept.</param>
+    public class AcceptMeetingGroupProposalCommand(Guid meetingGroupProposalId) : CommandBase
     {
-        public AcceptMeetingGroupProposalCommand(Guid meetingGroupProposalId)
-        {
-            MeetingGroupProposalId = meetingGroupProposalId;
-        }
-
-        internal Guid MeetingGroupProposalId { get; }
+        internal Guid MeetingGroupProposalId { get; } = meetingGroupProposalId;
     }
 }

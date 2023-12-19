@@ -8,6 +8,10 @@ using Serilog.Events;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Processing
 {
+    /// <summary>
+    /// Decorator class that adds logging functionality to a command handler.
+    /// </summary>
+    /// <typeparam name="T">The type of command being handled.</typeparam>
     internal class LoggingCommandHandlerDecorator<T> : ICommandHandler<T>
         where T : ICommand
     {
@@ -15,6 +19,12 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
         private readonly IExecutionContextAccessor _executionContextAccessor;
         private readonly ICommandHandler<T> _decorated;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoggingCommandHandlerDecorator{T}"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="executionContextAccessor">The execution context accessor.</param>
+        /// <param name="decorated">The decorated command handler.</param>
         public LoggingCommandHandlerDecorator(
             ILogger logger,
             IExecutionContextAccessor executionContextAccessor,
@@ -25,6 +35,13 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             _decorated = decorated;
         }
 
+        /// <summary>
+        /// Handles a command by logging the command and any exceptions that occur.
+        /// </summary>
+        /// <typeparam name="T">The type of command being handled.</typeparam>
+        /// <param name="command">The command to handle.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
         public async Task Handle(T command, CancellationToken cancellationToken)
         {
             if (command is IRecurringCommand)

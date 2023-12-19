@@ -4,8 +4,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Outbox
 {
+    /// <inheritdoc/>
     internal class OutboxMessageEntityTypeConfiguration : IEntityTypeConfiguration<OutboxMessage>
     {
+        /// <inheritdoc/>
         public void Configure(EntityTypeBuilder<OutboxMessage> builder)
         {
             builder.ToTable("OutboxMessages", "administration");

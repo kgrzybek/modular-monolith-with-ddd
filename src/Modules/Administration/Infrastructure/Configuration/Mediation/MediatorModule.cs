@@ -11,8 +11,16 @@ using MediatR.Pipeline;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Mediation
 {
+    /// <summary>
+    /// Represents a module for configuring the mediator in the Administration module.
+    /// </summary>
     public class MediatorModule : Autofac.Module
     {
+        /// <summary>
+        /// Loads the module components, by scanning assemblies for implementations of interfaces and abstract types,
+        /// and registering the types as implementations of the services they implement.
+        /// </summary>
+        /// <param name="builder">The container builder.</param>
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<ServiceProviderWrapper>()

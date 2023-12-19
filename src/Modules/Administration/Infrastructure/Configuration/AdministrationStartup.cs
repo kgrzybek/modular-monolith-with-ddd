@@ -18,10 +18,21 @@ using Serilog;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration
 {
+    /// <summary>
+    /// Represents the startup class for the Administration module.
+    /// </summary>
     public class AdministrationStartup
     {
         private static IContainer _container;
 
+        /// <summary>
+        /// Initializes the Administration module with the specified parameters.
+        /// </summary>
+        /// <param name="connectionString">The connection string for the database.</param>
+        /// <param name="executionContextAccessor">The execution context accessor.</param>
+        /// <param name="logger">The logger.</param>
+        /// <param name="eventsBus">The events bus.</param>
+        /// <param name="internalProcessingPoolingInterval">The internal processing pooling interval (optional).</param>
         public static void Initialize(
             string connectionString,
             IExecutionContextAccessor executionContextAccessor,
@@ -38,11 +49,21 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             EventsBusStartup.Initialize(moduleLogger);
         }
 
+        /// <summary>
+        /// Stops the administration module.
+        /// </summary>
         public static void Stop()
         {
             QuartzStartup.StopQuartz();
         }
 
+        /// <summary>
+        /// Configures the container with the necessary modules and dependencies for the Administration module.
+        /// </summary>
+        /// <param name="connectionString">The connection string for the data access module.</param>
+        /// <param name="executionContextAccessor">The execution context accessor.</param>
+        /// <param name="logger">The logger.</param>
+        /// <param name="eventsBus">The events bus.</param>
         private static void ConfigureContainer(
             string connectionString,
             IExecutionContextAccessor executionContextAccessor,

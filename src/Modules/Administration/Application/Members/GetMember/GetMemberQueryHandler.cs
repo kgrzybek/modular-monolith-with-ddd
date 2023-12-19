@@ -4,15 +4,19 @@ using Dapper;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Application.Members.GetMember
 {
-    internal class GetMemberQueryHandler : IQueryHandler<GetMemberQuery, MemberDto>
+    /// <summary>
+    /// Handles the <see cref="GetMemberQuery"/>  and returns a <see cref="MemberDto"/>.
+    /// </summary>
+    internal class GetMemberQueryHandler(ISqlConnectionFactory sqlConnectionFactory) : IQueryHandler<GetMemberQuery, MemberDto>
     {
-        private readonly ISqlConnectionFactory _sqlConnectionFactory;
+        private readonly ISqlConnectionFactory _sqlConnectionFactory = sqlConnectionFactory;
 
-        public GetMemberQueryHandler(ISqlConnectionFactory sqlConnectionFactory)
-        {
-            _sqlConnectionFactory = sqlConnectionFactory;
-        }
-
+        /// <summary>
+        /// Handles the <see cref="GetMemberQuery"/> and retrieves a <see cref="MemberDto"/>.
+        /// </summary>
+        /// <param name="query">The <see cref="GetMemberQuery"/> to handle.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>The <see cref="MemberDto"/>.</returns>
         public async Task<MemberDto> Handle(GetMemberQuery query, CancellationToken cancellationToken)
         {
             var connection = _sqlConnectionFactory.GetOpenConnection();

@@ -11,6 +11,9 @@ using Serilog.Events;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration.Processing.Outbox
 {
+    /// <summary>
+    /// Handles the processing of outbox messages for the <see cref="ProcessOutboxCommand"/>.
+    /// </summary>
     internal class ProcessOutboxCommandHandler : ICommandHandler<ProcessOutboxCommand>
     {
         private readonly IMediator _mediator;
@@ -19,6 +22,12 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
 
         private readonly IDomainNotificationsMapper _domainNotificationsMapper;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProcessOutboxCommandHandler"/> class.
+        /// </summary>
+        /// <param name="mediator">The mediator.</param>
+        /// <param name="sqlConnectionFactory">The SQL connection factory.</param>
+        /// <param name="domainNotificationsMapper">The domain notifications mapper.</param>
         public ProcessOutboxCommandHandler(
             IMediator mediator,
             ISqlConnectionFactory sqlConnectionFactory,
@@ -29,6 +38,13 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             _domainNotificationsMapper = domainNotificationsMapper;
         }
 
+        /// <summary>
+        /// Handles the <see cref="ProcessOutboxCommand"/> by retrieving the outbox messages from the database,
+        /// deserializing them, and publishing them to the mediator.
+        /// </summary>
+        /// <param name="command">The <see cref="ProcessOutboxCommand"/> object.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
         public async Task Handle(ProcessOutboxCommand command, CancellationToken cancellationToken)
         {
             var connection = this._sqlConnectionFactory.GetOpenConnection();

@@ -1,30 +1,39 @@
 ﻿namespace CompanyName.MyMeetings.BuildingBlocks.Domain
 {
+    /// <summary>
+    /// Represents the base class for all domain entities.
+    /// </summary>
     public abstract class Entity
     {
         private List<IDomainEvent> _domainEvents;
 
         /// <summary>
-        /// Domain events occurred.
+        /// Gets the collection of domain events occurred.
         /// </summary>
         public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents?.AsReadOnly();
 
+        /// <summary>
+        /// Clears the collection of domain events.
+        /// </summary>
         public void ClearDomainEvents()
         {
             _domainEvents?.Clear();
         }
 
         /// <summary>
-        /// Add domain event.
+        /// Adds a domain event to the collection.
         /// </summary>
-        /// <param name="domainEvent">Domain event.</param>
+        /// <param name="domainEvent">The domain event to add.</param>
         protected void AddDomainEvent(IDomainEvent domainEvent)
         {
             _domainEvents ??= new List<IDomainEvent>();
-
-            this._domainEvents.Add(domainEvent);
+            _domainEvents.Add(domainEvent);
         }
 
+        /// <summary>
+        /// Checks if a business rule is broken and throws an exception if it is.
+        /// </summary>
+        /// <param name="rule">The business rule to check.</param>
         protected void CheckRule(IBusinessRule rule)
         {
             if (rule.IsBroken())
