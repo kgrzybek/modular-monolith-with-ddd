@@ -2,11 +2,11 @@
 using CompanyName.MyMeetings.BuildingBlocks.Application.Events;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispatching;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Commands;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing.InternalCommands;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Configuration.Commands;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Processing.InternalCommands;
 using MediatR;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Processing
 {
     internal class ProcessingModule : Autofac.Module
     {

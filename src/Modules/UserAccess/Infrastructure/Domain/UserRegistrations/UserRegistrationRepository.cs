@@ -1,7 +1,7 @@
-﻿using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations;
+﻿using CompanyName.MyMeetings.Modules.UserAccessIS.Domain.UserRegistrations;
 using Microsoft.EntityFrameworkCore;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Domain.UserRegistrations
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Domain.UserRegistrations
 {
     public class UserRegistrationRepository : IUserRegistrationRepository
     {

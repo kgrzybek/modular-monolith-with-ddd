@@ -1,15 +1,15 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Outbox;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.InternalCommands;
-using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations;
-using CompanyName.MyMeetings.Modules.UserAccess.Domain.Users;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Domain.UserRegistrations;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Domain.Users;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.InternalCommands;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Outbox;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Domain.UserRegistrations;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Domain.Users;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Domain.UserRegistrations;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Domain.Users;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.InternalCommands;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Outbox;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure
 {
     public class UserAccessContext : DbContext
     {

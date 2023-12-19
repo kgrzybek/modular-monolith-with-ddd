@@ -1,6 +1,6 @@
 ﻿using Quartz;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing.Outbox
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Processing.Outbox
 {
     [DisallowConcurrentExecution]
     public class ProcessOutboxJob : IJob

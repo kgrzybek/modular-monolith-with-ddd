@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.EventsBus
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.EventsBus
 {
     internal class EventsBusModule : Autofac.Module
     {

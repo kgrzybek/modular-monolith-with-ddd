@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <ProjectReference Include="..\..\Administration\IntegrationEvents\CompanyName.MyMeetings.Modules.Administration.IntegrationEvents.csproj" />
-    <ProjectReference Include="..\..\Payments\IntegrationEvents\CompanyName.MyMeetings.Modules.Payments.IntegrationEvents.csproj"/>
-    <ProjectReference Include="..\..\UserAccess\IntegrationEvents\CompanyName.MyMeetings.Modules.UserAccess.IntegrationEvents.csproj" />
+    <ProjectReference Include="..\..\Payments\IntegrationEvents\CompanyName.MyMeetings.Modules.Payments.IntegrationEvents.csproj" />
+    <ProjectReference Include="..\..\UserAccessMI\IntegrationEvents\CompanyName.MyMeetings.Modules.UserAccessMI.IntegrationEvents.csproj" />
   </ItemGroup>
 </Project>

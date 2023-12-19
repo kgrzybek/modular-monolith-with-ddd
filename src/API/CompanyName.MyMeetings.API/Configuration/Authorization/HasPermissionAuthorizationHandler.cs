@@ -1,6 +1,6 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Application;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Authorization.GetUserPermissions;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Authorization.GetUserPermissions;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Contracts;
 using Microsoft.AspNetCore.Authorization;
 
 namespace CompanyName.MyMeetings.API.Configuration.Authorization

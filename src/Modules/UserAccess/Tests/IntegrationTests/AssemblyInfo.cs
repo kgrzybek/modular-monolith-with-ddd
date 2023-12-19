@@ -3,7 +3,7 @@
 [assembly: NonParallelizable]
 [assembly: LevelOfParallelism(1)]
 
-namespace CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.IntegrationTests
 {
     public class AssemblyInfo
     {

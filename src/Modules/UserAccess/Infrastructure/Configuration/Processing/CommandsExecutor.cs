@@ -1,8 +1,8 @@
 ﻿using Autofac;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Contracts;
 using MediatR;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Processing
 {
     internal static class CommandsExecutor
     {

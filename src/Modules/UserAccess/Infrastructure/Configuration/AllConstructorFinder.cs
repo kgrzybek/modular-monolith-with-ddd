@@ -2,7 +2,7 @@
 using System.Reflection;
 using Autofac.Core.Activators.Reflection;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration
 {
     internal class AllConstructorFinder : IConstructorFinder
     {

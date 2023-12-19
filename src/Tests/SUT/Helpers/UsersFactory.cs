@@ -1,7 +1,7 @@
-﻿using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.ConfirmUserRegistration;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.RegisterNewUser;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Users.AddAdminUser;
+﻿using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Contracts;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.UserRegistrations.ConfirmUserRegistration;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.UserRegistrations.RegisterNewUser;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Users.AddAdminUser;
 using CompanyName.MyMeetings.SUT.SeedWork;
 
 namespace CompanyName.MyMeetings.SUT.Helpers

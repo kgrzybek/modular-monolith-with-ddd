@@ -1,10 +1,10 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Commands;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Configuration.Commands;
 using Dapper;
 using MediatR;
 using Newtonsoft.Json;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing.Inbox
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Processing.Inbox
 {
     internal class ProcessInboxCommandHandler : ICommandHandler<ProcessInboxCommand>
     {

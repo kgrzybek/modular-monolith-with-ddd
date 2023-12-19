@@ -6,6 +6,7 @@
     <Copyright>Copyright © $(Company) $([System.DateTime]::Now.Year)</Copyright>
     <Trademark>$(Company)™</Trademark>
     <Product>$(Company) Projects</Product>
+    <!--<Configuration>Debug</Configuration>-->
   </PropertyGroup>
 
   <PropertyGroup>
@@ -21,7 +22,7 @@
     <RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
     <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
     <EnableNETAnalyzers>True</EnableNETAnalyzers>
-    <Optimize>True</Optimize>
+    <!--<Optimize>True</Optimize>-->
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 

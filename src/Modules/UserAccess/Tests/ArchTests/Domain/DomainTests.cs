@@ -1,10 +1,10 @@
 ﻿using System.Reflection;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
-using CompanyName.MyMeetings.Modules.UserAccess.ArchTests.SeedWork;
+using CompanyName.MyMeetings.Modules.UserAccessIS.ArchTests.SeedWork;
 using NetArchTest.Rules;
 using NUnit.Framework;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.ArchTests.Domain
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.ArchTests.Domain
 {
     public class DomainTests : TestBase
     {

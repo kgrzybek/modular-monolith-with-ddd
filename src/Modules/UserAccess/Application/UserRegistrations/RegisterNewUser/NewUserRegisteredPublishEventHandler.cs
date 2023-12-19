@@ -1,8 +1,8 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
-using CompanyName.MyMeetings.Modules.UserAccess.IntegrationEvents;
+using CompanyName.MyMeetings.Modules.UserAccessIS.IntegrationEvents;
 using MediatR;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.RegisterNewUser
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Application.UserRegistrations.RegisterNewUser
 {
     public class NewUserRegisteredPublishEventHandler : INotificationHandler<NewUserRegisteredNotification>
     {

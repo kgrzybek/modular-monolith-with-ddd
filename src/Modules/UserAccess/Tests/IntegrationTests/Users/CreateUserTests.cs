@@ -1,11 +1,11 @@
-﻿using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.ConfirmUserRegistration;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.RegisterNewUser;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Users.GetUser;
-using CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.SeedWork;
-using CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.UserRegistrations;
+﻿using CompanyName.MyMeetings.Modules.UserAccessIS.Application.UserRegistrations.ConfirmUserRegistration;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.UserRegistrations.RegisterNewUser;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Users.GetUser;
+using CompanyName.MyMeetings.Modules.UserAccessIS.IntegrationTests.SeedWork;
+using CompanyName.MyMeetings.Modules.UserAccessIS.IntegrationTests.UserRegistrations;
 using NUnit.Framework;
 
-namespace CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.Users
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.IntegrationTests.Users
 {
     [TestFixture]
     public class CreateUserTests : TestBase

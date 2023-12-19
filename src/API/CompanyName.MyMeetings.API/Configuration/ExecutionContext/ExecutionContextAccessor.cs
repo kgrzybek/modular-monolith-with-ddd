@@ -15,6 +15,7 @@ namespace CompanyName.MyMeetings.API.Configuration.ExecutionContext
         {
             get
             {
+                // nameidentifier
                 if (_httpContextAccessor
                     .HttpContext?
                     .User?
@@ -46,5 +47,7 @@ namespace CompanyName.MyMeetings.API.Configuration.ExecutionContext
         }
 
         public bool IsAvailable => _httpContextAccessor.HttpContext != null;
+
+        public bool IsAuthenticated => IsAvailable && (_httpContextAccessor.HttpContext.User.Identity?.IsAuthenticated ?? false);
     }
 }

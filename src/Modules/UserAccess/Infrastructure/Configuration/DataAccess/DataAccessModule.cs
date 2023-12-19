@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Logging;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.DataAccess
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.DataAccess
 {
     internal class DataAccessModule : Autofac.Module
     {

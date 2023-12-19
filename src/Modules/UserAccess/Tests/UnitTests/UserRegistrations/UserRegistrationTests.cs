@@ -1,12 +1,12 @@
-﻿using CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.SeedWork;
-using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations;
-using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations.Events;
-using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations.Rules;
-using CompanyName.MyMeetings.Modules.UserAccess.Domain.Users.Events;
+﻿using CompanyName.MyMeetings.Modules.UserAccessIS.Domain.UnitTests.SeedWork;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Domain.UserRegistrations;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Domain.UserRegistrations.Events;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Domain.UserRegistrations.Rules;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Domain.Users.Events;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.UserRegistrations
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Domain.UnitTests.UserRegistrations
 {
     [TestFixture]
     public class UserRegistrationTests : TestBase

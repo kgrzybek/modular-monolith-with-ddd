@@ -1,8 +1,8 @@
-﻿using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations;
+﻿using CompanyName.MyMeetings.Modules.UserAccessIS.Domain.UserRegistrations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Domain.UserRegistrations
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Domain.UserRegistrations
 {
     internal class UserRegistrationEntityTypeConfiguration : IEntityTypeConfiguration<UserRegistration>
     {

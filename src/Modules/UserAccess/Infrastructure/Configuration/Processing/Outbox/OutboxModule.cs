@@ -3,10 +3,10 @@ using CompanyName.MyMeetings.BuildingBlocks.Application.Events;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Outbox;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispatching;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Outbox;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Outbox;
 using Module = Autofac.Module;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing.Outbox
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Processing.Outbox
 {
     internal class OutboxModule : Module
     {

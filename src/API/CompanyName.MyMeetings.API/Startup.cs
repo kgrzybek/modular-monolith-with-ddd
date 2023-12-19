@@ -1,4 +1,7 @@
-﻿using Autofac;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Reflection;
+using System.Text.Json;
+using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using CompanyName.MyMeetings.API.Configuration.Authorization;
 using CompanyName.MyMeetings.API.Configuration.ExecutionContext;
@@ -7,22 +10,29 @@ using CompanyName.MyMeetings.API.Configuration.Validation;
 using CompanyName.MyMeetings.API.Modules.Administration;
 using CompanyName.MyMeetings.API.Modules.Meetings;
 using CompanyName.MyMeetings.API.Modules.Payments;
-using CompanyName.MyMeetings.API.Modules.UserAccess;
+using CompanyName.MyMeetings.API.Modules.UserAccess.MicrosoftIdentity.Results;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
+using CompanyName.MyMeetings.Contracts.Results;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.IdentityServer;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.IdentityServer;
+using CompanyName.MyMeetings.Modules.UserAccessMI.Domain.ErrorHandling;
+using CompanyName.MyMeetings.Modules.UserAccessMI.Infrastructure.Configuration;
 using Hellang.Middleware.ProblemDetails;
 using IdentityServer4.AccessTokenValidation;
 using IdentityServer4.Validation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Serilog.Formatting.Compact;
 using ILogger = Serilog.ILogger;
+using UserAccess = CompanyName.MyMeetings.API.Modules.UserAccess;
+using UserAccessISConfiguration = CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration;
 
 namespace CompanyName.MyMeetings.API
 {
@@ -44,7 +54,7 @@ namespace CompanyName.MyMeetings.API
                 .AddEnvironmentVariables("Meetings_")
                 .Build();
 
-            _loggerForApi.Information("Connection string:" + _configuration[MeetingsConnectionString]);
+            _loggerForApi.Information("Connection string:" + _configuration["ConnectionStrings:" + MeetingsConnectionString]);
 
             AuthorizationChecker.CheckAllEndpoints();
         }
@@ -55,10 +65,72 @@ namespace CompanyName.MyMeetings.API
 
             services.AddSwaggerDocumentation();
 
-            ConfigureIdentityServer(services);
-
+            // ConfigureIdentityServer(services);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IExecutionContextAccessor, ExecutionContextAccessor>();
+
+            services.AddAuthentication()
+                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, config =>
+                {
+                    config.RequireHttpsMetadata = false;
+                    config.SaveToken = true;
+
+                    var userAccessConfiguration = _configuration.GetUserAccessConfiguration();
+                    config.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = userAccessConfiguration.GetIssuerSigningKey(),
+                        ValidIssuer = userAccessConfiguration.GetValidIssuer(),
+                        ValidateIssuer = userAccessConfiguration.ShouldValidateIssuer(),
+                        ValidAudience = userAccessConfiguration.GetValidAudience(),
+                        ValidateAudience = userAccessConfiguration.ShouldValidateAudience(),
+                        ValidateLifetime = true,
+                        RequireExpirationTime = true,
+
+                        // Clock skew compensates for server time drift.
+                        ClockSkew = TimeSpan.FromMinutes(5)
+                    };
+
+                    config.Events = new JwtBearerEvents
+                    {
+                        OnChallenge = context =>
+                        {
+                            context.Response.ContentType = "application/json";
+                            context.Response.OnStarting(() =>
+                            {
+                                var error = Errors.Authentication.NotAuthorized();
+                                string result = JsonSerializer.Serialize(Result.Error(error.ToErrorMessages()));
+                                return context.Response.WriteAsync(result);
+                            });
+                            return Task.CompletedTask;
+                        },
+                        OnTokenValidated = context =>
+                        {
+                            return Task.CompletedTask;
+                        },
+                        OnAuthenticationFailed = context =>
+                        {
+                            if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                            {
+                                context.Response.Headers.Append("Token-Expired", "true");
+                            }
+
+                            return Task.CompletedTask;
+                        }
+                    };
+                })
+                .AddCookie(IdentityConstants.ApplicationScheme)
+                .AddCookie(IdentityConstants.TwoFactorUserIdScheme);
+            /*
+                Add additional external authentication providers (don't forget to reference the required packages)
+                Package: Microsoft.AspNetCore.Authentication.Google
+                Google portal (APIs und Services) for configuration: https://console.cloud.google.com/apis/library
+                .AddGoogle(googleOptions =>
+                {
+                    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+                    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+                });
+             */
 
             services.AddProblemDetails(x =>
             {
@@ -75,15 +147,18 @@ namespace CompanyName.MyMeetings.API
                 });
             });
 
-            services.AddScoped<IAuthorizationHandler, HasPermissionAuthorizationHandler>();
+            // services.AddScoped<IAuthorizationHandler, HasPermissionAuthorizationHandler>();
+            services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
         }
 
         public void ConfigureContainer(ContainerBuilder containerBuilder)
         {
             containerBuilder.RegisterModule(new MeetingsAutofacModule());
             containerBuilder.RegisterModule(new AdministrationAutofacModule());
-            containerBuilder.RegisterModule(new UserAccessAutofacModule());
+            containerBuilder.RegisterModule(new UserAccess.IdentityServer.UserAccessAutofacModule());
             containerBuilder.RegisterModule(new PaymentsAutofacModule());
+            containerBuilder.RegisterModule(new UserAccess.MicrosoftIdentity.UserAccessAutofacModule());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -100,8 +175,7 @@ namespace CompanyName.MyMeetings.API
 
             app.UseSwaggerDocumentation();
 
-            app.UseIdentityServer();
-
+            // app.UseIdentityServer();
             if (env.IsDevelopment())
             {
                 app.UseProblemDetails();
@@ -115,6 +189,8 @@ namespace CompanyName.MyMeetings.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
             // app.UseAuthentication();
             app.UseAuthorization();
@@ -148,7 +224,7 @@ namespace CompanyName.MyMeetings.API
                 .AddProfileService<ProfileService>()
                 .AddDeveloperSigningCredential();
 
-            services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>();
+            services.AddTransient<IResourceOwnerPasswordValidator, UserAccess.IdentityServer.ResourceOwnerPasswordValidator>();
 
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                 .AddIdentityServerAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme, x =>
@@ -165,31 +241,33 @@ namespace CompanyName.MyMeetings.API
             var executionContextAccessor = new ExecutionContextAccessor(httpContextAccessor);
 
             var emailsConfiguration = new EmailsConfiguration(_configuration["EmailsConfiguration:FromEmail"]);
+            var userAccessConfiguration = _configuration.GetUserAccessConfiguration();
 
             MeetingsStartup.Initialize(
-                _configuration[MeetingsConnectionString],
+                _configuration["ConnectionStrings:" + MeetingsConnectionString],
                 executionContextAccessor,
                 _logger,
                 emailsConfiguration,
                 null);
 
             AdministrationStartup.Initialize(
-                _configuration[MeetingsConnectionString],
+                _configuration["ConnectionStrings:" + MeetingsConnectionString],
                 executionContextAccessor,
                 _logger,
                 null);
 
             UserAccessStartup.Initialize(
-                _configuration[MeetingsConnectionString],
+                _configuration["ConnectionStrings:" + MeetingsConnectionString],
                 executionContextAccessor,
                 _logger,
                 emailsConfiguration,
                 _configuration["Security:TextEncryptionKey"],
                 null,
-                null);
+                null,
+                userAccessConfiguration);
 
             PaymentsStartup.Initialize(
-                _configuration[MeetingsConnectionString],
+                _configuration["ConnectionStrings:" + MeetingsConnectionString],
                 executionContextAccessor,
                 _logger,
                 emailsConfiguration,

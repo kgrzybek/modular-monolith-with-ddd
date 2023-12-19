@@ -15,6 +15,8 @@ namespace CompanyName.MyMeetings.SUT.SeedWork
 
         public bool IsAvailable { get; }
 
+        public bool IsAuthenticated { get; }
+
         public void SetUserId(Guid userId)
         {
             this.UserId = userId;

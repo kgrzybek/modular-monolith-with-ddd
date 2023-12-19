@@ -4,20 +4,20 @@ using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.RegisterNewUser;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.DataAccess;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Domain;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Email;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.EventsBus;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Logging;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Mediation;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing.Outbox;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Quartz;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Security;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.UserRegistrations.RegisterNewUser;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.DataAccess;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Domain;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Email;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.EventsBus;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Logging;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Mediation;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Processing;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Processing.Outbox;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Quartz;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Security;
 using Serilog;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration
 {
     public class UserAccessStartup
     {

@@ -1,4 +1,4 @@
-﻿namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.GetUserRegistration
+﻿namespace CompanyName.MyMeetings.Modules.UserAccessIS.Application.UserRegistrations.GetUserRegistration
 {
     public class UserRegistrationDto
     {

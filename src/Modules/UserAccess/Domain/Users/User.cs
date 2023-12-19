@@ -1,8 +1,8 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Domain;
-using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations;
-using CompanyName.MyMeetings.Modules.UserAccess.Domain.Users.Events;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Domain.UserRegistrations;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Domain.Users.Events;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.Users
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Domain.Users
 {
     public class User : Entity, IAggregateRoot
     {

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Outbox
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Outbox
 {
     internal class OutboxMessageEntityTypeConfiguration : IEntityTypeConfiguration<OutboxMessage>
     {

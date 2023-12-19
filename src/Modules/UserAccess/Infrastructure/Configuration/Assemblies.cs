@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Contracts;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration
 {
     internal static class Assemblies
     {

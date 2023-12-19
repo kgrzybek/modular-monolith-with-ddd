@@ -2,7 +2,7 @@
 using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Email
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Email
 {
     internal class EmailModule : Module
     {

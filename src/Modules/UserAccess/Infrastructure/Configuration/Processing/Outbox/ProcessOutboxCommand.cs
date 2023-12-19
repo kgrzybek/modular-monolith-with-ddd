@@ -1,8 +1,6 @@
-﻿using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
-
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing.Outbox
+﻿namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Processing.Outbox
 {
-    public class ProcessOutboxCommand : CommandBase, IRecurringCommand
+    public class ProcessOutboxCommand : UserAccessIS.Application.Contracts.CommandBase, IRecurringCommand
     {
     }
 }

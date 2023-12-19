@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Application.Contracts
 {
     public interface ICommand<out TResult> : IRequest<TResult>
     {

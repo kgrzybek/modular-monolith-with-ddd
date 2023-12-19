@@ -1,7 +1,7 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Events;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispatching;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Commands;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Configuration.Commands;
 using Dapper;
 using MediatR;
 using Newtonsoft.Json;
@@ -9,7 +9,7 @@ using Serilog.Context;
 using Serilog.Core;
 using Serilog.Events;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing.Outbox
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Processing.Outbox
 {
     internal class ProcessOutboxCommandHandler : ICommandHandler<ProcessOutboxCommand>
     {

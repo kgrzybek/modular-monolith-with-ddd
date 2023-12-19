@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Security
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Security
 {
     internal class SecurityModule : Module
     {

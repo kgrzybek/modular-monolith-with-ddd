@@ -1,7 +1,7 @@
-﻿using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Users.GetUser;
+﻿using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Contracts;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Users.GetUser;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Users.GetAuthenticatedUser
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Application.Users.GetAuthenticatedUser
 {
     public class GetAuthenticatedUserQuery : QueryBase<UserDto>
     {

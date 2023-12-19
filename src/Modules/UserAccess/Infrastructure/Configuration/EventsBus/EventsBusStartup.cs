@@ -3,7 +3,7 @@ using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
 using CompanyName.MyMeetings.Modules.Meetings.IntegrationEvents;
 using Serilog;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.EventsBus
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.EventsBus
 {
     public static class EventsBusStartup
     {

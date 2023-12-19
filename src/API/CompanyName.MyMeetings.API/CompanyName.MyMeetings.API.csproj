@@ -5,7 +5,15 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
-  </ItemGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DocumentationFile>.\CompanyName.MyMeetings.API.xml</DocumentationFile>
+		<NoWarn>1701;1702;1591</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Modules\UserAccess\IdentityServer\AuthenticatedUserController.cs" />
+	  <Compile Remove="Modules\UserAccess\IdentityServer\EmailsController.cs" />
+	  <Compile Remove="Modules\UserAccess\IdentityServer\UserRegistrationsController.cs" />
+	</ItemGroup>
 </Project>

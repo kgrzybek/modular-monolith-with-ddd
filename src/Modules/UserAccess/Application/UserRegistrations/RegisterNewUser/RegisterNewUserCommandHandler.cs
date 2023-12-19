@@ -1,8 +1,8 @@
-﻿using CompanyName.MyMeetings.Modules.UserAccess.Application.Authentication;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Commands;
-using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations;
+﻿using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Authentication;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Configuration.Commands;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Domain.UserRegistrations;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.RegisterNewUser
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Application.UserRegistrations.RegisterNewUser
 {
     internal class RegisterNewUserCommandHandler : ICommandHandler<RegisterNewUserCommand, Guid>
     {

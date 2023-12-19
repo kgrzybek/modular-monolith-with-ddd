@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Security
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Security
 {
     public class AesDataProtector : IDataProtector
     {
