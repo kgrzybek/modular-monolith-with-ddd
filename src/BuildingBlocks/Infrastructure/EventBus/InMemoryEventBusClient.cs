@@ -2,19 +2,23 @@
 
 namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus
 {
-    public class InMemoryEventBusClient : IEventsBus
+    /// <summary>
+    /// Represents an in-memory event bus client that implements the <see cref="IEventsBus"/> interface.
+    /// </summary>
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="InMemoryEventBusClient"/> class.
+    /// </remarks>
+    /// <param name="logger">The logger used for logging.</param>
+    public class InMemoryEventBusClient(ILogger logger) : IEventsBus
     {
-        private readonly ILogger _logger;
+        private readonly ILogger _logger = logger;
 
-        public InMemoryEventBusClient(ILogger logger)
-        {
-            _logger = logger;
-        }
-
+        /// <inheritdoc/>
         public void Dispose()
         {
         }
 
+        /// <inheritdoc/>
         public async Task Publish<T>(T @event)
             where T : IntegrationEvent
         {
@@ -22,12 +26,14 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus
             await InMemoryEventBus.Instance.Publish(@event);
         }
 
+        /// <inheritdoc/>
         public void Subscribe<T>(IIntegrationEventHandler<T> handler)
             where T : IntegrationEvent
         {
             InMemoryEventBus.Instance.Subscribe(handler);
         }
 
+        /// <inheritdoc/>
         public void StartConsuming()
         {
         }

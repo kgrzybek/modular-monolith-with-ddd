@@ -9,6 +9,9 @@ using Newtonsoft.Json;
 
 namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispatching
 {
+    /// <summary>
+    /// Represents a class responsible for dispatching domain events.
+    /// </summary>
     public class DomainEventsDispatcher : IDomainEventsDispatcher
     {
         private readonly IMediator _mediator;
@@ -21,6 +24,14 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispa
 
         private readonly IDomainNotificationsMapper _domainNotificationsMapper;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DomainEventsDispatcher"/> class.
+        /// </summary>
+        /// <param name="mediator">The mediator.</param>
+        /// <param name="scope">The scope.</param>
+        /// <param name="outbox">The outbox.</param>
+        /// <param name="domainEventsProvider">The domain events provider.</param>
+        /// <param name="domainNotificationsMapper">The domain notifications mapper.</param>
         public DomainEventsDispatcher(
             IMediator mediator,
             ILifetimeScope scope,
@@ -35,6 +46,10 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispa
             _domainNotificationsMapper = domainNotificationsMapper;
         }
 
+        /// <summary>
+        /// Dispatches the domain events asynchronously.
+        /// </summary>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         public async Task DispatchEventsAsync()
         {
             var domainEvents = _domainEventsProvider.GetAllDomainEvents();

@@ -1,14 +1,17 @@
 ﻿namespace CompanyName.MyMeetings.BuildingBlocks.Application.Queries
 {
+    /// <summary>
+    /// Represents a paged query.
+    /// </summary>
     public interface IPagedQuery
     {
         /// <summary>
-        /// Page number. If null then default is 1.
+        /// Gets or sets the page number. If null, the default is 1.
         /// </summary>
         int? Page { get; }
 
         /// <summary>
-        /// Records number per page (page size).
+        /// Gets or sets the number of records per page (page size).
         /// </summary>
         int? PerPage { get; }
     }
