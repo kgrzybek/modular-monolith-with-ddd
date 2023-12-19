@@ -17,10 +17,11 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistration
         {
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
-            const string sql = "SELECT " +
-                               "COUNT(*) " +
-                               "FROM [users].[v_Users] AS [User]" +
-                               "WHERE [User].[Login] = @Login";
+            const string sql = """
+                                SELECT COUNT(*) 
+                                FROM [users].[v_Users] AS [User]
+                                WHERE [User].[Login] = @Login
+                                """;
             return connection.QuerySingle<int>(
                 sql,
                 new

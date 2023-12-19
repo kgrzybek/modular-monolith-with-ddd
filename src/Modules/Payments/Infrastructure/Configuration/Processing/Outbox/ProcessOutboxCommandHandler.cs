@@ -32,20 +32,24 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
         public async Task Handle(ProcessOutboxCommand command, CancellationToken cancellationToken)
         {
             var connection = this._sqlConnectionFactory.GetOpenConnection();
-            string sql = "SELECT " +
-                         $"[OutboxMessage].[Id] AS [{nameof(OutboxMessageDto.Id)}], " +
-                         $"[OutboxMessage].[Type] AS [{nameof(OutboxMessageDto.Type)}], " +
-                         $"[OutboxMessage].[Data] AS [{nameof(OutboxMessageDto.Data)}] " +
-                         "FROM [payments].[OutboxMessages] AS [OutboxMessage] " +
-                         "WHERE [OutboxMessage].[ProcessedDate] IS NULL " +
-                         "ORDER BY [OutboxMessage].[OccurredOn]";
+            const string sql = $"""
+                                SELECT 
+                                  [OutboxMessage].[Id] AS [{nameof(OutboxMessageDto.Id)}], 
+                                  [OutboxMessage].[Type] AS [{nameof(OutboxMessageDto.Type)}], 
+                                  [OutboxMessage].[Data] AS [{nameof(OutboxMessageDto.Data)}] 
+                                FROM [payments].[OutboxMessages] AS [OutboxMessage] 
+                                WHERE [OutboxMessage].[ProcessedDate] IS NULL 
+                                ORDER BY [OutboxMessage].[OccurredOn]
+                               """;
 
             var messages = await connection.QueryAsync<OutboxMessageDto>(sql);
             var messagesList = messages.AsList();
 
-            const string sqlUpdateProcessedDate = "UPDATE [payments].[OutboxMessages] " +
-                                                  "SET [ProcessedDate] = @Date " +
-                                                  "WHERE [Id] = @Id";
+            const string sqlUpdateProcessedDate = """
+                                                  UPDATE [payments].[OutboxMessages] 
+                                                  SET [ProcessedDate] = @Date 
+                                                  WHERE [Id] = @Id
+                                                  """;
             if (messagesList.Count > 0)
             {
                 foreach (var message in messagesList)

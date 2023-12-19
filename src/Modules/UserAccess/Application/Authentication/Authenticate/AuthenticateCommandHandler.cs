@@ -19,15 +19,17 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Authentication.A
         {
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
-            const string sql = "SELECT " +
-                               "[User].[Id], " +
-                               "[User].[Login], " +
-                               "[User].[Name], " +
-                               "[User].[Email], " +
-                               "[User].[IsActive], " +
-                               "[User].[Password] " +
-                               "FROM [users].[v_Users] AS [User] " +
-                               "WHERE [User].[Login] = @Login";
+            const string sql = $"""
+                                SELECT 
+                                   [User].[Id] as [{nameof(UserDto.Id)}],
+                                   [User].[Login] as [{nameof(UserDto.Login)}],
+                                   [User].[Name] as [{nameof(UserDto.Name)}],
+                                   [User].[Email] as [{nameof(UserDto.Email)}],
+                                   [User].[IsActive] as [{nameof(UserDto.IsActive)}],
+                                   [User].[Password]  as [{nameof(UserDto.Password)}]
+                               FROM [users].[v_Users] AS [User] 
+                               WHERE [User].[Login] = @Login
+                               """;
 
             var user = await connection.QuerySingleOrDefaultAsync<UserDto>(
                 sql,
