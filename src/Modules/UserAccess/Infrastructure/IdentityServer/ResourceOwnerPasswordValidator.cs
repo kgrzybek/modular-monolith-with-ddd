@@ -3,16 +3,11 @@ using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
 using IdentityServer4.Models;
 using IdentityServer4.Validation;
 
-namespace CompanyName.MyMeetings.API.Modules.UserAccess
+namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.IdentityServer
 {
-    public class ResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
+    public class ResourceOwnerPasswordValidator(IUserAccessModule userAccessModule) : IResourceOwnerPasswordValidator
     {
-        private readonly IUserAccessModule _userAccessModule;
-
-        public ResourceOwnerPasswordValidator(IUserAccessModule userAccessModule)
-        {
-            _userAccessModule = userAccessModule;
-        }
+        private readonly IUserAccessModule _userAccessModule = userAccessModule;
 
         public async Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
         {

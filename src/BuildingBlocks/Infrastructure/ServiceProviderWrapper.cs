@@ -19,6 +19,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure
         }
 
         #nullable enable
+
         /// <inheritdoc/>
         public object? GetService(Type serviceType) => this.lifeTimeScope.ResolveOptional(serviceType);
     }
