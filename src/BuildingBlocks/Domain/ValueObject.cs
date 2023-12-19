@@ -45,8 +45,8 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Domain
                 return false;
             }
 
-            return GetProperties().All(p => PropertiesAreEqual(obj, p))
-                && GetFields().All(f => FieldsAreEqual(obj, f));
+            return GetProperties().TrueForAll(p => PropertiesAreEqual(obj, p))
+                && GetFields().TrueForAll(f => FieldsAreEqual(obj, f));
         }
 
         public override int GetHashCode()
@@ -88,7 +88,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Domain
             return object.Equals(f.GetValue(this), f.GetValue(obj));
         }
 
-        private IEnumerable<PropertyInfo> GetProperties()
+        private List<PropertyInfo> GetProperties()
         {
             if (this._properties == null)
             {
@@ -104,7 +104,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Domain
             return this._properties;
         }
 
-        private IEnumerable<FieldInfo> GetFields()
+        private List<FieldInfo> GetFields()
         {
             if (this._fields == null)
             {
@@ -116,7 +116,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Domain
             return this._fields;
         }
 
-        private int HashValue(int seed, object value)
+        private static int HashValue(int seed, object value)
         {
             var currentHash = value?.GetHashCode() ?? 0;
 
