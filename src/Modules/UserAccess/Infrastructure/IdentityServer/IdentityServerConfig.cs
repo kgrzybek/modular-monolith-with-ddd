@@ -2,9 +2,9 @@
 using IdentityServer4;
 using IdentityServer4.Models;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Application.IdentityServer
+namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.IdentityServer
 {
-    public class IdentityServerConfig
+    internal class IdentityServerConfig
     {
         public static IEnumerable<ApiScope> GetApiScopes()
         {
