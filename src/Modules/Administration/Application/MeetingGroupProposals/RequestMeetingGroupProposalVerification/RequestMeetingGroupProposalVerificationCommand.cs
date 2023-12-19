@@ -8,7 +8,6 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroup
     /// </summary>
     public class RequestMeetingGroupProposalVerificationCommand : InternalCommandBase<Guid>
     {
-        [JsonConstructor]
         /// <summary>
         /// Initializes a new instance of the <see cref="RequestMeetingGroupProposalVerificationCommand"/> class.
         /// </summary>
@@ -20,6 +19,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroup
         /// <param name="locationCountryCode">The country code of the meeting group proposal location.</param>
         /// <param name="proposalUserId">The unique identifier of the user who proposed the meeting group.</param>
         /// <param name="proposalDate">The date when the meeting group proposal was made.</param>
+        [JsonConstructor]
         public RequestMeetingGroupProposalVerificationCommand(
             Guid id,
             Guid meetingGroupProposalId,
