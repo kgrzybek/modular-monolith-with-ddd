@@ -1,9 +1,9 @@
-﻿using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations;
-using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations.Events;
-using CompanyName.MyMeetings.Modules.UserAccess.Domain.Users;
+﻿using CompanyName.MyMeetings.Modules.UserAccessIS.Domain.UserRegistrations;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Domain.UserRegistrations.Events;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Domain.Users;
 using MediatR;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.ConfirmUserRegistration
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Application.UserRegistrations.ConfirmUserRegistration
 {
     public class UserRegistrationConfirmedHandler : INotificationHandler<UserRegistrationConfirmedDomainEvent>
     {

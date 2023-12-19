@@ -1,5 +1,5 @@
 ﻿using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands;
-using CompanyName.MyMeetings.Modules.UserAccess.IntegrationEvents;
+using CompanyName.MyMeetings.Modules.UserAccessMI.IntegrationEvents;
 using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.Members.CreateMember

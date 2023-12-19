@@ -1,4 +1,4 @@
-﻿namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.Users
+﻿namespace CompanyName.MyMeetings.Modules.UserAccessIS.Domain.Users
 {
     public interface IUserRepository
     {

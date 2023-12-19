@@ -7,6 +7,8 @@
     <PackageReference Include="Hellang.Middleware.ProblemDetails" Version="6.5.1" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" PrivateAssets="All" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" PrivateAssets="All" />
+	<PackageReference Include="AutoMapper" Version="12.0.1" PrivateAssets="All" />
+	<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup Condition="$(MSBuildProjectName.EndsWith('Migrator'))">
     <PackageReference Include="dbup-sqlserver" Version="5.0.37" />
@@ -19,7 +21,8 @@
   <ItemGroup Condition="$(MSBuildProjectName.EndsWith('BuildingBlocks.Application'))">
     <PackageReference Include="Dapper" Version="2.1.24" />
     <PackageReference Include="FluentValidation" Version="11.8.1" />
-
+    <PackageReference Include="IdentityServer4" Version="4.1.2" />
+    <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Quartz" Version="3.8.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />

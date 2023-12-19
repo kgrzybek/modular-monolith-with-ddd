@@ -1,4 +1,4 @@
-﻿namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Security
+﻿namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Security
 {
     public interface IDataProtector
     {

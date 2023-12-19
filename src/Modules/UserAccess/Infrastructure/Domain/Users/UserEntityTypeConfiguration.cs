@@ -1,8 +1,8 @@
-﻿using CompanyName.MyMeetings.Modules.UserAccess.Domain.Users;
+﻿using CompanyName.MyMeetings.Modules.UserAccessIS.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Domain.Users
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Domain.Users
 {
     internal class UserEntityTypeConfiguration : IEntityTypeConfiguration<User>
     {

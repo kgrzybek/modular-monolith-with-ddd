@@ -1,6 +1,6 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Outbox;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Outbox
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Outbox
 {
     public class OutboxAccessor : IOutbox
     {

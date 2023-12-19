@@ -1,10 +1,10 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Queries;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Users.GetUser;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Configuration.Queries;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Users.GetUser;
 using Dapper;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Users.GetAuthenticatedUser
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Application.Users.GetAuthenticatedUser
 {
     internal class GetAuthenticatedUserQueryHandler : IQueryHandler<GetAuthenticatedUserQuery, UserDto>
     {

@@ -89,6 +89,9 @@
     <Folder Include="Structure\users\" />
     <Folder Include="Structure\users\Tables\" />
     <Folder Include="Structure\users\Views\" />
+    <Folder Include="Structure\usersmi" />
+    <Folder Include="Structure\usersmi\Tables" />
+    <Folder Include="Structure\usersmi\Views" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Structure\administration\Tables\InboxMessages.sql" />
@@ -172,8 +175,28 @@
     <None Include="Scripts\Migrations\1_0_0_0\0011_add_likes_count_to_meeting_comments_table.sql" />
     <None Include="Scripts\Migrations\1_0_0_0\0012_add_likes_count_to_meeting_comments_view.sql" />
     <None Include="Scripts\Migrations\1_0_0_0\0013_add_meeting_member_comment_likes_table.sql" />
+    <Build Include="Structure\usersmi\Tables\Permission.sql" />
+    <Build Include="Structure\usersmi\Tables\Role.sql" />
+    <Build Include="Structure\usersmi\Tables\RoleClaim.sql" />
+    <Build Include="Structure\usersmi\Tables\User.sql" />
+    <Build Include="Structure\usersmi\Tables\UserClaim.sql" />
+    <Build Include="Structure\usersmi\Tables\UserLogin.sql" />
+    <Build Include="Structure\usersmi\Tables\UserRefreshToken.sql" />
+    <Build Include="Structure\usersmi\Tables\UserRole.sql" />
+    <Build Include="Structure\usersmi\Tables\UserToken.sql" />
+    <Build Include="Structure\usersmi\Tables\InboxMessages.sql" />
+    <Build Include="Structure\usersmi\Tables\InternalCommands.sql" />
+    <Build Include="Structure\usersmi\Tables\OutboxMessages.sql" />
+    <Build Include="Structure\usersmi\Tables\UserRegistrations.sql" />
+    <Build Include="Structure\usersmi\Views\v_UserRegistrations.sql" />
+    <Build Include="Structure\usersmi\Views\v_UserRoles.sql" />
+    <Build Include="Structure\usersmi\Views\v_Users.sql" />
+    <Build Include="Structure\usersmi\Views\v_UserPermissions.sql" />
+    <None Include="Scripts\Seeds\0004_SeedUsers.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\ClearDatabase.sql" />
+    <None Include="Scripts\Seeds\0002_SeedPermissions.sql" />
+    <None Include="Scripts\Seeds\0003_SeedRoles.sql" />
   </ItemGroup>
 </Project>

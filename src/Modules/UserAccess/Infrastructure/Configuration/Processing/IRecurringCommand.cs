@@ -1,4 +1,4 @@
-﻿namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing
+﻿namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Processing
 {
     public interface IRecurringCommand
     {

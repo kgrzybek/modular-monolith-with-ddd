@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using Quartz;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Quartz
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Quartz
 {
     public class QuartzModule : Autofac.Module
     {

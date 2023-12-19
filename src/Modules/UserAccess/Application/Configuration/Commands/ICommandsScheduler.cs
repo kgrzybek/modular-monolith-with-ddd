@@ -1,6 +1,6 @@
-﻿using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
+﻿using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Contracts;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Commands
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Application.Configuration.Commands
 {
     public interface ICommandsScheduler
     {

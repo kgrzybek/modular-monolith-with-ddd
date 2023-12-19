@@ -1,8 +1,8 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Queries;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Configuration.Queries;
 using Dapper;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Users.GetUser
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Application.Users.GetUser
 {
     internal class GetUserQueryHandler : IQueryHandler<GetUserQuery, UserDto>
     {

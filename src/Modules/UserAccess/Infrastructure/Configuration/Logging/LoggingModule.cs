@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using Serilog;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Logging
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Logging
 {
     internal class LoggingModule : Autofac.Module
     {

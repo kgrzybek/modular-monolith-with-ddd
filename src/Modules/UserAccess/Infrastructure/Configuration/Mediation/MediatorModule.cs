@@ -3,12 +3,12 @@ using Autofac;
 using Autofac.Core;
 using Autofac.Features.Variance;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Commands;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Configuration.Commands;
 using FluentValidation;
 using MediatR;
 using MediatR.Pipeline;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Mediation
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Mediation
 {
     public class MediatorModule : Autofac.Module
     {

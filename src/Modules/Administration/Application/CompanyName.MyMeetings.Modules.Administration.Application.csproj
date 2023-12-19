@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <ProjectReference Include="..\..\Meetings\IntegrationEvents\CompanyName.MyMeetings.Modules.Meetings.IntegrationEvents.csproj" />
-    <ProjectReference Include="..\..\UserAccess\IntegrationEvents\CompanyName.MyMeetings.Modules.UserAccess.IntegrationEvents.csproj" />
+    <ProjectReference Include="..\..\UserAccessMI\IntegrationEvents\CompanyName.MyMeetings.Modules.UserAccessMI.IntegrationEvents.csproj" />
   </ItemGroup>
 </Project>

@@ -1,15 +1,14 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Application;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Commands;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Configuration.Commands;
 using Serilog;
 using Serilog.Context;
 using Serilog.Core;
 using Serilog.Events;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Processing
 {
     internal class LoggingCommandHandlerDecorator<T> : ICommandHandler<T>
-        where T : ICommand
+        where T : UserAccessIS.Application.Contracts.ICommand
     {
         private readonly ILogger _logger;
         private readonly IExecutionContextAccessor _executionContextAccessor;
@@ -57,9 +56,9 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
 
         private class CommandLogEnricher : ILogEventEnricher
         {
-            private readonly ICommand _command;
+            private readonly UserAccessIS.Application.Contracts.ICommand _command;
 
-            public CommandLogEnricher(ICommand command)
+            public CommandLogEnricher(UserAccessIS.Application.Contracts.ICommand command)
             {
                 _command = command;
             }

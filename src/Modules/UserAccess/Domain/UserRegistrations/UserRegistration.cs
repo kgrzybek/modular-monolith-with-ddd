@@ -1,9 +1,9 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Domain;
-using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations.Events;
-using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations.Rules;
-using CompanyName.MyMeetings.Modules.UserAccess.Domain.Users;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Domain.UserRegistrations.Events;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Domain.UserRegistrations.Rules;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Domain.Users;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Domain.UserRegistrations
 {
     public class UserRegistration : Entity, IAggregateRoot
     {

@@ -1,10 +1,10 @@
 ﻿using Autofac;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Contracts;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Processing;
 using MediatR;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure
 {
     public class UserAccessModule : IUserAccessModule
     {

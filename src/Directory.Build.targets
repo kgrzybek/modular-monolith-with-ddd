@@ -19,6 +19,7 @@
 
   <ItemGroup Condition="$(MSBuildProjectName.EndsWith('API'))">
     <ProjectReference Include="..\..\Modules\**\Infrastructure\*.csproj" />
+	<ProjectReference Include="..\CompanyName.MyMeetings.Contracts\CompanyName.MyMeetings.Contracts.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="$(MSBuildProjectFullPath.Contains('BuildingBlocks')) and $(MSBuildProjectName.EndsWith('Application'))">

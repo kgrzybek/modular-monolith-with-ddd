@@ -1,10 +1,10 @@
 ﻿using System.Security.Claims;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Commands;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Configuration.Commands;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Contracts;
 using Dapper;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Authentication.Authenticate
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Application.Authentication.Authenticate
 {
     internal class AuthenticateCommandHandler : ICommandHandler<AuthenticateCommand, AuthenticationResult>
     {

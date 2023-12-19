@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UserAccess", "UserAccess", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{BC9DDFD1-FB81-4996-812A-68BEBCA33A97}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.UserAccess.Application", "Modules\UserAccess\Application\CompanyName.MyMeetings.Modules.UserAccess.Application.csproj", "{F34C6504-590B-480A-A239-F230CDFF8CED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.UserAccessIS.Application", "Modules\UserAccess\Application\CompanyName.MyMeetings.Modules.UserAccessIS.Application.csproj", "{F34C6504-590B-480A-A239-F230CDFF8CED}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.Meetings.Application", "Modules\Meetings\Application\CompanyName.MyMeetings.Modules.Meetings.Application.csproj", "{5C2C1630-8A7A-451F-81A8-8547C939F5FD}"
 EndProject
@@ -41,11 +41,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{C7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.Administration.IntegrationEvents", "Modules\Administration\IntegrationEvents\CompanyName.MyMeetings.Modules.Administration.IntegrationEvents.csproj", "{396817BD-94A7-4559-A7F1-2FAB8009BCF8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.UserAccess.Infrastructure", "Modules\UserAccess\Infrastructure\CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.csproj", "{55E1C531-2B9B-49B1-BDFE-9DE322E7FE00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure", "Modules\UserAccess\Infrastructure\CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.csproj", "{55E1C531-2B9B-49B1-BDFE-9DE322E7FE00}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.UserAccess.Domain", "Modules\UserAccess\Domain\CompanyName.MyMeetings.Modules.UserAccess.Domain.csproj", "{F364B0C4-1882-46A1-9B08-22587BEF05A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.UserAccessIS.Domain", "Modules\UserAccess\Domain\CompanyName.MyMeetings.Modules.UserAccessIS.Domain.csproj", "{F364B0C4-1882-46A1-9B08-22587BEF05A2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.UserAccess.IntegrationEvents", "Modules\UserAccess\IntegrationEvents\CompanyName.MyMeetings.Modules.UserAccess.IntegrationEvents.csproj", "{0C31EA31-6A10-47D0-82E5-6D224E1CE532}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.UserAccessIS.IntegrationEvents", "Modules\UserAccess\IntegrationEvents\CompanyName.MyMeetings.Modules.UserAccessIS.IntegrationEvents.csproj", "{0C31EA31-6A10-47D0-82E5-6D224E1CE532}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payments", "Payments", "{13E4D721-2E96-497E-9657-503D09468F9F}"
 EndProject
@@ -63,7 +63,7 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CompanyName.MyMeetings.Data
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0FF699EF-8156-43CB-8D18-8EA28F30E9EE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests", "Modules\UserAccess\Tests\UnitTests\CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.csproj", "{0BC12804-A858-427B-88E2-F9CDE9E97986}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.UserAccessIS.Domain.UnitTests", "Modules\UserAccess\Tests\UnitTests\CompanyName.MyMeetings.Modules.UserAccessIS.Domain.UnitTests.csproj", "{0BC12804-A858-427B-88E2-F9CDE9E97986}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{53E4F002-E708-45F7-8444-19EB8977B5C9}"
 EndProject
@@ -87,9 +87,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.Payments.ArchTests", "Modules\Payments\Tests\ArchTests\CompanyName.MyMeetings.Modules.Payments.ArchTests.csproj", "{1885C71E-1624-4673-B0BC-BF4035CFFE72}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.UserAccess.ArchTests", "Modules\UserAccess\Tests\ArchTests\CompanyName.MyMeetings.Modules.UserAccess.ArchTests.csproj", "{F8EE61DA-0E8B-4074-A0AF-433244EC1FB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.UserAccessIS.ArchTests", "Modules\UserAccess\Tests\ArchTests\CompanyName.MyMeetings.Modules.UserAccessIS.ArchTests.csproj", "{F8EE61DA-0E8B-4074-A0AF-433244EC1FB8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests", "Modules\UserAccess\Tests\IntegrationTests\CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.csproj", "{396A6C3F-74BA-4D85-8BF3-1182F9DE9D95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.UserAccessIS.IntegrationTests", "Modules\UserAccess\Tests\IntegrationTests\CompanyName.MyMeetings.Modules.UserAccessIS.IntegrationTests.csproj", "{396A6C3F-74BA-4D85-8BF3-1182F9DE9D95}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.Payments.IntegrationTests", "Modules\Payments\Tests\IntegrationTests\CompanyName.MyMeetings.Modules.Payments.IntegrationTests.csproj", "{B448FDC3-5F85-47EE-9F4A-2654E8CC67E1}"
 EndProject
@@ -135,6 +135,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RequestExamples", "RequestE
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.SUT", "Tests\SUT\CompanyName.MyMeetings.SUT.csproj", "{1853847F-9988-43A1-B3E1-DDBE4B2F3365}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityServer", "IdentityServer", "{1761E09E-402B-4273-BDE5-0A8D9BD2BAC0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MicrosoftIdentity", "MicrosoftIdentity", "{10AFBD87-F071-47A5-B3E6-F7B4C63E1207}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.UserAccessMI.Domain", "Modules\UserAccessMI\Domain\CompanyName.MyMeetings.Modules.UserAccessMI.Domain.csproj", "{44FD1665-B9E0-4B6C-BAE2-043E8EB9DCEB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.UserAccessMI.Infrastructure", "Modules\UserAccessMI\Infrastructure\CompanyName.MyMeetings.Modules.UserAccessMI.Infrastructure.csproj", "{D98E656A-90DB-449D-9E37-19E315B6C13F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.UserAccessMI.Application", "Modules\UserAccessMI\Application\CompanyName.MyMeetings.Modules.UserAccessMI.Application.csproj", "{738C7BA8-036F-4B73-B90E-6D26F076D53C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyName.MyMeetings.Modules.UserAccessMI.IntegrationEvents", "Modules\UserAccessMI\IntegrationEvents\CompanyName.MyMeetings.Modules.UserAccessMI.IntegrationEvents.csproj", "{CDD3A192-432E-478D-AE93-A16707FCF801}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyName.MyMeetings.Contracts", "API\CompanyName.MyMeetings.Contracts\CompanyName.MyMeetings.Contracts.csproj", "{45821070-B75C-458C-A25E-2EDD86E47152}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -385,6 +399,36 @@ Global
 		{1853847F-9988-43A1-B3E1-DDBE4B2F3365}.Production|Any CPU.Build.0 = Debug|Any CPU
 		{1853847F-9988-43A1-B3E1-DDBE4B2F3365}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1853847F-9988-43A1-B3E1-DDBE4B2F3365}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44FD1665-B9E0-4B6C-BAE2-043E8EB9DCEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44FD1665-B9E0-4B6C-BAE2-043E8EB9DCEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44FD1665-B9E0-4B6C-BAE2-043E8EB9DCEB}.Production|Any CPU.ActiveCfg = Production|Any CPU
+		{44FD1665-B9E0-4B6C-BAE2-043E8EB9DCEB}.Production|Any CPU.Build.0 = Production|Any CPU
+		{44FD1665-B9E0-4B6C-BAE2-043E8EB9DCEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44FD1665-B9E0-4B6C-BAE2-043E8EB9DCEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D98E656A-90DB-449D-9E37-19E315B6C13F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D98E656A-90DB-449D-9E37-19E315B6C13F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D98E656A-90DB-449D-9E37-19E315B6C13F}.Production|Any CPU.ActiveCfg = Production|Any CPU
+		{D98E656A-90DB-449D-9E37-19E315B6C13F}.Production|Any CPU.Build.0 = Production|Any CPU
+		{D98E656A-90DB-449D-9E37-19E315B6C13F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D98E656A-90DB-449D-9E37-19E315B6C13F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{738C7BA8-036F-4B73-B90E-6D26F076D53C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{738C7BA8-036F-4B73-B90E-6D26F076D53C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{738C7BA8-036F-4B73-B90E-6D26F076D53C}.Production|Any CPU.ActiveCfg = Production|Any CPU
+		{738C7BA8-036F-4B73-B90E-6D26F076D53C}.Production|Any CPU.Build.0 = Production|Any CPU
+		{738C7BA8-036F-4B73-B90E-6D26F076D53C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{738C7BA8-036F-4B73-B90E-6D26F076D53C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDD3A192-432E-478D-AE93-A16707FCF801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDD3A192-432E-478D-AE93-A16707FCF801}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDD3A192-432E-478D-AE93-A16707FCF801}.Production|Any CPU.ActiveCfg = Production|Any CPU
+		{CDD3A192-432E-478D-AE93-A16707FCF801}.Production|Any CPU.Build.0 = Production|Any CPU
+		{CDD3A192-432E-478D-AE93-A16707FCF801}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDD3A192-432E-478D-AE93-A16707FCF801}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45821070-B75C-458C-A25E-2EDD86E47152}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45821070-B75C-458C-A25E-2EDD86E47152}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45821070-B75C-458C-A25E-2EDD86E47152}.Production|Any CPU.ActiveCfg = Production|Any CPU
+		{45821070-B75C-458C-A25E-2EDD86E47152}.Production|Any CPU.Build.0 = Production|Any CPU
+		{45821070-B75C-458C-A25E-2EDD86E47152}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45821070-B75C-458C-A25E-2EDD86E47152}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -393,7 +437,7 @@ Global
 		{49D08B64-AC8E-4607-820F-8A0B989CFD33} = {BC9DDFD1-FB81-4996-812A-68BEBCA33A97}
 		{9CD43CAC-C149-41E1-9654-157D578143B7} = {BCE1EE3C-ADB1-48CC-9FD1-C7324D886964}
 		{AE6D0618-60E1-40B2-A46F-664A19C9503C} = {BCE1EE3C-ADB1-48CC-9FD1-C7324D886964}
-		{F34C6504-590B-480A-A239-F230CDFF8CED} = {AE6D0618-60E1-40B2-A46F-664A19C9503C}
+		{F34C6504-590B-480A-A239-F230CDFF8CED} = {1761E09E-402B-4273-BDE5-0A8D9BD2BAC0}
 		{5C2C1630-8A7A-451F-81A8-8547C939F5FD} = {9CD43CAC-C149-41E1-9654-157D578143B7}
 		{F71CFDA8-0770-4761-896A-FB0098113F87} = {9CD43CAC-C149-41E1-9654-157D578143B7}
 		{93F3D023-37BD-4C5C-9442-DE2631CD4954} = {9CD43CAC-C149-41E1-9654-157D578143B7}
@@ -405,9 +449,9 @@ Global
 		{CD765A37-EB16-4E35-AA03-6E706D70E8A0} = {5F398170-87FD-4368-9930-FAAAD2D9FDCC}
 		{3ED61776-83A0-426C-9B3A-3AB755DA01EF} = {9CD43CAC-C149-41E1-9654-157D578143B7}
 		{396817BD-94A7-4559-A7F1-2FAB8009BCF8} = {5F398170-87FD-4368-9930-FAAAD2D9FDCC}
-		{55E1C531-2B9B-49B1-BDFE-9DE322E7FE00} = {AE6D0618-60E1-40B2-A46F-664A19C9503C}
-		{F364B0C4-1882-46A1-9B08-22587BEF05A2} = {AE6D0618-60E1-40B2-A46F-664A19C9503C}
-		{0C31EA31-6A10-47D0-82E5-6D224E1CE532} = {AE6D0618-60E1-40B2-A46F-664A19C9503C}
+		{55E1C531-2B9B-49B1-BDFE-9DE322E7FE00} = {1761E09E-402B-4273-BDE5-0A8D9BD2BAC0}
+		{F364B0C4-1882-46A1-9B08-22587BEF05A2} = {1761E09E-402B-4273-BDE5-0A8D9BD2BAC0}
+		{0C31EA31-6A10-47D0-82E5-6D224E1CE532} = {1761E09E-402B-4273-BDE5-0A8D9BD2BAC0}
 		{13E4D721-2E96-497E-9657-503D09468F9F} = {BCE1EE3C-ADB1-48CC-9FD1-C7324D886964}
 		{6E013582-9E44-4D7E-8CFE-5F6FB6757B03} = {13E4D721-2E96-497E-9657-503D09468F9F}
 		{C457929B-91BE-48CC-A714-217D9CABD3CC} = {13E4D721-2E96-497E-9657-503D09468F9F}
@@ -415,7 +459,7 @@ Global
 		{8DF88C85-594D-45D7-B12E-6B641D497853} = {13E4D721-2E96-497E-9657-503D09468F9F}
 		{9EAA687B-951E-4D89-8857-99151FF1BCD7} = {E91D4BE3-61FE-441C-A227-29850D414216}
 		{43DBBB02-CA43-42AD-BE21-04AC867BA168} = {C733D087-7051-4E35-BCDB-081252A108E5}
-		{0FF699EF-8156-43CB-8D18-8EA28F30E9EE} = {AE6D0618-60E1-40B2-A46F-664A19C9503C}
+		{0FF699EF-8156-43CB-8D18-8EA28F30E9EE} = {1761E09E-402B-4273-BDE5-0A8D9BD2BAC0}
 		{0BC12804-A858-427B-88E2-F9CDE9E97986} = {0FF699EF-8156-43CB-8D18-8EA28F30E9EE}
 		{53E4F002-E708-45F7-8444-19EB8977B5C9} = {13E4D721-2E96-497E-9657-503D09468F9F}
 		{602768DD-F063-469D-9CD3-95CB02F6E441} = {53E4F002-E708-45F7-8444-19EB8977B5C9}
@@ -440,6 +484,13 @@ Global
 		{165E76B9-DB0C-49B7-B3DC-52DFBEA55A79} = {C733D087-7051-4E35-BCDB-081252A108E5}
 		{00B904C6-D29A-4F26-B7AD-116C701DB73F} = {BC9DDFD1-FB81-4996-812A-68BEBCA33A97}
 		{1853847F-9988-43A1-B3E1-DDBE4B2F3365} = {8B08A9EE-CE27-4CC3-ACB3-3BD9628E5479}
+		{1761E09E-402B-4273-BDE5-0A8D9BD2BAC0} = {AE6D0618-60E1-40B2-A46F-664A19C9503C}
+		{10AFBD87-F071-47A5-B3E6-F7B4C63E1207} = {AE6D0618-60E1-40B2-A46F-664A19C9503C}
+		{44FD1665-B9E0-4B6C-BAE2-043E8EB9DCEB} = {10AFBD87-F071-47A5-B3E6-F7B4C63E1207}
+		{D98E656A-90DB-449D-9E37-19E315B6C13F} = {10AFBD87-F071-47A5-B3E6-F7B4C63E1207}
+		{738C7BA8-036F-4B73-B90E-6D26F076D53C} = {10AFBD87-F071-47A5-B3E6-F7B4C63E1207}
+		{CDD3A192-432E-478D-AE93-A16707FCF801} = {10AFBD87-F071-47A5-B3E6-F7B4C63E1207}
+		{45821070-B75C-458C-A25E-2EDD86E47152} = {BC9DDFD1-FB81-4996-812A-68BEBCA33A97}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B94C21A-AA6D-4D82-963E-C69C0353B938}

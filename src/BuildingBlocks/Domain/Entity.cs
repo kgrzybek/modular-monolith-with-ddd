@@ -1,6 +1,6 @@
 ﻿namespace CompanyName.MyMeetings.BuildingBlocks.Domain
 {
-    public abstract class Entity
+    public abstract class Entity : IEntity
     {
         private List<IDomainEvent> _domainEvents;
 

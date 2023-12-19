@@ -1,8 +1,8 @@
-﻿using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Commands;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.SendUserRegistrationConfirmationEmail;
+﻿using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Configuration.Commands;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.UserRegistrations.SendUserRegistrationConfirmationEmail;
 using MediatR;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.RegisterNewUser
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Application.UserRegistrations.RegisterNewUser
 {
     public class NewUserRegisteredEnqueueEmailConfirmationHandler : INotificationHandler<NewUserRegisteredNotification>
     {

@@ -1,6 +1,6 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Domain;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.Users.Events
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Domain.Users.Events
 {
     public class UserCreatedDomainEvent : DomainEventBase
     {

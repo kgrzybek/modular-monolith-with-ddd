@@ -1,7 +1,7 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using NUnit.Framework;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.SeedWork
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Domain.UnitTests.SeedWork
 {
     public abstract class TestBase
     {

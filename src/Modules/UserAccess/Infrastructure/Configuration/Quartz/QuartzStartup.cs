@@ -1,13 +1,13 @@
 ﻿using System.Collections.Specialized;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing.Inbox;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing.InternalCommands;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing.Outbox;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Processing.Inbox;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Processing.InternalCommands;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Processing.Outbox;
 using Quartz;
 using Quartz.Impl;
 using Quartz.Logging;
 using Serilog;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Quartz
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Quartz
 {
     internal static class QuartzStartup
     {

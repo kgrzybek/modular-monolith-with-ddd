@@ -1,6 +1,6 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.IntegrationEvents
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.IntegrationEvents
 {
     public class NewUserRegisteredIntegrationEvent : IntegrationEvent
     {

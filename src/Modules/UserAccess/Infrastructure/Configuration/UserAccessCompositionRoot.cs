@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration
 {
     internal static class UserAccessCompositionRoot
     {

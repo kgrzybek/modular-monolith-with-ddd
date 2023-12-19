@@ -1,4 +1,4 @@
-﻿namespace CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.UserRegistrations
+﻿namespace CompanyName.MyMeetings.Modules.UserAccessIS.IntegrationTests.UserRegistrations
 {
     public struct UserRegistrationSampleData
     {

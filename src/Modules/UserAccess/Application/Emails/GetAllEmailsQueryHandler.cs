@@ -1,8 +1,8 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Queries;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Configuration.Queries;
 using Dapper;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Emails
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Application.Emails
 {
     internal class GetAllEmailsQueryHandler : IQueryHandler<GetAllEmailsQuery, List<EmailDto>>
     {

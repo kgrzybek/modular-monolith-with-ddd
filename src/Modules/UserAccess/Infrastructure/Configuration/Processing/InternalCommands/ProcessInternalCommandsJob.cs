@@ -1,6 +1,6 @@
 ﻿using Quartz;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing.InternalCommands
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Processing.InternalCommands
 {
     [DisallowConcurrentExecution]
     public class ProcessInternalCommandsJob : IJob

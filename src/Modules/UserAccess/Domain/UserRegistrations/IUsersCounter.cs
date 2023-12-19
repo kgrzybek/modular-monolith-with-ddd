@@ -1,4 +1,4 @@
-﻿namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations
+﻿namespace CompanyName.MyMeetings.Modules.UserAccessIS.Domain.UserRegistrations
 {
     public interface IUsersCounter
     {

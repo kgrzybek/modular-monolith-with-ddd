@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CompanyName.MyMeetings.API</name>
+    </assembly>
+    <members>
+        <member name="T:CompanyName.MyMeetings.API.Modules.UserAccess.MicrosoftIdentity.ApplicationController">
+             <summary>
+             Custom base class for API Controllers
+            
+             Decorating the controller class with the ApiController attribute unleashes more magic power the framework offers.
+             This automates the model state checks and the model state IsValid property doesn't need to be checked manually.
+             Further more the [FromBody] attribute isn't needed anymore since the controller now automatically infers the binding source for the incoming data.
+             </summary>
+        </member>
+        <member name="M:CompanyName.MyMeetings.API.Modules.UserAccess.MicrosoftIdentity.Authentication.AuthenticationController.Login(CompanyName.MyMeetings.Contracts.V1.Users.Authentication.AuthenticationRequest)">
+            <summary>
+            User login.
+            </summary>
+            <param name="request">Authentication attributes.</param>
+            <returns>ApiResult.</returns>
+        </member>
+        <member name="M:CompanyName.MyMeetings.API.Modules.UserAccess.MicrosoftIdentity.Authentication.AuthenticationController.TwoFactorLogin(System.String)">
+            <summary>
+            User login.
+            </summary>
+            <param name="token">User generated token.</param>
+            <returns>ApiResult.</returns>
+        </member>
+        <member name="M:CompanyName.MyMeetings.API.Modules.UserAccess.MicrosoftIdentity.Authentication.AuthenticationController.RequestForgotPasswordLink(System.String)">
+            <summary>
+            Send forgot password link.
+            </summary>
+            <param name="emailAddress">Email address of the user.</param>
+            <returns>ApiResult.</returns>
+        </member>
+        <member name="M:CompanyName.MyMeetings.API.Modules.UserAccess.MicrosoftIdentity.Authentication.AuthenticationController.ResetPassword(CompanyName.MyMeetings.Contracts.V1.Users.Authentication.ResetPasswordRequest)">
+            <summary>
+            Reset password.
+            </summary>
+            <param name="resetPassword">Reset password attributes.</param>
+            <returns>ApiResult.</returns>
+        </member>
+        <member name="F:CompanyName.MyMeetings.API.Modules.UserAccess.MicrosoftIdentity.Results.ApiResultStatus.Ok">
+            <summary>
+            Successful result.
+            </summary>
+        </member>
+        <member name="F:CompanyName.MyMeetings.API.Modules.UserAccess.MicrosoftIdentity.Results.ApiResultStatus.Error">
+            <summary>
+            General error result.
+            </summary>
+        </member>
+        <member name="F:CompanyName.MyMeetings.API.Modules.UserAccess.MicrosoftIdentity.Results.ApiResultStatus.NotFound">
+            <summary>
+            Not found error result.
+            </summary>
+        </member>
+        <member name="F:CompanyName.MyMeetings.API.Modules.UserAccess.MicrosoftIdentity.Results.ApiResultStatus.Invalid">
+            <summary>
+            Invalid error result.
+            </summary>
+        </member>
+        <member name="F:CompanyName.MyMeetings.API.Modules.UserAccess.MicrosoftIdentity.Results.ApiResultStatus.Forbidden">
+            <summary>
+            Forbidden error result.
+            </summary>
+        </member>
+        <member name="M:CompanyName.MyMeetings.API.Modules.UserAccess.MicrosoftIdentity.Results.ResultExtensions.ToApiResult(CompanyName.MyMeetings.Modules.UserAccessMI.Application.Configuration.Results.IResult)">
+            <summary>
+            Convert an Result to a ApiResult.
+            </summary>
+            <param name="result">The Result to convert.</param>
+            <returns>ApiResult.</returns>
+        </member>
+        <member name="M:CompanyName.MyMeetings.API.Modules.UserAccess.MicrosoftIdentity.Results.ResultExtensions.ToApiResult``1(CompanyName.MyMeetings.Modules.UserAccessMI.Application.Configuration.Results.IResult,``0)">
+            <summary>
+            Convert an Result to a ApiResult.
+            </summary>
+            <typeparam name="T">The value type being returned.</typeparam>
+            <param name="result">The Result to convert.</param>
+            <param name="value">The value being returned.</param>
+            <returns>ApiResult.</returns>
+        </member>
+        <member name="M:CompanyName.MyMeetings.API.Modules.UserAccess.MicrosoftIdentity.Results.ResultExtensions.ToApiResult``1(CompanyName.MyMeetings.Modules.UserAccessMI.Application.Configuration.Results.IResult{``0})">
+            <summary>
+            Convert an Result to a ApiResult.
+            </summary>
+            <typeparam name="T">The value being returned.</typeparam>
+            <param name="result">The Result to convert.</param>
+            <returns>ApiResult.</returns>
+        </member>
+        <member name="M:CompanyName.MyMeetings.API.Modules.UserAccess.MicrosoftIdentity.Users.UsersController.GetUserAccountDirectory">
+            <summary>
+            Gets the user directory.
+            </summary>
+            <returns>List of users.</returns>
+        </member>
+        <member name="M:CompanyName.MyMeetings.API.Modules.UserAccess.MicrosoftIdentity.Users.UsersController.GetAuthenticatorKey">
+            <summary>
+            Get the authenticator key for the current logged in user.
+            Use this key to register an new account in an authenticator app.
+            </summary>
+            <returns>The authenticator key.</returns>
+        </member>
+        <member name="M:CompanyName.MyMeetings.API.Modules.UserAccess.MicrosoftIdentity.Users.UsersController.RegisterAuthenticator(System.String)">
+            <summary>
+            Enable two-step authentication for the current logged in user by providing the code generated by the authenticator app.
+            </summary>
+            <param name="otpCode">One-Time Password Code.</param>
+            <returns>Result.</returns>
+        </member>
+    </members>
+</doc>

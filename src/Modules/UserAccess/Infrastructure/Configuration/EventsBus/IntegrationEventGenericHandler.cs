@@ -5,7 +5,7 @@ using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Serialization;
 using Dapper;
 using Newtonsoft.Json;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.EventsBus
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.EventsBus
 {
     internal class IntegrationEventGenericHandler<T> : IIntegrationEventHandler<T>
         where T : IntegrationEvent

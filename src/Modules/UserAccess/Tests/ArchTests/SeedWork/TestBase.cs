@@ -1,11 +1,11 @@
 ﻿using System.Reflection;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
-using CompanyName.MyMeetings.Modules.UserAccess.Domain.Users;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Contracts;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Domain.Users;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure;
 using NetArchTest.Rules;
 using NUnit.Framework;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.ArchTests.SeedWork
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.ArchTests.SeedWork
 {
     public abstract class TestBase
     {

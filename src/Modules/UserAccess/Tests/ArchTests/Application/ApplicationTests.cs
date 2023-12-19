@@ -1,15 +1,15 @@
 using System.Reflection;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Commands;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Queries;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
-using CompanyName.MyMeetings.Modules.UserAccess.ArchTests.SeedWork;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Configuration.Commands;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Configuration.Queries;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Contracts;
+using CompanyName.MyMeetings.Modules.UserAccessIS.ArchTests.SeedWork;
 using FluentValidation;
 using MediatR;
 using NetArchTest.Rules;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.ArchTests.Application
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.ArchTests.Application
 {
     [TestFixture]
     public class ApplicationTests : TestBase

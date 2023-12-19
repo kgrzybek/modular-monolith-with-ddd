@@ -7,5 +7,7 @@
         Guid CorrelationId { get; }
 
         bool IsAvailable { get; }
+
+        bool IsAuthenticated { get; }
     }
 }

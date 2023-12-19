@@ -1,6 +1,6 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Domain;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations.Rules
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Domain.UserRegistrations.Rules
 {
     public class UserRegistrationCannotBeExpiredMoreThanOnceRule : IBusinessRule
     {

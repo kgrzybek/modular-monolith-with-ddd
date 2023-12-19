@@ -1,8 +1,8 @@
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Authentication;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Commands;
-using CompanyName.MyMeetings.Modules.UserAccess.Domain.Users;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Authentication;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Configuration.Commands;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Domain.Users;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Users.AddAdminUser
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Application.Users.AddAdminUser
 {
     internal class AddAdminUserCommandHandler : ICommandHandler<AddAdminUserCommand>
     {

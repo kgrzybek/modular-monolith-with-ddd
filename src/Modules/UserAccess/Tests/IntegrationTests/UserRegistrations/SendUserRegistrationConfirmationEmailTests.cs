@@ -1,11 +1,11 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.SendUserRegistrationConfirmationEmail;
-using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations;
-using CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.SeedWork;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.UserRegistrations.SendUserRegistrationConfirmationEmail;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Domain.UserRegistrations;
+using CompanyName.MyMeetings.Modules.UserAccessIS.IntegrationTests.SeedWork;
 using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
 
-namespace CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.UserRegistrations
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.IntegrationTests.UserRegistrations
 {
     [TestFixture]
     public class SendUserRegistrationConfirmationEmailTests : TestBase

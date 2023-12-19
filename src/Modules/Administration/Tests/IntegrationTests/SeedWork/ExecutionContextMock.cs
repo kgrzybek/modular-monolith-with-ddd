@@ -14,5 +14,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.IntegrationTests.SeedWor
         public Guid CorrelationId { get; }
 
         public bool IsAvailable { get; }
+
+        public bool IsAuthenticated { get; }
     }
 }

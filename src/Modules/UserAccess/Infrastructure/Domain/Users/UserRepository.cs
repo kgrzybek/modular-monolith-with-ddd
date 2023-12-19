@@ -1,6 +1,6 @@
-﻿using CompanyName.MyMeetings.Modules.UserAccess.Domain.Users;
+﻿using CompanyName.MyMeetings.Modules.UserAccessIS.Domain.Users;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Domain.Users
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Domain.Users
 {
     public class UserRepository : IUserRepository
     {

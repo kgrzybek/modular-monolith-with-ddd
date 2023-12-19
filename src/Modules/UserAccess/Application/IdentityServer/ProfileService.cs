@@ -1,8 +1,8 @@
-﻿using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
+﻿using CompanyName.MyMeetings.Modules.UserAccessIS.Application.Contracts;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Application.IdentityServer
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Application.IdentityServer
 {
     public class ProfileService : IProfileService
     {

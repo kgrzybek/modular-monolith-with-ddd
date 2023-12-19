@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.InternalCommands
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.InternalCommands
 {
     internal class InternalCommandEntityTypeConfiguration : IEntityTypeConfiguration<InternalCommand>
     {

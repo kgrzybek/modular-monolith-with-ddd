@@ -1,7 +1,7 @@
 ﻿using Quartz.Logging;
 using Serilog;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Quartz
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Quartz
 {
     internal class SerilogLogProvider : ILogProvider
     {

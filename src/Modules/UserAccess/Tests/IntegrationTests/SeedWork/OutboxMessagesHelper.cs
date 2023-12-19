@@ -1,12 +1,12 @@
 ﻿using System.Data;
 using System.Reflection;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.RegisterNewUser;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing.Outbox;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Application.UserRegistrations.RegisterNewUser;
+using CompanyName.MyMeetings.Modules.UserAccessIS.Infrastructure.Configuration.Processing.Outbox;
 using Dapper;
 using MediatR;
 using Newtonsoft.Json;
 
-namespace CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.SeedWork
+namespace CompanyName.MyMeetings.Modules.UserAccessIS.IntegrationTests.SeedWork
 {
     public class OutboxMessagesHelper
     {
