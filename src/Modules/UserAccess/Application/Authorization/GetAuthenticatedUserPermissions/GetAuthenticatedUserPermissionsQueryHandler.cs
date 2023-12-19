@@ -34,7 +34,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Authorization.Ge
                                FROM [users].[v_UserPermissions] AS [UserPermission] 
                                WHERE [UserPermission].UserId = @UserId
                                """;
-            
+
             var permissions = await connection.QueryAsync<UserPermissionDto>(
                 sql,
                 new { _executionContextAccessor.UserId });
