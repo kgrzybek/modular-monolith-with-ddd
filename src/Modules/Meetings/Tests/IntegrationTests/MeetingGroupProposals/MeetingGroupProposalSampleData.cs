@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingGroupProposals
+﻿namespace CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.MeetingGroupProposals
 {
     public struct MeetingGroupProposalSampleData
     {

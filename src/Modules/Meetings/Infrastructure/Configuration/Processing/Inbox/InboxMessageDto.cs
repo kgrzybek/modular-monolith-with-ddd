@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Processing.Inbox
+﻿namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Processing.Inbox
 {
     public class InboxMessageDto
     {

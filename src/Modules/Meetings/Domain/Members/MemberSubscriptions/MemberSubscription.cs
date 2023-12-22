@@ -1,5 +1,4 @@
-﻿using System;
-using CompanyName.MyMeetings.BuildingBlocks.Domain;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members.MemberSubscriptions.Events;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Members.MemberSubscriptions

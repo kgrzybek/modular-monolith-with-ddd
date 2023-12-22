@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments;
+﻿using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingMemberCommentLikes

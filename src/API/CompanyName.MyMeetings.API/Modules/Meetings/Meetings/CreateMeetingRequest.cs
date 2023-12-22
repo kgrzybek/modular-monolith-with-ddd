@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
+﻿namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
 {
     public class CreateMeetingRequest
     {

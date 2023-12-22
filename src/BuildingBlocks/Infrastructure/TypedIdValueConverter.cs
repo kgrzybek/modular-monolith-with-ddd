@@ -1,5 +1,4 @@
-﻿using System;
-using CompanyName.MyMeetings.BuildingBlocks.Domain;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure

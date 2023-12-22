@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Autofac;
+﻿using Autofac;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Processing;

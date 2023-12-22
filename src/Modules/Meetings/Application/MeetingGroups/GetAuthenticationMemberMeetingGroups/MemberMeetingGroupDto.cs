@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.GetAuthenticationMemberMeetingGroups
+﻿namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.GetAuthenticationMemberMeetingGroups
 {
     public class MemberMeetingGroupDto
     {

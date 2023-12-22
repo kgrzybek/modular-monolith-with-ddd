@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Autofac;
+﻿using Autofac;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing;

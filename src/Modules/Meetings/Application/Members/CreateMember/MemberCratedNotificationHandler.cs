@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Application.Members.CreateMember
 {

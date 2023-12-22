@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using CompanyName.MyMeetings.BuildingBlocks.Application;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuySubscription;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetPayerSubscription;
@@ -42,7 +39,7 @@ namespace CompanyName.MyMeetings.SUT.Helpers
                     executionContextAccessor.UserId),
                 10000);
         }
-        
+
         private class GetSubscriptionPaymentsProbe : IProbe<List<SubscriptionPaymentDto>>
         {
             private readonly IPaymentsModule _paymentsModule;

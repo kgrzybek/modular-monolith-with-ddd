@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingCommentingConfigurations;
+﻿using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingCommentingConfigurations;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;

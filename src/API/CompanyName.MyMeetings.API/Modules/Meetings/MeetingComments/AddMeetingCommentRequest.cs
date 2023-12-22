@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingComments
+﻿namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingComments
 {
     public class AddMeetingCommentRequest
     {

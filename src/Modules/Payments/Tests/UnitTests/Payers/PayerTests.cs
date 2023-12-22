@@ -1,5 +1,4 @@
-﻿using System;
-using CompanyName.MyMeetings.Modules.Payments.Domain.Payers;
+﻿using CompanyName.MyMeetings.Modules.Payments.Domain.Payers;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Payers.Events;
 using CompanyName.MyMeetings.Modules.Payments.Domain.UnitTests.SeedWork;
 using NUnit.Framework;

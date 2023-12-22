@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using CompanyName.MyMeetings.BuildingBlocks.Domain;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Domain;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork
 {

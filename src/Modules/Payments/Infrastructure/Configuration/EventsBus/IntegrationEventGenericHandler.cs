@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Autofac;
+﻿using Autofac;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Serialization;

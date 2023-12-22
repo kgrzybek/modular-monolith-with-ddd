@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
+﻿using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.CreateMeeting;
 
 namespace CompanyName.MyMeetings.SUT.Helpers
 {
     internal static class TestMeetingFactory
     {
-        internal static async Task<Guid> GivenMeeting(IMeetingsModule meetingsModule,
+        internal static async Task<Guid> GivenMeeting(
+            IMeetingsModule meetingsModule,
             Guid meetingGroupId,
             string title,
             DateTime termStartDate,

@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
+﻿namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
 {
     public interface ICheckpointStore
     {

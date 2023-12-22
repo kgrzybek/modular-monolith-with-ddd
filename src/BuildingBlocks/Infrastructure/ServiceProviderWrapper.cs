@@ -1,5 +1,4 @@
-﻿using System;
-using Autofac;
+﻿using Autofac;
 
 namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure
 {

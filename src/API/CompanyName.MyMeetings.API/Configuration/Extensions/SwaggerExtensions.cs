@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
+﻿using System.Reflection;
 using Microsoft.OpenApi.Models;
 
 namespace CompanyName.MyMeetings.API.Configuration.Extensions

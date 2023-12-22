@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFeePayments.Events;
+﻿using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFeePayments.Events;
 using CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFees.Events;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Payers.Events;
 using CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems.Events;

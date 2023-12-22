@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using CompanyName.MyMeetings.API.Configuration.Authorization;
+﻿using CompanyName.MyMeetings.API.Configuration.Authorization;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Emails;
 using Microsoft.AspNetCore.Authorization;

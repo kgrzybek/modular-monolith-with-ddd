@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using CompanyName.MyMeetings.Modules.Administration.Application.Configuration.Commands;
+﻿using CompanyName.MyMeetings.Modules.Administration.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Administration.Application.Members.CreateMember;
 using CompanyName.MyMeetings.Modules.UserAccess.IntegrationEvents;
 using MediatR;

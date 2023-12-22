@@ -1,4 +1,3 @@
-using System;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroupProposals.Rules;

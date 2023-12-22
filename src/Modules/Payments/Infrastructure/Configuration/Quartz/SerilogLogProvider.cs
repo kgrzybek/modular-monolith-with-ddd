@@ -1,5 +1,4 @@
-﻿using System;
-using Quartz.Logging;
+﻿using Quartz.Logging;
 using Serilog;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Quartz

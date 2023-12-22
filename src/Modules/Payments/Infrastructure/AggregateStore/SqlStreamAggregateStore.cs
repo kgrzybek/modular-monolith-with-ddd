@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Data;
 using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Serialization;
 using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;

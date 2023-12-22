@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations
+﻿namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations
 {
     public interface IUserRegistrationRepository
     {

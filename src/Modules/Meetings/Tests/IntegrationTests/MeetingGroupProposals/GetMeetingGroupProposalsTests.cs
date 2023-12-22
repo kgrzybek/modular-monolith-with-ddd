@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals.GetAllMeetingGroupProposals;
+﻿using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals.GetAllMeetingGroupProposals;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroupProposals.ProposeMeetingGroup;
 using CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork;
 using NUnit.Framework;

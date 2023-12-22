@@ -1,5 +1,4 @@
 ﻿using System.Data;
-using System.Threading.Tasks;
 using Dapper;
 
 namespace CompanyName.MyMeetings.SUT.SeedWork

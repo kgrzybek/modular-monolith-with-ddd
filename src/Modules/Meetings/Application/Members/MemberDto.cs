@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CompanyName.MyMeetings.Modules.Meetings.Application.Members
+﻿namespace CompanyName.MyMeetings.Modules.Meetings.Application.Members
 {
     public class MemberDto
     {

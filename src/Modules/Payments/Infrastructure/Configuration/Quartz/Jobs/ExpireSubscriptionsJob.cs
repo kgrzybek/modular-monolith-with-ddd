@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.ExpireSubscriptions;
+﻿using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.ExpireSubscriptions;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.Processing;
 using Quartz;
 

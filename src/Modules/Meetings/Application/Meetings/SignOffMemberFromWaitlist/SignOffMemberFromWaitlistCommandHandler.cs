@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands;
+﻿using CompanyName.MyMeetings.Modules.Meetings.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 

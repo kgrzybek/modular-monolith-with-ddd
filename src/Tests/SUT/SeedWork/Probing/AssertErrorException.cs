@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CompanyName.MyMeetings.SUT.SeedWork.Probing
+﻿namespace CompanyName.MyMeetings.SUT.SeedWork.Probing
 {
     public class AssertErrorException : Exception
     {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using CompanyName.MyMeetings.BuildingBlocks.Application;
-using Microsoft.AspNetCore.Http;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Application;
 
 namespace CompanyName.MyMeetings.API.Configuration.ExecutionContext
 {

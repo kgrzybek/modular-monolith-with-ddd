@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations;
+﻿using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations;
 using Microsoft.EntityFrameworkCore;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Domain.UserRegistrations

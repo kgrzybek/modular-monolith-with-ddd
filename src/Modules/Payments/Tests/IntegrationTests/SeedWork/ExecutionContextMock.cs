@@ -1,5 +1,4 @@
-﻿using System;
-using CompanyName.MyMeetings.BuildingBlocks.Application;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Application;
 
 namespace CompanyName.MyMeetings.Modules.Payments.IntegrationTests.SeedWork
 {

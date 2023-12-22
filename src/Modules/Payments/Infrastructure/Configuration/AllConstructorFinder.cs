@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Linq;
+﻿using System.Collections.Concurrent;
 using System.Reflection;
 using Autofac.Core.Activators.Reflection;
 

@@ -1,5 +1,4 @@
-﻿using System;
-using CompanyName.MyMeetings.BuildingBlocks.Domain;
+﻿using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingCommentingConfigurations;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments.Rules;
@@ -28,7 +27,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
 
         private DateTime? _editDate;
 
+#pragma warning disable CS0414 // Field is assigned but its value is never used
         private bool _isRemoved;
+#pragma warning restore CS0414 // Field is assigned but its value is never used
 
         private string _removedByReason;
 

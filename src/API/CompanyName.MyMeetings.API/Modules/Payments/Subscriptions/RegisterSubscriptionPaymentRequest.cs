@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CompanyName.MyMeetings.API.Modules.Payments.Subscriptions
+﻿namespace CompanyName.MyMeetings.API.Modules.Payments.Subscriptions
 {
     public class RegisterSubscriptionPaymentRequest
     {

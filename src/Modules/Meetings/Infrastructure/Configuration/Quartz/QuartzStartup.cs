@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Processing.Inbox;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Processing.InternalCommands;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Processing.Outbox;

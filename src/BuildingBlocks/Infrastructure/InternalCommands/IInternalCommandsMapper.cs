@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.InternalCommands
+﻿namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.InternalCommands
 {
     public interface IInternalCommandsMapper
     {
