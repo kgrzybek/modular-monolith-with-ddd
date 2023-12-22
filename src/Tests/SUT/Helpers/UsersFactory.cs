@@ -23,9 +23,10 @@ namespace CompanyName.MyMeetings.SUT.Helpers
                 firstName,
                 lastName,
                 name,
-                email));
+                email
+            ));
         }
-
+        
         public static async Task<Guid> GivenUser(
             IUserAccessModule userAccessModule,
             string connectionString,
@@ -41,7 +42,8 @@ namespace CompanyName.MyMeetings.SUT.Helpers
                 email,
                 firstName,
                 lastName,
-                email));
+                email
+            ));
 
             await userAccessModule.ExecuteCommandAsync(new ConfirmUserRegistrationCommand(userRegistrationId));
 

@@ -38,9 +38,9 @@ namespace CompanyName.MyMeetings.SUT.SeedWork
         protected IUserAccessModule UserAccessModule { get; private set; }
 
         protected IMeetingsModule MeetingsModule { get; private set; }
-
+        
         protected IAdministrationModule AdministrationModule { get; private set; }
-
+        
         protected IPaymentsModule PaymentsModule { get; private set; }
 
         protected ExecutionContextMock ExecutionContextAccessor { get; private set; }
@@ -65,15 +65,15 @@ namespace CompanyName.MyMeetings.SUT.SeedWork
             ExecutionContextAccessor = new ExecutionContextMock(Guid.NewGuid());
 
             var emailsConfiguration = new EmailsConfiguration("from@email.com");
-
+            
             Logger = Substitute.For<ILogger>();
-
+            
             EventsBus = new InMemoryEventBusClient(Logger);
 
             InitializeUserAccessModule(emailsConfiguration);
 
             InitializeMeetingsModule(emailsConfiguration);
-
+            
             InitializeAdministrationModule();
 
             PaymentsStartup.Initialize(
@@ -81,45 +81,11 @@ namespace CompanyName.MyMeetings.SUT.SeedWork
                 ExecutionContextAccessor,
                 Logger,
                 emailsConfiguration,
-                EventsBus,
+                EventsBus, 
                 true,
                 100);
-
+            
             PaymentsModule = new PaymentsModule();
-        }
-
-        public static async Task<T> GetEventually<T>(IProbe<T> probe, int timeout)
-            where T : class
-        {
-            var poller = new Poller(timeout);
-
-            return await poller.GetAsync(probe);
-        }
-
-        [TearDown]
-        public void AfterEachTest()
-        {
-            SystemClock.Reset();
-            Modules.Payments.Domain.SeedWork.SystemClock.Reset();
-        }
-
-        protected async Task WaitForAsyncOperations()
-        {
-            await AsyncOperationsHelper.WaitForProcessing(ConnectionString);
-        }
-
-        protected void SetDate(DateTime date)
-        {
-            SystemClock.Set(date);
-            Modules.Payments.Domain.SeedWork.SystemClock.Set(date);
-        }
-
-        protected async Task ExecuteScript(string scriptPath)
-        {
-            var sql = await File.ReadAllTextAsync(scriptPath);
-
-            await using var sqlConnection = new SqlConnection(ConnectionString);
-            await sqlConnection.ExecuteScalarAsync(sql);
         }
 
         private void InitializeAdministrationModule()
@@ -134,6 +100,32 @@ namespace CompanyName.MyMeetings.SUT.SeedWork
             AdministrationModule = new AdministrationModule();
         }
 
+        protected async Task WaitForAsyncOperations()
+        {
+            await AsyncOperationsHelper.WaitForProcessing(ConnectionString);
+        }
+        
+        protected void SetDate(DateTime date)
+        {
+            SystemClock.Set(date);
+            Modules.Payments.Domain.SeedWork.SystemClock.Set(date);
+        }
+        
+        public static async Task<T> GetEventually<T>(IProbe<T> probe, int timeout)
+            where T : class
+        {
+            var poller = new Poller(timeout);
+
+            return await poller.GetAsync(probe);
+        }
+        
+        [TearDown]
+        public void AfterEachTest()
+        {
+            SystemClock.Reset();
+            Modules.Payments.Domain.SeedWork.SystemClock.Reset();
+        }
+
         private void InitializeMeetingsModule(EmailsConfiguration emailsConfiguration)
         {
             MeetingsStartup.Initialize(
@@ -145,6 +137,14 @@ namespace CompanyName.MyMeetings.SUT.SeedWork
                 100);
 
             MeetingsModule = new MeetingsModule();
+        }
+
+        protected async Task ExecuteScript(string scriptPath)
+        {
+            var sql = await File.ReadAllTextAsync(scriptPath);
+
+            await using var sqlConnection = new SqlConnection(ConnectionString);
+            await sqlConnection.ExecuteScalarAsync(sql);
         }
 
         private async Task SeedPermissions()
