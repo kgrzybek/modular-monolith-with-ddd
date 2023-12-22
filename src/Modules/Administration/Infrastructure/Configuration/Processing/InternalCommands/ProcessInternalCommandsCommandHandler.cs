@@ -25,10 +25,11 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
         {
             var connection = this._sqlConnectionFactory.GetOpenConnection();
 
-            string sql = $"""
-                          SELECT [Command].[Id] AS [{nameof(InternalCommandDto.Id)}], 
-                                 [Command].[Type] AS [{nameof(InternalCommandDto.Type)}], 
-                                 [Command].[Data] AS [{nameof(InternalCommandDto.Data)}] 
+            const string sql = $"""
+                          SELECT
+                              [Command].[Id] AS [{nameof(InternalCommandDto.Id)}], 
+                              [Command].[Type] AS [{nameof(InternalCommandDto.Type)}], 
+                              [Command].[Data] AS [{nameof(InternalCommandDto.Data)}] 
                           FROM [administration].[InternalCommands] AS [Command] 
                           WHERE [Command].[ProcessedDate] IS NULL 
                           ORDER BY [Command].[EnqueueDate]

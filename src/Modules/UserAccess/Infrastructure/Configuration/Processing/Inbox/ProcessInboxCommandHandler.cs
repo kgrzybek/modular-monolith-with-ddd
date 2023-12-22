@@ -28,7 +28,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
                                FROM [users].[InboxMessages] AS [InboxMessage] 
                                WHERE [InboxMessage].[ProcessedDate] IS NULL 
                                ORDER BY [InboxMessage].[OccurredOn]
-                             """;
+                               """;
 
             var messages = await connection.QueryAsync<InboxMessageDto>(sql);
 

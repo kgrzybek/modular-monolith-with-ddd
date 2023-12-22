@@ -16,19 +16,19 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings.GetMeetin
         public async Task<List<MeetingAttendeeDto>> Handle(GetMeetingAttendeesQuery query, CancellationToken cancellationToken)
         {
             var connection = _sqlConnectionFactory.GetOpenConnection();
-
+            const string sql = $"""
+                                SELECT
+                                    [MeetingAttendee].[FirstName] AS [{nameof(MeetingAttendeeDto.FirstName)}],
+                                    [MeetingAttendee].[LastName] AS [{nameof(MeetingAttendeeDto.LastName)}],
+                                    [MeetingAttendee].[RoleCode] AS [{nameof(MeetingAttendeeDto.RoleCode)}],
+                                    [MeetingAttendee].[DecisionDate] AS [{nameof(MeetingAttendeeDto.DecisionDate)}],
+                                    [MeetingAttendee].[GuestsNumber] AS [{nameof(MeetingAttendeeDto.GuestsNumber)}],
+                                    [MeetingAttendee].[AttendeeId] AS [{nameof(MeetingAttendeeDto.AttendeeId)}]
+                                FROM [meetings].[v_MeetingAttendees] AS [MeetingAttendee]
+                                WHERE [MeetingAttendee].[MeetingId] = @MeetingId
+                                """;
             return (await connection.QueryAsync<MeetingAttendeeDto>(
-                $"""
-                 SELECT 
-                     [MeetingAttendee].[FirstName] AS [{nameof(MeetingAttendeeDto.FirstName)}], 
-                     [MeetingAttendee].[LastName] AS [{nameof(MeetingAttendeeDto.LastName)}], 
-                     [MeetingAttendee].[RoleCode] AS [{nameof(MeetingAttendeeDto.RoleCode)}], 
-                     [MeetingAttendee].[DecisionDate] AS [{nameof(MeetingAttendeeDto.DecisionDate)}], 
-                     [MeetingAttendee].[GuestsNumber] AS [{nameof(MeetingAttendeeDto.GuestsNumber)}], 
-                     [MeetingAttendee].[AttendeeId] AS [{nameof(MeetingAttendeeDto.AttendeeId)}] 
-                 FROM [meetings].[v_MeetingAttendees] AS [MeetingAttendee] 
-                 WHERE [MeetingAttendee].[MeetingId] = @MeetingId
-                 """,
+                sql,
                 new
                 {
                     query.MeetingId

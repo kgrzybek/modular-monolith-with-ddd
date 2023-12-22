@@ -33,14 +33,14 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
         {
             var connection = this._sqlConnectionFactory.GetOpenConnection();
             const string sql = $"""
-                          SELECT 
-                              [OutboxMessage].[Id] AS [{nameof(OutboxMessageDto.Id)}], 
-                              [OutboxMessage].[Type] AS [{nameof(OutboxMessageDto.Type)}], 
-                              [OutboxMessage].[Data] AS [{nameof(OutboxMessageDto.Data)}] 
-                          FROM [users].[OutboxMessages] AS [OutboxMessage] 
-                          WHERE [OutboxMessage].[ProcessedDate] IS NULL 
-                          ORDER BY [OutboxMessage].[OccurredOn]
-                          """;
+                               SELECT 
+                                   [OutboxMessage].[Id] AS [{nameof(OutboxMessageDto.Id)}], 
+                                   [OutboxMessage].[Type] AS [{nameof(OutboxMessageDto.Type)}], 
+                                   [OutboxMessage].[Data] AS [{nameof(OutboxMessageDto.Data)}] 
+                               FROM [users].[OutboxMessages] AS [OutboxMessage] 
+                               WHERE [OutboxMessage].[ProcessedDate] IS NULL 
+                               ORDER BY [OutboxMessage].[OccurredOn]
+                               """;
 
             var messages = await connection.QueryAsync<OutboxMessageDto>(sql);
             var messagesList = messages.AsList();
