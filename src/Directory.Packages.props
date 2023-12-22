@@ -1,6 +1,6 @@
 ﻿<Project>
   <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.507" PrivateAssets="All" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup Condition="$(MSBuildProjectName.EndsWith('API'))">
