@@ -15,7 +15,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Members
                                     [Member].Id as [{nameof(MemberDto.Id)}], 
                                     [Member].[Name] as [{nameof(MemberDto.Name)}], 
                                     [Member].[Login] as [{nameof(MemberDto.Login)}], 
-                                    [Member].[Email] as [{nameof(MemberDto.Email)}], 
+                                    [Member].[Email] as [{nameof(MemberDto.Email)}] 
                                 FROM [meetings].[v_Members] AS [Member] 
                                 WHERE [Member].[Id] = @Id
                                 """;

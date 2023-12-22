@@ -463,7 +463,7 @@ internal class GetAllMeetingGroupsQueryHandler : IQueryHandler<GetAllMeetingGrou
                                 [MeetingGroup].[Name] as [{nameof(MeetingGroupDto.Name)}], 
                                 [MeetingGroup].[Description] as [{nameof(MeetingGroupDto.Description)}] 
                                 [MeetingGroup].[LocationCountryCode] as [{nameof(MeetingGroupDto.LocationCountryCode)}],
-                                [MeetingGroup].[LocationCity] as [{nameof(MeetingGroupDto.LocationCity)}],
+                                [MeetingGroup].[LocationCity] as [{nameof(MeetingGroupDto.LocationCity)}]
                            FROM [meetings].[v_MeetingGroups] AS [MeetingGroup]
                            """;
         var meetingGroups = await connection.QueryAsync<MeetingGroupDto>(sql);

@@ -22,10 +22,10 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistration
                                    [UserRegistration].[Id] as [{nameof(UserRegistrationDto.Id)}], 
                                    [UserRegistration].[Login] as [{nameof(UserRegistrationDto.Login)}], 
                                    [UserRegistration].[Email] as [{nameof(UserRegistrationDto.Email)}], 
-                                   [UserRegistration].[FirstName] as [{nameof(UserRegistrationDto.FirstName)}],, 
+                                   [UserRegistration].[FirstName] as [{nameof(UserRegistrationDto.FirstName)}], 
                                    [UserRegistration].[LastName] as [{nameof(UserRegistrationDto.LastName)}], 
-                                   [UserRegistration].[Name] as [{nameof(UserRegistrationDto.Name)}],, 
-                                   [UserRegistration].[StatusCode] as [{nameof(UserRegistrationDto.StatusCode)}], 
+                                   [UserRegistration].[Name] as [{nameof(UserRegistrationDto.Name)}], 
+                                   [UserRegistration].[StatusCode] as [{nameof(UserRegistrationDto.StatusCode)}]
                                FROM [users].[v_UserRegistrations] AS [UserRegistration] 
                                WHERE [UserRegistration].[Id] = @UserRegistrationId
                                """;

@@ -22,9 +22,9 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Payers.GetPayer
                                    [Payer].[Id] as [{nameof(PayerDto.Id)}], 
                                    [Payer].[Login] as [{nameof(PayerDto.Login)}], 
                                    [Payer].[Email] as [{nameof(PayerDto.Email)}], 
-                                   [Payer].[FirstName] as [{nameof(PayerDto.FirstName)}],, 
+                                   [Payer].[FirstName] as [{nameof(PayerDto.FirstName)}], 
                                    [Payer].[LastName] as [{nameof(PayerDto.LastName)}], 
-                                   [Payer].[Name] as [{nameof(PayerDto.Name)}], 
+                                   [Payer].[Name] as [{nameof(PayerDto.Name)}]
                                FROM [payments].[Payers] AS [Payer] 
                                WHERE [Payer].[Id] = @PayerId
                                """;
