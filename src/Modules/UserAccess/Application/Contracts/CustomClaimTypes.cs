@@ -1,9 +1,9 @@
 ﻿namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts
 {
-    public class CustomClaimTypes
+    internal class CustomClaimTypes
     {
-        public const string Roles = "roles";
-        public const string Email = "email";
-        public const string Name = "name";
+        internal const string Roles = "roles";
+        internal const string Email = "email";
+        internal const string Name = "name";
     }
 }

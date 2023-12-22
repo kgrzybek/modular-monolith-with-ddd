@@ -1,6 +1,1 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <PackageReference Include="IdentityServer4" Version="4.1.2" />
-    <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
-  </ItemGroup>
-</Project>
+﻿<Project Sdk="Microsoft.NET.Sdk" />

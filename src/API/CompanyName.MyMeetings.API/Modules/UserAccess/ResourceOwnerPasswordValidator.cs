@@ -3,9 +3,9 @@ using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
 using IdentityServer4.Models;
 using IdentityServer4.Validation;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.IdentityServer
+namespace CompanyName.MyMeetings.API.Modules.UserAccess
 {
-    internal class ResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
+    public class ResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
     {
         private readonly IUserAccessModule _userAccessModule;
 

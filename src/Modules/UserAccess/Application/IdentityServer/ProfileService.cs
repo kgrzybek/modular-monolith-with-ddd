@@ -2,9 +2,9 @@
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 
-namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.IdentityServer
+namespace CompanyName.MyMeetings.Modules.UserAccess.Application.IdentityServer
 {
-    internal class ProfileService : IProfileService
+    public class ProfileService : IProfileService
     {
         public Task GetProfileDataAsync(ProfileDataRequestContext context)
         {

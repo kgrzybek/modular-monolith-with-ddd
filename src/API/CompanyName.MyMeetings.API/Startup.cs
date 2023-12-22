@@ -14,12 +14,12 @@ using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration;
+using CompanyName.MyMeetings.Modules.UserAccess.Application.IdentityServer;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Identity;
 using Hellang.Middleware.ProblemDetails;
-using Microsoft.AspNetCore.Authentication;
+using IdentityServer4.AccessTokenValidation;
+using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Server.HttpSys;
 using Serilog;
 using Serilog.Formatting.Compact;
 using ILogger = Serilog.ILogger;
@@ -55,7 +55,7 @@ namespace CompanyName.MyMeetings.API
 
             services.AddSwaggerDocumentation();
 
-            services.ConfigureIdentityService();
+            ConfigureIdentityServer(services);
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IExecutionContextAccessor, ExecutionContextAccessor>();
@@ -71,7 +71,7 @@ namespace CompanyName.MyMeetings.API
                 options.AddPolicy(HasPermissionAttribute.HasPermissionPolicyName, policyBuilder =>
                 {
                     policyBuilder.Requirements.Add(new HasPermissionAuthorizationRequirement());
-                    policyBuilder.AddAuthenticationSchemes("Bearer");
+                    policyBuilder.AddAuthenticationSchemes(IdentityServerAuthenticationDefaults.AuthenticationScheme);
                 });
             });
 
@@ -100,7 +100,7 @@ namespace CompanyName.MyMeetings.API
 
             app.UseSwaggerDocumentation();
 
-            app.AddIdentityService();
+            app.UseIdentityServer();
 
             if (env.IsDevelopment())
             {
@@ -135,6 +135,28 @@ namespace CompanyName.MyMeetings.API
             _loggerForApi = _logger.ForContext("Module", "API");
 
             _loggerForApi.Information("Logger configured");
+        }
+
+        private void ConfigureIdentityServer(IServiceCollection services)
+        {
+            services.AddIdentityServer()
+                .AddInMemoryIdentityResources(IdentityServerConfig.GetIdentityResources())
+                .AddInMemoryApiScopes(IdentityServerConfig.GetApiScopes())
+                .AddInMemoryApiResources(IdentityServerConfig.GetApis())
+                .AddInMemoryClients(IdentityServerConfig.GetClients())
+                .AddInMemoryPersistedGrants()
+                .AddProfileService<ProfileService>()
+                .AddDeveloperSigningCredential();
+
+            services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>();
+
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                .AddIdentityServerAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme, x =>
+                {
+                    x.Authority = "http://localhost:5000";
+                    x.ApiName = "myMeetingsAPI";
+                    x.RequireHttpsMetadata = false;
+                });
         }
 
         private void InitializeModules(ILifetimeScope container)
