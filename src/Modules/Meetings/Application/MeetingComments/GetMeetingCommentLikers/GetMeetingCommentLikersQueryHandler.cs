@@ -20,10 +20,10 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ge
             const string sql = $"""
                                SELECT
                                   [Liker].[Id] as [{nameof(MeetingCommentLikerDto.Id)}],
-                                  [Liker].[Name}] as [{nameof(MeetingCommentLikerDto.Name)}]
+                                  [Liker].[Name] as [{nameof(MeetingCommentLikerDto.Name)}]
                                FROM [meetings].[Members] AS [Liker]
                                    INNER JOIN [meetings].[MeetingMemberCommentLikes] AS [Like]
-                                       ON [Liker].[Id] = [Like].[MemberId]
+                                         ON [Liker].[Id] = [Like].[MemberId]
                                WHERE [Like].[MeetingCommentId] = @MeetingCommentId
                                """;
 
