@@ -1,4 +1,5 @@
-﻿using DbUp;
+﻿using System.IO;
+using DbUp;
 using DbUp.ScriptProviders;
 using Serilog;
 using Serilog.Formatting.Compact;

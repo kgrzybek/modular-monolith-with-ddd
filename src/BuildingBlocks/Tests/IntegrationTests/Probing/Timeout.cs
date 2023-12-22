@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing
+﻿using System;
+
+namespace CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing
 {
     public class Timeout
     {

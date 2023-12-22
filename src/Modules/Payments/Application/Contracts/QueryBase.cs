@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.Modules.Payments.Application.Contracts
+﻿using System;
+
+namespace CompanyName.MyMeetings.Modules.Payments.Application.Contracts
 {
     public abstract class QueryBase<TResult> : IQuery<TResult>
     {

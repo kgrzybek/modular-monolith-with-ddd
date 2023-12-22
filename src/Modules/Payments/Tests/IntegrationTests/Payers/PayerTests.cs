@@ -1,4 +1,6 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing;
+﻿using System;
+using System.Threading.Tasks;
+using CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Payments.Application.Payers.CreatePayer;
 using CompanyName.MyMeetings.Modules.Payments.Application.Payers.GetPayer;

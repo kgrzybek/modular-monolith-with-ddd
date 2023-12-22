@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFeePayments
+﻿using System;
+
+namespace CompanyName.MyMeetings.Modules.Payments.Domain.MeetingFeePayments
 {
     public class MeetingFeePaymentSnapshot
     {

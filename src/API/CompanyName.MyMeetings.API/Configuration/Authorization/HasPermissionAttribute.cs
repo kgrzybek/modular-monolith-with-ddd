@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CompanyName.MyMeetings.API.Configuration.Authorization
 {

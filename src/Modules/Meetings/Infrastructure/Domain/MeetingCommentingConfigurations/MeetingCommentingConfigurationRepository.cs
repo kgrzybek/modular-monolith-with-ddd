@@ -1,4 +1,5 @@
-﻿using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingCommentingConfigurations;
+﻿using System.Threading.Tasks;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingCommentingConfigurations;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 using Microsoft.EntityFrameworkCore;
 

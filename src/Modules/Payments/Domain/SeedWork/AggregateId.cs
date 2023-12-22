@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork
+﻿using System;
+
+namespace CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork
 {
     public abstract class AggregateId<T>
         where T : AggregateRoot

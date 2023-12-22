@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Processing.Outbox
+﻿using System;
+
+namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.Processing.Outbox
 {
     public class OutboxMessageDto
     {

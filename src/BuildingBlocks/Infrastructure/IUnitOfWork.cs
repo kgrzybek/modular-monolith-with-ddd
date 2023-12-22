@@ -1,4 +1,8 @@
-﻿namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure
 {
     public interface IUnitOfWork
     {

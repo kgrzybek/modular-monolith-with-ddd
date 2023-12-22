@@ -1,4 +1,5 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Domain;
+﻿using System;
+using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupProposals.Events;
 using CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupProposals.Rules;
 using CompanyName.MyMeetings.Modules.Administration.Domain.Users;

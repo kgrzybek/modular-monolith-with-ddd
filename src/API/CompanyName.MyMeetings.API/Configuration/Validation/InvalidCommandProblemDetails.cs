@@ -1,4 +1,6 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Application;
+﻿using System.Collections.Generic;
+using CompanyName.MyMeetings.BuildingBlocks.Application;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyName.MyMeetings.API.Configuration.Validation

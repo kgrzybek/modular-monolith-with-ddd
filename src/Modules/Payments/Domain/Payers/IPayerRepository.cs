@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.Modules.Payments.Domain.Payers
+﻿using System.Threading.Tasks;
+
+namespace CompanyName.MyMeetings.Modules.Payments.Domain.Payers
 {
     public interface IPayerRepository
     {

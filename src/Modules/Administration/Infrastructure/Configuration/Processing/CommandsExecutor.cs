@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System.Threading.Tasks;
+using Autofac;
 using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
 using MediatR;
 

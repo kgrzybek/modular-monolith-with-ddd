@@ -1,4 +1,7 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Domain;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using NUnit.Framework;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Domain.UnitTests.SeedWork

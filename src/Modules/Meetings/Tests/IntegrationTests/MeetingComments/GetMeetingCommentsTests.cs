@@ -1,4 +1,5 @@
-﻿using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddMeetingComment;
+﻿using System.Threading.Tasks;
+using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.AddMeetingComment;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.GetMeetingComments;
 using CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.Meetings;
 using CompanyName.MyMeetings.Modules.Meetings.IntegrationTests.SeedWork;

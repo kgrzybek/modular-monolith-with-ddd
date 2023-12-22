@@ -1,4 +1,5 @@
-﻿using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
+﻿using System.Threading.Tasks;
+using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Commands
 {

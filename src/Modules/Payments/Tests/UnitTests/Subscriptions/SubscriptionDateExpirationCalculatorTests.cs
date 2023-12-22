@@ -1,4 +1,5 @@
-﻿using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
+﻿using System;
+using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 using CompanyName.MyMeetings.Modules.Payments.Domain.Subscriptions;
 using NUnit.Framework;
 

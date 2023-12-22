@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
+﻿using System;
+
+namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
 {
     public class SetMeetingHostRequest
     {

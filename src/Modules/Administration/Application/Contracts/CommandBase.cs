@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.Modules.Administration.Application.Contracts
+﻿using System;
+
+namespace CompanyName.MyMeetings.Modules.Administration.Application.Contracts
 {
     public abstract class CommandBase : ICommand
     {

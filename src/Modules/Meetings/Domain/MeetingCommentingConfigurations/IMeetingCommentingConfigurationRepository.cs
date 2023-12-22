@@ -1,4 +1,5 @@
-﻿using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
+﻿using System.Threading.Tasks;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingCommentingConfigurations
 {

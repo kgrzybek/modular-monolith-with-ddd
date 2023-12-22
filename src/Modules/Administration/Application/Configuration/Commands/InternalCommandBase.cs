@@ -1,4 +1,5 @@
-﻿using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
+﻿using System;
+using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Application.Configuration.Commands
 {

@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.Modules.Administration.Domain.Members
+﻿using System.Threading.Tasks;
+
+namespace CompanyName.MyMeetings.Modules.Administration.Domain.Members
 {
     public interface IMemberRepository
     {

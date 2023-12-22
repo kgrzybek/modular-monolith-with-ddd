@@ -1,4 +1,8 @@
-﻿namespace CompanyName.MyMeetings.API.Configuration.ExecutionContext
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+
+namespace CompanyName.MyMeetings.API.Configuration.ExecutionContext
 {
     internal class CorrelationMiddleware
     {

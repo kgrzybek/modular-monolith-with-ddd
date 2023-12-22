@@ -1,4 +1,6 @@
-﻿using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
+﻿using System;
+using System.Threading.Tasks;
+using CompanyName.MyMeetings.Modules.Meetings.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.JoinToGroup;
 
 namespace CompanyName.MyMeetings.SUT.Helpers

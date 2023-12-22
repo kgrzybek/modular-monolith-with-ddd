@@ -1,4 +1,5 @@
-﻿using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
+﻿using System.Collections.Generic;
+using CompanyName.MyMeetings.Modules.Administration.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.GetMeetingGroupProposal;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.GetMeetingGroupProposals

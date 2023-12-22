@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.GetAllMeetingGroups
+﻿using System;
+
+namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.GetAllMeetingGroups
 {
     public class MeetingGroupDto
     {

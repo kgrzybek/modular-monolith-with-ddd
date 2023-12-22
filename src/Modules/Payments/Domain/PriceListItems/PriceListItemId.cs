@@ -1,4 +1,5 @@
-﻿using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
+﻿using System;
+using CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Domain.PriceListItems
 {

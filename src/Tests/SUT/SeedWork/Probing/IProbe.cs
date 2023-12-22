@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.SUT.SeedWork.Probing
+﻿using System.Threading.Tasks;
+
+namespace CompanyName.MyMeetings.SUT.SeedWork.Probing
 {
     public interface IProbe
     {

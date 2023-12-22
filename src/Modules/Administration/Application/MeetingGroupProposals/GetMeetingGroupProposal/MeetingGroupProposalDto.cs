@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.GetMeetingGroupProposal
+﻿using System;
+
+namespace CompanyName.MyMeetings.Modules.Administration.Application.MeetingGroupProposals.GetMeetingGroupProposal
 {
     public class MeetingGroupProposalDto
     {

@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.BuildingBlocks.IntegrationTests
+﻿using System;
+
+namespace CompanyName.MyMeetings.BuildingBlocks.IntegrationTests
 {
     public static class EnvironmentVariablesProvider
     {

@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.BuildingBlocks.Domain
+﻿using System;
+
+namespace CompanyName.MyMeetings.BuildingBlocks.Domain
 {
     public class DomainEventBase : IDomainEvent
     {

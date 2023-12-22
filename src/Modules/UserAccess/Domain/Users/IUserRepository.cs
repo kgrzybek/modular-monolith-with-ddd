@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.Users
+﻿using System.Threading.Tasks;
+
+namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.Users
 {
     public interface IUserRepository
     {

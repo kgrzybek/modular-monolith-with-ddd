@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System;
+using MediatR;
 
 namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus
 {

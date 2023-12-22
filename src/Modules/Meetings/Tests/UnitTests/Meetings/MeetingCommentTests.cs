@@ -1,4 +1,5 @@
-﻿using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments.Events;
+﻿using System;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments.Rules;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingMemberCommentLikes.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;

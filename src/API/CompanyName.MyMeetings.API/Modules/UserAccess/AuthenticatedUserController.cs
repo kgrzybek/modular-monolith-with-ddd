@@ -1,9 +1,12 @@
-﻿using CompanyName.MyMeetings.API.Configuration.Authorization;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using CompanyName.MyMeetings.API.Configuration.Authorization;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Authorization.GetAuthenticatedUserPermissions;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Authorization.GetUserPermissions;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Users.GetAuthenticatedUser;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Users.GetUser;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyName.MyMeetings.API.Modules.UserAccess

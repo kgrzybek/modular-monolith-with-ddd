@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Inbox
+﻿using System;
+
+namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Inbox
 {
     public class InboxMessage
     {

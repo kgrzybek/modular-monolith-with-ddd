@@ -1,4 +1,7 @@
-﻿namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups.Policies
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups.Policies
 {
     public static class MeetingGroupExpirationDatePolicy
     {

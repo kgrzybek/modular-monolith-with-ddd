@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CompanyName.MyMeetings.ArchTests.SeedWork;
 using NetArchTest.Rules;
 using NUnit.Framework;

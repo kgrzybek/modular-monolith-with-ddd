@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.Modules.Meetings.Application.Contracts
+﻿using System.Threading.Tasks;
+
+namespace CompanyName.MyMeetings.Modules.Meetings.Application.Contracts
 {
     public interface IMeetingsModule
     {

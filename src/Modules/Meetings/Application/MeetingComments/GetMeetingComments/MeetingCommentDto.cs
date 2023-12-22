@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.GetMeetingComments
+﻿using System;
+
+namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.GetMeetingComments
 {
     public class MeetingCommentDto
     {

@@ -1,4 +1,5 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Outbox;
+﻿using System.Threading.Tasks;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Outbox;
 
 namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Outbox
 {

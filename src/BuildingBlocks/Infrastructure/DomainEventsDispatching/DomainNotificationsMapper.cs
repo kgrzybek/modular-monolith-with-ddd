@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispatching
+﻿using System;
+
+namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispatching
 {
     public class DomainNotificationsMapper : IDomainNotificationsMapper
     {

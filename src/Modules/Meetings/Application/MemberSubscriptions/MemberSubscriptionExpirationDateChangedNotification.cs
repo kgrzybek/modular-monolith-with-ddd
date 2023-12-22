@@ -1,4 +1,5 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Events;
+﻿using System;
+using CompanyName.MyMeetings.BuildingBlocks.Application.Events;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members.MemberSubscriptions.Events;
 using Newtonsoft.Json;
 

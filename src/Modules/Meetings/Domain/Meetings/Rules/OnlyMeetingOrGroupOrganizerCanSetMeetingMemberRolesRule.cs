@@ -1,4 +1,6 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.Domain;
+﻿using System.Collections.Generic;
+using System.Linq;
+using CompanyName.MyMeetings.BuildingBlocks.Domain;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups;
 using CompanyName.MyMeetings.Modules.Meetings.Domain.Members;
 

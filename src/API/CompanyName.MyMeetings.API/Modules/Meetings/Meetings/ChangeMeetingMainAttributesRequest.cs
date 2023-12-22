@@ -1,4 +1,7 @@
-﻿namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
+﻿using System;
+using System.Collections.Generic;
+
+namespace CompanyName.MyMeetings.API.Modules.Meetings.Meetings
 {
     public class ChangeMeetingMainAttributesRequest
     {

@@ -1,4 +1,5 @@
-﻿using CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupProposals;
+﻿using System;
+using CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupProposals;
 using CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupProposals.Events;
 using CompanyName.MyMeetings.Modules.Administration.Domain.MeetingGroupProposals.Rules;
 using CompanyName.MyMeetings.Modules.Administration.Domain.UnitTests.SeedWork;

@@ -1,4 +1,5 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Domain;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments.Events
 {

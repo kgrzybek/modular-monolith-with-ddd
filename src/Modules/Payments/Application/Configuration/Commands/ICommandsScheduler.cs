@@ -1,4 +1,5 @@
-﻿using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
+﻿using System.Threading.Tasks;
+using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 
 namespace CompanyName.MyMeetings.Modules.Payments.Application.Configuration.Commands
 {

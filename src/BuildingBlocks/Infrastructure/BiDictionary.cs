@@ -1,4 +1,7 @@
-﻿namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure
+﻿using System;
+using System.Collections.Generic;
+
+namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure
 {
     public class BiDictionary<TFirst, TSecond>
     {

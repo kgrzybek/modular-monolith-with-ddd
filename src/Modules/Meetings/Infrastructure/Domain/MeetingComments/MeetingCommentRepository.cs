@@ -1,4 +1,5 @@
-﻿using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments;
+﻿using System.Threading.Tasks;
+using CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Domain.MeetingComments
 {

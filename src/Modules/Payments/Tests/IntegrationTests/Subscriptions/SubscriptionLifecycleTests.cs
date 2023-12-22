@@ -1,4 +1,7 @@
-﻿using CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuySubscription;
 using CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuySubscriptionRenewal;

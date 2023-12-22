@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Members.MemberSubscriptions
+﻿using System.Threading.Tasks;
+
+namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Members.MemberSubscriptions
 {
     public interface IMemberSubscriptionRepository
     {

@@ -1,4 +1,5 @@
-﻿using CompanyName.MyMeetings.Modules.UserAccess.Application.Authentication.Authenticate;
+﻿using System.Threading.Tasks;
+using CompanyName.MyMeetings.Modules.UserAccess.Application.Authentication.Authenticate;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
 using IdentityServer4.Models;
 using IdentityServer4.Validation;

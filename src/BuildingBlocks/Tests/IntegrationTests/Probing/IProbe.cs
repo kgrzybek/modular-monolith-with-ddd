@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing
+﻿using System.Threading.Tasks;
+
+namespace CompanyName.MyMeetings.BuildingBlocks.IntegrationTests.Probing
 {
     public interface IProbe
     {

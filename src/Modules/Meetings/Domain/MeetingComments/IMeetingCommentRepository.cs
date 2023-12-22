@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
+﻿using System.Threading.Tasks;
+
+namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingComments
 {
     public interface IMeetingCommentRepository
     {

@@ -1,4 +1,6 @@
-﻿namespace CompanyName.MyMeetings.API.Modules.Payments.MeetingFees
+﻿using System;
+
+namespace CompanyName.MyMeetings.API.Modules.Payments.MeetingFees
 {
     public class RegisterMeetingFeePaymentRequest
     {
