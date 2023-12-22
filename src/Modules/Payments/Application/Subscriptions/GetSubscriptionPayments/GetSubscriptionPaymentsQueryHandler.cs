@@ -20,19 +20,23 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.GetS
         {
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
+            const string sql = $"""
+                                SELECT 
+                                    [SubscriptionPayment].[PaymentId] AS [{nameof(SubscriptionPaymentDto.PaymentId)}], 
+                                    [SubscriptionPayment].[PayerId] AS [{nameof(SubscriptionPaymentDto.PayerId)}], 
+                                    [SubscriptionPayment].[Status] AS [{nameof(SubscriptionPaymentDto.Status)}], 
+                                    [SubscriptionPayment].[MoneyCurrency] AS [{nameof(SubscriptionPaymentDto.MoneyCurrency)}], 
+                                    [SubscriptionPayment].[MoneyValue] AS [{nameof(SubscriptionPaymentDto.MoneyValue)}], 
+                                    [SubscriptionPayment].[Date] AS [{nameof(SubscriptionPaymentDto.Date)}], 
+                                    [SubscriptionPayment].[SubscriptionId] AS [{nameof(SubscriptionPaymentDto.SubscriptionId)}], 
+                                    [SubscriptionPayment].[Type] AS [{nameof(SubscriptionPaymentDto.Type)}], 
+                                    [SubscriptionPayment].[Period] AS [{nameof(SubscriptionPaymentDto.Period)}] 
+                                FROM [payments].[SubscriptionPayments] AS [SubscriptionPayment] 
+                                WHERE [SubscriptionPayment].PayerId = @PayerId
+                                """;
+
             var subscriptionPayments = await connection.QueryAsync<SubscriptionPaymentDto>(
-                "SELECT " +
-                $"[SubscriptionPayment].[PaymentId] AS [{nameof(SubscriptionPaymentDto.PaymentId)}], " +
-                $"[SubscriptionPayment].[PayerId] AS [{nameof(SubscriptionPaymentDto.PayerId)}], " +
-                $"[SubscriptionPayment].[Status] AS [{nameof(SubscriptionPaymentDto.Status)}], " +
-                $"[SubscriptionPayment].[MoneyCurrency] AS [{nameof(SubscriptionPaymentDto.MoneyCurrency)}], " +
-                $"[SubscriptionPayment].[MoneyValue] AS [{nameof(SubscriptionPaymentDto.MoneyValue)}], " +
-                $"[SubscriptionPayment].[Date] AS [{nameof(SubscriptionPaymentDto.Date)}], " +
-                $"[SubscriptionPayment].[SubscriptionId] AS [{nameof(SubscriptionPaymentDto.SubscriptionId)}], " +
-                $"[SubscriptionPayment].[Type] AS [{nameof(SubscriptionPaymentDto.Type)}], " +
-                $"[SubscriptionPayment].[Period] AS [{nameof(SubscriptionPaymentDto.Period)}] " +
-                "FROM [payments].[SubscriptionPayments] AS [SubscriptionPayment] " +
-                "WHERE [SubscriptionPayment].PayerId = @PayerId",
+                sql,
                 new
                 {
                     query.PayerId
