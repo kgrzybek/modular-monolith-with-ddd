@@ -66,7 +66,6 @@ namespace CompanyName.MyMeetings.SUT.TestCases
                 0,
                 null,
                 []);
-            
 
             var attendeeUserId = await UsersFactory.GivenUser(
                 UserAccessModule,
