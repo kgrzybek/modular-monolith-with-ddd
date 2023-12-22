@@ -11,9 +11,15 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
 {
     public class Meeting : Entity, IAggregateRoot
     {
-        public MeetingId Id { get; private set; }
-
         private readonly MeetingGroupId _meetingGroupId;
+
+        private readonly List<MeetingAttendee> _attendees;
+
+        private readonly List<MeetingNotAttendee> _notAttendees;
+
+        private readonly List<MeetingWaitlistMember> _waitlistMembers;
+
+        public MeetingId Id { get; private set; }
 
         private string _title;
 
@@ -22,12 +28,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
         private string _description;
 
         private MeetingLocation _location;
-
-        private readonly List<MeetingAttendee> _attendees;
-
-        private readonly List<MeetingNotAttendee> _notAttendees;
-
-        private readonly List<MeetingWaitlistMember> _waitlistMembers;
 
         private MeetingLimits _meetingLimits;
 
