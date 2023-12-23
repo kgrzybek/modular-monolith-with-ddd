@@ -37,7 +37,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.BuyS
 
             if (subscription == null)
             {
-                throw new InvalidCommandException(new List<string> { "Subscription for renewal must exist." });
+                throw new InvalidCommandException(["Subscription for renewal must exist."]);
             }
 
             var subscriptionRenewalPayment = SubscriptionRenewalPayment.Buy(

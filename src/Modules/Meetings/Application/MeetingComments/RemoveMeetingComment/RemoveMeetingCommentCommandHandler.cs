@@ -27,7 +27,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Re
             var meetingComment = await _meetingCommentRepository.GetByIdAsync(new MeetingCommentId(command.MeetingCommentId));
             if (meetingComment == null)
             {
-                throw new InvalidCommandException(new List<string> { "Meeting comment for removing must exist." });
+                throw new InvalidCommandException(["Meeting comment for removing must exist."]);
             }
 
             var meeting = await _meetingRepository.GetByIdAsync(meetingComment.GetMeetingId());

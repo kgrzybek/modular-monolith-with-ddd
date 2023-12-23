@@ -13,7 +13,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
         public SqlOutboxAccessor(ISqlConnectionFactory sqlConnectionFactory)
         {
             _sqlConnectionFactory = sqlConnectionFactory;
-            _messages = new List<OutboxMessage>();
+            _messages = [];
         }
 
         public void Add(OutboxMessage message)

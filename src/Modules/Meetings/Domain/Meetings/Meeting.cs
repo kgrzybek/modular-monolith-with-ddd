@@ -11,9 +11,15 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
 {
     public class Meeting : Entity, IAggregateRoot
     {
-        public MeetingId Id { get; private set; }
+        private readonly MeetingGroupId _meetingGroupId;
 
-        private MeetingGroupId _meetingGroupId;
+        private readonly List<MeetingAttendee> _attendees;
+
+        private readonly List<MeetingNotAttendee> _notAttendees;
+
+        private readonly List<MeetingWaitlistMember> _waitlistMembers;
+
+        public MeetingId Id { get; private set; }
 
         private string _title;
 
@@ -22,12 +28,6 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
         private string _description;
 
         private MeetingLocation _location;
-
-        private List<MeetingAttendee> _attendees;
-
-        private List<MeetingNotAttendee> _notAttendees;
-
-        private List<MeetingWaitlistMember> _waitlistMembers;
 
         private MeetingLimits _meetingLimits;
 
@@ -51,9 +51,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
 
         private Meeting()
         {
-            _attendees = new List<MeetingAttendee>();
-            _notAttendees = new List<MeetingNotAttendee>();
-            _waitlistMembers = new List<MeetingWaitlistMember>();
+            _attendees = [];
+            _notAttendees = [];
+            _waitlistMembers = [];
         }
 
         internal static Meeting CreateNew(
@@ -106,9 +106,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.Meetings
             _creatorId = creatorId;
             _createDate = SystemClock.Now;
 
-            _attendees = new List<MeetingAttendee>();
-            _notAttendees = new List<MeetingNotAttendee>();
-            _waitlistMembers = new List<MeetingWaitlistMember>();
+            _attendees = [];
+            _notAttendees = [];
+            _waitlistMembers = [];
 
             this.AddDomainEvent(new MeetingCreatedDomainEvent(this.Id));
             var rsvpDate = SystemClock.Now;

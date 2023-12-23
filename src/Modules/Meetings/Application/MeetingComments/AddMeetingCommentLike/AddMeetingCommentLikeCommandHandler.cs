@@ -32,7 +32,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ad
             var meetingComment = await _meetingCommentRepository.GetByIdAsync(new MeetingCommentId(request.MeetingCommentId));
             if (meetingComment == null)
             {
-                throw new InvalidCommandException(new List<string> { "To add like the comment must exist." });
+                throw new InvalidCommandException(["To add like the comment must exist."]);
             }
 
             var connection = _sqlConnectionFactory.GetOpenConnection();

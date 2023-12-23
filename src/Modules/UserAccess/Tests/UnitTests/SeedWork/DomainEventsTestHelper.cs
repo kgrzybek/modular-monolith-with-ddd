@@ -8,7 +8,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.UnitTests.SeedWork
     {
         public static List<IDomainEvent> GetAllDomainEvents(Entity aggregate)
         {
-            List<IDomainEvent> domainEvents = new List<IDomainEvent>();
+            List<IDomainEvent> domainEvents = [];
 
             if (aggregate.DomainEvents != null)
             {

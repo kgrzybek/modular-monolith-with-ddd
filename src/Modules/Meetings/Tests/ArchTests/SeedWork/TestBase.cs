@@ -17,7 +17,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.ArchTests.SeedWork
 
         protected static void AssertAreImmutable(IEnumerable<Type> types)
         {
-            IList<Type> failingTypes = new List<Type>();
+            List<Type> failingTypes = [];
             foreach (var type in types)
             {
                 if (type.GetFields().Any(x => !x.IsInitOnly) || type.GetProperties().Any(x => x.CanWrite))

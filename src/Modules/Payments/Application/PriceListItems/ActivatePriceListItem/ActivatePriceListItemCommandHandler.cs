@@ -20,7 +20,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.Act
 
             if (priceListItem == null)
             {
-                throw new InvalidCommandException(new List<string> { "Pricelist item for activation must exist." });
+                throw new InvalidCommandException(["Pricelist item for activation must exist."]);
             }
 
             priceListItem.Activate();

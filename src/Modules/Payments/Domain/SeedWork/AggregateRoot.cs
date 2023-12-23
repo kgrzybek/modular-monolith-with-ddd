@@ -19,7 +19,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Domain.SeedWork
 
         protected AggregateRoot()
         {
-            _domainEvents = new List<IDomainEvent>();
+            _domainEvents = [];
 
             Version = -1;
         }

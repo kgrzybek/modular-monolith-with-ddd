@@ -22,7 +22,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Re
             var commentLike = await _meetingMemberCommentLikesRepository.GetAsync(_memberContext.MemberId, new MeetingCommentId(command.MeetingCommentId));
             if (commentLike == null)
             {
-                throw new InvalidCommandException(new List<string> { "Meeting comment like for removing must exist." });
+                throw new InvalidCommandException(["Meeting comment like for removing must exist."]);
             }
 
             commentLike.Remove();

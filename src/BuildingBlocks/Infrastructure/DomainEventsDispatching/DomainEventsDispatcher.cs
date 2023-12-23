@@ -39,7 +39,7 @@ namespace CompanyName.MyMeetings.BuildingBlocks.Infrastructure.DomainEventsDispa
         {
             var domainEvents = _domainEventsProvider.GetAllDomainEvents();
 
-            var domainEventNotifications = new List<IDomainEventNotification<IDomainEvent>>();
+            List<IDomainEventNotification<IDomainEvent>> domainEventNotifications = [];
             foreach (var domainEvent in domainEvents)
             {
                 Type domainEvenNotificationType = typeof(IDomainEventNotification<>);

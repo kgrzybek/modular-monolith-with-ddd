@@ -21,7 +21,7 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems.Cha
 
             if (priceListItem == null)
             {
-                throw new InvalidCommandException(new List<string> { "Pricelist item for changing must exist." });
+                throw new InvalidCommandException(["Pricelist item for changing must exist."]);
             }
 
             priceListItem.ChangeAttributes(

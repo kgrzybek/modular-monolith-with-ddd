@@ -20,7 +20,7 @@
         /// <param name="domainEvent">Domain event.</param>
         protected void AddDomainEvent(IDomainEvent domainEvent)
         {
-            _domainEvents ??= new List<IDomainEvent>();
+            _domainEvents ??= [];
 
             this._domainEvents.Add(domainEvent);
         }

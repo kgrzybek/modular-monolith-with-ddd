@@ -52,8 +52,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Domain.MeetingGroups
 
             this.AddDomainEvent(new MeetingGroupCreatedDomainEvent(this.Id, creatorId));
 
-            this._members = new List<MeetingGroupMember>();
-            this._members.Add(MeetingGroupMember.CreateNew(this.Id, this._creatorId, MeetingGroupMemberRole.Organizer));
+            this._members = [MeetingGroupMember.CreateNew(this.Id, this._creatorId, MeetingGroupMemberRole.Organizer)];
         }
 
         public void EditGeneralAttributes(string name, string description, MeetingGroupLocation location)

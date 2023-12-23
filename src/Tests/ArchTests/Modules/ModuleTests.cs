@@ -24,16 +24,13 @@ namespace CompanyName.MyMeetings.ArchTests.Modules
         [Test]
         public void AdministrationModule_DoesNotHave_Dependency_On_Other_Modules()
         {
-            var otherModules = new List<string>
-            {
-                MeetingsNamespace, PaymentsNamespace, UserAccessNamespace
-            };
-            List<Assembly> administrationAssemblies = new List<Assembly>
-            {
+            List<string> otherModules = [MeetingsNamespace, PaymentsNamespace, UserAccessNamespace];
+            List<Assembly> administrationAssemblies =
+            [
                 typeof(IAdministrationModule).Assembly,
                 typeof(MeetingGroupLocation).Assembly,
                 typeof(AdministrationContext).Assembly
-            };
+            ];
 
             var result = Types.InAssemblies(administrationAssemblies)
                 .That()
@@ -50,16 +47,13 @@ namespace CompanyName.MyMeetings.ArchTests.Modules
         [Test]
         public void MeetingsModule_DoesNotHave_Dependency_On_Other_Modules()
         {
-            var otherModules = new List<string>
-            {
-                AdministrationNamespace, PaymentsNamespace, UserAccessNamespace
-            };
-            List<Assembly> meetingsAssemblies = new List<Assembly>
-            {
+            List<string> otherModules = [AdministrationNamespace, PaymentsNamespace, UserAccessNamespace];
+            List<Assembly> meetingsAssemblies =
+            [
                 typeof(IMeetingsModule).Assembly,
                 typeof(Meeting).Assembly,
                 typeof(MeetingsContext).Assembly
-            };
+            ];
 
             var result = Types.InAssemblies(meetingsAssemblies)
                 .That()
@@ -76,16 +70,13 @@ namespace CompanyName.MyMeetings.ArchTests.Modules
         [Test]
         public void PaymentsModule_DoesNotHave_Dependency_On_Other_Modules()
         {
-            var otherModules = new List<string>
-            {
-                AdministrationNamespace, MeetingsNamespace, UserAccessNamespace
-            };
-            List<Assembly> paymentsAssemblies = new List<Assembly>
-            {
+            List<string> otherModules = [AdministrationNamespace, MeetingsNamespace, UserAccessNamespace];
+            List<Assembly> paymentsAssemblies =
+            [
                 typeof(IPaymentsModule).Assembly,
                 typeof(MeetingFee).Assembly,
                 typeof(PaymentsStartup).Assembly
-            };
+            ];
 
             var result = Types.InAssemblies(paymentsAssemblies)
                 .That()
@@ -102,16 +93,13 @@ namespace CompanyName.MyMeetings.ArchTests.Modules
         [Test]
         public void UserAccessModule_DoesNotHave_Dependency_On_Other_Modules()
         {
-            var otherModules = new List<string>
-            {
-                AdministrationNamespace, MeetingsNamespace, PaymentsNamespace
-            };
-            List<Assembly> userAccessAssemblies = new List<Assembly>
-            {
+            List<string> otherModules = [AdministrationNamespace, MeetingsNamespace, PaymentsNamespace];
+            List<Assembly> userAccessAssemblies =
+            [
                 typeof(IUserAccessModule).Assembly,
                 typeof(User).Assembly,
                 typeof(UserAccessContext).Assembly
-            };
+            ];
 
             var result = Types.InAssemblies(userAccessAssemblies)
                 .That()

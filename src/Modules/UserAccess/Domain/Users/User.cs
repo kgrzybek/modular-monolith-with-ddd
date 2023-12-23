@@ -90,8 +90,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.Users
 
             _isActive = true;
 
-            _roles = new List<UserRole>();
-            _roles.Add(role);
+            _roles = [role];
 
             this.AddDomainEvent(new UserCreatedDomainEvent(this.Id));
         }

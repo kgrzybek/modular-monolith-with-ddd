@@ -37,7 +37,7 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
                                 x.BaseType == typeof(InternalCommandBase)))
                 .ToList();
 
-            List<Type> notMappedInternalCommands = new List<Type>();
+            List<Type> notMappedInternalCommands = [];
             foreach (var internalCommand in internalCommands)
             {
                 _internalCommandsMap.TryGetBySecond(internalCommand, out var name);

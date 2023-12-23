@@ -35,7 +35,7 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments.Ad
             var meeting = await _meetingRepository.GetByIdAsync(new MeetingId(command.MeetingId));
             if (meeting == null)
             {
-                throw new InvalidCommandException(new List<string> { "Meeting for adding comment must exist." });
+                throw new InvalidCommandException(["Meeting for adding comment must exist."]);
             }
 
             var meetingGroup = await _meetingGroupRepository.GetByIdAsync(meeting.GetMeetingGroupId());
