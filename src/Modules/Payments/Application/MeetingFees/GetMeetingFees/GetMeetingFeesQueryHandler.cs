@@ -17,16 +17,19 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.MeetingFees.GetMee
         {
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
+            const string sql = $"""
+                                SELECT 
+                                    [MeetingFee].MeetingFeeId AS [{nameof(MeetingFeeDto.MeetingFeeId)}],
+                                    [MeetingFee].PayerId AS [{nameof(MeetingFeeDto.PayerId)}], 
+                                    [MeetingFee].FeeCurrency AS [{nameof(MeetingFeeDto.FeeCurrency)}], 
+                                    [MeetingFee].FeeValue AS [{nameof(MeetingFeeDto.FeeValue)}],
+                                    [MeetingFee].MeetingId AS [{nameof(MeetingFeeDto.MeetingId)}], 
+                                    [MeetingFee].Status AS [{nameof(MeetingFeeDto.Status)}]
+                                FROM [payments].[MeetingFees] AS [MeetingFee] 
+                                WHERE [MeetingFee].MeetingId = @MeetingId
+                                """;
             var meetingFees = await connection.QueryAsync<MeetingFeeDto>(
-                "SELECT" +
-                $"[MeetingFee].MeetingFeeId AS [{nameof(MeetingFeeDto.MeetingFeeId)}], " +
-                $"[MeetingFee].PayerId AS [{nameof(MeetingFeeDto.PayerId)}], " +
-                $"[MeetingFee].FeeCurrency AS [{nameof(MeetingFeeDto.FeeCurrency)}], " +
-                $"[MeetingFee].FeeValue AS [{nameof(MeetingFeeDto.FeeValue)}], " +
-                $"[MeetingFee].MeetingId AS [{nameof(MeetingFeeDto.MeetingId)}], " +
-                $"[MeetingFee].Status AS [{nameof(MeetingFeeDto.Status)}] " +
-                "FROM [payments].[MeetingFees] AS [MeetingFee] " +
-                "WHERE [MeetingFee].MeetingId = @MeetingId",
+                sql,
                 new
                 {
                     query.MeetingId

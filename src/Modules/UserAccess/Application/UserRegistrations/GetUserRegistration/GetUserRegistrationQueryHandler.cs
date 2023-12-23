@@ -17,16 +17,18 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistration
         {
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
-            const string sql = "SELECT " +
-                               "[UserRegistration].[Id], " +
-                               "[UserRegistration].[Login], " +
-                               "[UserRegistration].[Email], " +
-                               "[UserRegistration].[FirstName], " +
-                               "[UserRegistration].[LastName], " +
-                               "[UserRegistration].[Name], " +
-                               "[UserRegistration].[StatusCode] " +
-                               "FROM [users].[v_UserRegistrations] AS [UserRegistration] " +
-                               "WHERE [UserRegistration].[Id] = @UserRegistrationId";
+            const string sql = $"""
+                               SELECT 
+                                   [UserRegistration].[Id] as [{nameof(UserRegistrationDto.Id)}], 
+                                   [UserRegistration].[Login] as [{nameof(UserRegistrationDto.Login)}], 
+                                   [UserRegistration].[Email] as [{nameof(UserRegistrationDto.Email)}], 
+                                   [UserRegistration].[FirstName] as [{nameof(UserRegistrationDto.FirstName)}], 
+                                   [UserRegistration].[LastName] as [{nameof(UserRegistrationDto.LastName)}], 
+                                   [UserRegistration].[Name] as [{nameof(UserRegistrationDto.Name)}], 
+                                   [UserRegistration].[StatusCode] as [{nameof(UserRegistrationDto.StatusCode)}]
+                               FROM [users].[v_UserRegistrations] AS [UserRegistration] 
+                               WHERE [UserRegistration].[Id] = @UserRegistrationId
+                               """;
 
             return await connection.QuerySingleAsync<UserRegistrationDto>(
                 sql,

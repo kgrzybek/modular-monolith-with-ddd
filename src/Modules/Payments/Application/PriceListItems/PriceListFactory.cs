@@ -32,14 +32,18 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.PriceListItems
 
         public static async Task<List<PriceListItemDto>> GetPriceListItems(IDbConnection connection)
         {
-            var priceListItems = await connection.QueryAsync<PriceListItemDto>("SELECT " +
-                                                                               $"[PriceListItem].[CountryCode] AS [{nameof(PriceListItemDto.CountryCode)}], " +
-                                                                               $"[PriceListItem].[SubscriptionPeriodCode] AS [{nameof(PriceListItemDto.SubscriptionPeriodCode)}], " +
-                                                                               $"[PriceListItem].[MoneyValue] AS [{nameof(PriceListItemDto.MoneyValue)}], " +
-                                                                               $"[PriceListItem].[MoneyCurrency] AS [{nameof(PriceListItemDto.MoneyCurrency)}], " +
-                                                                               $"[PriceListItem].[CategoryCode] AS [{nameof(PriceListItemDto.CategoryCode)}] " +
-                                                                               "FROM [payments].[PriceListItems] AS [PriceListItem] " +
-                                                                               "WHERE [PriceListItem].[IsActive] = 1");
+            const string sql = $"""
+                                SELECT
+                                    [PriceListItem].[CountryCode] AS [{nameof(PriceListItemDto.CountryCode)}],
+                                    [PriceListItem].[SubscriptionPeriodCode] AS [{nameof(PriceListItemDto.SubscriptionPeriodCode)}],
+                                    [PriceListItem].[MoneyValue] AS [{nameof(PriceListItemDto.MoneyValue)}],
+                                    [PriceListItem].[MoneyCurrency] AS [{nameof(PriceListItemDto.MoneyCurrency)}],
+                                    [PriceListItem].[CategoryCode] AS [{nameof(PriceListItemDto.CategoryCode)}]
+                                FROM [payments].[PriceListItems] AS [PriceListItem]
+                                WHERE [PriceListItem].[IsActive] = 1
+                                """;
+            var priceListItems = await connection.QueryAsync<PriceListItemDto>(
+                sql);
 
             var priceListItemList = priceListItems.AsList();
             return priceListItemList;

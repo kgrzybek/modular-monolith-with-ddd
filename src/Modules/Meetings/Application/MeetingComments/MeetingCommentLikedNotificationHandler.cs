@@ -17,10 +17,11 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingComments
         {
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
-            const string sql = "UPDATE [meetings].[MeetingComments] " +
-                               "SET [LikesCount] = " +
-                               "(SELECT count(*) FROM [meetings].[MeetingMemberCommentLikes] WHERE [MeetingCommentId] = @MeetingCommentId) " +
-                               "WHERE [Id] = @MeetingCommentId;";
+            const string sql = """
+                               UPDATE [meetings].[MeetingComments] 
+                               SET [LikesCount] = (SELECT count(*) FROM [meetings].[MeetingMemberCommentLikes] WHERE [MeetingCommentId] = @MeetingCommentId) 
+                               WHERE [Id] = @MeetingCommentId;
+                               """;
 
             await connection.ExecuteAsync(
                 sql,

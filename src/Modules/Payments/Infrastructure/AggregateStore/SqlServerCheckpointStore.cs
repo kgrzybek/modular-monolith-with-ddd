@@ -16,11 +16,14 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.AggregateStore
         {
             using var connection = _sqlConnectionFactory.GetOpenConnection();
 
+            const string sql = """
+                               SELECT [SubscriptionCheckpoint].Position 
+                               FROM [payments].[SubscriptionCheckpoints] AS [SubscriptionCheckpoint] 
+                               WHERE [Code] = @Code
+                               """;
+
             var checkpoint = connection.QuerySingleOrDefault<long?>(
-                "SELECT " +
-                "[SubscriptionCheckpoint].Position " +
-                "FROM [payments].[SubscriptionCheckpoints] AS [SubscriptionCheckpoint] " +
-                "WHERE [Code] = @Code",
+                sql,
                 new
                 {
                     Code = subscriptionCode

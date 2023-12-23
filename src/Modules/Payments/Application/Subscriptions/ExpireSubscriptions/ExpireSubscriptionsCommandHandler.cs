@@ -22,10 +22,12 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Subscriptions.Expi
 
         public async Task Handle(ExpireSubscriptionsCommand request, CancellationToken cancellationToken)
         {
-            const string sql = "SELECT " +
-                               "[SubscriptionDetails].Id " +
-                               "FROM [payments].[SubscriptionDetails] AS [SubscriptionDetails] " +
-                               "WHERE [SubscriptionDetails].ExpirationDate < @Date";
+            const string sql = """
+                               SELECT 
+                                   [SubscriptionDetails].Id 
+                               FROM [payments].[SubscriptionDetails] AS [SubscriptionDetails] 
+                               WHERE [SubscriptionDetails].ExpirationDate < @Date
+                               """;
 
             var connection = _sqlConnectionFactory.GetOpenConnection();
 

@@ -17,15 +17,17 @@ namespace CompanyName.MyMeetings.Modules.Payments.Application.Payers.GetPayer
         {
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
-            const string sql = "SELECT " +
-                               "[Payer].[Id], " +
-                               "[Payer].[Login], " +
-                               "[Payer].[Email], " +
-                               "[Payer].[FirstName], " +
-                               "[Payer].[LastName], " +
-                               "[Payer].[Name] " +
-                               "FROM [payments].[Payers] AS [Payer] " +
-                               "WHERE [Payer].[Id] = @PayerId";
+            const string sql = $"""
+                               SELECT 
+                                   [Payer].[Id] as [{nameof(PayerDto.Id)}], 
+                                   [Payer].[Login] as [{nameof(PayerDto.Login)}], 
+                                   [Payer].[Email] as [{nameof(PayerDto.Email)}], 
+                                   [Payer].[FirstName] as [{nameof(PayerDto.FirstName)}], 
+                                   [Payer].[LastName] as [{nameof(PayerDto.LastName)}], 
+                                   [Payer].[Name] as [{nameof(PayerDto.Name)}]
+                               FROM [payments].[Payers] AS [Payer] 
+                               WHERE [Payer].[Id] = @PayerId
+                               """;
 
             return await connection.QuerySingleAsync<PayerDto>(sql, new
             {

@@ -20,19 +20,22 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.P
         public async Task Handle(ProcessInboxCommand command, CancellationToken cancellationToken)
         {
             var connection = this._sqlConnectionFactory.GetOpenConnection();
-            string sql = "SELECT " +
-                               $"[InboxMessage].[Id] AS [{nameof(InboxMessageDto.Id)}], " +
-                               $"[InboxMessage].[Type] AS [{nameof(InboxMessageDto.Type)}], " +
-                               $"[InboxMessage].[Data] AS [{nameof(InboxMessageDto.Data)}] " +
-                               "FROM [meetings].[InboxMessages] AS [InboxMessage] " +
-                               "WHERE [InboxMessage].[ProcessedDate] IS NULL " +
-                               "ORDER BY [InboxMessage].[OccurredOn]";
+            const string sql = $"""
+                               SELECT [InboxMessage].[Id] AS [{nameof(InboxMessageDto.Id)}], 
+                                      [InboxMessage].[Type] AS [{nameof(InboxMessageDto.Type)}], 
+                                      [InboxMessage].[Data] AS [{nameof(InboxMessageDto.Data)}] 
+                               FROM [meetings].[InboxMessages] AS [InboxMessage] 
+                               WHERE [InboxMessage].[ProcessedDate] IS NULL 
+                               ORDER BY [InboxMessage].[OccurredOn]
+                               """;
 
             var messages = await connection.QueryAsync<InboxMessageDto>(sql);
 
-            const string sqlUpdateProcessedDate = "UPDATE [meetings].[InboxMessages] " +
-                                                  "SET [ProcessedDate] = @Date " +
-                                                  "WHERE [Id] = @Id";
+            const string sqlUpdateProcessedDate = """
+                                                  UPDATE [meetings].[InboxMessages] 
+                                                  SET [ProcessedDate] = @Date
+                                                  WHERE [Id] = @Id
+                                                  """;
 
             foreach (var message in messages)
             {

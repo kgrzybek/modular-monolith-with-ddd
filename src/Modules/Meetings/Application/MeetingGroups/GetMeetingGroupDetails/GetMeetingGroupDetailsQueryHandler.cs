@@ -18,15 +18,18 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.GetM
         {
             using var connection = _sqlConnectionFactory.GetOpenConnection();
 
+            const string sql = $"""
+                                SELECT
+                                    [MeetingGroup].[Id] AS [{nameof(MeetingGroupDetailsDto.Id)}],
+                                    [MeetingGroup].[Name] AS [{nameof(MeetingGroupDetailsDto.Name)}],
+                                    [MeetingGroup].[Description] AS [{nameof(MeetingGroupDetailsDto.Description)}],
+                                    [MeetingGroup].[LocationCity] AS [{nameof(MeetingGroupDetailsDto.LocationCity)}],
+                                    [MeetingGroup].[LocationCountryCode] AS [{nameof(MeetingGroupDetailsDto.LocationCountryCode)}]
+                                FROM [meetings].[v_MeetingGroups] AS [MeetingGroup]
+                                WHERE [MeetingGroup].[Id] = @MeetingGroupId
+                                """;
             var meetingGroup = await connection.QuerySingleAsync<MeetingGroupDetailsDto>(
-                "SELECT " +
-                $"[MeetingGroup].[Id] AS [{nameof(MeetingGroupDetailsDto.Id)}], " +
-                $"[MeetingGroup].[Name] AS [{nameof(MeetingGroupDetailsDto.Name)}], " +
-                $"[MeetingGroup].[Description] AS [{nameof(MeetingGroupDetailsDto.Description)}], " +
-                $"[MeetingGroup].[LocationCity] AS [{nameof(MeetingGroupDetailsDto.LocationCity)}], " +
-                $"[MeetingGroup].[LocationCountryCode] AS [{nameof(MeetingGroupDetailsDto.LocationCountryCode)}] " +
-                "FROM [meetings].[v_MeetingGroups] AS [MeetingGroup] " +
-                "WHERE [MeetingGroup].[Id] = @MeetingGroupId",
+                sql,
                 new
                 {
                     query.MeetingGroupId
@@ -39,12 +42,16 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.GetM
 
         private static async Task<int> GetMembersCount(Guid meetingGroupId, IDbConnection connection)
         {
+            const string sql = """
+                               SELECT COUNT(*)
+                               FROM [meetings].[v_MemberMeetingGroups] AS [MemberMeetingGroup]
+                               WHERE
+                                   [MemberMeetingGroup].[Id] = @MeetingGroupId AND
+                                   [MemberMeetingGroup].[IsActive] = 1
+                               """;
+
             return await connection.ExecuteScalarAsync<int>(
-                "SELECT " +
-                "COUNT(*) " +
-                "FROM [meetings].[v_MemberMeetingGroups] AS [MemberMeetingGroup] " +
-                "WHERE [MemberMeetingGroup].[Id] = @MeetingGroupId AND " +
-                "[MemberMeetingGroup].[IsActive] = 1",
+                sql,
                 new
                 {
                     meetingGroupId

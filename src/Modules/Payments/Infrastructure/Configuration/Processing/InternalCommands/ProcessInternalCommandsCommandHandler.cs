@@ -20,13 +20,14 @@ namespace CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration.P
         {
             var connection = this._sqlConnectionFactory.GetOpenConnection();
 
-            string sql = "SELECT " +
-                         $"[Command].[Id] AS [{nameof(InternalCommandDto.Id)}], " +
-                         $"[Command].[Type] AS [{nameof(InternalCommandDto.Type)}], " +
-                         $"[Command].[Data] AS [{nameof(InternalCommandDto.Data)}] " +
-                         "FROM [payments].[InternalCommands] AS [Command] " +
-                         "WHERE [Command].[ProcessedDate] IS NULL " +
-                         "ORDER BY [Command].[EnqueueDate]";
+            const string sql = $"""
+                               SELECT [Command].[Id] AS [{nameof(InternalCommandDto.Id)}], 
+                                      [Command].[Type] AS [{nameof(InternalCommandDto.Type)}], 
+                                      [Command].[Data] AS [{nameof(InternalCommandDto.Data)}] 
+                               FROM [payments].[InternalCommands] AS [Command] 
+                               WHERE [Command].[ProcessedDate] IS NULL 
+                               ORDER BY [Command].[EnqueueDate]
+                               """;
             var commands = await connection.QueryAsync<InternalCommandDto>(sql);
 
             var internalCommandsList = commands.AsList();

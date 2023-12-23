@@ -24,17 +24,20 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MeetingGroups.Send
         {
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
+            const string sql = $"""
+                                SELECT
+                                    [MeetingGroup].[Name] as [{nameof(MeetingGroupDto.Name)}],
+                                    [MeetingGroup].[LocationCountryCode] as [{nameof(MeetingGroupDto.LocationCountryCode)}],
+                                    [MeetingGroup].[LocationCity] as [{nameof(MeetingGroupDto.LocationCity)}]
+                                FROM [meetings].[v_MeetingGroups] AS [MeetingGroup]
+                                WHERE [MeetingGroup].[Id] = @Id
+                                """;
             var meetingGroup = await connection.QuerySingleAsync<MeetingGroupDto>(
-                "SELECT " +
-                                  "[MeetingGroup].[Name], " +
-                                  "[MeetingGroup].[LocationCountryCode], " +
-                                  "[MeetingGroup].[LocationCity] " +
-                                  "FROM [meetings].[v_MeetingGroups] AS [MeetingGroup] " +
-                                  "WHERE [MeetingGroup].[Id] = @Id",
+                sql,
                 new
-                                  {
-                                      Id = request.MeetingGroupId.Value
-                                  });
+                      {
+                          Id = request.MeetingGroupId.Value
+                      });
 
             var member = await MembersQueryHelper.GetMember(request.CreatorId, connection);
 

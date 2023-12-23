@@ -457,13 +457,15 @@ internal class GetAllMeetingGroupsQueryHandler : IQueryHandler<GetAllMeetingGrou
     {
         var connection = _sqlConnectionFactory.GetOpenConnection();
 
-        const string sql = "SELECT " +
-                           "[MeetingGroup].[Id], " +
-                           "[MeetingGroup].[Name], " +
-                           "[MeetingGroup].[Description], " +
-                           "[MeetingGroup].[LocationCountryCode], " +
-                           "[MeetingGroup].[LocationCity]" +
-                           "FROM [meetings].[v_MeetingGroups] AS [MeetingGroup]";
+        const string sql = $"""
+                           SELECT 
+                                [MeetingGroup].[Id] as [{nameof(MeetingGroupDto.Id)}] , 
+                                [MeetingGroup].[Name] as [{nameof(MeetingGroupDto.Name)}], 
+                                [MeetingGroup].[Description] as [{nameof(MeetingGroupDto.Description)}] 
+                                [MeetingGroup].[LocationCountryCode] as [{nameof(MeetingGroupDto.LocationCountryCode)}],
+                                [MeetingGroup].[LocationCity] as [{nameof(MeetingGroupDto.LocationCity)}]
+                           FROM [meetings].[v_MeetingGroups] AS [MeetingGroup]
+                           """;
         var meetingGroups = await connection.QueryAsync<MeetingGroupDto>(sql);
 
         return meetingGroups.AsList();

@@ -23,11 +23,13 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.MemberSubscription
 
         public async Task Handle(MemberSubscriptionExpirationDateChangedNotification notification, CancellationToken cancellationToken)
         {
-            var sql = "SELECT " +
-                      $"[MeetingGroupMember].MeetingGroupId AS [{nameof(MeetingGroupMemberResponse.MeetingGroupId)}], " +
-                      $"[MeetingGroupMember].RoleCode AS [{nameof(MeetingGroupMemberResponse.RoleCode)}] " +
-                      "FROM [meetings].[v_MeetingGroupMembers] AS [MeetingGroupMember] " +
-                      "WHERE [MeetingGroupMember].MemberId = @MemberId";
+            const string sql = $"""
+                               SELECT 
+                                   [MeetingGroupMember].MeetingGroupId AS [{nameof(MeetingGroupMemberResponse.MeetingGroupId)}], 
+                                   [MeetingGroupMember].RoleCode AS [{nameof(MeetingGroupMemberResponse.RoleCode)}] 
+                               FROM [meetings].[v_MeetingGroupMembers] AS [MeetingGroupMember] 
+                               WHERE [MeetingGroupMember].MemberId = @MemberId
+                               """;
 
             var connection = _sqlConnectionFactory.GetOpenConnection();
 

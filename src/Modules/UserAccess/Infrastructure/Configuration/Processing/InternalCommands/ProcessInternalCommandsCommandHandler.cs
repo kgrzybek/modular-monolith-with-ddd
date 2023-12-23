@@ -20,13 +20,15 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
         {
             var connection = this._sqlConnectionFactory.GetOpenConnection();
 
-            string sql = "SELECT " +
-                               $"[Command].[Id] AS [{nameof(InternalCommandDto.Id)}], " +
-                               $"[Command].[Type] AS [{nameof(InternalCommandDto.Type)}], " +
-                               $"[Command].[Data] AS [{nameof(InternalCommandDto.Data)}] " +
-                               "FROM [users].[InternalCommands] AS [Command] " +
-                               "WHERE [Command].[ProcessedDate] IS NULL " +
-                               "ORDER BY [Command].[EnqueueDate]";
+            const string sql = $"""
+                                SELECT 
+                                    [Command].[Id] AS [{nameof(InternalCommandDto.Id)}], 
+                                    [Command].[Type] AS [{nameof(InternalCommandDto.Type)}], 
+                                    [Command].[Data] AS [{nameof(InternalCommandDto.Data)}] 
+                                FROM [users].[InternalCommands] AS [Command] 
+                                WHERE [Command].[ProcessedDate] IS NULL 
+                                ORDER BY [Command].[EnqueueDate]
+                                """;
             var commands = await connection.QueryAsync<InternalCommandDto>(sql);
 
             var internalCommandsList = commands.AsList();
@@ -48,10 +50,13 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
                 if (result.Outcome == OutcomeType.Failure)
                 {
                     await connection.ExecuteScalarAsync(
-                        "UPDATE [users].[InternalCommands] " +
-                            "SET ProcessedDate = @NowDate, " +
-                            "Error = @Error " +
-                            "WHERE [Id] = @Id",
+                        """
+                        UPDATE [users].[InternalCommands] 
+                        SET 
+                            ProcessedDate = @NowDate, 
+                            Error = @Error 
+                        WHERE [Id] = @Id
+                        """,
                         new
                         {
                             NowDate = DateTime.UtcNow,

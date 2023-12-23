@@ -8,22 +8,25 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Application.Meetings
     {
         public static async Task<MeetingDto> GetMeeting(MeetingId meetingId, IDbConnection connection)
         {
+            const string sql = $"""
+                       SELECT
+                           [Meeting].Id as [{nameof(MeetingDto.Id)}],
+                           [Meeting].Title as [{nameof(MeetingDto.Title)}],
+                           [Meeting].Description as [{nameof(MeetingDto.Description)}],
+                           [Meeting].LocationAddress as [{nameof(MeetingDto.LocationAddress)}],
+                           [Meeting].LocationCity as [{nameof(MeetingDto.LocationCity)}],
+                           [Meeting].LocationPostalCode as [{nameof(MeetingDto.LocationPostalCode)}],
+                           [Meeting].TermStartDate as [{nameof(MeetingDto.TermStartDate)}],
+                           [Meeting].TermEndDate as [{nameof(MeetingDto.TermEndDate)}]
+                       FROM [meetings].[v_Meetings] AS [Meeting]
+                       WHERE [Meeting].[Id] = @Id
+                       """;
             return await connection.QuerySingleAsync<MeetingDto>(
-                "SELECT " +
-                                                                "[Meeting].Id, " +
-                                                                "[Meeting].Title, " +
-                                                                "[Meeting].Description, " +
-                                                                "[Meeting].LocationAddress, " +
-                                                                "[Meeting].LocationCity, " +
-                                                                "[Meeting].LocationPostalCode, " +
-                                                                "[Meeting].TermStartDate, " +
-                                                                "[Meeting].TermEndDate " +
-                                                                "FROM [meetings].[v_Meetings] AS [Meeting] " +
-                                                                "WHERE [Meeting].[Id] = @Id",
+                sql,
                 new
-                                                                {
-                                                                    Id = meetingId.Value
-                                                                });
+                {
+                    Id = meetingId.Value
+                });
         }
     }
 }
