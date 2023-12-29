@@ -18,6 +18,7 @@ services:
 
   mymeetingsdb:
     build: ./src/Database/
+    platform: linux/amd64
     ports:
       - 1445:1433
     networks:
@@ -26,8 +27,8 @@ services:
   migrator:
     container_name: mymeetings_db_migrator
     build:
-      context: ./src/Database/
-      dockerfile: Dockerfile_DatabaseMigrator
+      context: ./src/
+      dockerfile: ./Database/Dockerfile_DatabaseMigrator
     networks:
       - starfish-crm-network
     environment:
