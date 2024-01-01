@@ -1,18 +1,14 @@
 ﻿using Autofac;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
-using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.RegisterNewUser;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.DataAccess;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Domain;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Email;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.EventsBus;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Logging;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Mediation;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing.Outbox;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Quartz;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Security;
 using Serilog;
@@ -64,14 +60,9 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
 
             var loggerFactory = new Serilog.Extensions.Logging.SerilogLoggerFactory(logger);
             containerBuilder.RegisterModule(new DataAccessModule(connectionString, loggerFactory));
-            containerBuilder.RegisterModule(new DomainModule());
             containerBuilder.RegisterModule(new ProcessingModule());
             containerBuilder.RegisterModule(new EventsBusModule(eventsBus));
             containerBuilder.RegisterModule(new MediatorModule());
-
-            var domainNotificationsMap = new BiDictionary<string, Type>();
-            domainNotificationsMap.Add("NewUserRegisteredNotification", typeof(NewUserRegisteredNotification));
-            containerBuilder.RegisterModule(new OutboxModule(domainNotificationsMap));
 
             containerBuilder.RegisterModule(new QuartzModule());
             containerBuilder.RegisterModule(new EmailModule(emailsConfiguration, emailSender));

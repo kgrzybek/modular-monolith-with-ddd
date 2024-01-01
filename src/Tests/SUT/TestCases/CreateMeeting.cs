@@ -21,7 +21,7 @@ namespace CompanyName.MyMeetings.SUT.TestCases
                 "testAdmin@mail.com");
 
             var userId = await UsersFactory.GivenUser(
-                UserAccessModule,
+                RegistrationsModule,
                 ConnectionString,
                 "adamSmith@mail.com",
                 "adamSmithPass",
@@ -68,7 +68,7 @@ namespace CompanyName.MyMeetings.SUT.TestCases
                 []);
 
             var attendeeUserId = await UsersFactory.GivenUser(
-                UserAccessModule,
+                RegistrationsModule,
                 ConnectionString,
                 "rickmorty@mail.com",
                 "rickmortyPass",

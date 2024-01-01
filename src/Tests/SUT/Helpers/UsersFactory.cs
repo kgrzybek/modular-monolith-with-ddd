@@ -1,6 +1,7 @@
-﻿using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.ConfirmUserRegistration;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.RegisterNewUser;
+﻿using CompanyName.MyMeetings.Modules.Registrations.Application.Contracts;
+using CompanyName.MyMeetings.Modules.Registrations.Application.UserRegistrations.ConfirmUserRegistration;
+using CompanyName.MyMeetings.Modules.Registrations.Application.UserRegistrations.RegisterNewUser;
+using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Users.AddAdminUser;
 using CompanyName.MyMeetings.SUT.SeedWork;
 
@@ -27,7 +28,7 @@ namespace CompanyName.MyMeetings.SUT.Helpers
         }
 
         public static async Task<Guid> GivenUser(
-            IUserAccessModule userAccessModule,
+            IRegistrationsModule registrationsModule,
             string connectionString,
             string login,
             string password,
@@ -35,7 +36,7 @@ namespace CompanyName.MyMeetings.SUT.Helpers
             string lastName,
             string email)
         {
-            var userRegistrationId = await userAccessModule.ExecuteCommandAsync(new RegisterNewUserCommand(
+            var userRegistrationId = await registrationsModule.ExecuteCommandAsync(new RegisterNewUserCommand(
                 login,
                 password,
                 email,
@@ -43,7 +44,7 @@ namespace CompanyName.MyMeetings.SUT.Helpers
                 lastName,
                 email));
 
-            await userAccessModule.ExecuteCommandAsync(new ConfirmUserRegistrationCommand(userRegistrationId));
+            await registrationsModule.ExecuteCommandAsync(new ConfirmUserRegistrationCommand(userRegistrationId));
 
             await AsyncOperationsHelper.WaitForProcessing(connectionString);
 

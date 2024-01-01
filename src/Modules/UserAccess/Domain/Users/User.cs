@@ -1,5 +1,4 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Domain;
-using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations;
 using CompanyName.MyMeetings.Modules.UserAccess.Domain.Users.Events;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.Users
@@ -51,7 +50,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.Users
         }
 
         internal static User CreateFromUserRegistration(
-            UserRegistrationId userRegistrationId,
+            Guid userId,
             string login,
             string password,
             string email,
@@ -60,7 +59,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.Users
             string name)
         {
             return new User(
-                userRegistrationId.Value,
+                userId,
                 login,
                 password,
                 email,

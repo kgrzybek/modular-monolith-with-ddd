@@ -2,6 +2,9 @@
 {
     public enum SubscriptionCode
     {
+        /// <summary>
+        /// All.
+        /// </summary>
         All
     }
 }

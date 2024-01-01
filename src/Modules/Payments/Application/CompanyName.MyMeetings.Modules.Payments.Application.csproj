@@ -2,6 +2,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Administration\IntegrationEvents\CompanyName.MyMeetings.Modules.Administration.IntegrationEvents.csproj" />
     <ProjectReference Include="..\..\Meetings\IntegrationEvents\CompanyName.MyMeetings.Modules.Meetings.IntegrationEvents.csproj" />
+    <ProjectReference Include="..\..\Registrations\IntegrationEvents\CompanyName.MyMeetings.Modules.Registrations.IntegrationEvents.csproj" />
     <ProjectReference Include="..\..\UserAccess\IntegrationEvents\CompanyName.MyMeetings.Modules.UserAccess.IntegrationEvents.csproj" />
   </ItemGroup>
 </Project>
