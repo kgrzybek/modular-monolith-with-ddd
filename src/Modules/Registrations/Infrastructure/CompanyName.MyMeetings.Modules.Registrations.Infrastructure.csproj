@@ -2,6 +2,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\BuildingBlocks\Application\CompanyName.MyMeetings.BuildingBlocks.Application.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\Infrastructure\CompanyName.MyMeetings.BuildingBlocks.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\UserAccess\Application\CompanyName.MyMeetings.Modules.UserAccess.Application.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Domain\" />

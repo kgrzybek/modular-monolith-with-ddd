@@ -49,7 +49,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.Users
                 UserRole.Administrator);
         }
 
-        internal static User CreateFromUserRegistration(
+        public static User CreateFromUserRegistration(
             Guid userId,
             string login,
             string password,

@@ -7,6 +7,7 @@ SELECT
     [UserRegistration].[FirstName],
     [UserRegistration].[LastName],
     [UserRegistration].[Name],
-    [UserRegistration].[StatusCode]
+    [UserRegistration].[StatusCode],
+    [UserRegistration].[Password]
 FROM [registrations].[UserRegistrations] AS [UserRegistration]
 GO

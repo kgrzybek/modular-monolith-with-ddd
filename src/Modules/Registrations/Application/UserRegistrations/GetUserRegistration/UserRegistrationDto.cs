@@ -15,5 +15,7 @@
         public string Name { get; set; }
 
         public string StatusCode { get; set; }
+
+        public string Password { get; set; }
     }
 }

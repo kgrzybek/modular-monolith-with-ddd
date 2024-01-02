@@ -4,6 +4,7 @@ using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
+using CompanyName.MyMeetings.Modules.Registrations.Application.UserRegistrations.ConfirmUserRegistration;
 using CompanyName.MyMeetings.Modules.Registrations.Application.UserRegistrations.RegisterNewUser;
 using CompanyName.MyMeetings.Modules.Registrations.Infrastructure.Configuration.DataAccess;
 using CompanyName.MyMeetings.Modules.Registrations.Infrastructure.Configuration.Domain;
@@ -69,6 +70,7 @@ namespace CompanyName.MyMeetings.Modules.Registrations.Infrastructure.Configurat
 
             var domainNotificationsMap = new BiDictionary<string, Type>();
             domainNotificationsMap.Add("NewUserRegisteredNotification", typeof(NewUserRegisteredNotification));
+            domainNotificationsMap.Add("UserRegistrationConfirmedNotification", typeof(UserRegistrationConfirmedNotification));
             containerBuilder.RegisterModule(new OutboxModule(domainNotificationsMap));
 
             containerBuilder.RegisterModule(new QuartzModule());
