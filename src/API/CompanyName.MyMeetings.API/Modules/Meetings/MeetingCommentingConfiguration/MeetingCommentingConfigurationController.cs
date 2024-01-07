@@ -17,7 +17,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingCommentingConfigura
             _meetingsModule = meetingsModule;
         }
 
-        [HttpPatchAttribute("disable")]
+        [HttpPatch("disable")]
         [HasPermission(MeetingsPermissions.DisableMeetingCommenting)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> DisableCommenting(Guid meetingId)
@@ -26,7 +26,7 @@ namespace CompanyName.MyMeetings.API.Modules.Meetings.MeetingCommentingConfigura
             return Ok();
         }
 
-        [HttpPatchAttribute("enable")]
+        [HttpPatch("enable")]
         [HasPermission(MeetingsPermissions.EnableMeetingCommenting)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> EnableCommenting(Guid meetingId)
