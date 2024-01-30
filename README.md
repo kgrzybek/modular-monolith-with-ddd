@@ -2080,7 +2080,7 @@ List of technologies, frameworks and libraries used for implementation:
 
 - Download and install MS SQL Server Express or other
 - Create an empty database using [CreateDatabase_Windows.sql](src/Database/CompanyName.MyMeetings.Database/Scripts/CreateDatabase_Windows.sql) or [CreateDatabase_Linux.sql](src/Database/CompanyName.MyMeetings.Database/Scripts/CreateDatabase_Linux.sql). Script adds **app** schema which is needed for migrations journal table. Change database file path if needed.
-- Run database migrations using **MigrateDatabase** NUKE target:
+- Run database migrations using **MigrateDatabase** NUKE target by executing the build.sh script present in the root folder:
 
 ```shell
 .\build MigrateDatabase "connection_string"
