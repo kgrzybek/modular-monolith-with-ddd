@@ -44,7 +44,7 @@ namespace CompanyName.MyMeetings.API
                 .AddEnvironmentVariables("Meetings_")
                 .Build();
 
-            _loggerForApi.Information("Connection string:" + _configuration[MeetingsConnectionString]);
+            _loggerForApi.Information("Connection string:" + _configuration.GetConnectionString("MeetingsConnectionString"));
 
             AuthorizationChecker.CheckAllEndpoints();
         }
@@ -145,20 +145,20 @@ namespace CompanyName.MyMeetings.API
             var emailsConfiguration = new EmailsConfiguration(_configuration["EmailsConfiguration:FromEmail"]);
 
             MeetingsStartup.Initialize(
-                _configuration[MeetingsConnectionString],
+                _configuration.GetConnectionString("MeetingsConnectionString"),
                 executionContextAccessor,
                 _logger,
                 emailsConfiguration,
                 null);
 
             AdministrationStartup.Initialize(
-                _configuration[MeetingsConnectionString],
+                _configuration.GetConnectionString("MeetingsConnectionString"),
                 executionContextAccessor,
                 _logger,
                 null);
 
             UserAccessStartup.Initialize(
-                _configuration[MeetingsConnectionString],
+                _configuration.GetConnectionString("MeetingsConnectionString"),
                 executionContextAccessor,
                 _logger,
                 emailsConfiguration,
@@ -167,7 +167,7 @@ namespace CompanyName.MyMeetings.API
                 null);
 
             PaymentsStartup.Initialize(
-                _configuration[MeetingsConnectionString],
+                _configuration.GetConnectionString("MeetingsConnectionString"),
                 executionContextAccessor,
                 _logger,
                 emailsConfiguration,
