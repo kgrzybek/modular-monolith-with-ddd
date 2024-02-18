@@ -69,7 +69,6 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
-    <Folder Include="Structure" />
     <Folder Include="Scripts" />
     <Folder Include="Scripts\Migrations" />
     <Folder Include="Scripts\Seeds" />
@@ -89,6 +88,9 @@
     <Folder Include="Structure\users\" />
     <Folder Include="Structure\users\Tables\" />
     <Folder Include="Structure\users\Views\" />
+    <Folder Include="Structure\registrations\" />
+    <Folder Include="Structure\registrations\Tables\" />
+    <Folder Include="Structure\registrations\Views\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Structure\administration\Tables\InboxMessages.sql" />
@@ -139,17 +141,17 @@
     <Build Include="Structure\payments\Tables\SubscriptionDetails.sql" />
     <Build Include="Structure\payments\Tables\SubscriptionPayments.sql" />
     <Build Include="Structure\payments\Types\NewStreamMessages.sql" />
+    <Build Include="Structure\registrations\Tables\UserRegistrations.sql" />
+    <Build Include="Structure\registrations\Views\v_UserRegistrations.sql" />
     <Build Include="Structure\Security\Schemas.sql" />
     <Build Include="Structure\users\Tables\InboxMessages.sql" />
     <Build Include="Structure\users\Tables\InternalCommands.sql" />
     <Build Include="Structure\users\Tables\OutboxMessages.sql" />
     <Build Include="Structure\users\Tables\Permissions.sql" />
     <Build Include="Structure\users\Tables\RolesToPermissions.sql" />
-    <Build Include="Structure\users\Tables\UserRegistrations.sql" />
     <Build Include="Structure\users\Tables\UserRoles.sql" />
     <Build Include="Structure\users\Tables\Users.sql" />
     <Build Include="Structure\users\Views\v_UserPermissions.sql" />
-    <Build Include="Structure\users\Views\v_UserRegistrations.sql" />
     <Build Include="Structure\users\Views\v_UserRoles.sql" />
     <Build Include="Structure\users\Views\v_Users.sql" />
     <None Include="Scripts\CreateStructure.sql" />

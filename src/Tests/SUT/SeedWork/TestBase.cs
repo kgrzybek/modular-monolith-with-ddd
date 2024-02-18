@@ -12,6 +12,9 @@ using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration;
 using CompanyName.MyMeetings.Modules.Payments.Application.Contracts;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration;
+using CompanyName.MyMeetings.Modules.Registrations.Application.Contracts;
+using CompanyName.MyMeetings.Modules.Registrations.Infrastructure;
+using CompanyName.MyMeetings.Modules.Registrations.Infrastructure.Configuration;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration;
@@ -36,6 +39,8 @@ namespace CompanyName.MyMeetings.SUT.SeedWork
         protected ILogger Logger { get; private set; }
 
         protected IUserAccessModule UserAccessModule { get; private set; }
+
+        protected IRegistrationsModule RegistrationsModule { get; private set; }
 
         protected IMeetingsModule MeetingsModule { get; private set; }
 
@@ -69,6 +74,8 @@ namespace CompanyName.MyMeetings.SUT.SeedWork
             Logger = Substitute.For<ILogger>();
 
             EventsBus = new InMemoryEventBusClient(Logger);
+
+            InitializeRegistrationsModule(emailsConfiguration);
 
             InitializeUserAccessModule(emailsConfiguration);
 
@@ -168,6 +175,24 @@ namespace CompanyName.MyMeetings.SUT.SeedWork
                 100);
 
             UserAccessModule = new UserAccessModule();
+        }
+
+        private void InitializeRegistrationsModule(EmailsConfiguration emailsConfiguration)
+        {
+            Logger = Substitute.For<ILogger>();
+            EmailSender = Substitute.For<IEmailSender>();
+
+            RegistrationsStartup.Initialize(
+                ConnectionString,
+                ExecutionContextAccessor,
+                Logger,
+                emailsConfiguration,
+                "key",
+                EmailSender,
+                EventsBus,
+                100);
+
+            RegistrationsModule = new RegistrationsModule();
         }
 
         private void SetConnectionString()

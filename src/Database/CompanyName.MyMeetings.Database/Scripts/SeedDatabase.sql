@@ -1,5 +1,5 @@
 ﻿-- Add Test Member
-INSERT INTO users.UserRegistrations VALUES 
+INSERT INTO registrations.UserRegistrations VALUES 
 (
 	'2EBFECFC-ED13-43B8-B516-6AC89D51C510',
 	'testMember@mail.com',
@@ -49,7 +49,7 @@ INSERT INTO users.UserRoles VALUES
 ('2EBFECFC-ED13-43B8-B516-6AC89D51C510', 'Member')
 
 -- Add Test Administrator
-INSERT INTO users.UserRegistrations VALUES 
+INSERT INTO registrations.UserRegistrations VALUES 
 (
 	'4065630E-4A4C-4F01-9142-0BACF6B8C64D',
 	'testAdmin@mail.com',

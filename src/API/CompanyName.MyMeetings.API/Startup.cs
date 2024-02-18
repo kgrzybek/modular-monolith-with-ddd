@@ -14,6 +14,7 @@ using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 using CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configuration;
 using CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration;
 using CompanyName.MyMeetings.Modules.Payments.Infrastructure.Configuration;
+using CompanyName.MyMeetings.Modules.Registrations.Infrastructure.Configuration;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Identity;
 using Hellang.Middleware.ProblemDetails;
@@ -171,6 +172,15 @@ namespace CompanyName.MyMeetings.API
                 executionContextAccessor,
                 _logger,
                 emailsConfiguration,
+                null);
+
+            RegistrationsStartup.Initialize(
+                _configuration[MeetingsConnectionString],
+                executionContextAccessor,
+                _logger,
+                emailsConfiguration,
+                _configuration["Security:TextEncryptionKey"],
+                null,
                 null);
         }
     }

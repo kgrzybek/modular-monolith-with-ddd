@@ -16,6 +16,8 @@ namespace CompanyName.MyMeetings.SUT.SeedWork
             await ClearPayments(connection);
 
             await ClearUsers(connection);
+
+            await ClearRegistration(connection);
         }
 
         private static async Task ClearUsers(IDbConnection connection)
@@ -26,7 +28,6 @@ namespace CompanyName.MyMeetings.SUT.SeedWork
                 "DELETE FROM [users].[OutboxMessages] " +
                 "DELETE FROM [users].[Permissions] " +
                 "DELETE FROM [users].[RolesToPermissions] " +
-                "DELETE FROM [users].[UserRegistrations] " +
                 "DELETE FROM [users].[UserRoles] " +
                 "DELETE FROM [users].[Users] ";
 
@@ -91,6 +92,16 @@ namespace CompanyName.MyMeetings.SUT.SeedWork
                 "DELETE FROM [administration].[OutboxMessages] ";
 
             await connection.ExecuteScalarAsync(clearAdministrationSql);
+        }
+
+        private static async Task ClearRegistration(IDbConnection connection)
+        {
+            const string sql = "DELETE FROM [registrations].[InboxMessages] " +
+                               "DELETE FROM [registrations].[InternalCommands] " +
+                               "DELETE FROM [registrations].[OutboxMessages] " +
+                               "DELETE FROM [registrations].[UserRegistrations] ";
+
+            await connection.ExecuteScalarAsync(sql);
         }
     }
 }

@@ -66,8 +66,6 @@ DELETE FROM [users].[InternalCommands]
 
 DELETE FROM [users].[OutboxMessages]
 
-DELETE FROM [users].[UserRegistrations]
-
 DELETE FROM [users].[Users]
 
 DELETE FROM [users].[RolesToPermissions]
@@ -75,3 +73,5 @@ DELETE FROM [users].[RolesToPermissions]
 DELETE FROM [users].[UserRoles]
 
 DELETE FROM [users].[Permissions]
+
+DELETE FROM [registrations].[UserRegistrations]

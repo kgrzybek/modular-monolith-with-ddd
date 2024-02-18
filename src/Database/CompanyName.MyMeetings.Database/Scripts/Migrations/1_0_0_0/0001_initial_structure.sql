@@ -35,6 +35,15 @@ CREATE SCHEMA [users]
 
 
 GO
+PRINT N'Creating [registrations]...';
+
+
+GO
+CREATE SCHEMA [registrations]
+    AUTHORIZATION [dbo];
+
+
+GO
 PRINT N'Creating [payments].[NewStreamMessages]...';
 
 
@@ -637,11 +646,11 @@ CREATE TABLE [users].[UserRoles] (
 
 
 GO
-PRINT N'Creating [users].[UserRegistrations]...';
+PRINT N'Creating [registrations].[UserRegistrations]...';
 
 
 GO
-CREATE TABLE [users].[UserRegistrations] (
+CREATE TABLE [registrations].[UserRegistrations] (
     [Id]            UNIQUEIDENTIFIER NOT NULL,
     [Login]         NVARCHAR (100)   NOT NULL,
     [Email]         NVARCHAR (255)   NOT NULL,
@@ -652,7 +661,7 @@ CREATE TABLE [users].[UserRegistrations] (
     [StatusCode]    VARCHAR (50)     NOT NULL,
     [RegisterDate]  DATETIME         NOT NULL,
     [ConfirmedDate] DATETIME         NULL,
-    CONSTRAINT [PK_users_UserRegistrations_Id] PRIMARY KEY CLUSTERED ([Id] ASC)
+    CONSTRAINT [PK_registrations_UserRegistrations_Id] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
 
@@ -869,7 +878,7 @@ SELECT
     [User].[Name]
 FROM [users].[Users] AS [User]
 GO
-PRINT N'Creating [users].[v_UserRegistrations]...';
+PRINT N'Creating [registrations].[v_UserRegistrations]...';
 
 
 GO
@@ -883,7 +892,7 @@ SELECT
     [UserRegistration].[LastName],
     [UserRegistration].[Name],
     [UserRegistration].[StatusCode]
-FROM [users].[UserRegistrations] AS [UserRegistration]
+FROM [registrations].[UserRegistrations] AS [UserRegistration]
 GO
 PRINT N'Creating [users].[v_UserPermissions]...';
 

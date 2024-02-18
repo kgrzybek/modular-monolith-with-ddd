@@ -1,0 +1,6 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\..\UserAccess\Application\CompanyName.MyMeetings.Modules.UserAccess.Application.csproj" />
+    <ProjectReference Include="..\..\UserAccess\Infrastructure\CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

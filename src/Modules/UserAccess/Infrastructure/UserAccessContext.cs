@@ -1,8 +1,6 @@
 ﻿using CompanyName.MyMeetings.BuildingBlocks.Application.Outbox;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.InternalCommands;
-using CompanyName.MyMeetings.Modules.UserAccess.Domain.UserRegistrations;
 using CompanyName.MyMeetings.Modules.UserAccess.Domain.Users;
-using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Domain.UserRegistrations;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Domain.Users;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.InternalCommands;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Outbox;
@@ -13,8 +11,6 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure
 {
     public class UserAccessContext : DbContext
     {
-        public DbSet<UserRegistration> UserRegistrations { get; set; }
-
         public DbSet<User> Users { get; set; }
 
         public DbSet<OutboxMessage> OutboxMessages { get; set; }
@@ -31,7 +27,6 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new UserRegistrationEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new OutboxMessageEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new InternalCommandEntityTypeConfiguration());

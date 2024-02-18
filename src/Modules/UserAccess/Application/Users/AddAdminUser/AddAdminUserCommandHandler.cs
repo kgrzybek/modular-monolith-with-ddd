@@ -1,4 +1,5 @@
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Authentication;
+using CompanyName.MyMeetings.Modules.UserAccess.Application.Authentication.Authenticate;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Configuration.Commands;
 using CompanyName.MyMeetings.Modules.UserAccess.Domain.Users;
 

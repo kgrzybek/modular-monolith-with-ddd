@@ -10,6 +10,7 @@ System_Boundary(c1, "My Meetings System") {
         Component(administrationModule, "Administration", ".NET Libraries")
         Component(userAccessModule, "User Access", ".NET Libraries")
         Component(paymentsModule, "Payments", ".NET Libraries")
+        Component(registrationsModule, "Registrations", ".NET Libraries")
         ComponentQueue(eventsBus, "Events Bus", "In memory")
         
         Boundary(database, "Database") {
@@ -17,6 +18,7 @@ System_Boundary(c1, "My Meetings System") {
             ComponentDb(administrationData, "Administration data", "schema")
             ComponentDb(userAccessData, "User Access data", "schema")
             ComponentDb(paymentsData, "Payments data", "schema")
+            ComponentDb(registrationsData, "Registrations data", "schema")
         }
     }
 }
@@ -26,15 +28,20 @@ Rel(api, meetingsModule, "Uses")
 Rel(api, administrationModule, "Uses")
 Rel(api, userAccessModule, "Uses")
 Rel(api, paymentsModule, "Uses")
+Rel(api, registrationsModule, "Uses")
 Rel(meetingsModule, eventsBus, "Publishes event to / subscribes")
 Rel(administrationModule, eventsBus, "Publishes event to / subscribes")
 Rel(userAccessModule, eventsBus, "Publishes event to / subscribes")
 Rel(paymentsModule, eventsBus, "Publishes event to / subscribes")
+Rel(registrationsModule, eventsBus, "Publishes event to / subscribes")
 
 Rel(meetingsModule, meetingsModuleData, "Store / retrieve")
 Rel(administrationModule, administrationData, "Store / retrieve")
 Rel(userAccessModule, userAccessData, "Store / retrieve")
 Rel(paymentsModule, paymentsData, "Store / retrieve")
+Rel(registrationsModule, registrationsData, "Store / retrieve")
+
+Rel_R(registrationsModule, userAccessModule, "Uses")
 
 LAYOUT_WITH_LEGEND()
 

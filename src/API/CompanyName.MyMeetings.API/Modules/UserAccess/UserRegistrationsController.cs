@@ -1,7 +1,8 @@
 ﻿using CompanyName.MyMeetings.API.Configuration.Authorization;
+using CompanyName.MyMeetings.Modules.Registrations.Application.Contracts;
+using CompanyName.MyMeetings.Modules.Registrations.Application.UserRegistrations.ConfirmUserRegistration;
+using CompanyName.MyMeetings.Modules.Registrations.Application.UserRegistrations.RegisterNewUser;
 using CompanyName.MyMeetings.Modules.UserAccess.Application.Contracts;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.ConfirmUserRegistration;
-using CompanyName.MyMeetings.Modules.UserAccess.Application.UserRegistrations.RegisterNewUser;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,11 +12,11 @@ namespace CompanyName.MyMeetings.API.Modules.UserAccess
     [ApiController]
     public class UserRegistrationsController : ControllerBase
     {
-        private readonly IUserAccessModule _userAccessModule;
+        private readonly IRegistrationsModule _registrationsModule;
 
-        public UserRegistrationsController(IUserAccessModule userAccessModule)
+        public UserRegistrationsController(IRegistrationsModule registrationsModule)
         {
-            _userAccessModule = userAccessModule;
+            _registrationsModule = registrationsModule;
         }
 
         [NoPermissionRequired]
@@ -24,7 +25,7 @@ namespace CompanyName.MyMeetings.API.Modules.UserAccess
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> RegisterNewUser(RegisterNewUserRequest request)
         {
-            await _userAccessModule.ExecuteCommandAsync(new RegisterNewUserCommand(
+            await _registrationsModule.ExecuteCommandAsync(new RegisterNewUserCommand(
                 request.Login,
                 request.Password,
                 request.Email,
@@ -41,7 +42,7 @@ namespace CompanyName.MyMeetings.API.Modules.UserAccess
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> ConfirmRegistration(Guid userRegistrationId)
         {
-            await _userAccessModule.ExecuteCommandAsync(new ConfirmUserRegistrationCommand(userRegistrationId));
+            await _registrationsModule.ExecuteCommandAsync(new ConfirmUserRegistrationCommand(userRegistrationId));
 
             return Ok();
         }

@@ -2,7 +2,7 @@
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
 using CompanyName.MyMeetings.Modules.Administration.IntegrationEvents.MeetingGroupProposals;
 using CompanyName.MyMeetings.Modules.Payments.IntegrationEvents;
-using CompanyName.MyMeetings.Modules.UserAccess.IntegrationEvents;
+using CompanyName.MyMeetings.Modules.Registrations.IntegrationEvents;
 using Serilog;
 
 namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.EventsBus

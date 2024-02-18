@@ -72,7 +72,6 @@ namespace CompanyNames.MyMeetings.Modules.UserAccess.IntegrationTests.SeedWork
             const string sql = "DELETE FROM [users].[InboxMessages] " +
                                "DELETE FROM [users].[InternalCommands] " +
                                "DELETE FROM [users].[OutboxMessages] " +
-                               "DELETE FROM [users].[UserRegistrations] " +
                                "DELETE FROM [users].[Users] " +
                                "DELETE FROM [users].[RolesToPermissions] " +
                                "DELETE FROM [users].[UserRoles] " +

@@ -35,6 +35,16 @@ CREATE SCHEMA [users]
 
 
 GO
+PRINT N'Creating [registrations]...';
+
+
+GO
+CREATE SCHEMA [registrations]
+    AUTHORIZATION [dbo];
+
+
+GO
+
 PRINT N'Creating [payments].[NewStreamMessages]...';
 
 
@@ -611,6 +621,19 @@ CREATE TABLE [users].[InboxMessages] (
     CONSTRAINT [PK_users_InboxMessages_Id] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
+PRINT N'Creating [registrations].[InboxMessages]...';
+
+
+GO
+CREATE TABLE [registrations].[InboxMessages] (
+    [Id]            UNIQUEIDENTIFIER NOT NULL,
+    [OccurredOn]    DATETIME2 (7)    NOT NULL,
+    [Type]          VARCHAR (255)    NOT NULL,
+    [Data]          VARCHAR (MAX)    NOT NULL,
+    [ProcessedDate] DATETIME2 (7)    NULL,
+    CONSTRAINT [PK_registrations_InboxMessages_Id] PRIMARY KEY CLUSTERED ([Id] ASC)
+    );
+
 
 GO
 PRINT N'Creating [users].[UserRoles]...';
@@ -624,11 +647,11 @@ CREATE TABLE [users].[UserRoles] (
 
 
 GO
-PRINT N'Creating [users].[UserRegistrations]...';
+PRINT N'Creating [registrations].[UserRegistrations]...';
 
 
 GO
-CREATE TABLE [users].[UserRegistrations] (
+CREATE TABLE [registrations].[UserRegistrations] (
     [Id]            UNIQUEIDENTIFIER NOT NULL,
     [Login]         NVARCHAR (100)   NOT NULL,
     [Email]         NVARCHAR (255)   NOT NULL,
@@ -639,7 +662,7 @@ CREATE TABLE [users].[UserRegistrations] (
     [StatusCode]    VARCHAR (50)     NOT NULL,
     [RegisterDate]  DATETIME         NOT NULL,
     [ConfirmedDate] DATETIME         NULL,
-    CONSTRAINT [PK_users_UserRegistrations_Id] PRIMARY KEY CLUSTERED ([Id] ASC)
+    CONSTRAINT [PK_registrations_UserRegistrations_Id] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
 
@@ -703,6 +726,24 @@ CREATE TABLE [users].[InternalCommands] (
 
 
 GO
+
+PRINT N'Creating [registrations].[InternalCommands]...';
+
+
+GO
+CREATE TABLE [registrations].[InternalCommands] (
+    [Id]            UNIQUEIDENTIFIER NOT NULL,
+    [EnqueueDate]   DATETIME2 (7)    NOT NULL,
+    [Type]          VARCHAR (255)    NOT NULL,
+    [Data]          VARCHAR (MAX)    NOT NULL,
+    [ProcessedDate] DATETIME2 (7)    NULL,
+    [Error]         NVARCHAR (MAX)   NULL,
+    CONSTRAINT [PK_registrations_InternalCommands_Id] PRIMARY KEY CLUSTERED ([Id] ASC)
+    );
+
+
+GO
+
 PRINT N'Creating [users].[OutboxMessages]...';
 
 
@@ -715,6 +756,19 @@ CREATE TABLE [users].[OutboxMessages] (
     [ProcessedDate] DATETIME2 (7)    NULL,
     CONSTRAINT [PK_users_OutboxMessages_Id] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+PRINT N'Creating [registrations].[OutboxMessages]...';
+
+
+GO
+CREATE TABLE [registrations].[OutboxMessages] (
+    [Id]            UNIQUEIDENTIFIER NOT NULL,
+    [OccurredOn]    DATETIME2 (7)    NOT NULL,
+    [Type]          VARCHAR (255)    NOT NULL,
+    [Data]          VARCHAR (MAX)    NOT NULL,
+    [ProcessedDate] DATETIME2 (7)    NULL,
+    CONSTRAINT [PK_users_OutboxMessages_Id] PRIMARY KEY CLUSTERED ([Id] ASC)
+    );
 
 
 GO
@@ -882,7 +936,7 @@ SELECT
     [User].[Name]
 FROM [users].[Users] AS [User]
 GO
-PRINT N'Creating [users].[v_UserRegistrations]...';
+PRINT N'Creating [registrations].[v_UserRegistrations]...';
 
 
 GO
@@ -896,9 +950,9 @@ SELECT
     [UserRegistration].[LastName],
     [UserRegistration].[Name],
     [UserRegistration].[StatusCode]
-FROM [users].[UserRegistrations] AS [UserRegistration]
+FROM [registrations].[UserRegistrations] AS [UserRegistration]
 GO
-PRINT N'Creating [users].[v_UserPermissions]...';
+PRINT N'Creating [registrations].[v_UserPermissions]...';
 
 
 GO
