@@ -305,7 +305,7 @@ As can be found on the website of the author of this model ([Simon Brown](https:
 
 #### 3.0.2 C2 Container
 
-![](http://www.plantuml.com/plantuml/png/dPDBZvim4CVlV0etfqJg1bNggQTbasWtLRAbUQZgAJ8mJInX6_dH2bNxtMi3DG-PYfG3DkFv_yQUFtwK2WkbQHwy8opDTGRefbGXFuMXmB-MLw9kEj4IHCgP0gQMAQTXaMDcDGzIPJb9mjN7XzY6pljTIB5K84peikAquCng2iiFZgLPePSdhbc6HJbFFxn7its9zW2AiAj4TS9iWNu7o3mhKn4J1c8k2snIZt4qCyC1SAe-7-tq-Rn5FxX0wWO85qLEKgm8PxD5fQzUhXej_zQ92Z8e7CLRLzK-RkTpNENQTJCiNpSdioQW5dZIQKFSyqpdOAiq0IVVaKHWGK1wzJYZX16fH7KEHubwuOaiQrgKfY3RtPnD2DMnYP02bzICBIAk0rFr0gvktotaq8rE8ttLe64EFstj9osDPbFDaVcmX2r352WNPKVi9kudoB322PPs3-jcsXe_BBbE1dvQISTJP6csjanlGB4jxCSCRAqmGrEdmrfVBQZlwcIACzOoMbkd0_hEMihGrt7KMr2_tuBW07bzkt51wgDKRhwSJh4HsDLgeUz3azXDw7TuDCtrRfpKD6OyeNTmNzPmizsVDjP9JkGDP1r5YgCGIPt8L9344VodkP_J7lV_6SD-t4_mDkm-ZBUltijvL5o0aGjGWXZSFplQZuuJ_Bri8sDAVmURxt7LUDTwmN6z1LmEViJu5GXsqVSlvzFbs_RqSjbjdZUlw_aYU0IMQPh_0G00)
+![](docs/C4/C2_Containers.png)
 
 #### 3.0.3 C3 Component (high-level)
 
