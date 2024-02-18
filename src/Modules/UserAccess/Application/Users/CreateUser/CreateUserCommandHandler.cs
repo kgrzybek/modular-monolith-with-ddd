@@ -3,7 +3,7 @@ using CompanyName.MyMeetings.Modules.UserAccess.Domain.Users;
 
 namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Users.CreateUser;
 
-public class CreateUserCommandHandler : ICommandHandler<CreateUserCommand>
+internal class CreateUserCommandHandler : ICommandHandler<CreateUserCommand>
 {
     private readonly IUserRepository _userRepository;
 
@@ -14,14 +14,13 @@ public class CreateUserCommandHandler : ICommandHandler<CreateUserCommand>
 
     public async Task Handle(CreateUserCommand command, CancellationToken cancellationToken)
     {
-        var user = User.CreateFromUserRegistration(
+        var user = User.CreateUser(
             command.UserId,
             command.Login,
             command.Password,
             command.Email,
             command.FirstName,
-            command.LastName,
-            command.Name);
+            command.LastName);
 
         await _userRepository.AddAsync(user);
     }

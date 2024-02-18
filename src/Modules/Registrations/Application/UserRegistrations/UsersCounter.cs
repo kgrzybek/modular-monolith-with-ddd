@@ -19,8 +19,8 @@ namespace CompanyName.MyMeetings.Modules.Registrations.Application.UserRegistrat
 
             const string sql = """
                                 SELECT COUNT(*) 
-                                FROM [users].[v_Users] AS [User]
-                                WHERE [User].[Login] = @Login
+                                FROM [registrations].[v_UserRegistrations] AS [UserRegistration]
+                                WHERE [UserRegistration].[Login] = @Login
                                 """;
             return connection.QuerySingle<int>(
                 sql,

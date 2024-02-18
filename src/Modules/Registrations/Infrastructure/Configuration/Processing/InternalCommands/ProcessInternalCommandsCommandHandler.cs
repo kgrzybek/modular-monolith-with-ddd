@@ -25,7 +25,7 @@ namespace CompanyName.MyMeetings.Modules.Registrations.Infrastructure.Configurat
                                     [Command].[Id] AS [{nameof(InternalCommandDto.Id)}], 
                                     [Command].[Type] AS [{nameof(InternalCommandDto.Type)}], 
                                     [Command].[Data] AS [{nameof(InternalCommandDto.Data)}] 
-                                FROM [users].[InternalCommands] AS [Command] 
+                                FROM [registrations].[InternalCommands] AS [Command] 
                                 WHERE [Command].[ProcessedDate] IS NULL 
                                 ORDER BY [Command].[EnqueueDate]
                                 """;
@@ -51,7 +51,7 @@ namespace CompanyName.MyMeetings.Modules.Registrations.Infrastructure.Configurat
                 {
                     await connection.ExecuteScalarAsync(
                         """
-                        UPDATE [users].[InternalCommands] 
+                        UPDATE [registrations].[InternalCommands] 
                         SET 
                             ProcessedDate = @NowDate, 
                             Error = @Error 

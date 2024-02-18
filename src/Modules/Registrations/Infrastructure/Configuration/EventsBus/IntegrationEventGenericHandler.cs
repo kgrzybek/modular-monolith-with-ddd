@@ -22,7 +22,7 @@ namespace CompanyName.MyMeetings.Modules.Registrations.Infrastructure.Configurat
                         ContractResolver = new AllPropertiesContractResolver()
                     });
 
-                    var sql = "INSERT INTO [users].[InboxMessages] (Id, OccurredOn, Type, Data) " +
+                    var sql = "INSERT INTO [registrations].[InboxMessages] (Id, OccurredOn, Type, Data) " +
                               "VALUES (@Id, @OccurredOn, @Type, @Data)";
 
                     await connection.ExecuteScalarAsync(sql, new

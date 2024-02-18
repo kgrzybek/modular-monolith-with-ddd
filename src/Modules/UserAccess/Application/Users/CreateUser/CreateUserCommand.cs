@@ -10,7 +10,6 @@ public class CreateUserCommand : CommandBase
         string email,
         string firstName,
         string lastName,
-        string name,
         string password)
     {
         UserId = userId;
@@ -18,7 +17,6 @@ public class CreateUserCommand : CommandBase
         Email = email;
         FirstName = firstName;
         LastName = lastName;
-        Name = name;
         Password = password;
     }
 
@@ -31,8 +29,6 @@ public class CreateUserCommand : CommandBase
     public string FirstName { get; }
 
     public string LastName { get; }
-
-    public string Name { get; }
 
     public string Password { get; }
 }

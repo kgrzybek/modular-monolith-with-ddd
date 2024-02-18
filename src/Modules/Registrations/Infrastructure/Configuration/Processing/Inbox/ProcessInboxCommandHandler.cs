@@ -25,7 +25,7 @@ namespace CompanyName.MyMeetings.Modules.Registrations.Infrastructure.Configurat
                                   [InboxMessage].[Id] AS [{nameof(InboxMessageDto.Id)}], 
                                   [InboxMessage].[Type] AS [{nameof(InboxMessageDto.Type)}], 
                                   [InboxMessage].[Data] AS [{nameof(InboxMessageDto.Data)}] 
-                               FROM [users].[InboxMessages] AS [InboxMessage] 
+                               FROM [registrations].[InboxMessages] AS [InboxMessage] 
                                WHERE [InboxMessage].[ProcessedDate] IS NULL 
                                ORDER BY [InboxMessage].[OccurredOn]
                                """;
@@ -33,7 +33,7 @@ namespace CompanyName.MyMeetings.Modules.Registrations.Infrastructure.Configurat
             var messages = await connection.QueryAsync<InboxMessageDto>(sql);
 
             const string sqlUpdateProcessedDate = """
-                                                  UPDATE [users].[InboxMessages] 
+                                                  UPDATE [registrations].[InboxMessages] 
                                                   SET [ProcessedDate] = @Date 
                                                   WHERE [Id] = @Id
                                                   """;

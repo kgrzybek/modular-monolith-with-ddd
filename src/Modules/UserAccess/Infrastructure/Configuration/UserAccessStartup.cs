@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using CompanyName.MyMeetings.BuildingBlocks.Application;
 using CompanyName.MyMeetings.BuildingBlocks.Application.Emails;
+using CompanyName.MyMeetings.BuildingBlocks.Infrastructure;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.Emails;
 using CompanyName.MyMeetings.BuildingBlocks.Infrastructure.EventBus;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.DataAccess;
@@ -9,6 +10,7 @@ using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Eve
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Logging;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Mediation;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing;
+using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Processing.Outbox;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Quartz;
 using CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration.Security;
 using Serilog;
@@ -63,6 +65,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Infrastructure.Configuration
             containerBuilder.RegisterModule(new ProcessingModule());
             containerBuilder.RegisterModule(new EventsBusModule(eventsBus));
             containerBuilder.RegisterModule(new MediatorModule());
+            containerBuilder.RegisterModule(new OutboxModule(new BiDictionary<string, Type>()));
 
             containerBuilder.RegisterModule(new QuartzModule());
             containerBuilder.RegisterModule(new EmailModule(emailsConfiguration, emailSender));

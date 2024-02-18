@@ -28,7 +28,6 @@ public class UserAccessGateway : IUserCreator
             email,
             firstName,
             lastName,
-            name,
             password));
     }
 }

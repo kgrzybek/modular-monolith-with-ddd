@@ -30,6 +30,8 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.P
             if (command is IRecurringCommand)
             {
                 await _decorated.Handle(command, cancellationToken);
+
+                return;
             }
 
             using (
@@ -66,7 +68,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.P
 
             public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
             {
-                logEvent.AddOrUpdateProperty(new LogEventProperty("Context", new ScalarValue($"Command:{_command.Id.ToString()}")));
+                logEvent.AddOrUpdateProperty(new LogEventProperty(
+                    "Context",
+                    new ScalarValue($"Command:{_command.Id.ToString()}")));
             }
         }
 
@@ -83,7 +87,9 @@ namespace CompanyName.MyMeetings.Modules.Meetings.Infrastructure.Configuration.P
             {
                 if (_executionContextAccessor.IsAvailable)
                 {
-                    logEvent.AddOrUpdateProperty(new LogEventProperty("CorrelationId", new ScalarValue(_executionContextAccessor.CorrelationId)));
+                    logEvent.AddOrUpdateProperty(new LogEventProperty(
+                        "CorrelationId",
+                        new ScalarValue(_executionContextAccessor.CorrelationId)));
                 }
             }
         }

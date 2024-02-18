@@ -49,14 +49,13 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.Users
                 UserRole.Administrator);
         }
 
-        public static User CreateFromUserRegistration(
+        public static User CreateUser(
             Guid userId,
             string login,
             string password,
             string email,
             string firstName,
-            string lastName,
-            string name)
+            string lastName)
         {
             return new User(
                 userId,
@@ -65,7 +64,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Domain.Users
                 email,
                 firstName,
                 lastName,
-                name,
+                $"{firstName} {lastName}",
                 UserRole.Member);
         }
 

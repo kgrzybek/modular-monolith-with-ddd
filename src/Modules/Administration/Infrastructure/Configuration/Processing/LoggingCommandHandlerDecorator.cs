@@ -30,6 +30,8 @@ namespace CompanyName.MyMeetings.Modules.Administration.Infrastructure.Configura
             if (command is IRecurringCommand)
             {
                 await _decorated.Handle(command, cancellationToken);
+
+                return;
             }
 
             using (

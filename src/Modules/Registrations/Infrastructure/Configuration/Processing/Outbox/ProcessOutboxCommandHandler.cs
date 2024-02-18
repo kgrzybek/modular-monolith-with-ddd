@@ -37,7 +37,7 @@ namespace CompanyName.MyMeetings.Modules.Registrations.Infrastructure.Configurat
                                    [OutboxMessage].[Id] AS [{nameof(OutboxMessageDto.Id)}], 
                                    [OutboxMessage].[Type] AS [{nameof(OutboxMessageDto.Type)}], 
                                    [OutboxMessage].[Data] AS [{nameof(OutboxMessageDto.Data)}] 
-                               FROM [users].[OutboxMessages] AS [OutboxMessage] 
+                               FROM [registrations].[OutboxMessages] AS [OutboxMessage] 
                                WHERE [OutboxMessage].[ProcessedDate] IS NULL 
                                ORDER BY [OutboxMessage].[OccurredOn]
                                """;
@@ -46,7 +46,7 @@ namespace CompanyName.MyMeetings.Modules.Registrations.Infrastructure.Configurat
             var messagesList = messages.AsList();
 
             const string sqlUpdateProcessedDate = """
-                                                  UPDATE [users].[OutboxMessages] 
+                                                  UPDATE [registrations].[OutboxMessages] 
                                                   SET [ProcessedDate] = @Date 
                                                   WHERE [Id] = @Id
                                                   """;

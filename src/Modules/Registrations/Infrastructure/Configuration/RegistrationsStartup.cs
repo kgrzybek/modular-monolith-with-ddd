@@ -60,7 +60,7 @@ namespace CompanyName.MyMeetings.Modules.Registrations.Infrastructure.Configurat
         {
             var containerBuilder = new ContainerBuilder();
 
-            containerBuilder.RegisterModule(new LoggingModule(logger.ForContext("Module", "UserAccess")));
+            containerBuilder.RegisterModule(new LoggingModule(logger.ForContext("Module", "Registrations")));
 
             var loggerFactory = new Serilog.Extensions.Logging.SerilogLoggerFactory(logger);
             containerBuilder.RegisterModule(new DataAccessModule(connectionString, loggerFactory));

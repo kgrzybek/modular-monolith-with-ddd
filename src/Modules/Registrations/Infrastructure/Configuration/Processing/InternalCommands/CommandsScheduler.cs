@@ -20,7 +20,7 @@ namespace CompanyName.MyMeetings.Modules.Registrations.Infrastructure.Configurat
         {
             var connection = this._sqlConnectionFactory.GetOpenConnection();
 
-            const string sqlInsert = "INSERT INTO [users].[InternalCommands] ([Id], [EnqueueDate] , [Type], [Data]) VALUES " +
+            const string sqlInsert = "INSERT INTO [registrations].[InternalCommands] ([Id], [EnqueueDate] , [Type], [Data]) VALUES " +
                                      "(@Id, @EnqueueDate, @Type, @Data)";
 
             await connection.ExecuteAsync(sqlInsert, new
@@ -39,7 +39,7 @@ namespace CompanyName.MyMeetings.Modules.Registrations.Infrastructure.Configurat
         {
             var connection = this._sqlConnectionFactory.GetOpenConnection();
 
-            const string sqlInsert = "INSERT INTO [users].[InternalCommands] ([Id], [EnqueueDate] , [Type], [Data]) VALUES " +
+            const string sqlInsert = "INSERT INTO [registrations].[InternalCommands] ([Id], [EnqueueDate] , [Type], [Data]) VALUES " +
                                      "(@Id, @EnqueueDate, @Type, @Data)";
 
             await connection.ExecuteAsync(sqlInsert, new
