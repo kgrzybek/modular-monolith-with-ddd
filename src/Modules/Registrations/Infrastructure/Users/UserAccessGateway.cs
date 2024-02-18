@@ -19,8 +19,7 @@ public class UserAccessGateway : IUserCreator
         string password,
         string email,
         string firstName,
-        string lastName,
-        string name)
+        string lastName)
     {
         await _userAccessModule.ExecuteCommandAsync(new CreateUserCommand(
             userRegistrationId,

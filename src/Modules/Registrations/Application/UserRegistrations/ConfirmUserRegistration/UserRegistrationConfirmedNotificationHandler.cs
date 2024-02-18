@@ -30,7 +30,6 @@ public class UserRegistrationConfirmedNotificationHandler : INotificationHandler
             registration.Password,
             registration.Email,
             registration.FirstName,
-            registration.LastName,
-            registration.Name);
+            registration.LastName);
     }
 }

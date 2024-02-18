@@ -8,6 +8,5 @@ public interface IUserCreator
         string password,
         string email,
         string firstName,
-        string lastName,
-        string name);
+        string lastName);
 }

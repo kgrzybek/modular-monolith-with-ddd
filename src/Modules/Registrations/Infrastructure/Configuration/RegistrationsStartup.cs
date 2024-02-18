@@ -15,6 +15,7 @@ using CompanyName.MyMeetings.Modules.Registrations.Infrastructure.Configuration.
 using CompanyName.MyMeetings.Modules.Registrations.Infrastructure.Configuration.Processing;
 using CompanyName.MyMeetings.Modules.Registrations.Infrastructure.Configuration.Processing.Outbox;
 using CompanyName.MyMeetings.Modules.Registrations.Infrastructure.Configuration.Quartz;
+using CompanyName.MyMeetings.Modules.Registrations.Infrastructure.Configuration.UserAccess;
 using Serilog;
 
 namespace CompanyName.MyMeetings.Modules.Registrations.Infrastructure.Configuration
@@ -33,7 +34,7 @@ namespace CompanyName.MyMeetings.Modules.Registrations.Infrastructure.Configurat
             IEventsBus eventsBus,
             long? internalProcessingPoolingInterval = null)
         {
-            var moduleLogger = logger.ForContext("Module", "UserAccess");
+            var moduleLogger = logger.ForContext("Module", "Registrations");
 
             ConfigureCompositionRoot(
                 connectionString,
@@ -67,6 +68,7 @@ namespace CompanyName.MyMeetings.Modules.Registrations.Infrastructure.Configurat
             containerBuilder.RegisterModule(new ProcessingModule());
             containerBuilder.RegisterModule(new EventsBusModule(eventsBus));
             containerBuilder.RegisterModule(new MediatorModule());
+            containerBuilder.RegisterModule(new UserAccessAutofacModule());
 
             var domainNotificationsMap = new BiDictionary<string, Type>();
             domainNotificationsMap.Add("NewUserRegisteredNotification", typeof(NewUserRegisteredNotification));
