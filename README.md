@@ -309,7 +309,7 @@ As can be found on the website of the author of this model ([Simon Brown](https:
 
 #### 3.0.3 C3 Component (high-level)
 
-![](http://www.plantuml.com/plantuml/png/5OqxZiCm30NxFSNc01QBf4fb80S9P96m3Kkam0-CvFIHc_UQ6SnidjMZrR_RpgK6KcZztzoxFG4qdsdTVOibZBG8Ex6d8WsELR-VXGveWb6pJarOwa2dynf4X9RDIG6b6BmUKExl8NPXOhVKh-HCZED_)
+![](docs/C4/C3_Components.png)
 
 #### 3.0.4 C3 Component (module-level)
 
