@@ -14,7 +14,6 @@ COPY ["BuildingBlocks/Infrastructure/CompanyName.MyMeetings.BuildingBlocks.Infra
 COPY ["BuildingBlocks/Domain/CompanyName.MyMeetings.BuildingBlocks.Domain.csproj", "BuildingBlocks/Domain/"]
 COPY ["BuildingBlocks/Application/CompanyName.MyMeetings.BuildingBlocks.Application.csproj", "BuildingBlocks/Application/"]
 COPY ["Modules/UserAccess/Domain/CompanyName.MyMeetings.Modules.UserAccess.Domain.csproj", "Modules/UserAccess/Domain/"]
-COPY ["BuildingBlocks/EventBus/CompanyName.MyMeetings.BuildingBlocks.EventBus.csproj", "BuildingBlocks/EventBus/"]
 COPY ["Modules/Meetings/IntegrationEvents/CompanyName.MyMeetings.Modules.Meetings.IntegrationEvents.csproj", "Modules/Meetings/IntegrationEvents/"]
 COPY ["Modules/Meetings/Application/CompanyName.MyMeetings.Modules.Meetings.Application.csproj", "Modules/Meetings/Application/"]
 COPY ["Modules/Meetings/Domain/CompanyName.MyMeetings.Modules.Meetings.Domain.csproj", "Modules/Meetings/Domain/"]
@@ -28,6 +27,9 @@ COPY ["Modules/Payments/Infrastructure/CompanyName.MyMeetings.Modules.Payments.I
 COPY ["Modules/Administration/Application/CompanyName.MyMeetings.Modules.Administration.Application.csproj", "Modules/Administration/Application/"]
 COPY ["Modules/Administration/Domain/CompanyName.MyMeetings.Modules.Administration.Domain.csproj", "Modules/Administration/Domain/"]
 COPY ["Modules/Administration/Infrastructure/CompanyName.MyMeetings.Modules.Administration.Infrastructure.csproj", "Modules/Administration/Infrastructure/"]
+COPY ["Directory.Packages.props", "Directory.Packages.props"]
+COPY ["Directory.Build.props", "Directory.Build.props"]
+COPY ["Directory.Build.targets", "Directory.Build.targets"]
 RUN dotnet restore "API/CompanyName.MyMeetings.API/CompanyName.MyMeetings.API.csproj"
 COPY . .
 WORKDIR "/src/API/CompanyName.MyMeetings.API"

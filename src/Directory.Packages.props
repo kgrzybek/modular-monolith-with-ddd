@@ -4,9 +4,9 @@
   </ItemGroup>
 
   <ItemGroup Condition="$(MSBuildProjectName.EndsWith('API'))">
-    <PackageReference Include="Hellang.Middleware.ProblemDetails" Version="6.5.1" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" PrivateAssets="All" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" PrivateAssets="All" />
+    <PackageReference Include="Hellang.Middleware.ProblemDetails" Version="6.5.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
   <ItemGroup Condition="$(MSBuildProjectName.EndsWith('Migrator'))">
     <PackageReference Include="dbup-sqlserver" Version="5.0.37" />
