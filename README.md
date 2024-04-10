@@ -2084,7 +2084,7 @@ List of technologies, frameworks and libraries used for implementation:
 - Run database migrations using **MigrateDatabase** NUKE target:
 
 ```shell
-.\build MigrateDatabase "connection_string"
+.\build MigrateDatabase --DatabaseConnectionString "connection_string"
 ```
 
 *"connection_string"* - connection string to your database
@@ -2098,11 +2098,11 @@ List of technologies, frameworks and libraries used for implementation:
 
 Set a database connection string called `MeetingsConnectionString` in the root of the API project's appsettings.json or use [Secrets](https://blogs.msdn.microsoft.com/mihansen/2017/09/10/managing-secrets-in-net-core-2-0-apps/)
 
-Example config setting in appsettings.json for a database called `ModularMonolith`:
+Example config setting in appsettings.json for a database called `MyMeetings`:
 
 ```json
 {
- "MeetingsConnectionString": "Server=(localdb)\\mssqllocaldb;Database=ModularMonolith;Trusted_Connection=True;"
+ "MeetingsConnectionString": "Server=(localdb)\\mssqllocaldb;Database=MyMeetings;Trusted_Connection=True;"
 }
 ```
 
