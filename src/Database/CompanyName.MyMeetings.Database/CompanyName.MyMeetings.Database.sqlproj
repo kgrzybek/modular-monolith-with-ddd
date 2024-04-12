@@ -178,6 +178,7 @@
     <None Include="Scripts\Migrations\1_0_0_0\0011_add_likes_count_to_meeting_comments_table.sql" />
     <None Include="Scripts\Migrations\1_0_0_0\0012_add_likes_count_to_meeting_comments_view.sql" />
     <None Include="Scripts\Migrations\1_0_0_0\0013_add_meeting_member_comment_likes_table.sql" />
+    <None Include="Scripts\Migrations\1_0_0_0\0014_add_missing_tables_for_registrations.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\ClearDatabase.sql" />
