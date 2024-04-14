@@ -29,7 +29,7 @@ namespace CompanyName.MyMeetings.Modules.UserAccess.Application.Authorization.Ge
 
             var connection = _sqlConnectionFactory.GetOpenConnection();
 
-            const string sql = """ 
+            const string sql = $""" 
                                SELECT [UserPermission].[PermissionCode] AS [{nameof(UserPermissionDto.Code)}]
                                FROM [users].[v_UserPermissions] AS [UserPermission] 
                                WHERE [UserPermission].UserId = @UserId
