@@ -91,6 +91,7 @@
     <Folder Include="Structure\registrations\" />
     <Folder Include="Structure\registrations\Tables\" />
     <Folder Include="Structure\registrations\Views\" />
+    <Folder Include="Structure\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Structure\administration\Tables\InboxMessages.sql" />
@@ -142,6 +143,9 @@
     <Build Include="Structure\payments\Tables\SubscriptionPayments.sql" />
     <Build Include="Structure\payments\Types\NewStreamMessages.sql" />
     <Build Include="Structure\registrations\Tables\UserRegistrations.sql" />
+    <Build Include="Structure\registrations\Tables\OutboxMessages.sql" />
+    <Build Include="Structure\registrations\Tables\InboxMessages.sql" />
+    <Build Include="Structure\registrations\Tables\InternalCommands.sql" />
     <Build Include="Structure\registrations\Views\v_UserRegistrations.sql" />
     <Build Include="Structure\Security\Schemas.sql" />
     <Build Include="Structure\users\Tables\InboxMessages.sql" />
@@ -174,6 +178,7 @@
     <None Include="Scripts\Migrations\1_0_0_0\0011_add_likes_count_to_meeting_comments_table.sql" />
     <None Include="Scripts\Migrations\1_0_0_0\0012_add_likes_count_to_meeting_comments_view.sql" />
     <None Include="Scripts\Migrations\1_0_0_0\0013_add_meeting_member_comment_likes_table.sql" />
+    <None Include="Scripts\Migrations\1_0_0_0\0014_add_missing_tables_for_registrations.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\ClearDatabase.sql" />
