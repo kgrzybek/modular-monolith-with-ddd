@@ -4,12 +4,16 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-COPY ["DatabaseMigrator/DatabaseMigrator.csproj", "DatabaseMigrator.csproj"]
-COPY ["DatabaseMigrator/DatabaseMigrator.csproj", "DatabaseMigrator.csproj"]
+COPY ["./Database/DatabaseMigrator/DatabaseMigrator.csproj", "DatabaseMigrator.csproj"]
+COPY ["Directory.Packages.props", "Directory.Packages.props"]
+COPY ["Directory.Build.targets", "Directory.Build.targets"]
+COPY ["Directory.Build.props", "Directory.Build.props"]
+COPY ["stylecop.json", "stylecop.json"]
+COPY [".editorconfig", ".editorconfig"]
 
 RUN dotnet restore "DatabaseMigrator.csproj"
 
-COPY . .
+COPY ./Database/ .
 
 WORKDIR "/src"
 RUN dotnet build "DatabaseMigrator.csproj" -c Release -o /app/build
@@ -21,11 +25,11 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-ADD entrypoint_DatabaseMigrator.sh /
-ADD CompanyName.MyMeetings.Database/Scripts/Migrations /migrations/
+ADD ./Database/entrypoint_DatabaseMigrator.sh /
+ADD ./Database/CompanyName.MyMeetings.Database/Scripts/Migrations /migrations/
 
 # Copy wait-for-it.sh into our image
-COPY wait-for-it.sh wait-for-it.sh
+COPY ./Database/wait-for-it.sh wait-for-it.sh
 # Make it executable, in Linux
 RUN chmod +x wait-for-it.sh
 
