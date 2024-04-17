@@ -175,7 +175,7 @@ namespace CompanyName.MyMeetings.API
                 null);
 
             RegistrationsStartup.Initialize(
-                _configuration[MeetingsConnectionString],
+                _configuration.GetConnectionString(MeetingsConnectionString),
                 executionContextAccessor,
                 _logger,
                 emailsConfiguration,
