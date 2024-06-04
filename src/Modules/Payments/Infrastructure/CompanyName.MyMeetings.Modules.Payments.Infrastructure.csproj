@@ -1,1 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="Polly" />
+    <PackageReference Include="Quartz" />
+    <PackageReference Include="Serilog.Extensions.Logging" />
+    <PackageReference Include="SqlStreamStore" />
+    <PackageReference Include="SqlStreamStore.MsSql" />
+  </ItemGroup>
+</Project>

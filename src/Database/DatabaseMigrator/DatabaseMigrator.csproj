@@ -2,4 +2,11 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="dbup-core" />
+    <PackageReference Include="dbup-sqlserver" />
+    <PackageReference Include="Serilog.Formatting.Compact" />
+    <PackageReference Include="Serilog.Sinks.Console" />
+    <PackageReference Include="Serilog.Sinks.File" />
+  </ItemGroup>
 </Project>

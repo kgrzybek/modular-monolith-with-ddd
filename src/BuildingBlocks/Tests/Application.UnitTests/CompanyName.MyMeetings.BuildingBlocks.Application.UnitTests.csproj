@@ -1,1 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="NUnit" />
+  </ItemGroup>
+</Project>
