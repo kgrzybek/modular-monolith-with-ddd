@@ -1,1 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="Polly" />
+    <PackageReference Include="Quartz" />
+    <PackageReference Include="Serilog.Extensions.Logging" />
+  </ItemGroup>
+</Project>

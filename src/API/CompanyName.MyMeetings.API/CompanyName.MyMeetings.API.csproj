@@ -10,6 +10,14 @@
     <DocumentationFile>bin\Debug\CompanyName.MyMeetings.API.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" />
+    <PackageReference Include="Hellang.Middleware.ProblemDetails" />
+    <PackageReference Include="IdentityServer4.AccessTokenValidation" />
+    <PackageReference Include="Microsoft.OpenApi" />
+    <PackageReference Include="Serilog.Formatting.Compact" />
+    <PackageReference Include="Serilog.Sinks.Console" />
+    <PackageReference Include="Serilog.Sinks.File" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" />
   </ItemGroup>
 </Project>
